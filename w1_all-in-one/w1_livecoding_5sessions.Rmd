@@ -117,7 +117,7 @@ is.null(logical(0)) # an empty vector != nothingness
 Meanwhile on your hard drive:
 ```{r}
 object.size(NULL)
-object.size(NA)
+example(functionname) 
 ```
 
 Some functions have an inbuild option to remove NA values:
