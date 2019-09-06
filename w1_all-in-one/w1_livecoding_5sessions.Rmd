@@ -1,0 +1,414 @@
+---
+output:
+  html_document: default
+  pdf_document:
+    number_sections: yes
+---
+
+# SCR live coding Sept 7, 2019
+
+
+## Session 1: Objects and Functions
+
+
+### objects a.k.a. variables
+
+```{r, error = TRUE}
+a <- 9
+b <- TRUE
+c <- "two"
+d <- UNKNOWN # does not work: R has some built-in 'objects', such as numbers, TRUE and FALSE
+# notice the colouring in an IDE environment, also e.g. tabbing
+```
+
+
+
+
+
+### using functions (and operators)
+
+
+```{r}
+sqrt(a)
+print(b) 
+```
+
+`print(b)` is the same as simply entering 'b' in your console
+
+
+Let's take a look at
+
+```{r}
+b * 2
+```
+
+Apparantly R has some built-in (default) behaviours, TRUE somehow becomes a 1. How about FALSE?
+
+```{r}
+d <- FALSE 
+d * 2
+```
+
+Usually these default behaviours are convenient, sometimes confusing! Let's get Back to the lecture...
+
+
+
+\newpage 
+## Session 2: Objects and Functions
+
+
+### creating your own function
+
+```{r}
+square <- function(x){
+  squared <- x * x
+  return(squared)
+}
+```
+
+Did you see we use the assignment arrow? Actually, functions are also variables / objects. Because we (usually) use them functions in such a fundamentally different way, especially for now, we do not view them as variables or objects.
+
+
+```{r, error = TRUE}
+square(a)
+sqrt(square(a))
+square(b) # error!
+```
+
+
+
+### side effects and errors.. NA / NaN / Null?
+
+About `Na`
+
+```{r, error = TRUE}
+as.numeric("four")
+as.numeric(c("3", "2", "...", "1"))
+```
+
+About `NaN`
+```
+1/0 - 1/0
+c(1, 2, NA, 4)
+```
+
+About `NULL`
+
+```{r, eval = FALSE}
+a <- plot("")
+c(3, 2, NULL, 1)
+```
+
+Some checks: 
+```{r}
+is.na(NA)
+is.null(NULL)
+is.null(NA)
+```
+
+and tricky ones:
+
+```{r}
+is.na(NULL) # the answer is a logical vector (TRUE / FALSE) of length 0. E.g. an empty vector
+is.null(logical(0)) # an empty vector != nothingness
+```
+
+
+Meanwhile on your hard drive:
+```{r}
+object.size(NULL)
+object.size(NA)
+```
+
+Some functions have an inbuild option to remove NA values:
+```{r}
+x <- c(1, 2, NA, 4)
+var(x)
+var(x, na.rm = TRUE)
+```
+
+
+Let's get back to the lecture slides
+
+
+
+
+\newpage
+
+## (Long) Session 3: Vectors
+
+
+### Type/ Mode
+
+R automatically decides the mode (what type of thing the container contains), often easy:
+
+```{r}
+a <- c(1, 2, 3, 4)
+a
+class(a)
+typeof(a)
+```
+
+```{r}
+b <- c("a", "bunch", "of", "strings")
+b
+typeof(b)
+```
+
+```{r}
+c <- c(TRUE, FALSE, T, T, F) # TRUE is same as T, FALSE is same as F
+c
+typeof(c)
+```
+
+and sometimes hard:
+
+```{r}
+d <- c(4, "word", T)
+typeof(d)
+d
+```
+
+
+we can force behaviours using as.<*> functions:
+
+```{r, error = FALSE}
+as.numeric(d)
+as.logical(d)
+```
+
+Sometimes, conviently, R knows how to interpret text. 
+
+```{r}
+as.numeric(c("1", "two", "3", 4))
+```
+
+but R does not 'know' english, and does recognize numbers!Last, note the difference between warnings and errors! Here we get warnings, R does not break down.
+
+
+
+### Object properties:
+
+objects have properties, e.g.  a vector has a length:
+
+```{r}
+length(a)
+```
+
+you can access a particular element using `[]`
+
+```{r}
+a[1] 
+```
+
+each element in a vector can be given a name
+```{r}
+names(a) # NULL first!
+names(a) <- b
+a
+```
+
+Some useful ways of making vectors:
+```{r}
+e <- character(10) # creates an 'empty' vector of type character, with space reserved for 100 elements
+e[5] <- "the fifth entry"
+```
+
+
+```{r}
+f <- 1:10
+g <- -5:3
+h <- seq(0, 1, by = 0.1)
+```
+
+```{r}
+class(f)
+class(h)
+```
+
+actually there are multiple 'vector' classes: for each type of mode, a unique vector class exists (but all containing just one mode).
+
+
+There is another property called 'dim': the dimensionality of the vector
+```{r}
+class(f)
+dim(f)
+dim(f) <- c(2, 5)
+class(f)
+```
+
+
+### Vectorized Functions
+
+
+Some functions can be applied to vectors:
+
+```{r}
+a * 2
+a
+a * a
+g <- 1:3
+g * 3
+1:3 * 2
+```
+
+We called this 'vectorized' functions, they are usually superfast.
+
+
+Some functions require vectors:
+
+```{r}
+mean(a)
+```
+
+Some functions behaviour depends on whether argument is vector or not:
+
+```{r}
+diag(3) # diagonal matrix
+diag(c(1, 2, 3))
+```
+
+The behaviour of functions in R depends on the arguments you give it. R uses the information about the argument (the class) to determine which behaviour to perform! Be aware! Often only a single class may be used.
+
+
+### IMPORTANT: Quirks and Perks: Vector Recycling!
+
+```{r}
+a <- 1:2
+b <- 1:3
+a * b
+```
+
+Note how the first element of `a` is used for a second time to multiply it with the 3rd element in `b`!
+
+
+
+
+\newpage
+
+## Session 4:
+
+
+### Indexing:
+
+Let us create a simple vector as an example
+
+```{r}
+x <- 1:10
+x
+```
+
+Let us give each of the entries a name
+
+```
+names(x) <- letters[1:10]
+x
+```
+
+```{r}
+x[1]
+x["b"]
+x[-1]
+x[c(T, F, F, F, F, F, F, F, F, F)]
+```
+
+
+What happens if we do:
+```{r, error = FALSE}
+x[0]
+x[11]
+x["m"]
+```
+
+Mind blowing! The Expansive power of vector recycling: 
+
+```{r}
+rep(c(1,2), each = 10)
+Booleans <- c(T,F)
+Booleans[rep(c(1,2), each = 10)]
+```
+
+
+
+### filtering
+
+Using logical operators we can make R check if a particular condition is TRUE or FALSE
+
+```{r}
+1 < 2
+2 < 1
+```
+
+
+Using logical operators applied to vectors we can automatically created vectors with corresponding TRUE and FALSE that check, elementwise, if the condition holds for the elements in x
+
+```{r}
+x > 5
+x[x > 5]
+```
+
+
+
+\newpage 
+
+## Session 5:
+
+
+### Workspace
+
+Usually your script is enough to reproduce an entire workspace    
+
+Sometimes analyses will take a very long time and saving the script only can be very inconvenient
+
+```{r}
+ls()
+save(list=ls(), file="my_workspace.Rdata") # this stores your workspace 'somewhere' on your PC, we'll look later at how to tell R what 'somewhere' to choose
+rm(list=ls()) # remove everything
+# now let's load everything back in
+load("my_workspace.Rdata")
+```
+
+
+If you really want to save everything you've ever done:
+
+```{r, eval = FALSE}
+savehistory(file = ".Rhistory")
+```
+
+
+
+### Packages:
+
+base is a package loaded into R by default
+
+```{r}
+library("base")
+```
+
+R won't give you any feedback unless something may have gone wrong. For anay help on a library, or function:
+
+
+```{r, eval = FALSE}
+library(help="base")
+?sample
+```
+
+a typical library you might use that is not loaded by default, but installed by default
+
+```{r}
+library("foreign")
+library("MASS")
+```
+
+
+a new library that you will need to use for extra exercises at `home'
+
+```{r, eval = FALSE}
+install.packages("swirl")
+library("swirl")
+rm(list=ls())
+swirl()
+```
+
+
+

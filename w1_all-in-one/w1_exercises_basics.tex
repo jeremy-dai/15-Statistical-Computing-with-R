@@ -1,0 +1,589 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={SCR week 1: exercises},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\providecommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{SCR week 1: exercises}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{}
+    \preauthor{}\postauthor{}
+    \date{}
+    \predate{}\postdate{}
+  
+
+\begin{document}
+\maketitle
+
+\hypertarget{exercises-part-1-objects-and-types-using-functions}{%
+\section{Exercises part 1: Objects and types, using
+functions}\label{exercises-part-1-objects-and-types-using-functions}}
+
+\hypertarget{working-with-the-work-space}{%
+\subsection{1.1 Working with the work
+space}\label{working-with-the-work-space}}
+
+\texttt{R}`s workspace is a nonphysical 'environment' that contains
+(remembers) the variables that we construct in our \texttt{R} commands.
+This workspace seems empty as we start \texttt{R} up. In this exercise
+we will look at some aspects of \texttt{R}'s workspace and scripts.
+
+\hypertarget{a.}{%
+\subsubsection{a.}\label{a.}}
+
+Create two variables in \texttt{R}'s console, called \texttt{T} and
+\texttt{Y}. Assign the values \texttt{5} and \texttt{20} respectively.
+
+\hypertarget{b.}{%
+\subsubsection{b.}\label{b.}}
+
+Write a script that multiplies the values of \texttt{T} and \texttt{Y}.
+
+\hypertarget{c.}{%
+\subsubsection{c.}\label{c.}}
+
+Save the script file, with the name \texttt{Separated.R}.
+
+\hypertarget{d.}{%
+\subsubsection{d.}\label{d.}}
+
+Close Rstudio, and start it up again. Make sure the scriptfile
+\texttt{Separated.R} is loaded into Rstudio (which it will be by default
+if you did not explicitly close the script before you exited Rstudio,
+and don't save the workspace).
+
+\hypertarget{e.}{%
+\subsubsection{e.}\label{e.}}
+
+Use the script to run the multiplication between \texttt{T} and
+\texttt{Y} again. Does it work? Why not?
+
+If done correctly, you will notice that \texttt{Y} not longer exists,
+and that \texttt{T}, after you restart \texttt{R}, will be synonymous
+again with \texttt{TRUE}. Like a few other objects, \texttt{T} is put in
+the workspace of \texttt{R}, automatically, but can as we've witnessed
+be overwritten. In general it is not a good idea to overwrite existing
+object names, such as \texttt{T} or \texttt{F}: if you combine your code
+with somebody else's they might have use \texttt{T} instead of
+\texttt{TRUE} in their code to check if something is true or not. If you
+overwrite \texttt{T}, their code will not work anymore. Similarly: it is
+better to use \texttt{TRUE} than \texttt{T}.
+
+\hypertarget{coercion}{%
+\subsection{1.2 Coercion}\label{coercion}}
+
+We've seen three modes (or data types): numeric, character and logical.
+We've also seen that \texttt{R} will sometimes automatically convert one
+type, into another, if it thinks that's what you want it to do. For
+example, if we multiply \texttt{TRUE} by 10, the answer is 10. This is
+called \emph{implicit coercion}: \texttt{TRUE} is coerced, or forced, to
+be interpreted as a \texttt{1}.
+
+\hypertarget{a.-1}{%
+\subsubsection{a.}\label{a.-1}}
+
+Try multiplying some numbers with \texttt{TRUE} and \texttt{FALSE}
+yourself.
+
+\hypertarget{b.-1}{%
+\subsubsection{b.}\label{b.-1}}
+
+Take the following character values and assign them to some objects
+(give some sensible names yourself): \texttt{"The\ number\ two"},
+\texttt{"2"} and \texttt{"two"}. Use the function \texttt{mode} to check
+if the data type of entries is \texttt{character}, \texttt{logical} or
+\texttt{numeric}.
+
+\hypertarget{c.-1}{%
+\subsubsection{c.}\label{c.-1}}
+
+Try multiplying the objects you've created by 10. Do you get a warning,
+or worse, an error?
+
+\hypertarget{d.-1}{%
+\subsubsection{d.}\label{d.-1}}
+
+Unfortunately, this does not work (\texttt{R} gives an error). In this
+case \texttt{R} does not automatically coerce the 3 objects to numbers.
+We can force \texttt{R} to try to coerce the objects to a numeric one
+using the function \texttt{as.numeric}. Apply \texttt{as.numeric} to the
+objects you've created. Do you get an error, or a warning?
+
+\hypertarget{e.-1}{%
+\subsubsection{e.}\label{e.-1}}
+
+We got a warning because \texttt{R} does not know how to convert
+\texttt{"The\ number\ two"} or \texttt{"two"} to a number: instead it
+turned those objects to \texttt{NA} which stands for
+\texttt{Not\ Available} and can be considered a `missing' value.
+Amazingly however, \texttt{R} does know how to convert \texttt{"2"}, to
+\texttt{2}! Try it the other way around by converting a few numbers to
+characters, by using the \texttt{as.character} function. Does this
+produce any \texttt{NA}'s?
+
+\hypertarget{f.}{%
+\subsubsection{f.}\label{f.}}
+
+Take the values \texttt{-3}, \texttt{-1}, \texttt{0}, \texttt{1} and
+\texttt{1000} and coerce each to the logical type, by using the function
+\texttt{as.logical}. What is the result?
+
+\hypertarget{g.}{%
+\subsubsection{g.}\label{g.}}
+
+What do you think will happen in the following call:
+\texttt{as.character(TRUE)} And in: \texttt{as.logical("TRUE")}, or
+\texttt{as.logical("completely\ false")}?
+
+\newpage
+
+\hypertarget{exercises-part-2-vectors-and-functions}{%
+\section{Exercises part 2: vectors and
+functions}\label{exercises-part-2-vectors-and-functions}}
+
+\hypertarget{operations-on-vectors}{%
+\subsection{2.1 Operations on vectors}\label{operations-on-vectors}}
+
+\hypertarget{a.-2}{%
+\subsubsection{a.}\label{a.-2}}
+
+Create a vector containing the values 0.2, 0.4, 0.6, \ldots 1.8, and
+2.0. The vector should consist of 10 elements.
+
+\hypertarget{b.-2}{%
+\subsubsection{b.}\label{b.-2}}
+
+Go to the vocabulary that's put online by Hadley Wickham:
+\url{http://adv-r.had.co.nz/Vocabulary.html}. Look at the operators
+under the \textbf{basic math} header. Try a few of the following
+operators:
+
+*, +, -, /, \^{}, \%\%, \%/\% abs, sign acos, asin, atan, atan2 sin,
+cos, tan ceiling, floor, round, trunc, signif exp, log, log10, log2,
+sqrt
+
+On which element(s) of the vector \texttt{my\_vec} does the function
+operates?
+
+\hypertarget{c.-2}{%
+\subsubsection{c.}\label{c.-2}}
+
+The vocabulary also lists the following operators:
+
+max, min, prod, sum cummax, cummin, cumprod, cumsum, diff pmax, pmin
+range mean, median, cor, sd, var rle
+
+Try a few of these. Look at the helpfiles of a function (using e.g.
+\texttt{?max}) if you don't know what the function does. What is the big
+difference between these operators and the ones you tried in
+\textbf{b.}?
+
+\hypertarget{creating-a-typical-function}{%
+\subsection{2.2 Creating a typical
+function}\label{creating-a-typical-function}}
+
+You've seen how to create a function:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{FunctionName <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(argument)\{}
+  
+  \CommentTok{# do stuff }
+  
+  \KeywordTok{return}\NormalTok{(return_value)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+In this exercise we will walk through the typical process one might go
+through in create a function and look a the concept of functions and
+\emph{scoping}.
+
+\hypertarget{a.-3}{%
+\subsubsection{a.}\label{a.-3}}
+
+Create a vector using the following code:
+\texttt{my\_vector\ \textless{}-\ c(4,\ 70,\ 19,\ 21,\ 77,\ 82,\ 75,\ 33,\ 90,\ 34,\ 6,\ 27,\ 63,\ 25,\ 39,\ 83,\ 42,\ 60,\ 17,\ 10)}.
+
+\hypertarget{b.-3}{%
+\subsubsection{b.}\label{b.-3}}
+
+Find the minimal value of the vector using the function \texttt{min()}.
+
+\hypertarget{c.-3}{%
+\subsubsection{c.}\label{c.-3}}
+
+Find the maximal value of the vector using the function \texttt{max()}.
+
+\hypertarget{d.-2}{%
+\subsubsection{d.}\label{d.-2}}
+
+Add the maximum and minimum value together, divide by 2 and substract
+that value from the \texttt{mean()} of the vector. Which is bigger?
+
+\hypertarget{e.-2}{%
+\subsubsection{e.}\label{e.-2}}
+
+Write code to have \texttt{R} tell you whether it is \texttt{TRUE} or
+\texttt{FALSE} that the mean is bigger than the `halfway' value of the
+range of our vector.
+
+\hypertarget{f.-1}{%
+\subsubsection{f.}\label{f.-1}}
+
+Write a function called \texttt{IsMeanBiggerThanHalfway} that takes as
+argument a vector and returns \texttt{TRUE} or \texttt{FALSE} depending
+on whether the mean is bigger that the halfway value of the range of the
+vector that is entered as argument.
+
+\hypertarget{creating-a-function-with-multiple-arguments}{%
+\subsection{2.3 Creating a function with multiple
+arguments}\label{creating-a-function-with-multiple-arguments}}
+
+You'll often see functions in \texttt{R} that can take multiple
+arguments. The result of the function (usually the return value) will
+depend on \emph{both} arguments. \texttt{sd} is a function that takes
+two arguments. Without looking exactly how \texttt{sd} works, look at
+the helpfile of the \texttt{sd} en try to figure out from the syntax
+presented in the helpfile (under \textbf{Usage}) how to create a
+function that takes 3 arguments.
+
+Write a function (choose an active name yourself) that takes three
+arguments. Let the function return the product of the three values.
+
+\hypertarget{some-vector-exercises-again-slightly-more-difficult-for-now}{%
+\subsection{2.4. Some Vector Exercises Again (slightly more difficult,
+for
+now)}\label{some-vector-exercises-again-slightly-more-difficult-for-now}}
+
+While using \texttt{rep()}, \texttt{seq()} and/or arithemtic thinking,
+generate the following sequences:
+
+\begin{itemize}
+\item[(a)] $10, 8, 6, 4, 6, 8, 10$
+\item[(b)] $60, 56, 52, \ldots, 12, 8$.
+\item[(c)] $1, 2, 4, 8, \ldots, 512$
+\item[(d)] $0, 1, 2, 0, \ldots, 2, 0, 1, 2$ (with each entry appearing six times)
+\item[(e)] $1, 2, 2, 3, 3, 3, 4, 4, 4$.
+\item[(f)] $1, 2, 5, 10, 20, 50, 100, \ldots, 5 x 10^3$ (use vector recycling!)
+\end{itemize}
+
+\hypertarget{dont-stop-til-you-get-enough-more-difficult-for-now}{%
+\subsection{2.5. Don't Stop 'til You Get Enough (more difficult, for
+now)}\label{dont-stop-til-you-get-enough-more-difficult-for-now}}
+
+While using \texttt{cos()}, exp(), \texttt{\%\%}, \texttt{:}, and/or
+arithemtic thinking, generate the following sequences:
+
+\begin{itemize}
+\item[(a)] $cos\left( \frac{\pi n}{3}\right), \text{ for } n = \{0, \ldots, 10\}.$
+\item[(b)] $1, 9, 98,997, \ldots, 999994.$
+\item[(c)] $e^n - 3n, \text{ for } n = \{0, \ldots, 10\}.$
+\item[(d)] $3n \mbox{ mod } 7, \text{ for } n = \{0, \ldots, 10\}.$
+\item[(e)] Let
+$$ \tilde{\pi}_n = 4 \sum^n_{i = 1} \frac{(-1)^{i + 1}}{2i - 1} = 4 - \frac{4}{3} + \frac{4}{5} - \frac{4}{7} + \ldots + 4\frac{(-1)^{n + 1}}{2n - 1}.$$ Create a function `ApproxPi` that outputs $\pi_n$ when you give it $n$. You may want to use a `sum()` function on a vector, and you could use vector recycling. Evaluate $\tilde{\pi}_{100}$, $\tilde{\pi}_{1000}$, and $\tilde{\pi}_{10000}$, do you notice anything?
+\end{itemize}
+
+\newpage
+
+\hypertarget{exercises-part-3-conditions-and-if-indexing-and-filtering}{%
+\section{Exercises part 3: Conditions and if, indexing and
+filtering}\label{exercises-part-3-conditions-and-if-indexing-and-filtering}}
+
+\hypertarget{an-absolute-function}{%
+\subsection{3.1. An absolute function}\label{an-absolute-function}}
+
+In this exercise we will create a function that returns the absolute
+difference between two values. Say we wish to find the absolute
+difference of the expression \(4 - 10\) is equal to \(6\). We could use
+the following statement to find the absolute difference between
+\texttt{x} and \texttt{y} regardless of which is bigger:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{abs}\NormalTok{(x}\OperatorTok{-}\NormalTok{y)}
+\end{Highlighting}
+\end{Shaded}
+
+Regardless of whether the result is positive or negative, that
+\texttt{abs} function will make it a positive number. We'll implement a
+function ourselves using conditions and an \texttt{if} statement.
+
+\hypertarget{a.-4}{%
+\subsubsection{a.}\label{a.-4}}
+
+Write a line of code that substracts \texttt{y} from \texttt{x} and
+saves it as a new value \texttt{z}. To test your code you will need to
+assign some values to \texttt{x} and \texttt{y}.
+
+\hypertarget{b.-4}{%
+\subsubsection{b.}\label{b.-4}}
+
+Write a condition (or logical expression) that checks whether \texttt{z}
+is negative.
+
+\hypertarget{c.-4}{%
+\subsubsection{c.}\label{c.-4}}
+
+Write an \texttt{if} statement that uses the condition you've written
+above to check whether \texttt{z} is negative, and if so, multiplies
+\texttt{z} by \(-1\) to make it positive.
+
+\hypertarget{d.-3}{%
+\subsubsection{d.}\label{d.-3}}
+
+Put the above code into a function called \texttt{AbsoluteDifference}
+and test the code with the following value pairs:
+
+\begin{itemize}
+\tightlist
+\item
+  \(x=10\), \(y=4\)
+\item
+  \(x=4\), \(y=10\)
+\item
+  \(x=4\), \(y=-10\)
+\end{itemize}
+
+Did your function test correctly?
+
+\hypertarget{our-first-filter}{%
+\subsection{3.2. Our first filter}\label{our-first-filter}}
+
+We've seen during class that we can index in a variety of ways: with
+positions, with negative positions, with names and with logicals. In
+this exercise we'll be using logicals to create a filter.
+
+\hypertarget{a.-5}{%
+\subsubsection{a.}\label{a.-5}}
+
+Create a vector, called short\_alphabet, containing the first 10 (no
+capital) letters of the alphabet.
+
+\hypertarget{b.-5}{%
+\subsubsection{b.}\label{b.-5}}
+
+Use brackets (\texttt{{[}{]}}) to select the 7th letter.
+
+\hypertarget{c.-5}{%
+\subsubsection{c.}\label{c.-5}}
+
+Besides giving the position (or positions!) of the elements you want to
+access you can also tell \texttt{R} which elements you \textbf{do} and
+which elements you \textbf{don't} want to select, by telling \texttt{R}
+for each position whether it is \texttt{TRUE} or \texttt{FALSE} that you
+want to select each element.
+
+For example, we can select the second and fourth element of the vector
+\texttt{c(1,\ 2,\ 3,\ 4,\ 5)} in the following way:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{)}
+\NormalTok{a[}\KeywordTok{c}\NormalTok{(}\OtherTok{FALSE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{FALSE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{FALSE}\NormalTok{)]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2 4
+\end{verbatim}
+
+Try this yourself by creating a vector, containing only \texttt{TRUE}
+and \texttt{FALSE}, that you can use to select the 7th letter from the
+\texttt{short\_alphabet} object.
+
+\hypertarget{d.-4}{%
+\subsubsection{d.}\label{d.-4}}
+
+Instead of manually typing a vector of \texttt{TRUE} and \texttt{FALSE}
+we can use \texttt{R} and its vectorized functions to create one for us.
+In the previous exercise we've learned that \texttt{R} can evaluate a
+logical expression to \texttt{TRUE} or \texttt{FALSE}. It can do this in
+a vectorized manner. An example of a vectorized function is
+multiplication: if you have a vector of numbers, you can multiply the
+vector object with a constant, to multiply \emph{all elements} in the
+vector with that number. For example:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{)}
+\NormalTok{a }\OperatorTok{*}\StringTok{ }\DecValTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  2  4  6  8 10
+\end{verbatim}
+
+We can do a similar thing with a condition that checks for equality:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{short_alphabet }\OperatorTok{==}\StringTok{ "a"}
+\end{Highlighting}
+\end{Shaded}
+
+Use this to create a vector that has a \texttt{TRUE} only in the 7th
+position. Save this to an object called \texttt{seventh\_letter}.
+
+\hypertarget{e.-3}{%
+\subsubsection{e.}\label{e.-3}}
+
+Create another vector with only \texttt{TRUE} and \texttt{FALSE}, but
+one with just a \texttt{TRUE} in the position of the letter `c'. Save it
+to an object called \texttt{third\_letter}.
+
+\hypertarget{f.-2}{%
+\subsubsection{f.}\label{f.-2}}
+
+Our first `filter' will be created by combining the two vectors
+containing only \texttt{TRUE} and \texttt{FALSE}. We won't skip ahead
+just yet and talk about more advanced parts of \emph{control}
+statements. Instead, we will use a trick. We've already seen that we can
+use \texttt{TRUE} and \texttt{FALSE} for calculation: if forced to be
+read as a number,\texttt{TRUE} is equal to 1, and \texttt{FALSE} is
+equal to 0. Thus, if we add, pairwise, the elements of both vectors
+everything that was \texttt{FALSE} in both cases will be \texttt{0}, and
+everything that was \texttt{TRUE} in either or both will be \texttt{1}
+or \texttt{2}. If we coerce anything but \texttt{0} to a logical,
+\texttt{R} will make it \texttt{TRUE}. Thus we can add one vector to the
+other, coerce it to a logical vector and use it to subset (or index) our
+vector of numbers. Do this now for the letters \texttt{c} and
+\texttt{g}.
+
+\hypertarget{subsetting}{%
+\subsubsection{3.3 Subsetting}\label{subsetting}}
+
+Create a vector \texttt{x} of normal random variables as follows:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\NormalTok{x <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1000}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+The \texttt{set.seed()} fixes the random number generator so that we all
+obtain the same \texttt{x}; changing the argument \texttt{123} to
+something else will give different results. This is useful for
+replication.
+
+\begin{itemize}
+\item[(a)] show the first 10 elements from the vector `x`
+\item[(b)] show each 100th element of `x`
+\item[(c)] show how many of the elements are $> 1$ or $< -1$ 
+\item[(d)] show the proportion of elements higher than 1.645 
+\end{itemize}
+
+
+\end{document}

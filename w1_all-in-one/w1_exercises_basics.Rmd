@@ -1,0 +1,276 @@
+---
+title: 'SCR week 1: exercises'
+output:
+  pdf_document: 
+    keep_tex: yes
+---
+
+# Exercises part 1: Objects and types, using functions
+
+## 1.1 Working with the work space
+`R`'s workspace is a nonphysical 'environment' that contains (remembers) the variables that we construct in our `R` commands. This workspace seems empty as we start `R` up. In this exercise we will look at some aspects of `R`'s workspace and scripts.
+
+### a.
+Create two variables in `R`'s console, called `T` and `Y`. Assign the values `5` and `20` respectively.
+
+
+### b. 
+Write a script that multiplies the values of `T` and `Y`.
+
+
+### c.
+Save the script file, with the name `Separated.R`.
+
+
+### d.
+
+Close Rstudio, and start it up again. Make sure the scriptfile `Separated.R` is loaded into Rstudio (which it will be by default if you did not explicitly close the script before you exited Rstudio, and don't save the workspace).
+
+### e.
+
+Use the script to run the multiplication between `T` and `Y` again. Does it work? Why not?
+
+If done correctly, you will notice that `Y` not longer exists, and that `T`, after you restart `R`, will be synonymous again with `TRUE`. Like a few other objects, `T` is put in the workspace of `R`, automatically, but can as we've witnessed be overwritten. In general it is not a good idea to overwrite existing object names, such as `T` or `F`: if you combine your code with somebody else's they might have use `T` instead of `TRUE` in their code to check if something is true or not. If you overwrite `T`, their code will not work anymore. Similarly: it is better to use `TRUE` than `T`.
+
+
+## 1.2 Coercion
+
+We've seen three modes (or data types): numeric, character and logical. We've also seen that `R` will sometimes automatically convert one type, into another, if it thinks that's what you want it to do. For example, if we multiply `TRUE` by 10, the answer is `r TRUE * 10`. This is called *implicit coercion*: `TRUE` is coerced, or forced, to be interpreted as a `1`.
+
+### a.
+
+Try multiplying some numbers with `TRUE` and `FALSE` yourself.
+
+
+### b.
+
+Take the following character values and assign them to some objects (give some sensible names yourself): `"The number two"`, `"2"` and `"two"`. Use the function `mode` to check if the data type of entries is `character`, `logical` or `numeric`.
+
+
+### c.
+
+Try multiplying the objects you've created by 10. Do you get a warning, or worse, an error?
+
+
+### d.
+
+Unfortunately, this does not work (`R` gives an error). In this case `R` does not automatically coerce the 3 objects to numbers. We can force `R` to try to coerce the objects to a numeric one using the function `as.numeric`. Apply `as.numeric` to the objects you've created. Do you get an error, or a warning?
+
+### e.
+We got a warning because `R` does not know how to convert `"The number two"` or `"two"` to a number: instead it turned those objects to `NA` which stands for `Not Available` and can be considered a 'missing' value. Amazingly however, `R` does know how to convert `"2"`, to `2`! Try it the other way around by converting a few numbers to characters, by using the `as.character` function. Does this produce any `NA`'s?
+
+
+### f.
+Take the values `-3`, `-1`, `0`, `1` and `1000` and coerce each to the logical type, by using the function `as.logical`. What is the result?
+
+
+### g.
+What do you think will happen in the following call: `as.character(TRUE)`
+And in: `as.logical("TRUE")`, or `as.logical("completely false")`?
+
+
+
+
+\newpage
+
+# Exercises part 2: vectors and functions
+
+## 2.1 Operations on vectors
+
+### a. 
+Create a vector containing the values 0.2, 0.4, 0.6, \ldots 1.8, and 2.0. The vector should consist of 10 elements. 
+
+
+### b.
+Go to the vocabulary that's put online by Hadley Wickham: http://adv-r.had.co.nz/Vocabulary.html. Look at the operators under the **basic math** header. Try a few of the following operators:
+
+*, +, -, /, ^, %%, %/%
+abs, sign
+acos, asin, atan, atan2
+sin, cos, tan
+ceiling, floor, round, trunc, signif
+exp, log, log10, log2, sqrt
+
+On which element(s) of the vector `my_vec` does the function operates?
+
+
+### c.
+The vocabulary also lists the following operators:
+
+max, min, prod, sum
+cummax, cummin, cumprod, cumsum, diff
+pmax, pmin
+range
+mean, median, cor, sd, var
+rle
+
+Try a few of these. Look at the helpfiles of a function (using e.g. `?max`) if you don't know what the function does. What is the big difference between these operators and the ones you tried in **b.**?
+
+
+## 2.2 Creating a typical function
+
+You've seen how to create a function:
+```{r, eval=FALSE}
+FunctionName <- function(argument){
+  
+  # do stuff 
+  
+  return(return_value)
+}
+```
+
+In this exercise we will walk through the typical process one might go through in create a function and look a the concept of functions and *scoping*.
+
+### a.
+Create a vector using the following code: `my_vector <- c(4, 70, 19, 21, 77, 82, 75, 33, 90, 34, 6, 27, 63, 25, 39, 83, 42, 60, 17, 10)`.
+
+
+### b.
+Find the minimal value of the vector using the function `min()`.
+
+
+### c.
+Find the maximal value of the vector using the function `max()`.
+
+### d.
+Add the maximum and minimum value together, divide by 2 and substract that value from the `mean()` of the vector. Which is bigger?
+
+
+### e. 
+Write code to have `R` tell you whether it is `TRUE` or `FALSE` that the mean is bigger than the 'halfway' value of the range of our vector.
+
+### f.
+Write a function called `IsMeanBiggerThanHalfway` that takes as argument a vector and returns `TRUE` or `FALSE` depending on whether the mean is bigger that the halfway value of the range of the vector that is entered as argument.
+
+
+## 2.3 Creating a function with multiple arguments
+You'll often see functions in `R` that can take multiple arguments. The result of the function (usually the return value) will depend on *both* arguments. `sd` is a function that takes two arguments. Without looking exactly how `sd` works, look at the helpfile of the `sd` en try to figure out from the syntax presented in the helpfile (under **Usage**) how to create a function that takes 3 arguments.
+
+Write a function (choose an active name yourself) that takes three arguments. Let the function return the product of the three values.
+
+
+## 2.4. Some Vector Exercises Again (slightly more difficult, for now)
+
+While using `rep()`, `seq()` and/or arithemtic thinking, generate the following sequences:
+\begin{itemize}
+\item[(a)] $10, 8, 6, 4, 6, 8, 10$
+\item[(b)] $60, 56, 52, \ldots, 12, 8$.
+\item[(c)] $1, 2, 4, 8, \ldots, 512$
+\item[(d)] $0, 1, 2, 0, \ldots, 2, 0, 1, 2$ (with each entry appearing six times)
+\item[(e)] $1, 2, 2, 3, 3, 3, 4, 4, 4$.
+\item[(f)] $1, 2, 5, 10, 20, 50, 100, \ldots, 5 x 10^3$ (use vector recycling!)
+\end{itemize}
+
+
+## 2.5. Don't Stop 'til You Get Enough (more difficult, for now)
+
+While using `cos()`, exp(), `%%`, `:`, and/or arithemtic thinking, generate the following sequences:
+
+\begin{itemize}
+\item[(a)] $cos\left( \frac{\pi n}{3}\right), \text{ for } n = \{0, \ldots, 10\}.$
+\item[(b)] $1, 9, 98,997, \ldots, 999994.$
+\item[(c)] $e^n - 3n, \text{ for } n = \{0, \ldots, 10\}.$
+\item[(d)] $3n \mbox{ mod } 7, \text{ for } n = \{0, \ldots, 10\}.$
+\item[(e)] Let
+$$ \tilde{\pi}_n = 4 \sum^n_{i = 1} \frac{(-1)^{i + 1}}{2i - 1} = 4 - \frac{4}{3} + \frac{4}{5} - \frac{4}{7} + \ldots + 4\frac{(-1)^{n + 1}}{2n - 1}.$$ Create a function `ApproxPi` that outputs $\pi_n$ when you give it $n$. You may want to use a `sum()` function on a vector, and you could use vector recycling. Evaluate $\tilde{\pi}_{100}$, $\tilde{\pi}_{1000}$, and $\tilde{\pi}_{10000}$, do you notice anything?
+\end{itemize}
+
+
+
+\newpage
+
+# Exercises part 3: Conditions and if, indexing and filtering
+
+## 3.1. An absolute function
+
+In this exercise we will create a function that returns the absolute difference between two values. Say we wish to find the absolute difference of the expression $4 - 10$ is equal to $6$. We could use the following statement to find the absolute difference between `x` and `y` regardless of which is bigger:
+
+```{r, eval=FALSE}
+abs(x-y)
+```
+
+Regardless of whether the result is positive or negative, that `abs` function will make it a positive number. We'll implement a function ourselves using conditions and an `if` statement.
+
+### a. 
+Write a line of code that substracts `y` from `x` and saves it as a new value `z`. To test your code you will need to assign some values to `x` and `y`.
+
+
+### b.
+Write a condition (or logical expression) that checks whether `z` is negative.
+
+### c.
+Write an `if` statement that uses the condition you've written above to check whether `z` is negative, and if so, multiplies `z` by $-1$ to make it positive.
+
+### d.
+Put the above code into a function called `AbsoluteDifference` and test the code with the following value pairs: 
+
+* $x=10$, $y=4$
+* $x=4$, $y=10$
+* $x=4$, $y=-10$
+
+Did your function test correctly?
+
+
+## 3.2. Our first filter
+We've seen during class that we can index in a variety of ways: with positions, with negative positions, with names and with logicals. In this exercise we'll be using logicals to create a filter.
+
+### a.
+Create a vector, called short_alphabet, containing the first 10 (no capital) letters of the alphabet.
+
+
+### b.
+Use brackets (`[]`) to select the 7th letter.
+
+
+### c.
+Besides giving the position (or positions!) of the elements you want to access you can also tell `R` which elements you **do** and which elements you **don't** want to select, by telling `R` for each position whether it is `TRUE` or `FALSE` that you want to select each element.
+
+For example, we can select the second and fourth element of the vector `c(1, 2, 3, 4, 5)` in the following way:
+```{r}
+a <- c(1, 2, 3, 4, 5)
+a[c(FALSE, TRUE, FALSE, TRUE, FALSE)]
+```
+Try this yourself by creating a vector, containing only `TRUE` and `FALSE`, that you can use to select the 7th letter from the `short_alphabet` object.
+
+
+### d.
+Instead of manually typing a vector of `TRUE` and `FALSE` we can use `R` and its vectorized functions to create one for us. In the previous exercise we've learned that `R` can evaluate a logical expression to `TRUE` or `FALSE`. It can do this in a vectorized manner. An example of a vectorized function is multiplication: if you have a vector of numbers, you can multiply the vector object with a constant, to multiply *all elements* in the vector with that number. For example:
+```{r}
+a <- c(1, 2, 3, 4, 5)
+a * 2
+```
+
+We can do a similar thing with a condition that checks for equality:
+```{r, eval=FALSE}
+short_alphabet == "a"
+```
+
+Use this to create a vector that has a `TRUE` only in the 7th position. Save this to an object called `seventh_letter`.
+
+
+### e.
+Create another vector with only `TRUE` and `FALSE`, but one with just a `TRUE` in the position of the letter 'c'. Save it to an object called `third_letter`.
+
+
+### f.
+Our first 'filter' will be created by combining the two vectors containing only `TRUE` and `FALSE`. We won't skip ahead just yet and talk about more advanced parts of *control* statements. Instead, we will use a trick. We've already seen that we can use `TRUE` and `FALSE` for calculation: if forced to be read as a number,`TRUE` is equal to 1, and `FALSE` is equal to 0. Thus, if we add, pairwise, the elements of both vectors everything that was `FALSE` in both cases will be `0`, and everything that was `TRUE` in either or both will be `1` or `2`. If we coerce anything but `0` to a logical, `R` will make it `TRUE`. Thus we can add one vector to the other, coerce it to a logical vector and use it to subset (or index) our vector of numbers. Do this now for the letters `c` and `g`.
+
+
+### 3.3 Subsetting
+
+Create a vector `x` of normal random variables as follows:
+
+```{r}
+set.seed(123)
+x <- rnorm(1000)
+```
+
+The `set.seed()` fixes the random number generator so that we all obtain the same `x`; changing the argument `123` to something else will give different results. This is useful for replication.
+
+\begin{itemize}
+\item[(a)] show the first 10 elements from the vector `x`
+\item[(b)] show each 100th element of `x`
+\item[(c)] show how many of the elements are $> 1$ or $< -1$ 
+\item[(d)] show the proportion of elements higher than 1.645 
+\end{itemize}
+

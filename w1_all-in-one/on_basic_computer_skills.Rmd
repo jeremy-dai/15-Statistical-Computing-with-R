@@ -1,0 +1,19 @@
+---
+title: "On some basic computer skills"
+output:
+  pdf_document: 
+    keep_tex: yes
+---
+
+If all is well, you've done or will do the `swirl` module "Workspace and Files". In this module you are asked to set your workspace (`getwd()`) and to interact with files on your computer (e.g. `list.files()` and `dir.create()`). A prerequisite for doing this are some basic computer skills. One of these is understanding the basic folder structure on your computer. During the second week we'll use this knowledge to read data from our computer into `R`. Another is that most of these data will come in a standard that is called the ASCII standard, and comes for example in the form of a `.txt` file. 
+
+If you are (yet) unfamiliar with either the folder structure, or what a `.txt` file is (or a `.csv` file for that matter), or how to open a `.txt` file, no problem! However, do familiarize yourself with basic file extentsions and folder structures. You could ask a colleague for help, or look at some online resources to educate yourself. Some example resources:
+
+* https://en.wikipedia.org/wiki/Directory_(computing)
+* https://en.wikipedia.org/wiki/ASCII
+* http://file.org/extension/txt
+* http://www.wikihow.com/Change-Directories-in-Command-Prompt
+* http://mac.appstorm.net/how-to/utilities-how-to/how-to-use-terminal-the-basics/
+* Search yourself (e.g. YouTube)
+
+The possibilities are endless!

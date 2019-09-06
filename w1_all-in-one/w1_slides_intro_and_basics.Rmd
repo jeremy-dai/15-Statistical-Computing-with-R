@@ -1,0 +1,498 @@
+---
+title: "SCR lecture 1"
+subtitle: "Intro & Basics"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  ioslides_presentation:
+    css: 0_css/SCR1718.css
+    highlight: tango
+    keep_md: yes
+    logo: 0_css/logo.png
+    template: 0_template/R1718style.html
+    mode: standalone
+---
+
+```{r, include=FALSE}
+# install.packages("tidyverse")
+suppressPackageStartupMessages(library(tidyverse))
+# install.packages("plotly")
+suppressPackageStartupMessages(library(plotly))
+# install.packages("googleVis")
+suppressPackageStartupMessages(library(googleVis))
+knitr::opts_chunk$set(
+  dev.args = list(bg = 'transparent'),
+  fig.align = "center",
+  cache = FALSE
+)
+```
+
+# Welcome!
+
+
+## Just in case...
+
+Wifi:
+
+* mi-guest / mileiden
+* eduroam: ULCN@leidenuniv.nl / ULCN_password
+
+Software:
+
+* R: https://cran.r-project.org
+* Rstudio: https://www.rstudio.com/products/rstudio/download/#download
+
+
+## Topics for today
+
+Setting Expectations for this course
+
+A little bit of project management in RStudio
+
+Basics in `R`     
+
+
+
+# Expectation Management
+
+
+## Final Grade
+
+
+* One assignment (1/3 of your final grade)
+
+* Two exams (2/3 of your final grade) (average of both, unless the second one is highest, than only the last)
+
+Each week the class meetings consists of a mixture of:
+
+* Lectures
+* Live-coding
+* Exercises
+
+
+
+## Let's have a vote:
+
+[SCR Exam](https://www.student.universiteitleiden.nl/en/study--studying/study/educational-information/schedules/science/statistical-science-for-the-life-and-behavioural-sciences-msc?cf=science&cd=statistical-science-for-the-life-and-behavioural-sciences-msc#tab-2) on January 06, 2020, or...
+
+swap the SCR Exam with resit Mathematics for Statisticians? For example,      
+ - Resit Math for Stat is on January 06;        
+ - SCR Exam on January 16.       
+ 
+
+
+
+## Course structure
+
+Participation is extremely important: programming is a skill, which you need to develop. 
+
+Q&A is extremely important: curiosity drives learning (how does this work? how do I solve this problem?)
+
+A reason to come to the lecture: Slides are NOT standalone, but are supposed to support the storyline in the lecture... 
+
+
+## Why `R`?
+
+1. Using `R` for statistical and data analysis procedures
+    + [Data Camp Mostly](https://www.datacamp.com/home), [PluralSight](https://www.pluralsight.com), [`swirl`](https://swirlstats.com)
+    
+2. Adjust code for statistical procedures: Understanding `R`
+    + R at [CourseRa](www.coursera.org), Semester 2
+    
+3. Translate Statistical / Data Science problems into a solution with `R` code: Understanding `R` and Statistics.
+    + for your / Internship / thesis / career...
+
+**This course focusses on 2 and 3**
+
+
+## Learning `R`
+
+* Like learning a language
+* Learn by doing (trial and error)
+* Many "Quirks and Perks" that you have to get to know
+* Building an `R` vocabulary:
+
+    http://adv-r.had.co.nz/Vocabulary.html
+
+## Learning `R` requires autonomy!
+
+Stressing Autonomy
+
+* Understanding errors and warnings
+* `R` helpfiles
+* Search engines
+* [Stackoverflow](https://stackoverflow.com)
+* Other community resources (such as Github)
+
+Being able to read / use these takes practice
+
+
+## You're not alone!
+
+- Your Lecturer (Maarten Kampert) / Teaching Assistant (Kevin Kloos)
+
+- Class Colleagues      
+
+- the Elders (Year 2 and beyond)    
+
+- A selection of Communities:
+    + [Amst-R-dam](https://www.meetup.com/amst-R-dam/)   
+    + [R Conferences](https://www.r-project.org/conferences/)   
+    + [RStudio Webinars](https://www.rstudio.com/resources/webinars/)   
+    + [rladies.org](https://www.meetup.com/rladies-amsterdam/?_cookie-check=UsgA24c_ofq0UUH9)   
+    
+
+
+## `R`, in this course
+
+The first half of the course will be about the basics in `R`:
+
+* We'll start with the more programming oriented content: data types and structures and control flow
+* We'll continue with the basics of statistics in `R`: analyses and visualization
+
+The second half will deal with statistical computation:
+
+* Statistical procedures and tests that have become feasible, *because* of computational power
+* (Statistical) Algorithms
+
+
+## Incremental
+
+We'll build knowledge incrementally
+
+We'll start off easy, **using** some of all the different tools in `R`
+
+In the following weeks we'll deepen your knowledge of `R` such that you can also apply it to a specialized (data science) topic    
+
+and eventually can translate Statistical (Data) Science problems into `R` code solutions. 
+
+
+
+# Cool Stuff | The upsides...
+
+
+## Networks D3
+
+```{r, echo = FALSE}
+library(networkD3)
+data(MisLinks)
+data(MisNodes)
+forceNetwork(Links = MisLinks, Nodes = MisNodes, Source = "source", Target = "target", 
+    Value = "value", NodeID = "name", Group = "group", opacity = 0.4)
+```
+
+
+## Google Visualization: [Gapminder](http://www.gapminder.org/world/#$majorMode=chart$is;shi=t;ly=2003;lb=f;il=t;fs=11;al=30;stl=t;st=t;nsl=t;se=t$wst;tts=C$ts;sp=5.59290322580644;ti=2013$zpv;v=0$inc_x;mmid=XCOORDS;iid=phAwcNAVuyj1jiMAkmq1iMg;by=ind$inc_y;mmid=YCOORDS;iid=phAwcNAVuyj2tPLxKvvnNPA;by=ind$inc_s;uniValue=8.21;iid=phAwcNAVuyj0XOoBL_n5tAQ;by=ind$inc_c;uniValue=255;gid=CATID0;by=grp$map_x;scale=log;dataMin=194;dataMax=96846$map_y;scale=lin;dataMin=23;dataMax=86$map_s;sma=49;smi=2.65$cd;bd=0$inds=;modified=60)
+```{r, echo= FALSE, results='asis', comment=NA, eval = TRUE, message = FALSE, cache = FALSE}
+library(googleVis)
+op <- options(gvis.plot.tag = "chart")
+Hdata <- readRDS("0_data/healthexp.Rds")
+M <- gvisMotionChart(Hdata, idvar = "Country", xvar = "Health.Expenditure", 
+    yvar = "Life.Expectancy", sizevar = "Population", colorvar = "Region", 
+    timevar = "Year")
+plot(M)
+```
+
+
+## [VvS+OR 2015](http://pub.math.leidenuniv.nl/~kampertmmd/HighlightsVVSwide.html#21) and [googleVis](https://mages.github.io/googleVis_Tokyo_April_2014/#1)
+
+```{r, echo = FALSE, comment=NA, message = FALSE, eval = TRUE, results='asis'}
+load("0_data/VVSlf.RData")
+VVS2014 <- VVSlf
+VVS.gvis <- gvisMotionChart(VVS2014, idvar = "sect", timevar = "Year")
+#options(gvis.plot.tag ="chart")
+print(VVS.gvis, tag = "chart")#file = "MyChart.html")
+```
+
+
+## Smth Motivating: [Young Statisticians](http://youngstatisticians.nl)
+
+```{r, echo = FALSE, message = FALSE}
+# devtools::install_github("dill/emoGG")
+library(emoGG)
+# library(installr)
+# emoji_search("beverage")
+
+N <- seq(1, 250, by = 25)
+Fun <- round(N^2 + N^5 / 10000000)/(max(N) / 100)
+fundata <- data.frame(N = N, Fun = Fun)
+
+ggplot(fundata, aes(N, Fun)) + geom_emoji(emoji="1f378") + 
+  xlab("Number of Young Statisticians") + ylab("amount of FUN!!!") +
+  ggtitle("The reason to join Young Statisticians") +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+
+## `R` and beyond
+
+These slides were made using `R` and **markdown**
+
+For now use the html files on blackboard.
+
+Later you'll be able to recreate these from the source code that is also on the blackboard.
+
+
+## `R` and beyond
+
+E.g. build whole webpages with timelines on it:
+
+[http://timelyportfolio.github.io/rCharts_timeline_r/](http://timelyportfolio.github.io/rCharts_timeline_r/)
+
+More info [http://rcharts.io](http://rcharts.io)
+
+
+
+# Let's start 
+
+## `R`, roughly
+
+Two types of things in `R`
+
+* object a.k.a variable (e.g. a collection of numbers): data types and structures
+* functions (e.g. a way to take the square root of this collection of numbers): control flow / programming structures
+
+
+## Data types
+
+* logical (`TRUE`/`FALSE`)
+* character (`"text"`)
+* numeric (`2017`)
+* integer (`1L`)
+
+
+# Before we go to live coding / exercises
+
+
+## Project management: reproducibility
+
+Researchers should be able to reproduce your work
+
+This means:
+
+* Manage your workflow well
+* Documentation
+* Use (`R`) scripts
+
+
+# Live coding 1
+
+# Exercises part 1
+
+
+# Functions
+
+## Functions
+Functions are (usually) executed for a particular purpose, which comes in two flavours:
+
+1. You want its `return` value.
+2. You want it to have **some other effect**.
+
+The latter set of goals are (a bit misleadingly) called **side effects**: any effect that is not the return value is a side effect (e.g. a plotting window, or a file you save to the hard disk).
+
+## Functions
+
+<div class="centered">
+<img src="0_images/function.png" alt = "A function diagram" width="50%" height="50%">
+</div>
+
+
+# Errors: `NA` and `NULL` (and `NaN`)
+
+## Simply put
+
+`NA` is information about absence
+
+`NULL` is absence of information 
+
+`NaN` tells you it is Not A Number
+
+
+# Live coding 2
+
+
+## FAQ: About `=` vs. `<-`
+
+[stackoverflow](https://stackoverflow.com/questions/1741820/what-are-the-differences-between-and-in-r)
+
+Pro `<-` 
+
+```{r}
+a <- c(x1 = -1, x2 = -4, x3 = -7)
+a <- c(x1 <- -1, x2 <- -4, x3 <- -7)
+```
+
+Contra `<-`
+
+```{r}
+a < -3
+a<-3
+```
+
+
+
+## Creating an object: data types and simple containers 
+
+Every object in `R` has a specific type of container, and a promise as to what the container contains
+
+When you assign some value, or a set of values, to an object, `R` often decides for you what the type (mode) or the container (class) is
+
+* type / mode: the thing the container contains
+* container / class: how the container works
+
+Note: in many cases, the way in which we interface with `R` is not necessarily how `R` stores the data! (almost everything in `R` is secretly a vector)
+
+## Data types
+
+These we've already seen:
+
+* logical (`TRUE`/`FALSE`)
+* character (`"text"`)
+* numeric (`2017`)
+* integer (`1L`)
+
+## Data structures
+
+* `vector`
+* `matrix`
+* `lists`
+* `data.frames`
+
+
+# Live coding 3: vectors
+
+## Time for exercises
+
+We've touched on most of the basic ingredients of `R`:
+
+- Objects and functions
+- Data types (e.g. numeric)
+- Data structures (e.g. vectors)
+
+Enough to get you working with each
+
+# Exercises part 2
+
+
+# Precursor to control flow
+
+
+## Indexing and filtering
+Using an index, we can access a particular element in a vector
+
+The first element of a vector has index `1`.
+
+Indexing is either:
+
+- telling `R` which elements to DO select (using position *numbers* or entry *names*)
+- telling `R` which elements to NOT select (using position *numbers*)
+- or both (using *logicals*)
+
+Filtering is usually done using logical vectors
+
+
+# Live coding 4: indexing 
+
+# Exercises part 3
+
+# Nearing the end of Today's classes..
+
+## Saving and loading your work
+
+In order of priority (generally):
+
+- saving and loading your script
+- saving and loading workspace 
+- saving and loading your Rhistory (hardly done)
+
+
+## Packages
+Allmost all `R` functions come in **packages**.
+
+Some packages are loaded into `R` upon startup (such as `base`, `stats` and `graphics`)
+
+Most packages can be found on either CRAN, Bioconductor or Github
+
+
+# Live coding 5: saving, loading, and working with packages
+
+
+## Some last remarks
+
+Just like in an ordinary language there are rules to the language
+
+See comprehensive list of *code precedence* at the end of these slides
+
+## Topics for next week
+
+Amongst others:
+
+* Reading data files (remember loading workspaces)
+* Classes and advanced containers (`matrix` and `data.frame`)
+* Details of functions. For example, scoping
+
+
+## Homework
+
+swirl, R Programming: The basics of programming in R, lessons **1** through **4**, and **6** through **9**.
+
+Complete and finish Today's exercises
+
+Write down any questions you have: we will discuss these at the start of the next lecture!
+
+Pay special attention to:
+
+- the exercises
+- **!! (vector) recycling !!**
+- swirl lesson 2, about working directories and files
+- swirl lesson 9, regarding functions, might be a bit tough
+
+
+## More homework
+
+After swirl read Matloff:
+
+* chapter 1, (**not** 1.5)
+* chapter 2, (**not** 2.9)
+* chapter 3.1 through 3.7 (**not** 3.4)
+
+Don't just read the text, but also check the code in RStudio!
+
+# That's it for today!
+
+## Precedence | From highest to lowest
+
+- `[ [[ (` Indexing  
+-  `::` or `:::`  access variables in a name space  
+- `$` or `@` 	component   
+-  `^` 		exponentiation  
+-  `-` or `+` 	unary minus and plus  
+-  `:` 		sequence operator  
+-  `%any%`	special operators  
+-  `*` or `/` 	multiply, divide  
+-  `+` or `-` 	(binary) add, subtract  
+
+## Precedence | From highest to lowest, continued.
+
+-  `<`, `>`, `<=`, `>=`, `==`, or `!=`  ordering and comparison
+-  `!` 			negation
+-  `&` or `&&` 		and
+-  `|` or `||` 		or
+-  `~`			as in formulae
+-  `->` or `->>` assignment
+-  `=` 	assignment
+-  `<-` or `<<-` 		assignment
+-  `?`  help
+
+## Extra course material 
+
+On the "use of" or "programming in" R:
+
+- [swirl](http://swirlstats.com): `install.packages('swirl')`
+
+- [DataCamp](https://www.datacamp.com/courses/free-introduction-to-r) 
+
+- [R/EdX](https://www.edx.org/course/introduction-r-data-science-microsoft-dat204x-2)   
+- [R/Coursera](https://www.mooc-list.com/course/r-programming-coursera)
+
+- [R/MOOCs](https://www.mooc-list.com/tags/r-programing)
+
