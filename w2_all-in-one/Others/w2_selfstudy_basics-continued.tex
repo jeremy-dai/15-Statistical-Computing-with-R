@@ -1,0 +1,694 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={SCR week 2: homework exercises},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\providecommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{SCR week 2: homework exercises}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{}
+    \preauthor{}\postauthor{}
+    \date{}
+    \predate{}\postdate{}
+  
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{placeins}
+
+\begin{document}
+\maketitle
+
+The best way to master the \texttt{R} basics is to code yourself and
+\texttt{rep("practice",\ Inf)}. A good strategy to work on these
+exercises is to do them together with your colleagues, and discuss your
+(possibly) different strategies and solutions to the exercises. A few of
+the exercises are mandatory: they talk about some new things we've not
+covered in class, but which you need to know.
+
+The other part is optional: these provide you with more material to
+practice your skills. These are of course highly recommended.
+
+\hypertarget{packages-data-and-more}{%
+\subsection{1. Packages, data, and more}\label{packages-data-and-more}}
+
+\hypertarget{a.}{%
+\subsubsection{a.}\label{a.}}
+
+Install and load the package \texttt{nycflights13}. Take a look at the
+\texttt{nycflights13} package and \texttt{flights} object documentation
+using
+\texttt{help(package\ =\ \textquotesingle{}nycflights13\textquotesingle{})}
+and take a look at the \texttt{flights} object, using
+\texttt{data(flights)}. Note: the \texttt{flights} data, is in a
+\texttt{tibble} format: a class similar to data.frame (something that
+differs is the way the data frame is \texttt{print}ed for example). It
+is enough to know you can interact with a \texttt{tibble} in mostly the
+same way as a data.frame. Try some things you know can do with
+data.frames on the \texttt{flights} object, to see this for yourself.
+
+\hypertarget{b.}{%
+\subsubsection{b.}\label{b.}}
+
+Having read the documentation, explore the data (the \texttt{flights}
+object) by using functions like \texttt{class}, \texttt{dim},
+\texttt{head}, \texttt{str} and \texttt{summary}.
+
+\hypertarget{c.}{%
+\subsubsection{c.}\label{c.}}
+
+Let's do some basic filtering. Create logical vectors such that we can
+find all flights:
+
+\begin{itemize}
+\tightlist
+\item
+  to SFO or OAK\\
+\item
+  delayed by more than an hour\\
+\item
+  that departed between midnight (including midnight) and 5.00 am\\
+\item
+  for which the arrival delay was more than twice the departure delay
+\end{itemize}
+
+\hypertarget{d.}{%
+\subsubsection{d.}\label{d.}}
+
+Combine the logical vectors to see if there are any flights for which
+\emph{all} of the above are true. Are there any?
+
+\hypertarget{creating-variables-and-seed}{%
+\subsection{\texorpdfstring{2. Creating variables and
+\texttt{seed}}{2. Creating variables and seed}}\label{creating-variables-and-seed}}
+
+First run the following code to create a data frame \texttt{data.set}
+with no variables:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(}\StringTok{"nycflights13"}\NormalTok{)}
+\KeywordTok{data}\NormalTok{(flights)}
+
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{20161013}\NormalTok{)}
+
+\NormalTok{N <-}\StringTok{ }\FloatTok{1e3}
+\NormalTok{indx.flights <-}\StringTok{ }\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(flights), N) }
+\NormalTok{data.set <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{row.names =} \DecValTok{1}\OperatorTok{:}\NormalTok{N)}
+\end{Highlighting}
+\end{Shaded}
+
+Now, we would like to add the following variables.
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{x1}: numeric vector with components
+  \(N/2,N/2 -1, N/2 - 2,\ldots,2,1,1,2 \ldots, N/2 - 2, N/2 - 1,N /2\).
+\item
+  \texttt{x2}: a logical vector of lenght \texttt{N}. Extract the
+  carrier information out of the \texttt{flights} data for the
+  rownumbers that can be found in \texttt{indx.flights}. In the logical
+  vector give each element that has `US',`UA' or `AA' in the
+  corresponding position in the carrier information vector a
+  \texttt{TRUE}, all others \texttt{FALSE}. \emph{HINT: using the binary
+  operator \texttt{\%in\%} may be convenient for you}
+\item
+  \texttt{x3}: a `bad weather' indication variable. Draw \(N\)
+  observations from a standard normal distribution, then square and
+  round the results to the nearest integer (use the functions
+  \texttt{rnorm} and \texttt{round}).
+\item
+  \texttt{e}: a vector of \(N\) elements that come from a standard
+  normal i.i.d.
+\item
+  \texttt{y}: our own synthetic outcome variable representing arrival
+  delay: \(y_i = 2 + 0.1*x_{i2} + 2*x_{i3} + 1*x_{i2}*x_{i3} + e_i\).
+\end{itemize}
+
+\hypertarget{b.-1}{%
+\subsubsection{b.}\label{b.-1}}
+
+Write the data to a file called \texttt{my\_fake\_data.csv} in the
+\texttt{0\_data} folder.
+
+\hypertarget{c.-1}{%
+\subsubsection{c.}\label{c.-1}}
+
+Share you file with a fellow student and have them share their file with
+yours (e.g.~send it via e-mail). Are they different? If so, how? Are
+they the same in surprising places? How about all the random numbers,
+are they different?
+
+\textbf{Answer:} If you run the exact same code, given that we set a
+seed at the start of this exercise, you should get the exact same random
+numbers. However, if you've samped some random values in between final
+results, the first results might be the same, but the latter won't be.
+
+\hypertarget{outro}{%
+\subsubsection{Outro}\label{outro}}
+
+We'll talk more about seeds (and \texttt{set.seed}) in a later lecture.
+For now it is enough to realise that setting a seed, means putting the
+random number generator of the computer into a particular state: you
+make sure two people get the same random numbers, by making sure they
+set the state of the generator in the same way, using \texttt{set.seed}.
+
+\hypertarget{working-with-vectors}{%
+\subsection{3. Working with vectors}\label{working-with-vectors}}
+
+Given two vectors:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{4}\NormalTok{) }
+\NormalTok{y <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Using one (or some) of the operators \texttt{\&}, \texttt{\&\&},
+\texttt{\textbar{}}, \texttt{\textbar{}\textbar{}},
+\texttt{\textgreater{}}, \texttt{any()}, \texttt{all()}, and write
+\texttt{R} code to test if:
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\tightlist
+\item
+  elements in vector \texttt{x} are greater than elements in vector
+  \texttt{y};\\
+\item
+  elements in vectors \texttt{x} AND \texttt{y} are greater than 3;\\
+\item
+  elements in vectors \texttt{x} OR \texttt{y} are greater than 3;\\
+\item
+  all elements of vector \texttt{x} AND all elements of vector
+  \texttt{y} are greater than 2;\\
+\item
+  all elements of vector \texttt{x} OR all elements of vector \texttt{y}
+  are greater than 2;\\
+\item
+  there are any elements in vectors \texttt{x} or \texttt{y} that are
+  greater than 9;\\
+\item
+  the first element of vector \texttt{x} AND the first element of vector
+  \texttt{y} are greater than 2
+\end{enumerate}
+
+\hypertarget{paste-and-vector-recycling}{%
+\subsection{\texorpdfstring{4. \texttt{paste} and vector
+recycling}{4. paste and vector recycling}}\label{paste-and-vector-recycling}}
+
+\hypertarget{a.-1}{%
+\subsubsection{a.}\label{a.-1}}
+
+Explore the helpfile and examples of the function \texttt{paste} if you
+are not comfortable with the paste function yet.
+
+\hypertarget{b.-2}{%
+\subsubsection{b.}\label{b.-2}}
+
+Create the vector ``varname'' which has the following elements:
+
+\begin{verbatim}
+    "A_1"  "A_2"  "A_3"  "A_4"  "A_5"  "A_6"  "A_7"  "A_8"  "A_9"  "A_10"
+\end{verbatim}
+
+\hypertarget{c.-2}{%
+\subsubsection{c.}\label{c.-2}}
+
+Remember vector recycling? Use the function \texttt{paste} and vector
+recycling for \texttt{c("ODD",\ "EVEN")} to create a vector that
+contains the following elements:
+
+\begin{verbatim}
+"1 = ODD" "2 = EVEN" "3 = ODD" "4 = EVEN" "5 = ODD" "6 = EVEN" 
+\end{verbatim}
+
+\hypertarget{enter-the-matrix}{%
+\subsection{\texorpdfstring{5. Enter the
+\texttt{matrix}}{5. Enter the matrix}}\label{enter-the-matrix}}
+
+\hypertarget{a.-2}{%
+\subsubsection{a.}\label{a.-2}}
+
+Work through the extended example in 3.2.3 (from p.~63) about an image
+of Mount Rushmore. You can find the image file (\texttt{mtrush1.pgm}) in
+the \texttt{0\_data} folder. You can find the function blurpart below
+(this is the corrected version of the downloaded code from the book).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{blurpart <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(img, rows, cols, q) \{}
+\NormalTok{  lrows <-}\StringTok{ }\KeywordTok{length}\NormalTok{(rows)}
+\NormalTok{  lcols <-}\StringTok{ }\KeywordTok{length}\NormalTok{(cols)}
+\NormalTok{  newimg <-}\StringTok{ }\NormalTok{img}
+\NormalTok{  randomnoise <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{nrow =}\NormalTok{ lrows, }\DataTypeTok{ncol =}\NormalTok{ lcols, }\KeywordTok{runif}\NormalTok{(lrows }\OperatorTok{*}\StringTok{ }\NormalTok{lcols))}
+\NormalTok{  newimg}\OperatorTok{@}\NormalTok{grey[rows, cols] <-}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{-}\StringTok{ }\NormalTok{q) }\OperatorTok{*}\StringTok{ }\NormalTok{img}\OperatorTok{@}\NormalTok{grey[rows, cols] }\OperatorTok{+}\StringTok{ }\NormalTok{q }\OperatorTok{*}\StringTok{ }\NormalTok{randomnoise}
+  \KeywordTok{return}\NormalTok{(newimg)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Plot the variable (= objects) \texttt{mtrush1}, \texttt{mtrush2}, and
+\texttt{mtrush3} using e.g. \texttt{plot(mtrush1)}.
+
+\hypertarget{b.-3}{%
+\subsubsection{b.}\label{b.-3}}
+
+Create object \texttt{mtrush4} using a different value of \texttt{q}.
+What happens if \texttt{q} is close to \texttt{0}? and if \texttt{q} is
+close to \texttt{1}?
+
+\hypertarget{c.-3}{%
+\subsubsection{c.}\label{c.-3}}
+
+Now we want to keep President Roosevelt, but disguise the person on the
+left of the figure (Hint: the index of the rows equals 25:86; the index
+of the columns starts at 15).
+
+Construct a function that works similarly to blurpart, but instead of
+replacing the pixels with random noise, changes the pixels so that the
+indicated pixels are really blurred.
+
+\emph{Hint: in a blurred image, we lose all the `sharp' edges, or that
+we lose contrast. Contrast is given by very light, or very dark pixels,
+a method of blurring might therefore be to `pull' pixels to the average
+pixel intensity, and the more intense ones (towards light or dark) more
+heavily).}
+
+Construct the object (using the function blurpart) and plot it.
+
+\hypertarget{set.seed-and-coding-mini-simulation-studies}{%
+\subsection{\texorpdfstring{6. \texttt{set.seed} and coding mini
+simulation
+studies}{6. set.seed and coding mini simulation studies}}\label{set.seed-and-coding-mini-simulation-studies}}
+
+This is an exercise about generating random normally distributed vectors
+and applying functions to rows and columns of a matrix.
+
+Let matrix \(\mathbf{X}\) be a matrix of 4 columns with normally
+distributed random variables with \(\mu=1\), \(\sigma^2=3\), and number
+of \(N\) observations that is equal to \(5000\). Below, we show four
+ways to generate \(\bf{X}\), the generated matrices are denoted with
+\texttt{X1}, \texttt{X2}, \texttt{X3} and \texttt{X4}, respectively.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\NormalTok{X1 <-}\StringTok{ }\KeywordTok{cbind}\NormalTok{(}
+  \KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n =} \DecValTok{5000}\NormalTok{, }\DataTypeTok{mean =} \DecValTok{1}\NormalTok{, }\DataTypeTok{sd =} \KeywordTok{sqrt}\NormalTok{(}\DecValTok{3}\NormalTok{)), }
+  \KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n =} \DecValTok{5000}\NormalTok{, }\DataTypeTok{mean =} \DecValTok{1}\NormalTok{, }\DataTypeTok{sd =} \KeywordTok{sqrt}\NormalTok{(}\DecValTok{3}\NormalTok{)),}
+  \KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n =} \DecValTok{5000}\NormalTok{, }\DataTypeTok{mean =} \DecValTok{1}\NormalTok{, }\DataTypeTok{sd =} \KeywordTok{sqrt}\NormalTok{(}\DecValTok{3}\NormalTok{)), }
+  \KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n =} \DecValTok{5000}\NormalTok{, }\DataTypeTok{mean =} \DecValTok{1}\NormalTok{, }\DataTypeTok{sd =} \KeywordTok{sqrt}\NormalTok{(}\DecValTok{3}\NormalTok{))}
+\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\NormalTok{X2 <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}
+  \KeywordTok{rep}\NormalTok{(}\KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n =} \DecValTok{5000}\NormalTok{, }\DataTypeTok{mean =} \DecValTok{1}\NormalTok{, }\DataTypeTok{sd =} \KeywordTok{sqrt}\NormalTok{(}\DecValTok{3}\NormalTok{)), }\DataTypeTok{times =} \DecValTok{4}\NormalTok{),}
+  \DataTypeTok{nrow =} \DecValTok{5000}\NormalTok{, }\DataTypeTok{ncol =} \DecValTok{4}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\NormalTok{nsamples <-}\StringTok{ }\DecValTok{4}
+\NormalTok{X3 <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}
+  \KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n =} \DecValTok{5000} \OperatorTok{*}\StringTok{ }\NormalTok{nsamples, }\DataTypeTok{mean =} \DecValTok{1}\NormalTok{, }\DataTypeTok{sd =} \KeywordTok{sqrt}\NormalTok{(}\DecValTok{3}\NormalTok{)), }
+  \DataTypeTok{nrow =} \DecValTok{5000}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\NormalTok{nsamples <-}\StringTok{ }\DecValTok{4}
+\NormalTok{X4 <-}\StringTok{ }\KeywordTok{replicate}\NormalTok{(nsamples, \{}
+  \KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n =} \DecValTok{5000}\NormalTok{, }\DataTypeTok{mean =} \DecValTok{1}\NormalTok{, }\DataTypeTok{sd =} \KeywordTok{sqrt}\NormalTok{(}\DecValTok{3}\NormalTok{))}
+\NormalTok{\})}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{a.-3}{%
+\subsubsection{a.}\label{a.-3}}
+
+Compare the column means and variances of the four matrices. Which two
+matrices have the same solution? Which matrix is not a matrix with four
+random variables? How come? Which coding example do you prefer and why?
+
+\hypertarget{b.-4}{%
+\subsubsection{b.}\label{b.-4}}
+
+From matrix \texttt{X3}, create a new matrix \texttt{X3\_new} that
+contains only the rows of \texttt{X3} for which at least 2 out of the 4
+values are greater than 1. Give the dimensions of \texttt{X3\_new}.
+Think back on logical indexing and filtering!
+
+\hypertarget{c.-4}{%
+\subsubsection{c.}\label{c.-4}}
+
+Create a new matrix \texttt{X5} that is based on \texttt{X3}, where each
+column of \texttt{X3} is standardized (i.e.~column mean equals \(0\) and
+standard deviation equals \(1\)).
+
+\hypertarget{matrices-of-character-and-numeric-mode}{%
+\subsection{\texorpdfstring{8. Matrices of \texttt{character} and
+\texttt{numeric}
+mode}{8. Matrices of character and numeric mode}}\label{matrices-of-character-and-numeric-mode}}
+
+Suppose we have the following matrix:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mat_values <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}
+  \KeywordTok{rep}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{), }
+  \KeywordTok{rep}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{), }
+  \DecValTok{2}\NormalTok{, }\DecValTok{3}\OperatorTok{:}\DecValTok{1}\NormalTok{, }
+  \KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{3}\NormalTok{)}
+\NormalTok{)}
+\NormalTok{mat <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(mat_values, }\DataTypeTok{nrow =} \DecValTok{4}
+\NormalTok{)}
+\NormalTok{mat}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2] [,3]
+## [1,]    2    3    1
+## [2,]    2    2    0
+## [3,]    2    3    0
+## [4,]    3    2    0
+\end{verbatim}
+
+and the following character vector:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{strg <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"A"}\NormalTok{ ,}\StringTok{"C"}\NormalTok{, }\StringTok{"G"}\NormalTok{, }\StringTok{"T"}\NormalTok{)}
+\NormalTok{strg}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "A" "C" "G" "T"
+\end{verbatim}
+
+The values in matrix mat correspond to the characters of the vector
+`strg' in the following way: the value 0 corresponds to A (Adenine), the
+value 1 corresponds to C (Cytosine), the value 2 corresponds to G
+(Guanine), and the value 3 corresponds to T (Thymine).
+
+\hypertarget{a.-4}{%
+\subsubsection{a.}\label{a.-4}}
+
+Write a piece of \texttt{R} code that converts each value of
+\texttt{mat} into the corresponding character of `strg'. Check the mode
+of the matrix.
+
+\hypertarget{b.-5}{%
+\subsubsection{b.}\label{b.-5}}
+
+Write a piece of \texttt{R} code to perform the following operation:
+Concatenate (without spaces in between) A, C, G, T according to the
+values in each row of mat, in such a way that the output is the
+following:
+
+{[}1{]} ``GTC'' ``GGA'' ``GTA'' ``TGA''
+
+\hypertarget{c.-5}{%
+\subsubsection{c.}\label{c.-5}}
+
+Write a function that concatenates A, C, G, I according to the values in
+the row of a general input matrix \texttt{mat} having elements in (0; 1;
+2; 3). Check with an example if your function performs well.
+
+\hypertarget{the-elements-of-a-list-object}{%
+\subsection{\texorpdfstring{9. The elements of a \texttt{list}
+object}{9. The elements of a list object}}\label{the-elements-of-a-list-object}}
+
+Read example 4.2.4 (from p.~90) and try to understand the function
+\texttt{findwords} (which is given below). Perform the function step by
+step, using the text file \texttt{testconcorda.txt} (from the
+\texttt{0\_data} folder). Finally, create an object \texttt{wl}, using
+the function \texttt{findwords} with \texttt{testconcorda.txt} as input.
+Inspect the class of \texttt{wl} and ask for the component
+\texttt{that}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{findwords <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(tf) \{}
+   \CommentTok{# read in the words from the file, into a vector of mode character}
+\NormalTok{   txt <-}\StringTok{ }\KeywordTok{scan}\NormalTok{(tf, }\StringTok{""}\NormalTok{)  }
+\NormalTok{   wl <-}\StringTok{ }\KeywordTok{list}\NormalTok{()  }
+   \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(txt)) \{}
+\NormalTok{      wrd <-}\StringTok{ }\NormalTok{txt[i]  }\CommentTok{# i-th word in input file}
+\NormalTok{      wl[[wrd]] <-}\StringTok{ }\KeywordTok{c}\NormalTok{(wl[[wrd]], i)  }
+\NormalTok{   \}  }
+   \KeywordTok{return}\NormalTok{(wl)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{pmax-and-play-with-logicals}{%
+\subsection{\texorpdfstring{10. \texttt{pmax} and play with
+logicals}{10. pmax and play with logicals}}\label{pmax-and-play-with-logicals}}
+
+We have the following data frame:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{2009}\NormalTok{) }
+\NormalTok{w <-}\StringTok{ }\KeywordTok{runif}\NormalTok{(}\DecValTok{10}\NormalTok{) }
+\NormalTok{x <-}\StringTok{ }\KeywordTok{runif}\NormalTok{(}\DecValTok{10}\NormalTok{) }
+\NormalTok{y <-}\StringTok{ }\KeywordTok{runif}\NormalTok{(}\DecValTok{10}\NormalTok{) }
+\NormalTok{z <-}\StringTok{ }\KeywordTok{runif}\NormalTok{(}\DecValTok{10}\NormalTok{) }
+\NormalTok{DF <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{a =}\NormalTok{ w, }\DataTypeTok{b =}\NormalTok{ x, }\DataTypeTok{c =}\NormalTok{ y, }\DataTypeTok{d =}\NormalTok{ z) }
+\end{Highlighting}
+\end{Shaded}
+
+We define two intervals using the four columns of the data frame, namely
+we define the intervals \([\min(a,b), \max(a,b)]\), and
+\([\min(c,d), \max(c,d)]\). Add a new logical column in the data frame,
+which should be \texttt{TRUE} if the intervals overlap, and
+\texttt{FALSE} otherwise. The output should look like:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{head}\NormalTok{(DF)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##             a          b         c          d overlap
+## 1 0.197260832 0.03232136 0.5722249 0.05370368    TRUE
+## 2 0.696829870 0.25971113 0.5922310 0.10296065    TRUE
+## 3 0.607896252 0.57589595 0.8583711 0.90978420   FALSE
+## 4 0.009547638 0.82870195 0.4836649 0.82281090    TRUE
+## 5 0.429010613 0.67047141 0.4416763 0.74668683    TRUE
+## 6 0.076557244 0.57599446 0.1430793 0.49561776    TRUE
+\end{verbatim}
+
+Use logical operators and/or if you prefer shorter (and perhaps more
+readable) code, use the functions \texttt{pmin} and \texttt{pmax}.
+
+\hypertarget{towards-programming-importing-data-from-excel-using-readxl}{%
+\subsection{\texorpdfstring{11. Towards Programming: Importing Data from
+Excel using
+\texttt{readxl}}{11. Towards Programming: Importing Data from Excel using readxl}}\label{towards-programming-importing-data-from-excel-using-readxl}}
+
+In the upper right pane of RStudio, there is a button called
+\texttt{Import\ Dataset}: \FloatBarrier
+
+\begin{figure}[ht]
+\centering
+\includegraphics{0_image/Import_Dataset.png}
+\caption{The option in RStudio you may want to explore.}
+\end{figure}
+
+Instead of you using code on the command line in your console
+(left-bottom panel), you can explore on how to import your data using
+this Graphical User Interface (GUI) in the RStudio editor.
+
+\hypertarget{a.-5}{%
+\subsubsection{a.}\label{a.-5}}
+
+Use the above described GUI to produce the code with which you can
+import the sheet \texttt{NZA\ 2018} from the
+\texttt{Tarievenoverzicht.xlsx} file (see the 0\_data folder). The
+\texttt{Tarievenoverzicht.xlsx} contains a pricelist of Health
+Insurances and the Nederlandse Zorg Autoriteit (NZA = Dutch Healthcare
+Agency) for specialized treatments in the area of Mental Health Care.
+
+\hypertarget{b.-6}{%
+\subsubsection{b.}\label{b.-6}}
+
+If all went well with importing the \texttt{NZA\ 2018} data, you could
+see that you alos ran \texttt{library(readxl)}. An \texttt{R} package
+especially designed for importing data from Excel files.
+
+In this package there is also a function that lists all sheets in the
+excel spreadsheet. One of the ways to find this function is to explore
+the helpfile of the package, \texttt{help(package\ =\ "readxl")}. Can
+you show with the correct \texttt{R} code the names of the sheets in
+\texttt{Tarievenoverzicht.xlsx}.
+
+\hypertarget{c.-6}{%
+\subsubsection{c.}\label{c.-6}}
+
+Suppose we are only interested in importing the data of the \texttt{NZA}
+sheets. Use a combination of the functions \texttt{lapply()},
+\texttt{grep}, and the answers of three previous sub-exercises, to
+import only the \texttt{NZA} sheets automatically with an
+\texttt{lapply} loop. Store the results in a variable \texttt{NZA\_list}
+
+\hypertarget{d.-1}{%
+\subsubsection{d.}\label{d.-1}}
+
+Repeat the previous exercise, but now make sure that the class of each
+data set in \texttt{NZA\_list} is set equal to \texttt{data.frame} only,
+and let each data set consist of five variables:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{NZA_varnames <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"code"}\NormalTok{, }\StringTok{"Productgroup"}\NormalTok{, }\StringTok{"tariff"}\NormalTok{, }\StringTok{"maxtariff"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+You may use the \texttt{NZA\_varnames}. Note that not all of the data
+sets have the fifth \texttt{maxtariff} variable. You'll need a strategy
+here to add or create this extra fifth variable yourself, within e.g.~a
+customized function for \texttt{lapply()}.
+
+It may be helpfull to first create your own custmized function, e.g.
+\texttt{ImportOneSheetNZA}, that performs the needed operations when you
+give it the address of \texttt{Tarievenoverzicht} and a sheet name as
+input parameters. To stay with the only already used functions in class
+and previous exercises, our customized function of th emodel answers
+consists of the functions \texttt{read\_excel()}, \texttt{data.frame()}.
+
+\emph{Hint: Instead of using }\texttt{if}* statements or the
+\emph{\texttt{ifelse()}} function, we just always created an extra
+column, but in the end only selected the columns that where consistent
+with* \texttt{NZA\_varnames}\emph{.}
+
+Show that you managed, by neatly printing the new variable names of each
+data set.
+
+
+\end{document}

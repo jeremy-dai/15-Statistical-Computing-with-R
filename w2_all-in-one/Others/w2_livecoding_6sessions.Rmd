@@ -1,0 +1,365 @@
+---
+title: "Live Coding Sept. 13"
+author: "R-team"
+date: "9/13/2019"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Session 1: defaults in functions
+
+```{r}
+Multiply <- function(x, y = x) {
+  x * y  
+}
+```
+
+
+```{r}
+Multiply(2, 4)
+Multiply(2)
+```
+
+
+
+## Session 2:  Creating a matrix
+
+```{r}
+my_matrix <- matrix(1:24, ncol=6, byrow=FALSE) 
+```
+
+Note, the `matrix()` function automatically infers the number of rows that are needed.
+
+```{r}
+my_matrix[1,6]
+```
+
+Some useful operations on / for matrices: 
+
+```{r}
+colnames(my_matrix) <- letters[1:6]
+rownames(my_matrix) <- LETTERS[1:4]
+```
+
+Remember indexing with the tags/ labels / names? 
+
+```{r}
+my_matrix["A", ]
+my_matrix[, "a"]
+my_matrix["A", , drop=FALSE]
+my_matrix[, "a", drop=FALSE]
+```
+
+Do you understand the point of using `drop = FALSE`? 
+
+
+
+```{r}
+my_second_matrix <- 1:24
+names(my_second_matrix) <- letters[1:24]
+# another way to create a matrix
+dim(my_second_matrix) <- c(4, 6)
+my_second_matrix
+my_second_matrix["f"]
+names(my_second_matrix) <- letters[1:24]
+```
+
+
+### array:
+
+```{r}
+my_array <- array(1:64, dim = c(4, 4, 4))
+my_array
+```
+
+
+```{r}
+colSums(my_array)
+```
+
+
+
+
+## Session 3: accessing it's elements
+
+First create some 100 draws from standard normal distribution:
+
+```{r}
+my_vector <- rnorm(100) 
+```
+
+(remember: look at `?rnorm` for more details)
+
+```{r}
+variance <- var(my_vector)
+```
+
+Let's make a list, and remember we can use tags
+
+```{r}
+my_data_summary <- list(
+  mean = mean(my_vector),
+  median = median(my_vector),
+  sd(my_vector), 
+  variance, 
+  range = range(my_vector), 
+  min_max = c(
+    min = min(my_vector), 
+    max = max(my_vector)
+  )
+)
+my_data_summary
+```
+
+Thus `my_data_summary` is a list, which is a vector of list elements. A list element is a container that can take any class and mode.
+
+Accessing an element inside a list:
+
+```{r}
+my_data_summary[[1]]
+my_data_summary[["mean"]]
+my_data_summary$median
+```
+
+How about? 
+
+```{r}
+my_data_summary$med
+my_data_summary$me
+```
+
+
+
+Accessing an element in a vector **inside** a list:
+
+```{r}
+my_data_summary$min_max[1]
+my_data_summary[["min_max"]][2]
+my_data_summary[["min_max"]]["max"]
+```
+
+Wrong way of accessing elements in a list / vector:
+
+```{r, error = TRUE}
+my_data_summary["min_max"]
+my_data_summary["min_max"][2]
+my_data_summary[["min_max"]]$max 
+```
+
+```{r, error = TRUE}
+my_list[["mat"]][1, 1]
+my_list["mat"][1, 1]
+my_list["mat"][1][1][1][1][1]
+```
+
+
+### About `unlist()`
+
+We can also create an empty list with elements
+
+```{r}
+vector("list", 10)
+```
+
+
+You can 'unlist' a list, if components are simple enough:
+
+```{r}
+my_list <- rep(list(0), 10)
+unlist(my_list)
+```
+
+and even recursively
+
+```{r}
+my_list <- rep(list(list(c(0, 1))), 10)
+unlist(my_list, recursive=TRUE)
+```
+
+```{r}
+my_list <- rep(list(diag(1:3)), 10)
+unlist(my_list)
+```
+
+```{r}
+my_list <- rep(list(function(x){return(x)}), 10)
+unlist(my_list)
+```
+
+
+
+## Session 4: names / `tags` on `data.frame` objects
+
+Like with lists, you can create 'tags'
+
+```{r}
+heart_rate <- sample(50:90, 20, replace = T)
+person_id <- 1:20
+my_data <- data.frame(
+  id = person_id, 
+  heart_rate, 
+  rnorm(20, mean=100, sd=15)
+)
+```
+
+Different ways of accessing a data.frame: 
+
+```{r}
+head(my_data, 5)
+```
+
+`list`-like:
+
+```{r}
+my_data[[1]]
+my_data[["id"]]
+my_data[1] # is special! why?
+```
+
+`matrix`-like:
+
+```{r}
+my_data[1, 2]
+```
+
+Properties of a data.frame.. 
+
+```{r}
+nrow(my_data)
+ncol(my_data)
+dim(my_data)
+```
+
+... If there is time left... some real live coding about `attributes`? 
+
+
+
+
+
+## Session 5: getting a file
+
+
+```{r}
+getwd()
+# setwd()
+```
+
+
+With regards to a `.txt` file: actually it is not the file type (`.txt`) that is important, but the way the information is encoded. File type extensions such as `.txt` or `.csv` do not actually mean anything other than to tell your PC what type of behaviour to choose when it comes to opening files: e.g. a `.txt` file is opened with Notepad (Microsoft) or TextEdit (MacOs) and `.csv` is usually opened with e.g. Excel or similar software.
+
+**NB.** what may happen is: a comma seperated file, saved as a `.txt` file will give you strange results in R!
+
+Here is an example:
+
+```{r}
+my_data_frame <- data.frame(
+  var1 = rnorm(20), 
+  var2 = rnorm(20)
+)
+```
+
+
+```{r, eval = FALSE}
+?write.table 
+```
+
+Do you see in the helpfile how only 2 arguments have no default?
+
+
+Let's save the data
+  
+
+```{r, eval = FALSE}
+write.table(my_data_frame, file="0_data/my_data.csv")
+```
+
+
+Can we find our created file? Remember `swirl`, we can use a "relative" path to the file:
+
+```{r, eval = FALSE}
+list.files("0_data/") # remember swirl
+# rstudio files
+mydat_csv2 <- read.csv("0_data/my_data.csv")
+mydat_csv2 <-read.table("0_data/my_data.csv")
+```
+
+
+Or absolute (and NOT recommended!!!): 
+
+```{r}
+read.table("/Users/maartenkampert/Dropbox/0_Teaching/SCR/R_1920/Week02_Basics2/0_data/my_data.csv")
+```
+
+The directory adress is too long! You cannot even read it on the 'knitted' `.pdf` file of this live-coding session...
+
+For writing files, similar code has to be used (check-out the `swirl` module or Matloff?)
+
+
+
+
+## Session 6:  `apply()`
+
+```{r}
+my_vector <- 1:5
+sum(my_vector)
+```
+
+```{r}
+my_matrix
+rowSums(my_matrix)
+1+5+9+13+17+21
+colSums(my_matrix)
+1 + 2 + 3 + 4
+```
+
+```{r, error = TRUE}
+prod(my_vector)
+rowProd(my_matrix)
+```
+
+hmz.... 
+
+Try the non anonymous(!) version in apply:
+
+```{r}
+apply(my_matrix, 1, prod)
+1*5*9*13*17*21
+apply(my_matrix, 2, prod)
+1*2*3*4
+```
+
+or the anonymous version:
+
+```{r}
+apply(my_matrix, 1, function(x){
+  x[1] + tail(x, 1)
+})
+# 1+21; 2+22; 3+23; 4+24
+```
+
+Take care of the output of the function you give to apply! R will try to fit all of the returned values into a neat format. Try for example:
+
+```{r}
+apply(my_matrix, 2, function(x){
+  list(mean = mean(x), sd = sd(x))
+})
+```
+
+or 
+
+```{r}
+apply(my_matrix, 2, function(x){
+  matrix(c(mean(x), sd(x)), ncol=1)
+})
+```
+
+There are other apply functions, these will be discussed in later lectures. One of these functions, `lapply()` did already appear in the exercises and (self-study) exercises.
+
+
+
+
+

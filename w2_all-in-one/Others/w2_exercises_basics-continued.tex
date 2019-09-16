@@ -1,0 +1,789 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={SCR week 2: exercises},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\providecommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{SCR week 2: exercises}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{}
+    \preauthor{}\postauthor{}
+    \date{}
+    \predate{}\postdate{}
+  
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{placeins}
+
+\begin{document}
+\maketitle
+
+\hypertarget{exercises-part-1}{%
+\section{Exercises part 1}\label{exercises-part-1}}
+
+\hypertarget{error...-error}{%
+\subsection{\texorpdfstring{1.1
+\texttt{error...\ error}}{1.1 error... error}}\label{error...-error}}
+
+What do you think it is that produces the warnings in the following
+lines of code? How would you fix it?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mydlist <-}\StringTok{ }\KeywordTok{vector}\NormalTok{(}\DataTypeTok{mode =} \StringTok{'list'}\NormalTok{, }\DataTypeTok{length =} \DecValTok{2}\NormalTok{)}
+\NormalTok{mydlist[}\DecValTok{1}\NormalTok{] <-}\StringTok{ }\DecValTok{97}\OperatorTok{:}\DecValTok{122}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in mydlist[1] <- 97:122: number of items to replace is not a
+## multiple of replacement length
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mydlist[}\DecValTok{2}\NormalTok{] <-}\StringTok{ }\NormalTok{letters}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in mydlist[2] <- letters: number of items to replace is not a
+## multiple of replacement length
+\end{verbatim}
+
+\hypertarget{creating-a-list}{%
+\subsection{1.2 Creating a list}\label{creating-a-list}}
+
+\hypertarget{a.}{%
+\subsubsection{a.}\label{a.}}
+
+Create a list object with the following entries:
+
+\begin{itemize}
+\tightlist
+\item
+  An entry called \texttt{name} with value ``my list''
+\item
+  An entry called \texttt{normal\_values} with 50 draws from a standard
+  normal distribution
+\item
+  An entry without a name that contains 50 samples from the numbers
+  \texttt{1:10} using \texttt{sample}
+\item
+  An entry called \texttt{id} that contains the numbers 1 through 50,
+  but shuffled around using \texttt{sample} (try e.g.
+  \texttt{sample(1:5)} a number of times.
+\item
+  An entry called \texttt{my\_sampler} that is a \texttt{function} that
+  takes an integer argument and returns as many random samples from a
+  standard normal distribution as the integer argument.
+\end{itemize}
+
+\textbf{Answer:}
+
+\hypertarget{b.}{%
+\subsubsection{b.}\label{b.}}
+
+Try to access the \texttt{my\_sampler} element from your list. Is it
+possible to run the function?
+
+\textbf{Answer:}
+
+\hypertarget{c.}{%
+\subsubsection{c.}\label{c.}}
+
+Convert the list to a data.frame, by using \texttt{as.data.frame}. Does
+it work?
+
+\textbf{Answer:}
+
+\hypertarget{d.}{%
+\subsubsection{d.}\label{d.}}
+
+Use negative indices to remove the element that gives a problem in
+\textbf{c} and feed the reduced list to \texttt{as.data.frame}. Does the
+result contain any strange variables? Do you notice any vector
+recycling?
+
+\textbf{Answer:}
+
+\hypertarget{e.}{%
+\subsubsection{e.}\label{e.}}
+
+Use three different ways of accessing list elements, to access
+\texttt{normal\_values}, the samples from \texttt{1:10}, and
+\texttt{id}, and feed them to the \texttt{data.frame} function to create
+a data.frame (and store it as an object called
+\texttt{my\_data\_frame}). Add some nice tags for the variables you
+create.
+
+\textbf{Answer:}
+
+\hypertarget{writing-a-bivariate-summary-function}{%
+\subsection{1.3 Writing a bivariate summary
+function}\label{writing-a-bivariate-summary-function}}
+
+\hypertarget{a.-1}{%
+\subsubsection{a.}\label{a.-1}}
+
+Create two vectors, each containing a 100 draws from a standard normal
+distribution.
+
+\textbf{Answer:}
+
+\hypertarget{b.-1}{%
+\subsubsection{b.}\label{b.-1}}
+
+Create a list that contains the following elements:
+
+\begin{itemize}
+\tightlist
+\item
+  A matrix of which its first 10 rows are the first 10 elements of both
+  variables side by side\\
+\item
+  A correlation matrix\\
+\item
+  A covariance matrix\\
+\item
+  A list with two elements:\\
+\item
+  A vector with a few univariate statistics for variable 1 (i.e.
+  \texttt{min}, \texttt{max}, \texttt{mean}, \texttt{range})\\
+\item
+  A vector with a few univariate statistics for variable 2
+\end{itemize}
+
+Make sure you set nice tags (labels) for all entries.
+
+Take a look at the \texttt{cov()} and \texttt{cor()} functions to see
+whether it is more convenient to give these functions two vectors (with
+the two normal variables) or a matrix containing the two variables
+(given that you want a covariance \emph{matrix} and a correlation
+\emph{matrix}).
+
+\textbf{Answer:}
+
+\hypertarget{c.-1}{%
+\subsubsection{c.}\label{c.-1}}
+
+Try to \texttt{unlist} your list, with the argument
+\texttt{recursive\ =\ FALSE}.
+
+\textbf{Answer:}
+
+\hypertarget{d.-1}{%
+\subsubsection{d.}\label{d.-1}}
+
+Try to \texttt{unlist()} your list, with the argument
+\texttt{recursive\ =\ TRUE}. Do you notice the difference with the
+previous question?
+
+\textbf{Answer:}
+
+\hypertarget{e.-1}{%
+\subsubsection{e.}\label{e.-1}}
+
+Now use the code you've written in \textbf{b} to write a function that
+takes as argument two vectors, and produces the summary provided in the
+list you've created in \textbf{b}.
+
+Try out your function use as arguments the two vectors you've created in
+\textbf{a} and see if you get the same result as in \textbf{b}.
+
+\textbf{Answer:}
+
+\hypertarget{f.}{%
+\subsubsection{f.}\label{f.}}
+
+Instead of returning a \texttt{list} object, do you think there is
+another way to all of the information you've computed in your bivariate
+summary function?
+
+\textbf{Answer:}
+
+Write down your answer here in text\ldots{}
+
+\hypertarget{choices-choices}{%
+\subsection{1.4 Choices, choices\ldots{}}\label{choices-choices}}
+
+Often in programming, and thus in \texttt{R}, there are multiple ways to
+do things. The most important thing is that whatever you do: first get
+as fast as possible towards a correct solution with probably a ``very
+ugly'' script of code.
+
+Then, there are other things to consider such as: readability of your
+code (by yourself and by others), the efficiency of your code (in terms
+of time and use of computer memory), maintainability of your code, and
+generic applicability of your code. Perhaps even aesthetics (the Art of
+R Programming).
+
+Let us take a look at a simple example in which there are choices to be
+made. We've seen multiple ways to access a list. We can access an
+element by its name, or by its position in the list.
+
+As Matloff notes, using names (and tags) is more convenient, because if
+the order of the elements changes, using numbers for positions might no
+longer be correct. This may happen easily if at some later point, when
+you decide the list needs another extra component.
+
+For example:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my_personal_details <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DataTypeTok{species =} \StringTok{"human"}\NormalTok{, }\DataTypeTok{age =} \StringTok{"75"}\NormalTok{)}
+
+\CommentTok{# Use age to print:}
+\KeywordTok{paste}\NormalTok{(}\StringTok{"I am"}\NormalTok{, my_personal_details[[}\DecValTok{2}\NormalTok{]], }\StringTok{"years old."}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "I am 75 years old."
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Oh oops, forgot to add that my name is...}
+
+\NormalTok{my_personal_details <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DataTypeTok{name =} \StringTok{"Mr. Miyagi"}\NormalTok{, my_personal_details)}
+
+\CommentTok{# Let's print my age again:}
+\KeywordTok{paste}\NormalTok{(}\StringTok{"I am"}\NormalTok{, my_personal_details[[}\DecValTok{2}\NormalTok{]], }\StringTok{"years old."}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "I am human years old."
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# hmm....}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{a.-2}{%
+\subsubsection{a.}\label{a.-2}}
+
+Use \texttt{as.list()} to create a list object, with the sequence 1
+through 260000.
+
+\textbf{Answer:}
+
+\hypertarget{b.-2}{%
+\subsubsection{b.}\label{b.-2}}
+
+Give each entry in this list of 260000 elements a unique name by setting
+the \texttt{names} attribute. Use \texttt{paste()} and for example a
+combination of numbers and letters to automatically generate these
+unique names. You could e.g.~call the first 26 entries \texttt{a1},
+\texttt{b1}, \texttt{c1} etc, and the second 26 entries \texttt{a2},
+\texttt{b2}, and so on.
+
+Here's a small snippet of code to get you started:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{paste}\NormalTok{(letters[}\DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{], }\KeywordTok{rep}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{), }\DataTypeTok{each=}\DecValTok{5}\NormalTok{), }\DataTypeTok{sep=}\StringTok{""}\NormalTok{) }\CommentTok{# this uses vector recycling!}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "a1" "b1" "c1" "d1" "e1" "a2" "b2" "c2" "d2" "e2"
+\end{verbatim}
+
+\textbf{Answer:}
+
+\hypertarget{c.-2}{%
+\subsubsection{c.}\label{c.-2}}
+
+Access the 130001th element and read its name. Then also access the
+elements via its name to double-check you get the same entry.
+
+\textbf{Answer:}
+
+\hypertarget{d.-2}{%
+\subsubsection{d.}\label{d.-2}}
+
+Let's introduce two new functions: \texttt{replicate()} and
+\texttt{system.time()}. These can be nicely used together to measure the
+amount of time it takes for the computer to do something. Many
+operations on the computer are done unmeasureably fast. So to measure
+how long a particular computation takes, is to repeat it many times, and
+to look at the total time it takes to do all the replications. This is
+where \texttt{replicate()} comes in.
+
+Two examples of \texttt{system.time()} are:
+\texttt{system.time(\{\ 1\ +\ 1\ \})}, and
+\texttt{system.time(mean(1:10))} (\texttt{R} will provided you with
+three timings, in this course \texttt{user} is the most important one to
+look at). An example of \texttt{replicate()} is:
+\texttt{replicate(n\ =\ 100,\ mean(1:10))}, where \texttt{n} is the
+number of times you replicate \texttt{mean(1:10)}. Combine what you see
+from these examples to compare the speed of accessing an element from a
+list, using the name of the element, and the position. Note: you may
+have to use many replicates. Which is faster?
+
+\textbf{Answer:}
+
+\hypertarget{using-lapply}{%
+\subsection{\texorpdfstring{1.5 Using
+\texttt{lapply()}}{1.5 Using lapply()}}\label{using-lapply}}
+
+\texttt{lapply} is an \texttt{R} function that allow us to repeatedly
+`apply' a function to the elements of a vector. Basically,
+\texttt{lapply} takes the first element from the vector, uses that
+element as the argument for a function you provide, and returns the
+result from that function. It then moves on to the next element and
+repeats the process until it has used all elements in the vector.
+
+\hypertarget{a.-3}{%
+\subsubsection{a.}\label{a.-3}}
+
+Create a vector variable, called \texttt{my\_vector}, with the numbers 1
+through 26, and shuffle them with the function \texttt{sample}.
+
+\textbf{Answer:}
+
+\hypertarget{b.-3}{%
+\subsubsection{b.}\label{b.-3}}
+
+Use \texttt{lapply} to take the \texttt{sqrt} of all the elements of
+\texttt{my\_vector} with the following code:
+\texttt{lapply(my\_vector,\ sqrt)}. Look at the result. What does the
+result look like? How many elements do you have?
+
+\textbf{Answer:}
+
+\hypertarget{c.-3}{%
+\subsubsection{c.}\label{c.-3}}
+
+Use \texttt{lapply()} to translate the numbers 1 through 26, to the
+corresponding \texttt{letter} in the alphabet. Write a function to do
+this: i.e.~write a function that takes a number, and returns the
+corresponding letter, call this function \texttt{NumberToLetter}.
+
+\textbf{Answer:}
+
+\hypertarget{d.-3}{%
+\subsubsection{d.}\label{d.-3}}
+
+Suppose you'd want the result of applying your functions to all the
+elements of the vector to be a vector itself. How could you do this?
+\emph{Hint: we've already seen this function during class and in some of
+the previous exercises.}
+
+\textbf{Answer:}
+
+\hypertarget{e.-2}{%
+\subsubsection{e.}\label{e.-2}}
+
+So far, all of the tasks in this exercises could have been done, simply
+by exploiting \texttt{R}'s vectorized functions. We can feed a vector to
+the \texttt{sqrt()} function, and it will return, as a vector, all the
+square roots of the elements in that vector. We could have used the 26
+numbers as index for the \texttt{letter} object:
+\texttt{letters{[}my\_vector{]}}. However, this is not necessarily
+always possible.
+
+Use the following code to create a new list object:
+\texttt{my\_list\ \textless{}-\ replicate(10,\ list(rnorm(5)))}. Look at
+the results to see what the \texttt{replicate} function has done.
+
+\textbf{Answer:}
+
+\hypertarget{f.-1}{%
+\subsubsection{f.}\label{f.-1}}
+
+Suppose now that we wish to calculate the mean of the 10 entries. Try
+feeding \texttt{my\_list} to the function mean. Does it work?
+
+\textbf{Answer:}
+
+\hypertarget{g.}{%
+\subsubsection{g.}\label{g.}}
+
+Use \texttt{lapply()} to take the mean of each of the entries in
+\texttt{my\_list}.
+
+\textbf{Answer:}
+
+\hypertarget{outro}{%
+\subsubsection{Outro}\label{outro}}
+
+Beyond simple examples, \texttt{lapply} can become tricky to use. For
+example, instead of using the \texttt{mean} function we may need to use
+a function that requires multiple arguments, and if so, how would we
+need to write this? For now, get comfortable with \texttt{lapply()} and
+the concept of repeatedly applying a function on elements of a vector.
+We'll get into more detail of the \texttt{*apply} family in a later
+lecture.
+
+\newpage
+
+\hypertarget{exercises-part-2}{%
+\section{Exercises part 2}\label{exercises-part-2}}
+
+\hypertarget{row-and-column-names}{%
+\subsection{2.1 Row and column names}\label{row-and-column-names}}
+
+\hypertarget{a.-4}{%
+\subsubsection{a.}\label{a.-4}}
+
+Like during the lecture, create a dataset of your own with some
+variables containing random normal values.
+
+\textbf{Answer:}
+
+\hypertarget{b.-4}{%
+\subsubsection{b.}\label{b.-4}}
+
+Write the file to your computer using \texttt{write.table}. Use all the
+defaults.
+
+\textbf{Answer:}
+
+\hypertarget{c.-4}{%
+\subsubsection{c.}\label{c.-4}}
+
+Look at the contents of the file with Notepad or TextEdit or similar. Do
+you see \emph{just} the variables that you've created, or does the file
+contain more information?
+
+\textbf{Answer:}
+
+Write down your answer in text here\ldots{}
+
+\hypertarget{d.-4}{%
+\subsubsection{d.}\label{d.-4}}
+
+\texttt{R} automatically also writes the row and columnnames of the
+data.frame you write. Look at the helpfile of \texttt{write.table} and
+see how to change the defaults to \textbf{not} write rownames.
+
+\textbf{Answer:}
+
+\hypertarget{e.-3}{%
+\subsubsection{e.}\label{e.-3}}
+
+Try to read in this new file, that does not have rownames, using
+\texttt{read.table} and its defaults. Anything wrong with the data.frame
+you get from reading this file?
+
+Look for example at the class and mode of the columns of the data.frame.
+If you don't know what \texttt{factors} are in \texttt{R} yet (we'll
+cover these next lecture week), also specificy the argument
+\texttt{stringsasFactors\ =\ FALSE}.
+
+\textbf{Answer:}
+
+\hypertarget{f.-2}{%
+\subsubsection{f.}\label{f.-2}}
+
+From the \texttt{read.table} helpfile:
+
+\begin{quote}
+header: a logical value indicating whether the file contains the names
+of the variables as its first line. If missing, the value is determined
+from the file format: header is set to TRUE if and only if the first row
+contains one fewer field than the number of columns.
+\end{quote}
+
+Fix your code to correctly read in the file without rownames, but with
+the variable names.
+
+\textbf{Answer:}
+
+\hypertarget{outro-1}{%
+\subsubsection{Outro}\label{outro-1}}
+
+\texttt{R}'s defaults in writing and reading data make it convenient if
+you are exchanging data from and to \texttt{R}. However, other programs,
+when writing files, might not use rownames, or might use rownames, but
+explicitly give these a name in the header of the file (the first line)
+such as \texttt{row\_name}. In both these cases, \texttt{R} will mess up
+reading the file, if left to its defaults. Then, you will need to do
+some manual tweaking of the arguments \texttt{read.*()} functions to get
+things right.
+
+\hypertarget{reading-and-writing-some-difficult-data}{%
+\subsection{2.2 Reading and writing some difficult
+data}\label{reading-and-writing-some-difficult-data}}
+
+\hypertarget{a.-5}{%
+\subsubsection{a.}\label{a.-5}}
+
+Take a look at the file \texttt{difficult.txt}. The file contains two
+variables, with numerical values with decimal numbers, and rownames.
+
+\hypertarget{b.-5}{%
+\subsubsection{b.}\label{b.-5}}
+
+Use \texttt{read.table}, \texttt{read.csv} and \texttt{read.csv2} to
+read in the data, and store these as three seperate objects. Like in the
+previous exercise, use \texttt{stringsAsFactors\ =\ FALSE}.
+
+\textbf{Answer:}
+
+\hypertarget{c.-5}{%
+\subsubsection{c.}\label{c.-5}}
+
+Inspect the three different data sets you've read into \texttt{R}. Make
+sure you inspect the modes of the variables and see if you can, for
+example, calculate a mean.
+
+\hypertarget{d.-5}{%
+\subsubsection{d.}\label{d.-5}}
+
+If done correctly, you'll notice that none of these three default
+\texttt{read.*} functions correctly reads the file. Look specifically at
+the \texttt{sep} and \texttt{dec} arguments of the functions, and the
+corresponding seperators and decimal indications used in the file to fix
+the problem and correctly read in the data.
+
+\textbf{Answer:}
+
+\hypertarget{outro-2}{%
+\subsubsection{Outro}\label{outro-2}}
+
+\texttt{R} needs precise instructions: sometimes you need to tell it
+\emph{exactly} what to do. Results from reading in data may often seen
+confusing, or weirdly incorrect, or surprisingly correct: these usually
+have to do with \texttt{R}'s default choices (= default arguments in the
+function)! Know that you can simply set and change these as you want,
+using arguments.
+
+\newpage
+
+\hypertarget{exercises-part-3}{%
+\section{Exercises part 3}\label{exercises-part-3}}
+
+\hypertarget{sorting-our-data}{%
+\subsection{3.1 Sorting our data}\label{sorting-our-data}}
+
+We've seen how to access the variables of a data.frame, for example
+using \texttt{my\_data\_frame\$id}. We can of course, also access the
+rows using (for the first row) \texttt{my\_data\_frame{[}1,\ {]}}. You
+can also select multiple rows at the same time, e.g.~using
+\texttt{my\_data\_frame{[}c(1,\ 2),\ {]}}. This basically returns a
+data.frame, containing the selected rows, and more specifically in the
+order that you asked for: \texttt{c(1,\ 2)} asked to see the first row
+first, then the second row.
+
+\hypertarget{a.-6}{%
+\subsubsection{a.}\label{a.-6}}
+
+Read in ``my\_data\_frame.csv'', into an object called
+\texttt{my\_data\_frame}.
+
+\textbf{Answer:}
+
+\hypertarget{b.-6}{%
+\subsubsection{b.}\label{b.-6}}
+
+Try \texttt{my\_data\_frame{[}c(3,\ 2,\ 1),\ {]}} and compare the
+entries with first three entries of the original data.frame.
+
+\textbf{Answer:}
+
+\hypertarget{c.-6}{%
+\subsubsection{c.}\label{c.-6}}
+
+If you look at the variable \texttt{id}, you'll see its elements are not
+nicely ordered. We can get \texttt{R} to sort this variable, using the
+function \texttt{sort}. Look at the helpfile if needed, and sort the
+\texttt{id} variable.
+
+\textbf{Answer:}
+
+\hypertarget{d.-6}{%
+\subsubsection{d.}\label{d.-6}}
+
+We can also sort \texttt{my\_data\_frame} according to the values of
+\texttt{id}. Look at the helpfile of the function \texttt{order}. An
+example application is:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{order}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2 3 1
+\end{verbatim}
+
+The result is: 2 3 1 e.g.~the second element should come first, then the
+third element, then the first element. This gives us the ordering: 1 2 3
+
+Combine \texttt{order()} with what you've learned in \textbf{b} to
+create a \emph{new} data.frame, that has its rows order according to
+\texttt{id}.
+
+\textbf{Answer:}
+
+\hypertarget{e.-4}{%
+\subsubsection{e.}\label{e.-4}}
+
+Suppose however that we also had a \texttt{group} variable. Add this
+variable yourself to the original data you read in from
+\texttt{my\_data\_frame.csv}. Use \texttt{rep()} to create a variable
+containing 5 different subsequent values (1 through 5), and repeated as
+many times as needed to have as many \texttt{group} entries as rows in
+the dataset (e.g. \texttt{1,\ 2,\ 3,\ 4,\ 5,\ 1,\ 2,} etc). Use
+\texttt{cbind()} to combine the dataset and your \texttt{group}
+variable. Could you also come up with another way to add the
+\texttt{group} variable to the data set?
+
+\textbf{Answer:}
+
+\hypertarget{e.-5}{%
+\subsubsection{e.}\label{e.-5}}
+
+Now let's order the dataset according to the group each object belongs
+to, and within each group, according to the \texttt{id}. We can do this
+my giving multiple arguments to \texttt{order} (e.g.
+\texttt{order(var1,\ var2)}). Try this to order the data as asked. In
+this case you can easily verify yourself if the ordering is correct!
+
+\textbf{Answer:}
+
+\hypertarget{applying-apply}{%
+\subsection{Applying apply}\label{applying-apply}}
+
+\hypertarget{a.-7}{%
+\subsubsection{a.}\label{a.-7}}
+
+Read in the data file \texttt{jumble.txt}. Which \texttt{read.*()}
+function do you think you need to use? Take a look at the contents of
+the file to decide.
+
+\textbf{Answer:}
+
+\hypertarget{b.-7}{%
+\subsubsection{b.}\label{b.-7}}
+
+Use apply to repeatedly paste together only every \emph{fourth} element
+of the rows and the columns. That is: use letters number \(4\), \(8\),
+\(12\), etc. The result should be a vector of pasted together things,
+with as many elements as rows, or columns (depending on which index you
+used). Also paste together the elements of this resulting vector. In
+both paste operations, use the option \texttt{collapse\ =\ ""}.
+
+Which version of apply made more sense?
+
+\textbf{Answer:}
+
+
+\end{document}

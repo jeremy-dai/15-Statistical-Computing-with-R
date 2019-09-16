@@ -1,0 +1,1360 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={SCR week 2: exercises},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\providecommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{SCR week 2: exercises}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{}
+    \preauthor{}\postauthor{}
+    \date{}
+    \predate{}\postdate{}
+  
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{placeins}
+
+\begin{document}
+\maketitle
+
+\hypertarget{exercises-part-1}{%
+\section{Exercises part 1}\label{exercises-part-1}}
+
+\hypertarget{error...-error}{%
+\subsection{\texorpdfstring{1.1
+\texttt{error...\ error}}{1.1 error... error}}\label{error...-error}}
+
+What do you think it is that produces the warnings in the following
+lines of code? How would you fix it?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mydlist <-}\StringTok{ }\KeywordTok{vector}\NormalTok{(}\DataTypeTok{mode =} \StringTok{'list'}\NormalTok{, }\DataTypeTok{length =} \DecValTok{2}\NormalTok{)}
+\NormalTok{mydlist[}\DecValTok{1}\NormalTok{] <-}\StringTok{ }\DecValTok{97}\OperatorTok{:}\DecValTok{122}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in mydlist[1] <- 97:122: number of items to replace is not a
+## multiple of replacement length
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mydlist[}\DecValTok{2}\NormalTok{] <-}\StringTok{ }\NormalTok{letters}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in mydlist[2] <- letters: number of items to replace is not a
+## multiple of replacement length
+\end{verbatim}
+
+\textbf{Answer:}
+
+The warning is given by the fact that we try to replace 1 list element,
+with a vector of numbers (or letters). What the code probably meant to
+do, was replace the \emph{contents} of the list element with a vector of
+numbers (or letters). E.g.:
+\texttt{mydlist{[}{[}1{]}{]}{]}\ \textless{}-\ 97:122} will work (and is
+probably what is meant to happen).
+
+\hypertarget{creating-a-list}{%
+\subsection{1.2 Creating a list}\label{creating-a-list}}
+
+\hypertarget{a.}{%
+\subsubsection{a.}\label{a.}}
+
+Create a list object with the following entries:
+
+\begin{itemize}
+\tightlist
+\item
+  An entry called \texttt{name} with value ``my list''
+\item
+  An entry called \texttt{normal\_values} with 50 draws from a standard
+  normal distribution
+\item
+  An entry without a name that contains 50 samples from the numbers
+  \texttt{1:10} using \texttt{sample}
+\item
+  An entry called \texttt{id} that contains the numbers 1 through 50,
+  but shuffled around using \texttt{sample} (try e.g.
+  \texttt{sample(1:5)} a number of times.
+\item
+  An entry called \texttt{my\_sampler} that is a \texttt{function} that
+  takes an integer argument and returns as many random samples from a
+  standard normal distribution as the integer argument.
+\end{itemize}
+
+\textbf{Answer:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my_list <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}
+  \DataTypeTok{name =} \StringTok{"my list"}\NormalTok{,}
+  \DataTypeTok{normal_values =} \KeywordTok{rnorm}\NormalTok{(}\DecValTok{50}\NormalTok{),}
+  \KeywordTok{sample}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{, }\DecValTok{50}\NormalTok{, }\DataTypeTok{replace=}\OtherTok{TRUE}\NormalTok{),}
+  \DataTypeTok{id =} \KeywordTok{sample}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{50}\NormalTok{),}
+  \DataTypeTok{my_sampler =} \ControlFlowTok{function}\NormalTok{(n) \{}\KeywordTok{return}\NormalTok{(}\KeywordTok{rnorm}\NormalTok{(n))\}}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{b.}{%
+\subsubsection{b.}\label{b.}}
+
+Try to access the \texttt{my\_sampler} element from your list. Is it
+possible to run the function?
+
+\textbf{Answer:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my_list}\OperatorTok{$}\KeywordTok{my_sampler}\NormalTok{(}\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.07497900 0.07299346 1.92164818 0.21676126 0.64779021
+\end{verbatim}
+
+Yes!
+
+\hypertarget{c.}{%
+\subsubsection{c.}\label{c.}}
+
+Convert the list to a data.frame, by using \texttt{as.data.frame}. Does
+it work?
+
+\textbf{Answer:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{as.data.frame}\NormalTok{(my_list)}
+\end{Highlighting}
+\end{Shaded}
+
+No, does not work, \texttt{R} does not know how
+
+\hypertarget{d.}{%
+\subsubsection{d.}\label{d.}}
+
+Use negative indices to remove the element that gives a problem in
+\textbf{c} and feed the reduced list to \texttt{as.data.frame}. Does the
+result contain any strange variables? Do you notice any vector
+recycling?
+
+\textbf{Answer:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{head}\NormalTok{(}\KeywordTok{as.data.frame}\NormalTok{(my_list[}\OperatorTok{-}\DecValTok{5}\NormalTok{]))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      name normal_values
+## 1 my list    0.42760052
+## 2 my list    0.26282946
+## 3 my list   -0.08740638
+## 4 my list   -0.59360031
+## 5 my list   -0.04657028
+## 6 my list    1.75148623
+##   c.2L..1L..5L..8L..4L..2L..8L..10L..7L..1L..6L..6L..8L..4L..6L.. id
+## 1                                                               2 47
+## 2                                                               1  5
+## 3                                                               5 34
+## 4                                                               8 18
+## 5                                                               4 44
+## 6                                                               2 13
+\end{verbatim}
+
+Although this works, \texttt{R} has to repeat the element \texttt{name}
+to fit it into shape of a \texttt{data.frame}.
+
+\hypertarget{e.}{%
+\subsubsection{e.}\label{e.}}
+
+Use three different ways of accessing list elements, to access
+\texttt{normal\_values}, the samples from \texttt{1:10}, and
+\texttt{id}, and feed them to the \texttt{data.frame} function to create
+a data.frame (and store it as an object called
+\texttt{my\_data\_frame}). Add some nice tags for the variables you
+create.
+
+\textbf{Answer:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my_data_frame <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}
+  \DataTypeTok{norm_vals =}\NormalTok{ my_list}\OperatorTok{$}\NormalTok{normal_values, }
+  \DataTypeTok{samples =}\NormalTok{ my_list[[}\DecValTok{3}\NormalTok{]], }
+  \DataTypeTok{id =}\NormalTok{ my_list[[}\StringTok{"id"}\NormalTok{]]}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{writing-a-bivariate-summary-function}{%
+\subsection{1.3 Writing a bivariate summary
+function}\label{writing-a-bivariate-summary-function}}
+
+\hypertarget{a.-1}{%
+\subsubsection{a.}\label{a.-1}}
+
+Create two vectors, each containing a 100 draws from a standard normal
+distribution.
+
+Answer:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{var1 <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{100}\NormalTok{)}
+\NormalTok{var2 <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{100}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{b.-1}{%
+\subsubsection{b.}\label{b.-1}}
+
+Create a list that contains the following elements:
+
+\begin{itemize}
+\tightlist
+\item
+  A matrix of which its first 10 rows are the first 10 elements of both
+  variables side by side\\
+\item
+  A correlation matrix\\
+\item
+  A covariance matrix\\
+\item
+  A list with two elements:\\
+\item
+  A vector with a few univariate statistics for variable 1 (i.e.
+  \texttt{min}, \texttt{max}, \texttt{mean}, \texttt{range})\\
+\item
+  A vector with a few univariate statistics for variable 2
+\end{itemize}
+
+Make sure you set nice tags (labels) for all entries.
+
+Take a look at the \texttt{cov()} and \texttt{cor()} functions to see
+whether it is more convenient to give these functions two vectors (with
+the two normal variables) or a matrix containing the two variables
+(given that you want a covariance \emph{matrix} and a correlation
+\emph{matrix}).
+
+\textbf{Answer:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my_normal_matrix <-}\StringTok{ }\KeywordTok{cbind}\NormalTok{(var1, var2)}
+\NormalTok{my_list <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}
+  \DataTypeTok{data_matrix_example =} \KeywordTok{head}\NormalTok{(my_normal_matrix, }\DecValTok{10}\NormalTok{),}
+  \DataTypeTok{cor =} \KeywordTok{cor}\NormalTok{(my_normal_matrix),}
+  \DataTypeTok{cov =} \KeywordTok{cov}\NormalTok{(my_normal_matrix),}
+  \DataTypeTok{univariate_statistics =} \KeywordTok{list}\NormalTok{(}
+    \DataTypeTok{variable_1 =} \KeywordTok{c}\NormalTok{(}
+      \DataTypeTok{min =} \KeywordTok{min}\NormalTok{(var1), }
+      \DataTypeTok{max =} \KeywordTok{max}\NormalTok{(var1), }
+      \DataTypeTok{mean =} \KeywordTok{mean}\NormalTok{(var1), }
+      \DataTypeTok{range =} \KeywordTok{range}\NormalTok{(var1)}
+\NormalTok{    ), }
+    \DataTypeTok{variable_2 =} \KeywordTok{c}\NormalTok{(}
+      \DataTypeTok{min =} \KeywordTok{min}\NormalTok{(var2), }
+      \DataTypeTok{max =} \KeywordTok{max}\NormalTok{(var2), }
+      \DataTypeTok{mean =} \KeywordTok{mean}\NormalTok{(var2), }
+      \DataTypeTok{range =} \KeywordTok{range}\NormalTok{(var2)}
+\NormalTok{    )}
+\NormalTok{  )}
+\NormalTok{)  }
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{c.-1}{%
+\subsubsection{c.}\label{c.-1}}
+
+Try to \texttt{unlist} your list, with the argument
+\texttt{recursive\ =\ FALSE}.
+
+\textbf{Answer:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nonrecurs_unl <-}\StringTok{ }\KeywordTok{unlist}\NormalTok{(my_list, }\DataTypeTok{recursive =} \OtherTok{FALSE}\NormalTok{)}
+\KeywordTok{str}\NormalTok{(nonrecurs_unl)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## List of 30
+##  $ data_matrix_example1            : num -0.183
+##  $ data_matrix_example2            : num 0.155
+##  $ data_matrix_example3            : num 0.592
+##  $ data_matrix_example4            : num -0.312
+##  $ data_matrix_example5            : num 0.252
+##  $ data_matrix_example6            : num -0.599
+##  $ data_matrix_example7            : num 0.41
+##  $ data_matrix_example8            : num -0.478
+##  $ data_matrix_example9            : num -1.45
+##  $ data_matrix_example10           : num 1.89
+##  $ data_matrix_example11           : num -0.397
+##  $ data_matrix_example12           : num -1.04
+##  $ data_matrix_example13           : num 0.427
+##  $ data_matrix_example14           : num 1.08
+##  $ data_matrix_example15           : num 1.79
+##  $ data_matrix_example16           : num 0.71
+##  $ data_matrix_example17           : num 1.4
+##  $ data_matrix_example18           : num -0.635
+##  $ data_matrix_example19           : num -0.484
+##  $ data_matrix_example20           : num 1.89
+##  $ cor1                            : num 1
+##  $ cor2                            : num 0.0501
+##  $ cor3                            : num 0.0501
+##  $ cor4                            : num 1
+##  $ cov1                            : num 1.08
+##  $ cov2                            : num 0.0527
+##  $ cov3                            : num 0.0527
+##  $ cov4                            : num 1.03
+##  $ univariate_statistics.variable_1: Named num [1:5] -4.002 2.407 -0.139 -4.002 2.407
+##   ..- attr(*, "names")= chr [1:5] "min" "max" "mean" "range1" ...
+##  $ univariate_statistics.variable_2: Named num [1:5] -2.4142 2.69 0.0241 -2.4142 2.69
+##   ..- attr(*, "names")= chr [1:5] "min" "max" "mean" "range1" ...
+\end{verbatim}
+
+\hypertarget{d.-1}{%
+\subsubsection{d.}\label{d.-1}}
+
+Try to \texttt{unlist()} your list, with the argument
+\texttt{recursive\ =\ TRUE}. Do you notice the difference with the
+previous question?
+
+\textbf{Answer:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{recurs_unl <-}\StringTok{ }\KeywordTok{unlist}\NormalTok{(my_list, }\DataTypeTok{recursive =} \OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{str}\NormalTok{(recurs_unl)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  Named num [1:38] -0.183 0.155 0.592 -0.312 0.252 ...
+##  - attr(*, "names")= chr [1:38] "data_matrix_example1" "data_matrix_example2" "data_matrix_example3" "data_matrix_example4" ...
+\end{verbatim}
+
+\hypertarget{e.-1}{%
+\subsubsection{e.}\label{e.-1}}
+
+Now use the code you've written in \textbf{b} to write a function that
+takes as argument two vectors, and produces the summary provided in the
+list you've created in \textbf{b}.
+
+Try out your function use as arguments the two vectors you've created in
+\textbf{a} and see if you get the same result as in \textbf{b}.
+
+\textbf{Answer:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{GiveBivariateSummary <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(var1, var2)\{}
+\NormalTok{  my_normal_matrix <-}\StringTok{ }\KeywordTok{cbind}\NormalTok{(var1, var2)}
+\NormalTok{  my_list <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}
+    \DataTypeTok{data_matrix_example =} \KeywordTok{head}\NormalTok{(my_normal_matrix, }\DecValTok{10}\NormalTok{),}
+    \DataTypeTok{cor =} \KeywordTok{cor}\NormalTok{(my_normal_matrix),}
+    \DataTypeTok{cov =} \KeywordTok{cov}\NormalTok{(my_normal_matrix),}
+    \DataTypeTok{univariate_statistics =} \KeywordTok{list}\NormalTok{(}
+      \DataTypeTok{variable_1 =} \KeywordTok{c}\NormalTok{(}
+        \DataTypeTok{min =} \KeywordTok{min}\NormalTok{(var1), }
+        \DataTypeTok{max =} \KeywordTok{max}\NormalTok{(var1), }
+        \DataTypeTok{mean =} \KeywordTok{mean}\NormalTok{(var1), }
+        \DataTypeTok{range =} \KeywordTok{range}\NormalTok{(var1)}
+\NormalTok{      ), }
+      \DataTypeTok{variable_2 =} \KeywordTok{c}\NormalTok{(}
+        \DataTypeTok{min =} \KeywordTok{min}\NormalTok{(var2),}
+        \DataTypeTok{max =} \KeywordTok{max}\NormalTok{(var2), }
+        \DataTypeTok{mean =} \KeywordTok{mean}\NormalTok{(var2),}
+        \DataTypeTok{range =} \KeywordTok{range}\NormalTok{(var2)}
+\NormalTok{      )}
+\NormalTok{    )}
+\NormalTok{  )}
+  \KeywordTok{return}\NormalTok{(my_list)}
+\NormalTok{\}}
+\KeywordTok{GiveBivariateSummary}\NormalTok{(var1, var2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $data_matrix_example
+##             var1       var2
+##  [1,] -0.1829346 -0.3968699
+##  [2,]  0.1548105 -1.0388870
+##  [3,]  0.5924773  0.4271834
+##  [4,] -0.3115547  1.0753587
+##  [5,]  0.2523536  1.7874619
+##  [6,] -0.5994452  0.7102050
+##  [7,]  0.4101400  1.3971136
+##  [8,] -0.4779210 -0.6351818
+##  [9,] -1.4506873 -0.4840632
+## [10,]  1.8907871  1.8851101
+## 
+## $cor
+##            var1       var2
+## var1 1.00000000 0.05006325
+## var2 0.05006325 1.00000000
+## 
+## $cov
+##            var1       var2
+## var1 1.07524260 0.05274749
+## var2 0.05274749 1.03242641
+## 
+## $univariate_statistics
+## $univariate_statistics$variable_1
+##        min        max       mean     range1     range2 
+## -4.0021529  2.4070620 -0.1387152 -4.0021529  2.4070620 
+## 
+## $univariate_statistics$variable_2
+##         min         max        mean      range1      range2 
+## -2.41419250  2.69001563  0.02410321 -2.41419250  2.69001563
+\end{verbatim}
+
+\hypertarget{f.}{%
+\subsubsection{f.}\label{f.}}
+
+Instead of returning a \texttt{list} variable / object, do you think
+there is another way to all of the information you've computed in your
+bivariate summary function?
+
+\textbf{Answer:}
+
+It would not be surprising if there exists a similar function in some
+\texttt{R} package elsewere. Probably it will be difficult to do this as
+neatly in anything else such as a vector, or data.frame.
+
+\hypertarget{choices-choices}{%
+\subsection{1.4 Choices, choices\ldots{}}\label{choices-choices}}
+
+Often in programming, and thus in \texttt{R}, there are multiple ways to
+do things. The most important thing is that whatever you do: first get
+as fast as possible towards a correct solution with probably a ``very
+ugly'' script of code.
+
+Then, there are other things to consider such as: readability of your
+code (by yourself and by others), the efficiency of your code (in terms
+of time and use of computer memory), maintainability of your code, and
+generic applicability of your code. Perhaps even aesthetics (the Art of
+R Programming).
+
+Let us take a look at a simple example in which there are choices to be
+made. We've seen multiple ways to access a list. We can access an
+element by its name, or by its position in the list.
+
+As Matloff notes, using names (and tags) is more convenient, because if
+the order of the elements changes, using numbers for positions might no
+longer be correct. This may happen easily if at some later point, when
+you decide the list needs another extra component.
+
+For example:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my_personal_details <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DataTypeTok{species =} \StringTok{"human"}\NormalTok{, }\DataTypeTok{age =} \StringTok{"75"}\NormalTok{)}
+
+\CommentTok{# Use age to print:}
+\KeywordTok{paste}\NormalTok{(}\StringTok{"I am"}\NormalTok{, my_personal_details[[}\DecValTok{2}\NormalTok{]], }\StringTok{"years old."}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "I am 75 years old."
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Oh oops, forgot to add that my name is...}
+
+\NormalTok{my_personal_details <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DataTypeTok{name =} \StringTok{"Mr. Miyagi"}\NormalTok{, my_personal_details)}
+
+\CommentTok{# Let's print my age again:}
+\KeywordTok{paste}\NormalTok{(}\StringTok{"I am"}\NormalTok{, my_personal_details[[}\DecValTok{2}\NormalTok{]], }\StringTok{"years old."}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "I am human years old."
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# hmm....}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{a.-2}{%
+\subsubsection{a.}\label{a.-2}}
+
+Use \texttt{as.list()} to create a list object, with the sequence 1
+through 260000.
+
+\textbf{Answer:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my_named_list <-}\StringTok{ }\KeywordTok{as.list}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{260000}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{b.-2}{%
+\subsubsection{b.}\label{b.-2}}
+
+Give each entry in this list of 260000 elements a unique name by setting
+the \texttt{names} attribute. Use \texttt{paste()} and for example a
+combination of numbers and letters to automatically generate these
+unique names. You could e.g.~call the first 26 entries \texttt{a1},
+\texttt{b1}, \texttt{c1} etc, and the second 26 entries \texttt{a2},
+\texttt{b2}, and so on.
+
+Here's a small snippet of code to get you started:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{paste}\NormalTok{(letters[}\DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{], }\KeywordTok{rep}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{), }\DataTypeTok{each=}\DecValTok{5}\NormalTok{), }\DataTypeTok{sep=}\StringTok{""}\NormalTok{) }\CommentTok{# this uses vector recycling!}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "a1" "b1" "c1" "d1" "e1" "a2" "b2" "c2" "d2" "e2"
+\end{verbatim}
+
+\textbf{Answer:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{names}\NormalTok{(my_named_list) <-}\StringTok{ }\KeywordTok{paste}\NormalTok{(letters, }\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10000}\NormalTok{, }\DataTypeTok{each=}\DecValTok{26}\NormalTok{), }\DataTypeTok{sep=}\StringTok{""}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{c.-2}{%
+\subsubsection{c.}\label{c.-2}}
+
+Access the 130001th element and read its name. Then also access the
+elements via its name to double-check you get the same entry.
+
+\textbf{Answer:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my_named_list[}\DecValTok{130001}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $a5001
+## [1] 130001
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my_named_list[}\StringTok{"a5001"}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $a5001
+## [1] 130001
+\end{verbatim}
+
+\hypertarget{d.-2}{%
+\subsubsection{d.}\label{d.-2}}
+
+Let's introduce two new functions: \texttt{replicate()} and
+\texttt{system.time()}. These can be nicely used together to measure the
+amount of time it takes for the computer to do something. Many
+operations on the computer are done unmeasureably fast. So to measure
+how long a particular computation takes, is to repeat it many times, and
+to look at the total time it takes to do all the replications. This is
+where \texttt{replicate()} comes in.
+
+Two examples of \texttt{system.time()} are:
+\texttt{system.time(\{\ 1\ +\ 1\ \})}, and
+\texttt{system.time(mean(1:10))} (\texttt{R} will provided you with
+three timings, in this course \texttt{user} is the most important one to
+look at). An example of \texttt{replicate()} is:
+\texttt{replicate(n\ =\ 100,\ mean(1:10))}, where \texttt{n} is the
+number of times you replicate \texttt{mean(1:10)}. Combine what you see
+from these examples to compare the speed of accessing an element from a
+list, using the name of the element, and the position. Note: you may
+have to use many replicates. Which is faster?
+
+\textbf{Answer:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{system.time}\NormalTok{(}
+  \KeywordTok{replicate}\NormalTok{(}\DecValTok{100}\NormalTok{, my_named_list[}\StringTok{"a5000"}\NormalTok{])}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    user  system elapsed 
+##   0.143   0.031   0.175
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{system.time}\NormalTok{(}
+  \KeywordTok{replicate}\NormalTok{(}\DecValTok{100}\NormalTok{, my_named_list[}\DecValTok{130001}\NormalTok{])}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    user  system elapsed 
+##   0.001   0.000   0.001
+\end{verbatim}
+
+Thus, using a number is faster. Note that the computational costs (speed
+of your code) will only have to play a role when you are in need for
+speed.
+
+\hypertarget{using-lapply}{%
+\subsection{\texorpdfstring{1.5 Using
+\texttt{lapply()}}{1.5 Using lapply()}}\label{using-lapply}}
+
+\texttt{lapply} is an \texttt{R} function that allow us to repeatedly
+`apply' a function to the elements of a vector. Basically,
+\texttt{lapply} takes the first element from the vector, uses that
+element as the argument for a function you provide, and returns the
+result from that function. It then moves on to the next element and
+repeats the process until it has used all elements in the vector.
+
+\hypertarget{a.-3}{%
+\subsubsection{a.}\label{a.-3}}
+
+Create a vector variable, called \texttt{my\_vector}, with the numbers 1
+through 26, and shuffle them with the function \texttt{sample}.
+
+Answer:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my_vector <-}\StringTok{ }\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{26}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{b.-3}{%
+\subsubsection{b.}\label{b.-3}}
+
+Use \texttt{lapply} to take the \texttt{sqrt} of all the elements of
+\texttt{my\_vector} with the following code:
+\texttt{lapply(my\_vector,\ sqrt)}. Look at the result. What does the
+result look like? How many elements do you have?
+
+\textbf{Answer:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my_result <-}\StringTok{ }\KeywordTok{lapply}\NormalTok{(my_vector, sqrt)}
+\KeywordTok{class}\NormalTok{(my_result)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "list"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{length}\NormalTok{(my_result)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 26
+\end{verbatim}
+
+\hypertarget{c.-3}{%
+\subsubsection{c.}\label{c.-3}}
+
+Use \texttt{lapply()} to translate the numbers 1 through 26, to the
+corresponding \texttt{letter} in the alphabet. Write a function to do
+this: i.e.~write a function that takes a number, and returns the
+corresponding letter, call this function \texttt{NumberToLetter}.
+
+\textbf{Answer:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{NumberToLetter <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x)\{}
+  \KeywordTok{return}\NormalTok{(letters[x])}
+\NormalTok{\}}
+
+\NormalTok{numbers_to_letters <-}\StringTok{ }\KeywordTok{lapply}\NormalTok{(my_vector, NumberToLetter)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{d.-3}{%
+\subsubsection{d.}\label{d.-3}}
+
+Suppose you'd want the result of applying your functions to all the
+elements of the vector to be a vector itself. How could you do this?
+\emph{Hint: we've already seen this function during class and in some of
+the previous exercises.}
+
+\textbf{Answer:} With \texttt{unlist}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{unlist}\NormalTok{(my_result)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] 3.316625 4.000000 2.449490 3.162278 4.123106 3.872983 2.645751
+##  [8] 2.000000 1.414214 1.732051 2.236068 1.000000 4.582576 3.741657
+## [15] 3.000000 5.000000 4.242641 5.099020 4.358899 4.898979 3.464102
+## [22] 4.690416 4.795832 2.828427 4.472136 3.605551
+\end{verbatim}
+
+\hypertarget{e.-2}{%
+\subsubsection{e.}\label{e.-2}}
+
+So far, all of the tasks in this exercises could have been done, simply
+by exploiting \texttt{R}'s vectorized functions. We can feed a vector to
+the \texttt{sqrt()} function, and it will return, as a vector, all the
+square roots of the elements in that vector. We could have used the 26
+numbers as index for the \texttt{letter} object:
+\texttt{letters{[}my\_vector{]}}. However, this is not necessarily
+always possible.
+
+Use the following code to create a new list object:
+\texttt{my\_list\ \textless{}-\ replicate(10,\ list(rnorm(5)))}. Look at
+the results to see what the \texttt{replicate} function has done.
+
+\textbf{Answer:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my_list <-}\StringTok{ }\KeywordTok{replicate}\NormalTok{(}\DecValTok{10}\NormalTok{, }\KeywordTok{list}\NormalTok{(}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{5}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+It has replicated the \texttt{list(rnorm(5))} command 10 times, and put
+the results into a list (of length 10).
+
+\hypertarget{f.-1}{%
+\subsubsection{f.}\label{f.-1}}
+
+Suppose now that we wish to calculate the mean of the 10 entries. Try
+feeding \texttt{my\_list} to the function mean. Does it work?
+
+\textbf{Answer:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mean}\NormalTok{(my_list)}
+\end{Highlighting}
+\end{Shaded}
+
+No! It does not work, because \texttt{mean} requires a vector of numbers
+(or logicals), not a vector of list elements.
+
+\hypertarget{g.}{%
+\subsubsection{g.}\label{g.}}
+
+Use \texttt{lapply} to take the mean of each of the entries in
+\texttt{my\_list}.
+
+\textbf{Answer:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my_means <-}\StringTok{ }\KeywordTok{lapply}\NormalTok{(my_list, mean)}
+\KeywordTok{head}\NormalTok{(my_means, }\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [[1]]
+## [1] 0.3424466
+## 
+## [[2]]
+## [1] 0.2684359
+## 
+## [[3]]
+## [1] -0.04833592
+\end{verbatim}
+
+\hypertarget{outro}{%
+\subsubsection{Outro}\label{outro}}
+
+Beyond simple examples, \texttt{lapply} can become tricky to use. For
+example, instead of using the \texttt{mean} function we may need to use
+a function that requires multiple arguments, and if so, how would we
+need to write this? For now, get comfortable with \texttt{lapply()} and
+the concept of repeatedly applying a function on elements of a vector.
+We'll get into more detail of the \texttt{*apply} family in a later
+lecture.
+
+\newpage
+
+\hypertarget{exercises-part-2}{%
+\section{Exercises part 2}\label{exercises-part-2}}
+
+\hypertarget{row-and-column-names}{%
+\subsection{2.1 Row and column names}\label{row-and-column-names}}
+
+\hypertarget{a.-4}{%
+\subsubsection{a.}\label{a.-4}}
+
+Like during the lecture, create a dataset of your own with some
+variables containing random normal values.
+
+\textbf{Answer:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my_data <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}
+  \DataTypeTok{var1 =} \KeywordTok{rnorm}\NormalTok{(}\DecValTok{50}\NormalTok{), }
+  \DataTypeTok{var2 =} \KeywordTok{rnorm}\NormalTok{(}\DecValTok{50}\NormalTok{), }
+  \DataTypeTok{var3 =} \KeywordTok{rnorm}\NormalTok{(}\DecValTok{50}\NormalTok{)}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{b.-4}{%
+\subsubsection{b.}\label{b.-4}}
+
+Write the file to your computer using \texttt{write.table}. Use all the
+defaults.
+
+\textbf{Answer:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{write.table}\NormalTok{(my_data, }\DataTypeTok{file =} \StringTok{"0_data/my_data.txt"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{c.-4}{%
+\subsubsection{c.}\label{c.-4}}
+
+Look at the contents of the file with Notepad or TextEdit or similar. Do
+you see \emph{just} the variables that you've created, or does the file
+contain more information?
+
+\textbf{Answer:}
+
+You should also see rownames, and the variable names.
+
+\hypertarget{d.-4}{%
+\subsubsection{d.}\label{d.-4}}
+
+\texttt{R} automatically also writes the row and columnnames of the
+data.frame you write. Look at the helpfile of \texttt{write.table} and
+see how to change the defaults to \textbf{not} write rownames.
+
+\textbf{Answer:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{write.table}\NormalTok{(my_data, }
+            \DataTypeTok{file =} \StringTok{"0_data/my_data.txt"}\NormalTok{, }
+            \DataTypeTok{row.names =} \OtherTok{FALSE}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{e.-3}{%
+\subsubsection{e.}\label{e.-3}}
+
+Try to read in this new file, that does not have rownames, using
+\texttt{read.table} and its defaults. Anything wrong with the data.frame
+you get from reading this file?
+
+Look for example at the class and mode of the columns of the data.frame.
+If you don't know what \texttt{factors} are in \texttt{R} yet (we'll
+cover these next lecture week), also specificy the argument
+\texttt{stringsasFactors\ =\ FALSE}.
+
+\textbf{Answer:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{head}\NormalTok{(}\KeywordTok{read.table}\NormalTok{(}\StringTok{"0_data/my_data.txt"}\NormalTok{, }\DataTypeTok{stringsAsFactors =} \OtherTok{FALSE}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                   V1                 V2                  V3
+## 1               var1               var2                var3
+## 2   0.44058099960939 -0.952196885778056   0.250598158919984
+## 3  -2.03060466770133  -0.66695221308752   0.714116160283575
+## 4 -0.341601330094993 -0.865420850761737 -0.0527796196266651
+## 5  -0.55826255259626  -1.31510303019255   0.601082012271947
+## 6 -0.683521524605934 -0.073291591666279  -0.720848978392403
+\end{verbatim}
+
+\texttt{R} apparently now thinks that there are no column names
+provided, and interprets the first line (with the variable names) as
+entries of the variables. Because, now, some of the entries are
+characters, it has to make the mode of the variable character!
+
+\hypertarget{f.-2}{%
+\subsubsection{f.}\label{f.-2}}
+
+From the \texttt{read.table} helpfile:
+
+\begin{quote}
+header: a logical value indicating whether the file contains the names
+of the variables as its first line. If missing, the value is determined
+from the file format: header is set to TRUE if and only if the first row
+contains one fewer field than the number of columns.
+\end{quote}
+
+Fix your code to correctly read in the file without rownames, but with
+the variable names.
+
+\textbf{Answer:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{head}\NormalTok{(}\KeywordTok{read.table}\NormalTok{(}\StringTok{"0_data/my_data.txt"}\NormalTok{, }\DataTypeTok{header=}\OtherTok{TRUE}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         var1        var2        var3
+## 1  0.4405810 -0.95219689  0.25059816
+## 2 -2.0306047 -0.66695221  0.71411616
+## 3 -0.3416013 -0.86542085 -0.05277962
+## 4 -0.5582626 -1.31510303  0.60108201
+## 5 -0.6835215 -0.07329159 -0.72084898
+## 6  0.1379595  0.61764209 -0.17522463
+\end{verbatim}
+
+\hypertarget{outro-1}{%
+\subsubsection{Outro}\label{outro-1}}
+
+\texttt{R}'s defaults in writing and reading data make it convenient if
+you are exchanging data from and to \texttt{R}. However, other programs,
+when writing files, might not use rownames, or might use rownames, but
+explicitly give these a name in the header of the file (the first line)
+such as \texttt{row\_name}. In both these cases, \texttt{R} will mess up
+reading the file, if left to its defaults. Then, you will need to do
+some manual tweaking of the arguments \texttt{read.*()} functions to get
+things right.
+
+\hypertarget{reading-and-writing-some-difficult-data}{%
+\subsection{2.2 Reading and writing some difficult
+data}\label{reading-and-writing-some-difficult-data}}
+
+\hypertarget{a.-5}{%
+\subsubsection{a.}\label{a.-5}}
+
+Take a look at the file \texttt{difficult.txt}. The file contains two
+variables, with numerical values with decimal numbers, and rownames.
+
+\hypertarget{b.-5}{%
+\subsubsection{b.}\label{b.-5}}
+
+Use \texttt{read.table}, \texttt{read.csv} and \texttt{read.csv2} to
+read in the data, and store these as three seperate objects. Like in the
+previous exercise, use \texttt{stringsAsFactors\ =\ FALSE}.
+
+\textbf{Answer:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my_diff_data <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}
+  \DataTypeTok{numeric_variable_one =} \KeywordTok{rnorm}\NormalTok{(}\DecValTok{100}\NormalTok{),}
+  \DataTypeTok{numeric_variable_two =} \KeywordTok{rnorm}\NormalTok{(}\DecValTok{100}\NormalTok{)}
+\NormalTok{)}
+\KeywordTok{write.table}\NormalTok{(my_diff_data, }\StringTok{"0_data/difficult.txt"}\NormalTok{, }\DataTypeTok{dec=}\StringTok{"."}\NormalTok{, }\DataTypeTok{sep=}\StringTok{";"}\NormalTok{)}
+\NormalTok{wrong_}\DecValTok{1}\NormalTok{ <-}\StringTok{ }\KeywordTok{read.table}\NormalTok{(}\StringTok{"0_data/difficult.txt"}\NormalTok{, }\DataTypeTok{stringsAsFactors =} \OtherTok{FALSE}\NormalTok{)}
+\NormalTok{wrong_}\DecValTok{2}\NormalTok{ <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"0_data/difficult.txt"}\NormalTok{, }\DataTypeTok{stringsAsFactors =} \OtherTok{FALSE}\NormalTok{)}
+\NormalTok{wrong_}\DecValTok{3}\NormalTok{ <-}\StringTok{ }\KeywordTok{read.csv2}\NormalTok{(}\StringTok{"0_data/difficult.txt"}\NormalTok{, }\DataTypeTok{stringsAsFactors =} \OtherTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{c.-5}{%
+\subsubsection{c.}\label{c.-5}}
+
+Inspect the three different data sets you've read into \texttt{R}. Make
+sure you inspect the modes of the variables and see if you can, for
+example, calculate a mean.
+
+\hypertarget{d.-5}{%
+\subsubsection{d.}\label{d.-5}}
+
+If done correctly, you'll notice that none of these three default
+\texttt{read.*} functions correctly reads the file. Look specifically at
+the \texttt{sep} and \texttt{dec} arguments of the functions, and the
+corresponding seperators and decimal indications used in the file to fix
+the problem and correctly read in the data.
+
+\textbf{Answer:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{correct <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"0_data/difficult.txt"}\NormalTok{, }\DataTypeTok{sep=}\StringTok{";"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{outro-2}{%
+\subsubsection{Outro}\label{outro-2}}
+
+\texttt{R} needs precise instructions: sometimes you need to tell it
+\emph{exactly} what to do. Results from reading in data may often seen
+confusing, or weirdly incorrect, or surprisingly correct: these usually
+have to do with \texttt{R}'s default choices (= default arguments in the
+function)! Know that you can simply set and change these as you want,
+using arguments.
+
+\newpage
+
+\hypertarget{exercises-part-3}{%
+\section{Exercises part 3}\label{exercises-part-3}}
+
+\hypertarget{sorting-our-data}{%
+\subsection{3.1 Sorting our data}\label{sorting-our-data}}
+
+We've seen how to access the variables of a data.frame, for example
+using \texttt{my\_data\_frame\$id}. We can of course, also access the
+rows using (for the first row) \texttt{my\_data\_frame{[}1,\ {]}}. You
+can also select multiple rows at the same time, e.g.~using
+\texttt{my\_data\_frame{[}c(1,\ 2),\ {]}}. This basically returns a
+data.frame, containing the selected rows, and more specifically in the
+order that you asked for: \texttt{c(1,\ 2)} asked to see the first row
+first, then the second row.
+
+\hypertarget{a.-6}{%
+\subsubsection{a.}\label{a.-6}}
+
+Read in ``my\_data\_frame.csv'', into an object called
+\texttt{my\_data\_frame}.
+
+\textbf{Answer:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my_data_frame <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"0_data/my_data_frame.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{b.-6}{%
+\subsubsection{b.}\label{b.-6}}
+
+Try \texttt{my\_data\_frame{[}c(3,\ 2,\ 1),\ {]}} and compare the
+entries with first three entries of the original data.frame.
+
+\textbf{Answer:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my_data_frame[}\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{), ]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   X  norm_vals samples id
+## 3 3 -1.8862651       3 33
+## 2 2 -0.1000495       5 40
+## 1 1 -1.2853634       4 29
+\end{verbatim}
+
+\hypertarget{c.-6}{%
+\subsubsection{c.}\label{c.-6}}
+
+If you look at the variable \texttt{id}, you'll see its elements are not
+nicely ordered. We can get \texttt{R} to sort this variable, using the
+function \texttt{sort}. Look at the helpfile if needed, and sort the
+\texttt{id} variable.
+
+\textbf{Answer:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sort}\NormalTok{(my_data_frame}\OperatorTok{$}\NormalTok{id)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23
+## [24] 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46
+## [47] 47 48 49 50
+\end{verbatim}
+
+\hypertarget{d.-6}{%
+\subsubsection{d.}\label{d.-6}}
+
+We can also sort \texttt{my\_data\_frame} according to the values of
+\texttt{id}. Look at the helpfile of the function \texttt{order}. An
+example application is:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{order}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{)) }\CommentTok{# the result is: 2 3 1 e.g. the second element should come first, then the third element, then the first element. This gives us the ordering: 1 2 3}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2 3 1
+\end{verbatim}
+
+Combine \texttt{order} with what you've learned in \textbf{b} to create
+a \emph{new} data.frame, that has its rows order according to
+\texttt{id}.
+
+\textbf{Answer:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my_data_frame_ordered <-}\StringTok{ }\NormalTok{my_data_frame[}\KeywordTok{order}\NormalTok{(my_data_frame}\OperatorTok{$}\NormalTok{id), ]}
+\KeywordTok{head}\NormalTok{(my_data_frame_ordered)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     X   norm_vals samples id
+## 29 29 -1.15668247       3  1
+## 16 16 -0.01652548       7  2
+## 43 43  0.19864340       6  3
+## 31 31 -0.30278878      10  4
+## 10 10 -1.29475553       1  5
+## 35 35  1.89057024       7  6
+\end{verbatim}
+
+\hypertarget{e.-4}{%
+\subsubsection{e.}\label{e.-4}}
+
+Suppose however that we also had a \texttt{group} variable. Add this
+variable yourself to the original data you read in from
+\texttt{my\_data\_frame.csv}. Use \texttt{rep} to create a variable
+containing 5 different subsequent values (1 through 5), and repeated as
+many times as needed to have as many \texttt{group} entries as rows in
+the dataset (e.g.
+\texttt{1,\ 2,\ 3,\ 4,\ 5,\ 1,\ 2,\ etc).\ Use\ cbind\ to\ combine\ the\ dataset\ and\ your}group\texttt{variable.\ Could\ you\ also\ come\ up\ with\ another\ way\ to\ add\ the}group`
+variable to the data set?
+
+\textbf{Answer:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my_data_frame <-}\StringTok{ }\KeywordTok{cbind}\NormalTok{(my_data_frame, }\DataTypeTok{group =} \KeywordTok{rep}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{, }\DecValTok{10}\NormalTok{))}
+\CommentTok{#  without using cbind:}
+\NormalTok{my_data_frame}\OperatorTok{$}\NormalTok{group <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{, }\DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{e.-5}{%
+\subsubsection{e.}\label{e.-5}}
+
+Now let's order the dataset according to the group each object belongs
+to, and within each group, according to the \texttt{id}. We can do this
+my giving multiple arguments to \texttt{order} (e.g.
+\texttt{order(var1,\ var2)}). Try this to order the data as asked. In
+this case you can easily verify yourself if the ordering is correct!
+
+\textbf{Answer:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{idx <-}\StringTok{ }\KeywordTok{order}\NormalTok{(my_data_frame}\OperatorTok{$}\NormalTok{group, my_data_frame}\OperatorTok{$}\NormalTok{id)}
+\KeywordTok{head}\NormalTok{(my_data_frame[idx, ], }\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     X   norm_vals samples id group
+## 16 16 -0.01652548       7  2     1
+## 31 31 -0.30278878      10  4     1
+## 11 11 -0.28246943      10  9     1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{tail}\NormalTok{(my_data_frame[idx, ], }\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     X  norm_vals samples id group
+## 5   5 -0.6150545      10 19     5
+## 30 30 -1.4236571       9 34     5
+## 50 50 -0.5237619       5 46     5
+\end{verbatim}
+
+\hypertarget{applying-apply}{%
+\subsection{Applying apply}\label{applying-apply}}
+
+\hypertarget{a.-7}{%
+\subsubsection{a.}\label{a.-7}}
+
+Read in the data file \texttt{jumble.txt}. Which \texttt{read.*}
+function do you think you need to use? Take a look at the contents of
+the file to decide.
+
+\textbf{Answer:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{jumble <-}\StringTok{ }\KeywordTok{read.table}\NormalTok{(}\StringTok{"0_data/jumble.txt"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{b.-7}{%
+\subsubsection{b.}\label{b.-7}}
+
+Use apply to repeatedly paste together only every \emph{fourth} element
+of the rows and the columns. That is: use letters number \(4\), \(8\),
+\(12\), etc. The result should be a vector of pasted together things,
+with as many elements as rows, or columns (depending on which index you
+used). Also paste together the elements of this resulting vector. In
+both paste operations, use the option \texttt{collapse\ =\ ""}.
+
+Which version of apply made more sense?
+
+\textbf{Answer:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{paste}\NormalTok{(}\KeywordTok{apply}\NormalTok{(jumble, }\DecValTok{1}\NormalTok{, }\ControlFlowTok{function}\NormalTok{(x) \{}
+  \KeywordTok{paste}\NormalTok{(x[}\KeywordTok{seq}\NormalTok{(}\DecValTok{4}\NormalTok{, }\KeywordTok{length}\NormalTok{(x), }\DataTypeTok{by =} \DecValTok{4}\NormalTok{)], }\DataTypeTok{collapse =} \StringTok{""}\NormalTok{)}
+\NormalTok{\}), }\DataTypeTok{collapse =} \StringTok{""}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "iUxFdigTvzwPaxKZbR ynd rIfqjxrazEhwjtWRCsWa,diIeWP z olfFlAOubAuUDp enfaWmrbQqaAHKGGHoSetNpaxg tHQpAUVJumTmiTuJoPNln' y!CawhGD RFExTTjYHaSyd,ao!"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{paste}\NormalTok{(}\KeywordTok{apply}\NormalTok{(jumble, }\DecValTok{2}\NormalTok{, }\ControlFlowTok{function}\NormalTok{(x) \{}
+  \KeywordTok{paste}\NormalTok{(x[}\KeywordTok{seq}\NormalTok{(}\DecValTok{4}\NormalTok{, }\KeywordTok{length}\NormalTok{(x), }\DataTypeTok{by =} \DecValTok{4}\NormalTok{)], }\DataTypeTok{collapse =} \StringTok{""}\NormalTok{)}
+\NormalTok{\}), }\DataTypeTok{collapse =} \StringTok{""}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "If you've used the apply function correctly, and used the right 'index', you should be reading a coherent message. If you can read this: great!!"
+\end{verbatim}
+
+Definitely the second one makes more sense!
+
+
+\end{document}
