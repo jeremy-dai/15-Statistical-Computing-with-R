@@ -48,12 +48,18 @@ Let's do some basic filtering. Create logical vectors such that we can find all 
  
  
 ```{r}
-flights[flights$dest == 'SFO' |flights$dest == 'OAK',]
+flights[flights$dest == 'SFO' |flights$dest == 'OAK','dest']
+flights[flights$arr_delay> 60,'arr_delay']
+flights[DFflights$arr_delay> 2*flights$dep_delay ,]
 ```
 
 
 ### d.
 Combine the logical vectors to see if there are any flights for which *all* of the above are true. Are there any?
+
+```{r}
+flights[(flights$dest == 'SFO' |flights$dest == 'OAK') & flights$arr_delay> 60 & flights$arr_delay > 2*flights$dep_delay & flights$dep_time<500 ,]
+```
 
 
 ## 2. Creating variables and `seed`
@@ -81,6 +87,10 @@ Now, we would like to add the following variables.
 
 ### b.
 Write the data to a file called `my_fake_data.csv` in the `0_data` folder.
+```{r}
+write.csv(data.set, file = "0_data/my_fake_data.csv")
+```
+
 
 
 ### c.
@@ -126,6 +136,10 @@ Create the vector "varname" which has the following elements:
 
 ```
     "A_1"  "A_2"  "A_3"  "A_4"  "A_5"  "A_6"  "A_7"  "A_8"  "A_9"  "A_10"
+```
+```{r}
+paste0('A_',1:12)
+paste(1:6,'=',c('O','E'))
 ```
 
 
@@ -218,10 +232,19 @@ Compare the column means and variances of the four matrices. Which two matrices 
 
 From matrix `X3`, create a new matrix `X3_new` that contains only the rows of `X3` for which at least 2 out of the 4 values are greater than 1. Give the dimensions of `X3_new`. Think back on logical indexing and filtering!
 
+```{r}
+log <- rowSums (X3>1)>=2
+X3_new <- X3[log,]
+```
+
 
 ### c.
 
 Create a new matrix `X5` that is based on `X3`, where each column of `X3` is standardized (i.e. column mean equals $0$ and standard deviation equals $1$).
+```{r}
+std <- apply(X3, 2, sd)
+```
+
 
 ## 8. Matrices of `character` and `numeric` mode
 Suppose we have the following matrix:
@@ -248,6 +271,8 @@ The values in matrix mat correspond to the characters of the vector 'strg' in th
 
 ### a.
 Write a piece of `R` code that converts each value of `mat` into the corresponding character of 'strg'. Check the mode of the matrix.
+
+
 
 ### b.
 Write a piece of `R` code to perform the following operation: Concatenate (without spaces in between) A, C, G, T according to the values in each row of mat, in such a way that the output is the following:
@@ -298,6 +323,27 @@ head(DF)
 
 Use logical operators and/or if you prefer shorter (and perhaps more readable) code, use the functions `pmin` and `pmax`.
 
+```{r}
+a.higher <- (DF[, 1] >= DF[, 3] | DF[, 1] >= DF[, 4]) 
+a.lower <- (DF[, 1] <= DF[, 3] | DF[, 1] <= DF[, 4]) 
+a.interv <- a.higher & a.lower
+
+b.higher <- (DF[, 2] >= DF[, 3] | DF[, 2] >= DF[, 4]) 
+b.lower <- (DF[, 2] <= DF[, 3] | DF[, 2] <= DF[, 4]) 
+b.interv <- b.higher & b.lower
+
+ab.interv <- b.interv | a.interv
+c.higher <- (DF[, 3] >= DF[, 1] | DF[, 3] >= DF[, 2]) 
+c.lower <- (DF[, 3] <= DF[, 1] | DF[, 3] <= DF[, 2]) 
+c.interv <- c.higher & c.lower
+
+d.higher <- (DF[, 4] >= DF[, 1] | DF[, 4] >= DF[, 2]) 
+d.lower <- (DF[, 4] <= DF[, 1] | DF[, 4] <= DF[, 2]) 
+d.interv <- d.higher & d.lower
+
+cd.interv <- c.interv | d.interv 
+overlap <- ab.interv | cd.interv
+```
 
 ## 11. Towards Programming: Importing Data from Excel using `readxl`
 
