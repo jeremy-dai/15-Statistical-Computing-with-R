@@ -1,0 +1,193 @@
+---
+title: "SCR week 3: exercises"
+output: 
+    pdf_document:
+      keep_tex: yes
+      fig_caption: yes
+header-includes: 
+- \usepackage{graphicx}
+- \usepackage{float}
+- \usepackage{placeins}
+---
+
+# Exercises: part 1
+
+## 1.1 Elipses... 
+
+Before you start this exercise, make sure you have done the `swirl` module 9 on functions, to enhance your understanding of `list(...)` inside a function.
+
+The elipses, `...`, are special. You can look at the arguments passed through elipses using `list(...)`. As with any other list, it is possible to access it's contents, to read out the value of the arguments. The names of the list are equal to the argument names. It is useful for passing on many arguments at the same time, possible arguments you do not necessarily always use.
+
+### a.
+Pass some arguments through the following functions to see what the return value is.
+
+```{r}
+MyFlexSummary <- function(...){
+  return(list(...))
+}
+```
+
+### b.
+Replace `list` in the last function, with the `mean` function. Call `MyFlexSummary`. Does it work? You should receive an error. See if you can provide some arguments that allows you to call the function without an error and such that it also returns a mean (of some vector you provide).
+
+**Answer:**
+```{r}
+MyFlexSummary <- function(...){
+  return(mean(...))
+}
+```
+
+### c.
+
+Add a few lines of code such that not just the mean, but also the `sd` of a vector `x` is calculated. Return the results of both as a list. Give some nice names the elements of the list you return. Make sure the argument of `MyFlexSummary` stays just `...`.
+
+**Answer:** 
+
+```{r}
+MyFlexSummary <- function(...){
+  return(c(mean(...),sd(...)))
+}
+```
+
+### d.
+Call `MyFlexSummary` also with a `trim` argument (as you would use in `mean`). Does this work?
+
+### e.
+You should have encountered an error. We will fix this by making a 'wrapper'. In this case a custom 'shell' around the function `sd`, so that it performs, preferably, in the exact same way if used like we would `sd` but can do more, if we choose to. Create a function called `GiveSD`, that takes as arguments: `x`, `na.rm` and `...`. Return the standard deviation of `x`, using a call to `sd` with the `x` and `na.rm` arguments. Like in `sd`, set a default for `na.rm`. Do nothing with the arguments in `...`.
+
+**Answer:**
+
+```{r}
+GiveSD <- function(x, na.rm = T, ...)
+  { return(sd(x, na.rm))
+}
+x = c(1,2,3)
+y = c(1,2,NA)
+sd(x)
+sd(y,na.rm = T)
+
+GiveSD(y,F)
+```
+
+### f.
+Inside `MyFlexSummary` replace `sd` with the 'wrapper' `GiveSD()`. Call it, also providing an argument for `trim`. Does it work now?
+
+**Answer:**
+```{r}
+MyFlexSummary <- function(...)
+  { my_mean <- mean(...)
+    my_sd <- GiveSD(...)
+    return_list = list( mean = my_mean,sd = my_sd )
+    names(return_list) <- c("mean", "sd") 
+    return(return_list)
+}
+
+MyFlexSummary(rnorm(50),trim=0.2)
+```
+
+
+### g.
+
+Now call the function `MyFlexSummary` giving a vector with an `NA`. Is it possible to override the default argument for na.rm, by specifying it inside the elipsis `...`?
+
+**Answer:**
+
+```{r}
+MyFlexSummary(c(rnorm(100), NA), na.rm = TRUE, trim = 0.1)
+```
+
+
+### Outro
+
+After we've seen the programming structures part about `if-else` statements, we can do some more interesting stuff, especially with regards to wrappers. Suppose you'd not just want to calculate a trimmed mean, but also a standard deviation using the trimmed mean. Using the `MySd` wrapper you could redefine the behaviour of `sd` based on whether the `trim` argument was provided or not.
+
+
+
+\newpage 
+
+
+
+# Exercises part 2
+
+## 2.1 Working with a table
+
+For the following exercises, take the code below to create a `data.frame` with some data.
+
+```{r}
+set.seed(2017)
+N <- 500
+my_data_frame <- data.frame(
+  species = sample(
+    c("elephant", "giraffe", "monkey", "snake"), 
+    N, 
+    replace = TRUE
+  ),
+  hair_colour = sample(
+    c("blonde", "brown", "red"), N, replace = TRUE
+  ),
+  iq = sample(
+    c("70-79", "80-89", "90-99", "100-109", "110-119", "120-129"), 
+    N, 
+    replace = T
+  )
+)
+```
+
+
+### a.
+Look at `my_data_frame$iq`. How is the ordering of the levels of this factor? Use the code below, and then look at the `iq` again. Did the data change? How about the ordering? 
+
+```{r}
+my_data_frame$iq <- factor(my_data_frame$iq, levels = levels(factor(my_data_frame$iq))[c(4, 5, 6, 1, 2, 3)])
+```
+
+**Answer:**
+
+< Write down your text here >
+
+### b.
+Create a cross-table of the entire data set. Possibly it is convenient to switch around the positions of the columns, before you create a table.
+
+**Answer:**
+
+```{r}
+#my_data_frame = my_data_frame[c('iq','hair_colour','species')]
+my_table = table(my_data_frame[, c(1, 3, 2)])
+```
+
+### c.
+How many blonde monkey's, with an IQ score between 110 and 119 are there?
+
+**Answer:**
+```{r}
+my_table[ "110-119","monkey", "blonde"]
+```
+
+### d.
+How many animals have red haircolour? 
+
+**Answer:**
+
+```{r}
+apply(my_table,c(3),sum)
+```
+
+### e.
+Of the animals with an IQ score between 90 and 99, how many animals are there of each species?
+
+**Answer:**
+
+```{r}
+apply(my_table,c(1,2),sum)#['90-99',]
+```
+
+### f.
+Extract from your 3D table, a table containing the number of occurences of animals with particular haircolour, *regardless* of their IQ score. Try to use the apply function.
+
+**Answer:**
+
+```{r}
+apply(my_table, c(1, 3), sum)
+```
+
+

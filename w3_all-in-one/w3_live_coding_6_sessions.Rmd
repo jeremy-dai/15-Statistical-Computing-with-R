@@ -1,0 +1,373 @@
+---
+title: "SCR Week 3: live coding"
+output: 
+    pdf_document:
+      keep_tex: yes
+      fig_caption: yes
+header-includes: 
+- \usepackage{graphicx}
+- \usepackage{float}
+- \usepackage{placeins}
+---
+
+
+# More about Functions
+
+## Scoping | Session 1
+
+```{r, eval=FALSE}
+numerator_value <- 12
+
+GiveRemainder <- function(divisor) {
+   return(numerator_value %% divisor)
+}
+GiveRemainder(10)
+numerator_value
+
+# numerator_value <- 12
+GiveRemainder(10)
+```
+
+
+## Setting a value | Session 2
+
+This is part of an Object Oriented Programming style
+
+```{r}
+person <- list(name = "Who?", age = 34, gender = "male")
+person[["name"]]
+```
+
+```{r}
+GetName <- function(x) {
+  return(x[['name']])
+}
+GetName(person)
+```
+
+```{r, error = TRUE}
+GetName(person) <- ""
+```
+
+However, apparantly in R, we can assign values based on a function call.These are functions as `names()`, `class()`, `mode()`... 
+
+```{r}
+obj <- c(a = 2, b  = 3, c = 3)
+names(obj)
+names(obj) <- paste("V", 1:3, sep = "")
+names(obj)
+```
+
+
+The trick on how to do this... (will be skipped if not enough time!)
+
+```{r}
+MyName <- 'MyName<-' <- function(x, value = x[['name']]){
+  x[['name']] <- value
+  return(x)
+}
+```
+
+```{r}
+MyName(person) <- ""
+MyName(person)
+```
+
+
+
+## Parts of a function | Session 3
+
+```{r}
+Multiply <- function(){}
+```
+
+```{r}
+args(Multiply)
+formals(Multiply)
+```
+
+
+```{r}
+Multiply <- function(x, y = x, ...){
+  
+  args <- list(...) # remember swirl?
+  
+  if (!is.null(args$message)){ # remember tries to find a named entry / argument?
+    print(args$message)
+  }
+  
+  return_value <- x * y
+  return(return_value)
+}
+```
+
+
+```{r}
+args(Multiply)
+formals(Multiply)
+```
+
+
+```{r}
+Multiply(2)
+Multiply(2, 4)
+Multiply(x = 2, y = 4, message = "This is a multiplication of 2 and 4")
+```
+
+
+
+
+### Down the rabbit hole
+
+When getting help on a function, don't forget to look at the examples at the end of the file.
+
+```{r, eval=FALSE}
+?mean
+example(mean) # or just call them.
+```
+
+Other options: 
+
+```{r, eval = FALSE}
+View(Multiply)
+Multiply <- edit(Multiply)
+Multiply(2,3, message ="hi")
+```
+
+
+R is open source! 
+
+```{r, eval = FALSE}
+View(apply) # oh dear
+```
+
+Something simpler then?
+
+```{r, eval = FALSE}
+View(mean)
+methods("mean")
+View(mean.default)
+?.Internal
+.Internal(mean(1:100))
+View(.Internal)
+.Primitive(".Internal")
+```
+
+To really find out how the function `mean()` works, download the source of R (e.g. not the binary versions...). Then, find the file: names.c, and look for "mean", and find "do_summary". So, we have to go to the `summary.c` file and look for do_summary...?  pff
+
+Can we find out the source code for `rnorm()`...? 
+
+```{r, eval = FALSE}
+View(rnorm) # this is new ?
+``` 
+
+`.Call?` Darn it! We have to go -> names.c -> etc.. 
+
+Whenever you encounter `C()`, `.Call()`, `.Fortran()`, `.External()`, or `.Internal()` and `.Primitive()`,  don't bother (for this course!)
+
+
+
+
+\newpage 
+
+##  Factors | Session 4
+
+```{r}
+set.seed(20180928)
+my_vector <- letters[sample(1:10, 25, replace = T)]
+class(my_vector) # works like a names function 
+```
+
+Creating a factor
+
+```{r}
+my_factor <- factor(my_vector)
+my_factor <- factor(my_vector, levels = letters[1:10])
+attributes(my_factor)
+levels(my_factor) # works like a names function
+```
+
+Nice feature: factors protect you against invalid entries
+
+```{r, error = TRUE}
+my_factor[1] <- "z"
+```
+
+Removing factor
+
+```{r}
+as.character(my_factor)
+unclass(my_factor)
+attributes(my_factor) <- NULL  # works like a names function
+my_factor
+```
+
+
+More ways to create factors
+
+```{r}
+my_factor <- factor(my_vector, levels = unique(my_vector))
+my_factor
+```
+
+Also check out `gl()`...
+
+The ordering in the levels, determines the order in the factor:
+
+```{r}
+my_factor <- factor(my_vector, levels = letters) 
+my_factor[1] <- "z"
+```
+
+```{r}
+my_factor <- factor(my_vector, levels = rev(letters)) 
+my_factor[1]
+# unclass(my_factor)[1]
+```
+
+```{r}
+my_factor <- factor(my_vector, levels = letters, labels = rev(LETTERS))
+my_factor <- factor(my_vector, levels = letters)
+my_factor
+```
+
+
+Removing unobserved levels:
+
+```{r}
+my_factor <- droplevels(my_factor)
+```
+
+
+Quirks and perks? factor is 'a kind of' container... 
+
+```{r}
+class(my_factor)
+mode(my_factor) # ???
+my_factor + 1 # pfew...
+as.numeric(my_factor) # ok...:s
+as.numeric(factor(my_factor, levels = rev(letters))) # you know why?
+```
+
+
+
+## table | Session 5
+
+```{r, eval = FALSE}
+N <- 3e4
+
+my_numbers <- sample(rep(1:3, each= N / 3))
+table(my_numbers)
+my_chars <- sample(letters[1:3], 3e4, replace=T)
+table(my_chars)
+
+table(my_numbers, my_chars)
+
+my_data <- data.frame(my_numbers, my_chars)
+table(my_data)
+
+my_logicals <- sample(c(TRUE, FALSE), N, replace=T)
+table(my_numbers, my_chars, my_logicals)
+
+my_data <- cbind(my_data, my_logicals)
+table(my_data)
+```
+
+
+## arrays | Session 6
+
+```{r, eval = FALSE}
+my_array <- array(0, dim = c(2, 3))
+my_array
+class(my_array)
+```
+
+```{r}
+my_array <- array(1:24, dim = c(4, 3, 2))
+```
+
+Remember how data is filled up over the dimensions.
+
+```{r}
+class(my_array)
+my_array
+```
+
+```{r}
+my_array[1, 1 , 1]
+my_array[, , 1]
+my_array[1, , ]
+my_array[, 1, ]
+```
+
+```{r}
+my_array <- array(1:120, dim = c(5, 4, 3, 2))
+# pff...
+```
+
+The table one was much easier right? Everything is mode numeric and we can  turn it into proportions easily:
+
+```{r, eval = FALSE}
+my_table <- table(my_data)
+my_table/ sum(my_table)
+```
+
+
+### `apply()`:
+
+```{r}
+apply(my_table, 3, sum) # row marginals
+apply(my_table, 1, sum) # depth(?) marginals
+apply(my_table, c(1,2), sum) # row / column marginals (i.e. summing the two layers)
+```
+
+
+
+### `tapply()`?
+
+```{r}
+med_example <- data.frame(
+  patient = 1:100,
+  age = rnorm(100, mean = 60, sd = 12),
+  treatment = factor(
+    rep(c(1,2), 50), 
+    labels = c("treatm", "control")
+  ),
+  hospital = factor(
+    rep(c(1,2), each = 50), 
+    labels = c("A", "B")
+  )
+)
+```
+
+```{r}
+set.seed(42)
+med_example$QL <- 30 + 10*(med_example$hospital == "A") + 30*(med_example$treatment == "treatm") + rnorm(100, mean = 10, sd = 10)
+```
+
+```{r}
+output_tapply <- tapply(
+  X = med_example$QL, 
+  INDEX = list(
+    med_example$hospital,
+    med_example$treatment
+  ), 
+  FUN = mean
+)
+output_tapply
+```
+
+
+
+```{r, eval = FALSE}
+aggregate(
+  QL ~ hospital + treatment, 
+  FUN = mean,
+  data = med_example
+)
+```
+
+
+
+
+

@@ -1,0 +1,282 @@
+---
+title: "SCR Week 3 Selfstudy Exercises"
+output: pdf_document
+---
+
+## 1. Cut, factors and tables
+
+### a.
+Create two vectors with $1000$ random samples from standard normal distributions.
+
+**Answer:**
+```{r}
+v1 <- rnorm(1000)
+v2 <- rnorm(1000)
+```
+
+### b.
+Use `cut` to cut these two variables up, seperately, such that the observations for each of the variables are in one of 10 bins. Use the `breaks` argument and provide a single number. What type of output does `cut` create?
+ 
+**Answer:**
+```{r}
+f1 = cut(v1,breaks = 10)
+f2 = cut(v2,breaks = 10)
+class(f1)
+#factor
+```
+
+
+### c.
+Use `table` to at the distribution of the values over the 10 bins for both variables. Are the distributions and the intervals the same? In what way are the breaks created?
+
+**Answer:**
+```{r}
+t1 = table(f1)
+t2 = table(f2)
+```
+
+
+### d.
+Look at the function `quantile`. Use it to create 10 new cutting points, such that the values of your random variables are uniformly distributed over the intervals.
+
+**Answer:**
+```{r}
+f3 = cut(v1,breaks = quantile(v1, probs = seq(0,1,0.1)))
+f4 = cut(v2,breaks = quantile(v2, probs = seq(0,1,0.1)))
+table(f3)
+```
+
+### e.
+Try to cross tabulate your original variables with random samples in them. Does it work / is it an interesting table?
+
+**Answer:**
+
+```{r, eval=FALSE}
+table(f1,f2)
+```
+
+### f. 
+Now cross tabulate variables 1 and 2, but use the two different binned versions you've created. Which is more interesting? Do you notice any pattern?
+
+**Answer:**
+```{r}
+table(f3,f4)
+```
+
+### g.
+Try to think of a way to contruct two normally distributed variables, such that if we `cut` them, using equal sized intervals, and cross tabulate them, we see more observations on the diagonal of the crosstable.
+
+**Answer:**
+
+```{r}
+```
+
+## 2. Factors and Preparing Data Frames
+
+Denote and decode the following data frame:
+
+```{r, label= preps}
+set.seed(20141120)
+dat <- data.frame(
+  id = sample(gl(20, 5), replace = TRUE), 
+  y = rnorm(100, 10), 
+  time = rep(1:5, 20), 
+  gender = factor(
+    NA, 
+    levels = 1:3, 
+    labels = c("male", "female", "other")
+  ), 
+  age = NA, 
+  treat = factor(
+    NA, 
+    levels = 1:3, 
+    labels = c("placebo", "active", "control")
+  )
+)
+dat <- dat[order(dat$id), ]  # order the rows of dat by id
+```
+
+*Read de above code carefully and look at the help file for functions you're not familiar with. Also look at the examples of the help file, especially when the help file does not sufficiently clarify the code for you.*
+
+
+### a.
+Each id number represents one individual and during the whole study his/her/its gender and treatment remains the same. 
+
+Assign at random the `male` or `female` gender to each `id` number and assign randomly a `placebo` or `active` treatment to each `id` number. Keep the structure (`class` and `attributes`) of the factors intact!
+
+```{r, eval = FALSE}
+attributes(dat$gender)
+gndr.att <- attributes(dat$gender)
+dat[['gender']] <- sample(c("male", "female"), 100, replace = TRUE)[dat$id] # becomes character!
+attributes(dat$gender) 
+attributes(dat$gender) <- gndr.att
+```
+
+*Hint: the above code does not work for two reasons: 1. we lose the factor structure, 2. each id number can have a different gender over time*
+
+**Answer:**
+
+```{r}
+dat$gender=factor(
+    sample(c("male", "female"),20, replace = TRUE)[dat$id],
+    #levels = c("male", "female", "other")
+    #labels = c("male", "female", "other")
+  )
+```
+
+
+### b.
+Now let's give our patients an age which makes sense according to the time of measurement:
+
+```{r, answ9b, eval = TRUE}
+dat$age <- unlist(
+  sapply(X = unique(dat$id), # line 4
+    FUN = function(i) { 
+      age.id <- sort(sample(x = 18:55, size = 5, replace = TRUE)) # line 1
+      out <- age.id[dat$time[dat$id == i]] # line 2
+      return(out)
+      } # line 3.
+  )
+) # line 5
+```
+
+Describe what happens at each commented line of code.
+
+**Answer:**
+
+Write down your text here...
+
+
+### c.
+Based on `age` create a factor `cat_age` (categorical age) that takes the values 
+
+  * 1, if $(18 \leq age < 35 )$
+  * 2, if $(35 \leq age < 45 )$
+  * 3, if $(45 \leq age < 55 )$
+
+Apart from using logical operators, code using the function `cut` is also allowed.
+
+**Answer:**
+
+```{r answ9c, eval = TRUE}
+```
+
+### d.
+Based on the factor you defined above create the 3-way contingency table, `tabdat1`, that contains the frequencies for each combination of `gender`, `treat` and category of `age` (as defined above). *Challenge yourself: use the function `with()` (or any other function) such that you don't have to write `dat$` three times.*
+
+**Answer:**
+```{r}
+```
+
+### e.
+Did you obtain empty columns and cells? How would you use the `drop` argument to remove those empty rows and columns from your 3-way contingency table? Please do question d again, but use the `drop` argument.
+
+**Answer:**
+```{r}
+```
+
+###f.
+
+For this table compute the marginal sums for each of the **3 dimensions**, then show the three 3-way contigency tables in which the cells represent the percentages of on of the dimensions. 
+
+**Answer:**
+```{r, label = answ9f, eval = TRUE}
+```
+
+
+### g.
+As you will observe, some subjects have more than one measurement for some of time points (i.e. column/variable `time`). Create a new data frame, called `new_dat`, in which these measurements are averaged.
+
+*NOTE + HINT: This is a difficult exercise, you might want to skip it for now. If you accept the challenge: the function `tapply`, `duplicated` and `na.omit` may save you time in search for an answer.*
+
+**Answer:**
+```{r}
+```
+
+### h.
+Add a new column to the `new_dat` data frame that contains the average value of `y` per `id` (i.e., for each subject the average should be replicated the number of his/her measurements). *Hint: use the function `tapply` or `ave`.*
+
+**Answer:**
+```{r}
+```
+
+
+## 3. Functions and scoping: peeling the layers
+
+### a.
+Read through the following code and try to figure out what these functions do. Especially, try to reason out what the output of the `cat` functions will be.
+
+```{r}
+a <- 1
+b <- "one"
+
+FirstLayer <- function(){
+  cat("Entering the first layer\n")
+  
+  cat("Inside the first layer a is:", a, "\n")
+  cat("Inside the first layer b is:", b, "\n")
+  
+  a <- 2
+  
+  cat("Inside the first layer a was changed to:", a, "\n")
+  
+  SecondLayer()
+  
+  cat("Inside the first layer a is now:", a, "\n")
+  cat("Inside the first layer b is now:", b, "\n")
+  
+}
+
+SecondLayer <- function(){
+  cat("Entering the second layer\n")
+  
+  cat("Inside the second layer a is:", a, "\n")
+  cat("Inside the second layer b is:", b, "\n")
+  
+  a <- 3
+  b <- "two"
+  
+  cat("Inside the second layer a was changed to:", a, "\n")
+  cat("Inside the second layer b was changed to:", b, "\n")
+  
+  cat("Exiting the second layer\n")
+  return(NULL)
+}
+```
+
+### b.
+Run the function `FirstLayer`. Is the printed output as you would expect?
+
+**Answer:**
+```{r}
+FirstLayer()
+```
+
+### c.
+Move the definition of the `SecondLayer` function inside of the function definition of `FirstLayer`. Run `FirstLayer` again. What do you think of the printed output this time?
+
+**Answer:**
+```{r}
+```
+
+### d.
+
+Rewrite the functions `FirstLayer` and `SecondLayer` as presented in **a** so that the arguments `a` and `b` are explicitly passed along: they should be present in the list of arguments of the function, and therefore also be part of the function call. Run `FirstLayer` again. Did the function behave as expected?
+
+**Answer:**
+```{r}
+```
+
+### Outro
+The best way to deal with scoping is to explicitly pass arguments and do not depend on scoping UNLESS you are very comfortable with how this works. If you want to go nuts on these concepts, go to e.g. http://adv-r.had.co.nz/Environments.html#function-envs (*warning: confusion ahead*)!
+
+
+
+## 4. Swirl
+
+If you haven't done so yet, follow lessons 10 \& 11 from the R package `swirl`
+
+`10: lapply and sapply`
+`11: vapply and tapply`
+
+NB. `vapply` is a fun a neat function to learn. However, in this course you will not see the lecturers using this function, nor will you be specifically used to ask to use this function during exams and assignments.
