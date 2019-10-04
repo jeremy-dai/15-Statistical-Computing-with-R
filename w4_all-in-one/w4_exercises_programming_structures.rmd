@@ -1,0 +1,582 @@
+---
+title: "SCR week 4: exercises"
+output: 
+    pdf_document:
+      keep_tex: yes
+      fig_caption: yes
+header-includes: 
+- \usepackage{graphicx}
+- \usepackage{float}
+- \usepackage{placeins}
+---
+
+# Exercises part 1
+
+
+## 1.1 Write your own Songtext (Part 1)
+
+In this exercise we will program a function to produce a file with the lyrics of the '99 bottles song' in three different versions; based on `lapply()`, `sapply()` and (perhaps?) `replicate()`.
+
+### a.
+
+Take a look at the following code:
+
+```{r}
+in_stock <- 99
+paragraph <- paste0(
+  in_stock, " bottles of beer on the wall, ", 
+  in_stock, " bottles of beer. \n", 
+  "Take one down, pass it around, ",
+  in_stock - 1," bottles of beer on the wall...\n\n"
+)
+cat(paragraph)
+```
+
+Use `lapply()`, `sapply()`, to produce the paragraphs for `B = 10` to `B = 2` bottles of beer on the wall. What is the class of the output of `sapply()` what is the class of the output of `lapply()`?
+
+
+
+### b.
+
+Since `replicate()` is a wrapper around the `sapply()` (and thus the `lapply()`) function, would it be "natural" the use the `replicate()` function to write the paragraphs of the $N$ Bottles of Beers song?
+
+
+### c.
+
+Time the functions `lapply()` and `sapply()` for `B = 10` to `B = 2` "bottles on the wall" with (only) the use of `system.time()`. Can you say which of the two functions is slower?
+
+
+### d.
+
+Use the `replicate()` function to measure the running time when the expressions of the previous subquestions where each $B = 1000$ times repeated. Do you know have a more definite answer on which of the two functions is slower?
+
+
+### e.
+
+In this case using `simplify2array` or `unlist` would not make any difference for the output of `lapply()` in this exercise. Could you tell which of the two functions is faster? 
+
+
+### f.
+
+Write a function that can put the lyrics of the song into a `.txt` file and can store it to any destination on your computer (given that the destination exists) with use of the `cat()` function. The input parameters (arguments) of your functions are: `B`, the number of bottles your start with; and the address for your "to be created" lyrics file. The function should return: `invisible(NULL)`.
+
+Use (if you like) the following variables / objects inside your function:
+
+```{r, eval = FALSE}
+header_song <- paste0("\n", N = 99, " Bottles of Beers \n\n")
+end_song <- c("2 bottles of beer on the wall, 2 bottles of beer\n", 
+  "Take one down, pass it round 1 bottles of beer\n\n",
+  " 1 bottle of beer on the wall, 1 bottle of beer\n",
+  "No more bottles of beer\n"
+)
+```
+
+Last, apply your created function to write your lyrics to the folder `0_data` in your working directory.
+
+
+## 1.2 Wine Equality: `<*>apply()` family and `aggregate`
+
+If you haven't done so, make sure you have finished the `swirl()` module: `11: vapply and tapply`.
+
+
+### a.
+
+Read the file `winequality-red.ssv` into a `data.frame` object and write code that checks the `type` (or `mode`) of each column in the `data.frame`.
+
+
+### b.
+
+Categorize the columns `density` and `pH` into two new factors columns with each two categories: higher than the median, and lower or equal to the median.
+
+
+### c.
+
+Use `tapply()` to create a table for the means of `fixed.acidity` in a cross-table for "low and high density" with "low and high pH".
+
+
+### d. 
+
+Use `aggregate()` to find the means for `fixed.acidity` of all combinations of "low and high density" with "low and high pH".
+
+
+### e.
+
+Repeat the sub-exercises **c** and **d**, but use an anonymous function that outputs the mean as well as the standard deviation. Does the output of both `tapply()` and `aggregate()` makes sense?  
+
+
+\newpage 
+
+# Exercises: part 2
+
+## 2.1 From `<*>pply` towards `for`
+
+In the Week 2 exercises you created a list object: 
+
+```{r}
+set.seed(20181005)
+my_list <- replicate(10, list(rnorm(5)))
+```
+
+This object replicated the `list(rnorm(5))` command 10 times, and put the results into a list (of length 10). On each of these ten entries we calculated the mean of the 5 random normal draws, this was done by the code:
+
+```{r}
+my_list_means <- lapply(my_list, mean)
+```
+
+### a 
+
+Create a similar `my_list` object, but instead of using the `replicate` function, use a `for` loop. Do not forget to first create a list of length 10, using for example: 
+
+`my_list <- vector(length = 10, mode = "list")`
+
+
+Due to the fact that you're sampling from a normal distribution, the values in your list will be different from the list of the Week 2 exercises.
+
+
+### b 
+
+We can time the code from lecture 2 as follows:
+
+```{r}
+system.time(replicate(1e4, {
+  set.seed(20181005)
+  my_list <-  replicate(10, list(rnorm(5)))
+}))
+```
+
+Which is of the two code chunks is faster? the code with the `for` loop or the code from the exercise of lecture 2?
+
+
+### c 
+
+We assign the mean of each entry in `my_list` towards the object `my_means` as follows:
+
+```{r}
+my_means1 <- lapply(my_list, mean)
+```
+
+Create a `for` loop with which we can create the same `my_means2` object. Can you conclude which of the two ways of coding is faster, is it the code with the `lapply` function, or your code with the `for` loop?
+
+
+### d
+
+Quicker code would be to combine to calculate the mean direcly on the five samples generated from the standard normal distribution. 
+
+The `replicate()` and `lapply()` together would give us 
+
+```{r}
+system.time(replicate(1e4, {
+  set.seed(20181005)
+  my_list <- replicate(10, list(rnorm(5)))
+  my_means <- lapply(my_list, mean)
+}))
+```
+
+whereas using `lapply()` only, gives us:
+
+```{r}
+system.time(replicate(1e4, {
+  set.seed(20181005)
+  my_means <- lapply(1:10, function(b) {
+    mean(rnorm(5))   
+  })
+}))
+```
+
+Can you rewrite the second `R` code chunk into a `for` loop? That is, `system.time()` a replication of the `for loop` for `1e3` times.
+
+
+## 2.3 An improvement of the 99 Bottles of Beer song? 
+
+Step-by step we are going to improve the `SingTheBottleSong()` function in this exercise (see Exercises part 1).
+
+Remember, the main function inside `SingTheBottleSong()` was:
+
+```{r}
+CreateParagraphsBottlesBeer <- function(bttls) {
+    paragraph <- paste0(
+      bttls, " bottles of beer on the wall, ", 
+      bttls, " bottles of beer. \n", 
+      "Take one down, pass it around, ",
+      bttls - 1, " bottles of beer on the wall...\n\n"
+    )
+    # cat(paragraph)
+    return(paragraph)
+  }
+```
+
+for the complete lyrics, take a look at:
+
+\url{http://99-bottles-of-beer.net/lyrics.html}
+
+
+### a.
+
+The first improvement of the function `CreateParagraphsBottlesBeer()` is to make sure that `bttls` can be coerced to an integer using:
+
+`bttls <- suppressWarnings(as.integer(bttls))`
+
+Take a look at the help file of the functions `stop()` and `supressWarnings()`.
+
+If bttls is not coerced to an integer, it probably gives `NA`. If this is the case, then use `stop()` to exit the function by leaving an appropriate message. Hint: Look at the help-file or internet for examples on how to use `stop()` in a function.
+
+
+### b.
+
+Note that `CreateParagraphsBottlesBeer()` does not make sense for `bttls = 2` or `bttls = 1`. Use an 
+
+`if(cond) cons1.expr  else if cons2.expr else alt.expr` 
+
+expression to create the three needed different paragraphs inside the updated function.
+
+
+### c.
+
+Also, use `stop()` with an appropriate message to exit the function when `bttls` has a value `< 1`.
+
+
+
+
+## 2.4 Functions and `if else` statements | About your SCR grade
+
+### a. 
+Look at the help-file of the function `round`, can you spot in the help-file where it is written that a number of 8.5 would be rounded to an 8, instead of a 9? What does it say?
+
+
+### b. 
+Complete the function `MakeRound` on the underscores `___`, such that it rounds the number 8.5 to a 9.
+
+```{r, eval = FALSE}
+MakeRound <- function(x) {
+  tmp <- trunc(x)
+  if(___) {
+    out <- ceiling(x)
+  } else {
+    out <- floor(x)
+  }
+  return(out)
+}
+MakeRound(8.5)
+```
+
+
+### c. 
+
+Final grades for the courses in the Statistical Science programme are rounded to whole and half numbers except the grade 5.5 (e.g. .., 4.5, 5, 6, 6.5, 7, ..). Modify the `MakeRound` function such that it rounds towards whole and half numbers. Show that your modified function rounds 8.25 towards a 8.5 and not towards `round(8.25*2)/2`. The 5.49, however, should round towards 5, and a 5.5 towards 6. 
+
+You may want to use the following pogramming structure inside the body of your function:
+
+```{r, eval = FALSE}
+if(x >= 5 && x < 5.5) {
+  ___
+} else if(x >= 5.5 &  x < 5.75) {
+  ___
+} else if(___) {
+  ___
+} else {
+  ___
+}
+```
+
+
+
+### d. 
+Use your last `MakeRound` function to create a modified version of the lecture's `CalculateGrade` function such that it rounds the final grade towards a whole or half number. Here's the 
+
+```
+CalculateGrade <- function(A, E1, E2) {
+  A_comp <- A * (1 / 3)
+  E_comp <- mean(c(max(E1, E2), E2)) * (2 / 3)
+  grade <- A_comp + E_comp
+  return(grade = grade)
+}
+```
+
+
+
+## 2.5 `SingTheBottleSong2()` based on `for`
+
+### a 
+
+Rewrite `SingTheBottleSong()` into the function `SingTheBottleSong2()` that uses the `for` loop instead of the implicit `lapply()`.
+
+
+### b 
+
+Use `system.time()` to measure the time of both functions. Can you choose a number s.t. a distinction in time evaluation become visible? 
+
+*Note that for the model answers we could not easily find such a distinction. The timing is quite instable. Around 1e5 bottles of beer the `lapply()` based function seems to be faster.*
+
+
+
+
+## 2.6 Bubble sort
+
+[Bubble sort](http://jkunst.com/r/visualizing-sort-algorithms-with-ggplot/?utm_content=buffer2834b&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer) (<-- click on Bubble sort) is a sorting algorithm that works by stepping through a vector to be sorted, comparing each pair of adjacent elements and swapping them if they are in the wrong order. The walk through the vector is repeated until no swaps are needed. The algrithm sorts a vector in ascending order.
+
+Write a function `BubbleSort()` that implements the Bubble sort algorithm, and show that it can sort a vector (e.g. `sample(50)`) from its smallest value to its highest value.
+
+*Tip: it is common to see the following ERROR when swapping values, at least once:*
+```{r, eval = FALSE}
+x[2] <- x[3]
+x[3] <- x[2]
+```
+Check for yourself why the above swap does not work.
+
+Here's a function template to help you get started!
+```{r, eval = FALSE}
+BubbleSort <- function(x, na.rm = TRUE) {
+    # Description of function..  
+    #
+    # Args: 
+    #   arg1: Description.  
+    #   arg2: Description + default 
+    # Returns: 
+    #   x sorted from smallest to highest values
+    #
+    # perfrom some checks here...
+    
+    n <- length(x)
+    
+    repeat {
+        swaps <- 0
+        for (i in 1:(n - 1)) {
+            
+            ......
+            
+            
+        }
+        if (!swaps) 
+            break
+    }
+    return(x)
+}
+```
+
+
+## 2.7 Coding a `for` loop into `while` or `repeat`
+
+Take again (a quick) look at the following `for` loop example:
+
+```
+grades <- trunc(runif(100, 10, 100))/10 # uniform grades
+n <- length(grades)
+grd_rnd <- numeric(n)
+grd_tbl <- numeric(10)
+names(grd_tbl) <- 1:10
+
+for(i in 1:n) {
+  grade <- grades[i]
+  tmp <- trunc(grade)
+  if(grade - tmp >= 0.5) {
+    grd_rnd[i] <- ceiling(grade)
+  } else {
+    grd_rnd[i] <- floor(grade)
+  }
+  grd_tbl[grd_rnd[i]] <- grd_tbl[grd_rnd[i]] + 1
+}
+grd_tbl
+```
+
+Recode this example into a `while` or `repeat` loop.
+
+
+\newpage 
+
+# Selfstudy Exercises 
+
+## 3.1 Vectorization: All roads lead to Rome... some are more efficient.
+
+### a.
+
+Rewrite the following code into code which uses a `[*]pply()` function, and into a vectorized solution.
+
+```{r}
+a <- numeric(5)
+for (i in 1:5) a[i] <- i + 3
+rm(i)
+a
+```
+
+
+### b. 
+
+The following code creates 2 vectors of length 100, with i.i.d. random values from a standard normal distribution (`x`) and from a normal distribution with `mean = 2`, and `sd = 3`.
+
+*inefficient code:*
+```{r, eval = TRUE}
+x <- y <- NULL
+for (i in 1:100) {
+    x[i] <- rnorm(1)
+    y[i] <- rnorm(1, 2, 3)
+}
+```
+
+Although you probably feel that it is not a wise decision to use a loop for this coding problem, try to recode this `for (i in 1:100) {}` without a growing object, And delete i at the end with rm() as in the lecture notes.
+
+
+### c. 
+
+Rewrite the code of exercise b twice by using one of the `[*]apply`  functions (which can be tricky!) AND using a vectorized solution.
+
+
+### d
+
+Take a look at the help file of the vectorized `pmin` function. We can use it to find the parallel minima of the elements of the objects `x` and `y`. See the following code:
+
+```{r}
+head(pmin(x,y))
+```
+
+Now try to rewrite this code example into your most cumbersome code possible by using the `for` loop and `if() else {}` control statements.
+
+
+### e.
+
+We want to create the matrix with ij'th element equal to 3 times the ith element of 'x' minus 2 times the square of the jth element of 'y'
+
+*inefficient code:*
+```{r, eval = TRUE}
+system.time(replicate(1e2, {
+  rslt1e <- matrix(0, 100, 100)
+  for (i in 1:100) {
+    for (j in 1:100) {
+        rslt1e[i, j] <- 3 * x[i] - 2 * y[j]^2
+    }
+  }
+}))
+```
+
+Carefully study what happens in the above code. Could you rewrite it using one (or even two) `sapply` implicit loop(s)? If yes which of the pieces of code is faster? Use the function `system.time` (and possibly `replicate`) to compare the codes on speed (check the help-file and internet, for example: \url{http://stats.stackexchange.com/questions/3235/timing-functions-in-r}).
+
+
+### f. 
+
+Check the help file of the function `outer()`. Run the examples and get comfortable with the functions `example(outer)`. If the examples do not make you feel comfortable on what the function does, explore the world wide web for more examples. 
+
+When comfortable with `outer()`, rewrite the code problem 1e. into a vectorized solution by using the function `outer()`
+
+
+### g.
+
+Rewrite the following code into a vectorized solution that uses only the `set.seed(42)` and the function `sample`. 
+
+```{r}
+set.seed(42)
+a1 <- replicate(12, sample(c(0,1), 1))
+```
+
+
+
+### h.
+
+Check the helpfile of `ifelse()`. Could you rewrite the lines that start from `obtained_ects` in the following code chunk into only one line of code using the `ifelse()` function?
+
+Code to be rewritten: 
+
+```{r}
+set.seed(20181005)
+ideal_grades <- rnorm(42, mean = 7, sd = 1.5)
+obtained_ects <- character(length(ideal_grades))
+for (student in 1:length(ideal_grades)) {
+  if (ideal_grades[student] > 5.5)  {
+    obtained_ects[student] <- "yes"
+  } else {
+    obtained_ects[student] <- "no"    
+  }
+}
+```
+
+
+### i. 
+
+Take a look at the source of `ifelse()` function. Although it is vectorized, it still uses an `if` statements, i.e.
+
+```{r, eval = FALSE}
+if (any(test[ok])) 
+        ans[test & ok] <- rep(yes, length.out = length(ans))[test & ok]
+```
+
+Instead of using the `ifelse()` function, or `if` statments,  only `[` brackets and filtering to create `obtained_ects`. Given that you have `ideal_grades` already in your workspace, you should be able to do so in two lines.
+
+
+### j. 
+
+Could yo create a function that can replace `SingTheBottlesSong()` and `SingTheBottlesSong2()`, and does not use any implicit or explicit loops.
+
+*Hint: Check the live coding and the paste function* 
+
+
+## 3.3 A Real (Non-Statistical) Programming Assignment 
+
+In this exercise we will make a `data.frame` containing functions from the package `stats`
+
+### a
+Make a character vector called `functs` that contains all the objects from the package `stats` using the code `ls(envir = as.environment("package:stats"))`. Take a careful look at what each individual part does (run each part separately). Try to think/guess why this works. 
+
+
+### b
+Loop over the vector `functs` and use the function `get` to check for each of the objects from package `stats` if it is of the class `function` or not. Save only the function objects.
+
+
+### c
+We are now going to create a look-up table. We are going to make a data.frame that one can use to see which functions use a particular argument, and which arguments a particular function uses. We are going to create an entry for *each* function, and denote with `TRUE` or `FALSE` whether an argument is used in that particular function or not.
+
+Extract from the functions, whose names you've collected in `functs`, the arguments. Create an empty `data.frame` called `stats.fncts` and add an entry for each function in the `stats` package: the first column will contain the name, the following columns (as many columns as there are (unique) arguments in the `stats` package) will contain a `TRUE` or `FALSE` depending on whether the argument is used by the function or not.
+
+Example result (using only two functions):
+```{r}
+data.frame(
+  fnames = c("anova", "aov"), 
+  contrasts = c(F, T), 
+  data = c(F, T), 
+  formula = c(F, T), 
+  object = c(T, F), 
+  projections = c(F, T), 
+  qr = c(F, T)
+)
+```
+
+*Hint: as always, divide the task up in several smaller pieces. What do we need to do this task? We need all the functions from the `stats` package, we already have those in `functs`! We need to extract from each function its arguments (go to the slides to see how to do this!). We don't want a look-up table with duplicate entries, so we need a way to get all the `unique`(!) entries!*
+
+
+### d
+There are functions that have the exact same arguments. How big is the largest group of functions that share the exact same arguments?
+
+*Hint: work out this exercise first on the first 10 rows of the datafram stat.fncts to see how to make the code for the big data set. Use a (statistical) programmer's strategy...*
+
+
+## 3.4 Gradient Descent
+
+There are various methods of estimating the parameters of a statistical model e.g. least squares or maximum likelihood estimation. In maximum likelihood estimation a maximum of a real function (the likelihood function) needs to be found by means of optimization. Various optimization methods exist for finding the minimum or maximum of a real function.
+
+Gradient descent is an iterative algrotihm that can be used to find a local minimum of a function. If a function f(x) is defined and differentiable in a point \(x_0\), then \(f(x)\) decreases fastest if one goes from \(x_0\) in the direction of the negative gradient of \(f\) at \(x_0\), denote - \(f'(x_0)\). It follows that, if \(x_1 = x_0 - \alpha f'(x_0)\) for small enough \(\alpha\), then \(f(x_0) \geq f(x_1)\). A minimum of \(f(x)\) can be found by starting with \(x_0\) and considering the sequence \(x_0, x_1, x_2, \ldots \) such that 
+
+\[x_{n + 1} = x_n - \alpha f(x_n).\]
+
+Write a function that implements the gradient descent algorithm for the polynomial
+
+\[f(x) = x^2 - 3x + 2\]
+
+using `repeat` and \(\alpha = 0.01\). Use an auxiliary function for evaluating the first derivative \(f'(x)\). The `while` loop stops when the absolute difference between \(x_{n+1}\) and  \(x_{n}\) is smaller then `1/1e4`. Demonstrate the algorithm using the start values \(x_0 = -2\) and \(x_0 = 3\). Report the number of iterations and the \(x\)-value for which \(f(x)\) is minimal. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,7 @@
+"0","lttrs10_sapply <- sapply("
+"0","  X = 1:10, "
+"0","  FUN = function(i) { "
+"0","    letters[1:10]"
+"0","  }"
+"0",")"
+"0","lttrs10_replicate <- replicate(10, sample(letters[1:10]))"

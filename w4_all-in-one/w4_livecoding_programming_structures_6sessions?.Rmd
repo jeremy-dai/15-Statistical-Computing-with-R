@@ -1,0 +1,419 @@
+---
+title: "SCR Week 4: live coding"
+output: 
+    pdf_document:
+      keep_tex: yes
+      fig_caption: yes
+header-includes: 
+- \usepackage{graphicx}
+- \usepackage{float}
+- \usepackage{placeins}
+---
+
+
+## `apply()`  and `tapply()` | Session 1
+
+```{r}
+med_example <- data.frame(
+  patient = 1:100,
+  age = rnorm(100, mean = 60, sd = 12),
+  treatment = factor(
+    rep(c(1,2), 50), 
+    labels = c("treatm", "control")
+  ),
+  hospital = factor(
+    rep(c(1,2), each = 50), 
+    labels = c("A", "B")
+  )
+)
+set.seed(42)
+med_example$QL <- 30 + 10*(med_example$hospital == "A") + 30*(med_example$treatment == "treatm") + rnorm(100, mean = 10, sd = 10)
+```
+
+
+### `apply()`
+
+```{r}
+
+```
+
+### `tapply()` or `aggregate()`
+
+```{r}
+#med_example$QL[1] <- NA 
+output_tapply <- tapply(
+  X = med_example$QL, 
+  INDEX = list(
+    med_example$hospital,
+    med_example$treatment
+  ), 
+  FUN = mean
+)
+```
+
+```{r}
+output_tapply
+```
+
+Instead of `tapply()`, we could use `aggregate()` as well:
+
+```{r, eval = FALSE}
+aggregate(
+  QL ~ hospital + treatment, 
+  FUN = mean,
+  data = med_example
+)
+# aggregate is more generic..
+aggregate(weight ~ feed, data = chickwts, mean)
+```
+
+
+\newpage
+
+## `lapply()` / `sapply()` | Session 2
+
+```{r}
+lttrs10_lapply <- lapply(
+  X = 1:10, 
+  FUN = function(i) { 
+    sample(letters[1:10], i, replace = TRUE)
+  }
+)
+```
+
+
+```{r}
+lttrs10_sapply <- sapply(
+  X = 1:10, 
+  FUN = function(i) { 
+    letters[1:10]
+  }
+)
+lttrs10_replicate <- replicate(10, sample(letters[1:10]))
+```
+
+Some examples for `simplify2array()`, `unlist()`, and  `do.call()`.
+
+```{r}
+lttrs10_lapply <- lapply(
+  X = 1:10, 
+  FUN = function(i) { 
+    letters[1:10]
+  }
+)
+```
+
+```{r}
+simplify2array(lttrs10_lapply)
+do.call('rbind', lttrs10_lapply)
+matrix_elements <- unlist(lttrs10_lapply)
+dim(matrix_elements) <- c(10, 10)
+my_matrix <- matrix_elements
+```
+
+```{r}
+lapply(data.frame(my_matrix), print)
+```
+
+
+\newpage
+
+## Explanation of the `for`-loop | Session 3
+
+- `for(var in seq) expr`    
+-  for(item in sequence) {body with expressions}   
+-  for(element in container) {"body with expressions"}
+
+
+```{r, eval = FALSE}
+seq <- 1:3
+for (var in seq) {
+  print(var)
+}
+var
+```
+
+Note that `for` sets `var` to the last used element of `seq`
+
+
+```{r, eval = FALSE}
+seq <- 1:3
+for (var in seq) {
+  print(var)
+}; rm(var) 
+```
+
+We remove `var` in case you might use it in your lexical scope (the environment you are coding in)
+
+
+Then, something else which is nice with the `for` loop. In `for(var in seq) expr` we can retrieve objects that created in the previous iteration(s) (It has memory!).
+
+```{r, eval = FALSE}
+a <- 3
+for (i in  1:3) {
+  a <- a + i
+  print(a)
+}
+a; i
+rm(list = c("a", 'i'))
+```
+
+The `<*>apply` functions do not have these properties. For example, 
+
+```{r, error = TRUE}
+a <- 3
+lapply(1:3, function(i) { a <- a + i; print(a) } )
+a
+i
+```
+
+
+
+### Avoid extending containers!!!    
+
+```{r}
+```
+
+
+\newpage
+
+## `if` `else` | Session 4
+
+My grades for SCR 19-20
+
+```{r}
+my_A  <- 8.5
+my_E1  <- 8.5
+my_E2  <- 8
+```
+
+To get explanation for `if(cond) expr`
+```{r, eval = FALSE}
+?"if"
+```
+
+An example of `if(cond) expr`
+```{r}
+if(my_E2 >= my_E1) my_E2
+if(my_E2 <= my_E1) my_E2
+```
+
+An Example for `if(cond) cons.expr else alt.expr`
+```{r}
+if(my_E2 >= my_E1) my_E2 else (my_E1 + my_E2)/2
+```
+the same, but perhaps more readable? 
+
+```{r}
+if(my_E2 >= my_E1) { 
+  my_E2 
+} else { 
+  (my_E1 + my_E2)/2 
+}
+```
+
+How about scoping? 
+
+```{r}
+if(my_E2 >= my_E1) { 
+  char_log <- "the second exam was better or equal"
+  my_E <- my_E2 
+} else { 
+  char_log <- "the first exam was better"
+  my_E <- (my_E1 + my_E2)/2 
+}
+```
+
+
+### using a loop and conditionals `if else`
+
+```{r}
+grades <- trunc(runif(100, 10, 100))/10 # uniform grades
+
+n <- length(grades)
+grd_rnd <- numeric(n)
+
+for(i in 1:n) {
+  grade <- grades[i]
+  tmp <- trunc(grade)
+  if(grade - tmp >= 0.5) {
+    grd_rnd[i] <- ceiling(grade)
+  } else {
+    grd_rnd[i] <- floor(grade)
+  }
+}
+```
+
+
+\newpage 
+
+## `while` and `repeat` | Session 5
+
+
+```{r}
+i <- 1
+while (i < 3) {
+  print(i)
+  i <- i + 1
+}
+i 
+```
+
+
+Introducing `break` and `repeat expr`:
+```{r}
+i <- 1
+repeat {
+  print(i)
+  i <- i + 1
+  if(i >= 3) break # break out the loop
+}
+i
+```
+
+
+A commonality between  `for`,`repeat`,`while`:
+
+```{r}
+for(i in 1:3) {
+  if(i >= 3) break
+  print(i)
+}
+i
+```
+
+A superstitious `while(cond) expr`
+
+```{r}
+i <- 1
+while (i < 16) {
+  if(i == 4 || i == 13) {
+    i <- i + 1
+    next # go directly to the next iteration
+  } 
+  print(i)
+  i <- i + 1  
+}
+```
+
+BAD CODE: introducing extending containers / growing variables
+
+```{r}
+i <- 1
+a <- 1
+repeat {
+  i <- i + 1
+  if(i >= 16) break
+  print(i)
+  a[i] <- a[i - 1] + i # cumulative sum
+}
+a
+```
+
+GOOD PRACTICE:
+
+```{r}
+i <- 1
+a <- numeric(15);
+repeat {
+  i <- i + 1
+  if(i >= 15) break
+  print(i)
+  a[i] <- a[i - 1] + i # cumulative sum
+}
+a
+```
+
+
+
+\newpage 
+
+## Vectorization? | Session 6? If we have time...
+
+
+```{r, eval = FALSE}
+set.seed(42)
+a2 <- sample(c(0,1), 5, replace = TRUE)
+a2 <- cumsum(a2)
+```
+
+
+```{r, eval = FALSE}
+n <- 5; a <- 0; set.seed(42)
+for(i in 1:n) {
+  a <- a + sample(c(0,1), 1)
+  cat("i = ", i, "and a = ", a, "\n")
+}
+```
+
+
+```{r, eval = FALSE}
+n <- 5;
+a1 <- numeric(n)
+set.seed(42)
+for(i in 1:n) {
+  if(i == 1) {
+    a1[i] <- sample(c(0,1), 1)  
+  }
+  if(i < n) {
+    a1[i + 1] <- a1[i] + sample(c(0,1), 1)  
+  } 
+  cat("i = ", i, "and a = ", a[i], "\n")
+}
+a1
+```
+
+
+```{r, eval = FALSE}
+system.time(replicate(1e4, {
+  set.seed(42)
+  a2 <- sample(c(0,1), 5, replace = TRUE)
+  a2 <- cumsum(a2)
+}))
+```
+
+```{r}
+system.time(replicate(1e4, {
+  n <- 5;
+  a1 <- numeric(n)
+  set.seed(42)
+  for(i in 1:n) {
+    if(i == 1) {
+      a1[i] <- sample(c(0,1), 1)  
+    }
+    if(i < n) {
+      a1[i + 1] <- a1[i] + sample(c(0,1), 1)  
+    } 
+  }
+  a1
+}))
+```
+
+
+An example to figure out youself in your own time:
+
+
+```{r, eval = FALSE}
+x <- matrix(rnorm(1e6), 1e2, 1e4)
+x_sds1 <- numeric(1e3)
+for(i in 1:ncol(x)) x_sds1[i] <- mean(x[,i])
+x_sds2 <- apply(X = x, MARGIN = 2, mean)
+x_sds3 <- colMeans(x)
+all.equal(x_sds1, x_sds2, x_sds3)
+```
+
+```{r, eval = FALSE}
+system.time(replicate(10, {
+  x_sds1 <- numeric(1e3)
+  for(i in 1:ncol(x)) x_sds1[i] <- mean(x[,i])
+}))
+system.time(replicate(10, {
+  x_sds2 <- apply(X = x, MARGIN = 2, mean)
+}))
+system.time(replicate(10, {
+  x_sds3 <- colMeans(x)
+}))
+```
+
+
+

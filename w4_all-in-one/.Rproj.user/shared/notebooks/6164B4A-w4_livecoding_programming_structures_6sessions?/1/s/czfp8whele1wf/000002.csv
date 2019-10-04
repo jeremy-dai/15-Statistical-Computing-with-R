@@ -1,0 +1,6 @@
+"0","lttrs10_lapply <- lapply("
+"0","  X = 1:10, "
+"0","  FUN = function(i) { "
+"0","    sample(letters[1:10], i, replace = TRUE)"
+"0","  }"
+"0",")"

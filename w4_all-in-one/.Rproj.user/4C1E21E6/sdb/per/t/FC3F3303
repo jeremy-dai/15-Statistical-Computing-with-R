@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "setwd('/Users/jeremydai/Google Drive/11 Statistics & Probability/Statistics/Exercise')\ngetwd()\n\n# Exercise 1\nlibrary(foreign)\nhospitals <- read.spss(\"hospitals.SAV\", use.value.labels = FALSE, to.data.frame = TRUE)\nn <- 50\nN <-nrow(hospitals)\ns <- hospitals[sample(N, n),]\n\n#1 Compute the mean and variance of number of discharges (vdischarges0) based on the sample of drawn hospitals.\nu_discharges <- mean(s[,1])\nvar_discharges <- var(s[,1])\n\n#2 Compute the standard error of Sx_bar\nSx_bar <- sqrt(var_discharges/n)\n\n#3 mean and variance population.\nu_discharges_population <- mean(hospitals[,1])\nvar_discharges_population <- var(hospitals[,1])*(N-1)/N\n\n#4 p\np <- sum(hospitals$vdischarges0<1000)/N\n\n#5 p_bar\np_bar <- sum(s$vdischarges0<1000)/n\n\n#6 var(p_bar)\nvar_p_bar <- p_bar*(1-p_bar)/n*(N-n)/(N-1)\n\n# Exercise 2\nn<- 1000\nbino <- rbinom(n,size=5, 0.6)\nhist(bino)\n\n# Exercise 3\nn<- 1000\nbino <- rbinom(n,size=100, 0.6)\np <-sum((bino)>40 & bino<60)/n\n\n# Exercise 4\nn<- 1000\nbino <- rbinom(n,size=1700, 0.6)\np <-sum((bino)>1060)/n\n\n# Exercise 5\nn<- 50\np=0.6\nbino <- rbinom(1000,size=n, p)\nsn<-sum(bino)\nz <- (bino-n*p)/(n*p*(1-p))\nhist(z)\n\n# Exercise 6\nmu <- 10\nn<-500\nM <- numeric(50)\nfor (i in 1:50) {\n  x_bar <- sum(rexp(n,1/mu))/n\n  M[i] <- x_bar}\nhist(M)\n\n\n",
+    "created" : 1570013144457.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4046092000",
+    "id" : "FC3F3303",
+    "lastKnownWriteTime" : 1570023021,
+    "last_content_update" : 1570023021085,
+    "path" : "~/Google Drive/11 Statistics & Probability/Statistics/Exercise/Ex2.R",
+    "project_path" : null,
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

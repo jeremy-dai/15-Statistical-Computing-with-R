@@ -1,0 +1,12 @@
+"0","in_stock <- 99"
+"0","paragraph <- paste0("
+"0","  in_stock, "" bottles of beer on the wall, "", "
+"0","  in_stock, "" bottles of beer. \n"", "
+"0","  ""Take one down, pass it around, "","
+"0","  in_stock - 1,"" bottles of beer on the wall...\n\n"""
+"0",")"
+"0","cat(paragraph)"
+"1","99 bottles of beer on the wall, 99 bottles of beer. 
+Take one down, pass it around, 98 bottles of beer on the wall...
+
+"
