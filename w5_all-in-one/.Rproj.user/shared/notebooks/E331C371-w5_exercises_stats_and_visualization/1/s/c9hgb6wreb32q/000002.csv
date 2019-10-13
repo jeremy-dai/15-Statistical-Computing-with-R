@@ -1,0 +1,8 @@
+"0","set.seed(1212) "
+"0","B <- 734"
+"0","N <- 10"
+"0","N10 <- replicate(B, mean(rnorm(N, mean = 2, sd = 3)))"
+"0","N <- 100"
+"0","N100 <- replicate(B, mean(rnorm(N, mean = 2, sd = 3)))"
+"0","N <- 1000"
+"0","N1000 <- replicate(B, mean(rnorm(N, mean = 2, sd = 3)))"

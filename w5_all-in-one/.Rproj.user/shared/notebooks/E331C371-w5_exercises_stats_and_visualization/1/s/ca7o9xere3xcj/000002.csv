@@ -1,0 +1,2 @@
+"0","d_read <- density(testscores$read, from = 20, to = 84, bw = ""SJ"")"
+"0","d_math <- density(testscores$math, from = 20, to = 84, bw = ""SJ"")"

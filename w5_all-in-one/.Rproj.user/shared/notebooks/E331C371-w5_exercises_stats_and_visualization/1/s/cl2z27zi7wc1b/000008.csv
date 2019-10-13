@@ -1,0 +1,2 @@
+"0","set.seed(99)"
+"0","plot(-4:4, -4:4, type = ""n"")  # setting up coord. system"

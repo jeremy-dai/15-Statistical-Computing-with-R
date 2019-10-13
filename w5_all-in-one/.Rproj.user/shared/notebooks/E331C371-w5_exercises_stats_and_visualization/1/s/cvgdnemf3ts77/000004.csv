@@ -1,0 +1,5 @@
+"0","qtriangle <- function(x){(x >= 0 & x < 0.5) * sqrt(x / 2) + (x >= 0.5 & x <= 1) * (1 - sqrt((1 - x) / 2)) + (x >1) }"
+"0","curve(qtriangle, from=-1, to=2, add=T, col='red')"
+"2","'add' will be ignored as there is no existing plot"
+"2","NaNs produced"
+"2","NaNs produced"

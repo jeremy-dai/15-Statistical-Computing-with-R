@@ -1,0 +1,4 @@
+"0","dtriangle <- function(x){"
+"0","  (x >= 0 & x < 0.5) * 4 * x + (x >= 0.5 & x <= 1) * 4 * (1 - x)"
+"0","}"
+"0","curve(dtriangle, asp = 1, from = -0.5, to = 1.5)"

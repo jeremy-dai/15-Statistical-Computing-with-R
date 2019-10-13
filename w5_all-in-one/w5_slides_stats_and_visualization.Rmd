@@ -1,0 +1,809 @@
+---
+title: "Old School Visualization and Statistics"
+subtitle: "SCR Week 5"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  ioslides_presentation:
+    css: 0_css/SCR1718.css
+    highlight: tango
+    keep_md: yes
+    logo: 0_css/logo.png
+    template: 0_template/R1718style.html
+    mode: standalone
+    transition: faster
+    widescreen: TRUE
+---
+
+```{r label = setup, echo = FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(
+  dev.args = list(bg = 'transparent'),
+  fig.align = "center",
+  cache = FALSE
+)
+```
+
+## QA and Erratum
+
+As apposed to the answer of question `3.1d` (week 4) which contains:    
+
+```{r, eval = FALSE}
+if ( tmpx < tmpy) { 
+    pminoutresult[i] <- tmpx # unnecessary assigning
+  } else {
+    pminoutresult[i] <- tmpy # unnecessary assigning
+  }
+```
+
+This is **not** bad coding with which you lose points for your grade!
+
+
+## How to ask questions: 
+
+- Refer to the exercise number / slide / or source of your question!
+
+- Show / tell what you have done already youself to answer your question.
+
+
+
+## Extra TA 
+
+Frederik Tiedeman     
+f.j.tiedemann@umail.leidenuniv.nl        
+
+Frederik will have more time to be available for you. Until November 23 he is availabe for making appointments as well, over e-mail he is available until the end of the course.
+
+
+## Today's topics
+
+Visualization mainly based on the `graphics` package:    
+- `demo(graphics)`    
+
+Chapters 8 and 12 of the book by Norman Matloff
+
+Visualization for Statistics
+
+
+# Visualization
+
+## Visualization
+
+Visualization: show data (or other numbers) as a graph 
+
+Possible goals:    
+
+- exploration: find patterns in the data     
+
+- explanation: to tell a message         
+
+- obfuscation: to lie with statistics ([**is not ok**](https://youtu.be/M1owcncKCHg))         
+
+
+
+## Example Exploration
+
+```{r}
+set.seed(20171002)
+N <- 1e4
+x <- runif(N)
+y <- x^2 + rnorm(N, sd=0.25)
+```
+
+## Exploration
+
+```{r, fig.align="center", fig.height = 3.5}
+par(mfrow=c(1, 3))
+hist(x, col='lightblue')
+hist(y, col='lightblue')
+plot(x, y, pch = ".")
+```
+
+## Example 'Explanation'
+
+```{r, fig.align="center"}
+smoothScatter(x, y)
+lines(lowess(y~x), lwd=3, col='green')
+abline(lm(y~x), col='red', lwd=3)
+```
+
+## Obfuscation 
+
+Is any of these plots based on Normal Data? 
+
+```{r, echo=FALSE, fig.align="center", height = 5}
+set.seed(20171002)
+x1 <- runif(100)
+par(mfrow=c(1, 3))
+plot(density(x1, bw=100), main="", xlab="")
+polygon(density(x1, bw=100), col='violet')
+plot(density(x1, bw=0.18), main="", xlab="")
+polygon(density(x1, bw=0.18), col='lightgreen')
+plot(density(x1, bw=0.05), main="", xlab="")
+polygon(density(x1, bw=0.05), col='lightyellow')
+par(mfrow=c(1, 1))
+```
+
+## Obfuscation
+```{r, eval=FALSE}
+set.seed(20171002)
+x1 <- runif(100)
+```
+
+```{r, echo=FALSE, fig.align="center"}
+par(mfrow=c(1, 2))
+hist(x1, breaks="FD", col='lightblue')
+plot(density(x1))
+polygon(density(x1), col='lightblue')
+par(mfrow=c(1, 1))
+```
+
+
+## Good habits for Visualization
+
+Very opinionated....The goal should be to tell a story, one that is 'true' and does not obfuscate.
+
+Aesthetics are necessary, but secondary
+
+Try to to make graphs as clear as possible
+
+But, always keep in mind the printing and publishing
+
+
+## Lost in translation
+
+As always: programming requires you to translate from goal to code
+
+Sometimes the translation is easy: `hist()`
+
+Sometimes it's harder: `contour()`
+
+The function `help()` and operator `?` are your friends (the WWW as well).
+
+# The package `graphics`
+
+
+## Conventional static plots
+
+- `barplot()`   
+- `boxplot()`   
+- `dotchart()`   
+- `hist()`   
+- `pie()`   
+- `persp()`       
+
+- **But most importantly:** `plot()`
+
+
+## `plot()`: helpfile
+
+**Usage**
+
+`plot(x, y, ...)`
+
+**Arguments**
+
+`x`: the coordinates of points in the plot. Alternatively, a single plotting structure, function or any `R` object with a plot method can be provided.
+
+`y`: the y coordinates of points in the plot, optional if x is an appropriate structure.
+
+`...`: Arguments to be passed to methods, such as graphical parameters (see `par()`).
+
+
+## The input of `plot()`
+
+```{r}
+methods(plot)
+```
+
+## What about `plot.<method>*`
+
+Functions with an asterisk are nonvisible. Typing, for example, `plot.formula` gives you an error. 
+
+```{r, eval = FALSE}
+graphics:::plot.formula # using the ::: operator
+```
+
+or 
+
+```{r, eval = FALSE}
+getAnywhere(plot.formula) 
+```
+
+
+# `plot()` | Live coding 1
+
+
+
+## plots and parameterization
+
+Some plotting procedures require you to choose input parameters / arguments
+
+E.g.:
+
+* `hist()`: `breaks`
+* `density()`: `bw`
+
+## `hist()`: `breaks` arguments
+
+```{r}
+x <- rnorm(100)
+par(mfrow=c(1, 2))
+hist(x, 3)
+hist(x, breaks="FD")
+par(mfrow=c(1, 1))
+```
+
+
+## `density`: `bw` argument
+
+> The default, "nrd0", has remained the default for historical and compatibility reasons, rather than as a general recommendation, where e.g., "SJ" would rather fit, see also Venables and Ripley (2002).
+
+```{r, fig.align="center", echo=FALSE, fig.width=10, fig.height = 3.5}
+par(mfrow=c(1, 4))
+plot(density(x, bw=0.01))
+plot(density(x, bw=100))
+plot(density(x))
+plot(density(x, bw="SJ"))
+par(mfrow=c(1, 1))
+```
+
+
+## `graphics` parameters and functions
+
+line:     
+- functions: `lines()`, `abline()` or `curve()`      
+- arguments: `lty`, `type = "l"`, `lwd`   
+
+points:    
+- functions: `points()`    
+- arguments: `pch`, `type = "p"`, `cex.pch`
+
+functions for squares: `rect()`, `polygon()`, ?`segments()`
+
+... and so on. For functions check `help(package = "graphics")`, for arguments check `?par`.    
+
+
+
+# Exercises | Should only be about simple plots?
+
+
+# Refresher: Probability distributions
+
+## Refresher: Probability distributions
+
+* `dnorm()`
+* `pnorm()`
+* `qnorm()`
+
+`pnorm()` and `qnorm()` are quite similar, but exactly opposite: cumulative density and inverse cumulative density
+
+Similarly: `df()`, `dt()`, `dunif()`, `dlnorm()`, `dchisq()`, `dexp()`, etc
+
+## Probability Density Function: `dnorm()`
+
+Let $X \sim N(0, 1)$
+
+```{r}
+X <- seq(-3, 3, by = 0.01)
+plot(X, dnorm(X), type = 'l')
+```
+
+`dnorm()` simply gives the evaluation of the density function of the normal distribution at $X$
+
+## Probability Distributions: `pnorm()`
+
+`pnorm()`: mapping quantiles to their probability
+
+Namely: the probability of sampling an $X$ smaller, or equal to, some value $q$:
+
+$\Phi(q) = P(X \leq q)$ with $X \sim N(0, 1)=$ `pnorm(q)`. 
+
+Which is equal to integral of the normal density function from `-Inf` to $q$.
+
+## Probability Distributions: `pnorm()`
+
+```{r, eval=FALSE}
+quantiles <- seq(-3, 3, by = 0.01)
+plot(quantiles, pnorm(quantiles), type = 'l')
+points(-1, pnorm(-1), pch = 16)
+```
+
+```{r, echo=FALSE, figh.height = 3.5}
+par(mfrow = c(1, 2))
+quantiles <- seq(-3, 3, by = 0.01)
+plot(quantiles, pnorm(quantiles), type = 'l')
+points(-1, pnorm(-1), pch = 16)
+
+plot(seq(-3, 3, by = 0.01), dnorm(seq(-3, 3, by = 0.01)), type = 'l', ylab = "normal density", xlab="x")
+abline(h=0, lty=2)
+polygon(c(seq(-3, -1, by=0.01), -1, -3), c(dnorm(seq(-3, -1, by=0.01)), 0, 0), col='lightblue')
+points(c(-1, -1), c(0, dnorm(-1)), pch=16)
+segments(x0=-1, x1=-1, y0=0, y1=dnorm(-1))
+par(mfrow=c(1, 1))
+```
+
+<!---
+Code on slide is just for the right plot
+---->
+
+## Probability Distributions: `pnorm()`
+
+Of course you remember that the integral of the normal density function does not exist in closed form
+
+the function relies on numerical procedures to calculate the integral, for example:
+
+* the Riemann-sum
+* some fancy algorithm implemented in `integrate()`
+
+```{r}
+z <- 1.96
+prob  <- integrate(dnorm, lower = -Inf, upper = z)$value
+prob
+```
+
+## Probability Distributions: `qnorm()`
+
+In standard normal case equal to the probit function: $\Phi^{-1}(x)$
+
+Maps a value $p$ in the $[0, 1]$ interval (probabilities) to a value $q$, such that:
+
+$P^{-1}(X \leq q) = q$
+
+<!-- klein voorbeeldje op bord --> 
+
+## Probability Distributions: `qnorm()`
+
+```{r}
+probabilities <- seq(0, 1, by = 0.01)
+plot(probabilities, qnorm(probabilities), type='l')
+```
+
+
+## Example application for `dnorm()`: likelihood
+
+Recall 
+
+$$\log(AB) = \log(A) + \log(B)$$
+
+and therefore we have 
+
+$$\log(\prod_{i}^{N}\phi(x_{i})) = \sum_{i}^{N}\log(\phi(x_{i})))$$
+
+We can apply this in `R`, using the `dnorm` function:
+
+```r
+sum(dnorm(x, log=T))
+```
+Setting `log=T`, and using `sum` instead of `prod` is often a good idea as it is numerically more stable
+
+<!-- 
+Adding negative numbers is better than multiplying many small numbers
+-->
+
+
+# Random sampling in `R`
+
+## Sampling from Statistical Distributions
+`R` allows us to randomly sample from most distributions
+
+Consists of two important components:
+
+* A random number generator
+* A way to convert these numbers into whatever type of numbers you are interested in
+
+In practice:
+
+A random number generator that samples a value with a uniform distribution in a particular interval (in `R`'s default case [$0$, $2^{32}$])
+
+Then use one of many tricks to convert these into a value distributed according to some distribution
+
+## Random number generator
+
+The random number generator in R is 'pseudo' random: starting from a given state inside the generator, results are always the same
+
+`set.seed` allows us to set a state!
+
+Check `.Random.seed` for the *actual state* the generator is currently in
+
+For the default random generator, there are many more states than seeds! (about 624\^(2\^31) times as much)
+
+## Inverse CDF `trick`
+
+E.g.: `rnorm`, `runif`, `rexp`
+
+```{r}
+set.seed(191011)
+rnorm(1)
+set.seed(191011)
+qnorm(runif(1))
+```
+
+Tells us that, probably, deep down the functions get their numbers from the same generator
+
+
+## R functions for random sampling
+
+"If $Y$ has a uniform distribution on $[0, 1]$ and if $X$ has a cumulative distribution function $F_X$, then the random variable $F^{-1}_X(Y)$ has the same probability density distribution as $X$, i.e. $f_x$."
+
+Example with the normal distribution: 
+```{r}
+F_X <- function(X) {pnorm(X)}
+invF_X <- function(Y) {qnorm(Y)}
+f_X <- function(X) {dnorm(x = X)}
+```
+  
+  
+<!-- 
+```{r, fig.align="center", echo=FALSE}
+probabilities <- seq(0, 1, by=0.01)
+plot(probabilities, qnorm(probabilities), type='l', main="qnorm", ylab="qnorm(probabilities) = quantiles")
+```
+--> 
+
+## Probability Distributions: `pnorm()` and `qnorm()` {.build}
+
+```{r, echo=FALSE}
+par(mfrow=c(1, 2))
+quantiles <- seq(-3, 3, by=0.01)
+plot(quantiles, pnorm(quantiles), type='l', main="pnorm", ylab="pnorm(quantiles) = probabilities")
+
+probabilities <- seq(0, 1, by=0.01)
+plot(probabilities, qnorm(probabilities), type='l', main="qnorm", ylab="qnorm(probabilities) = quantiles")
+par(mfrow=c(1, 1))
+```
+
+
+## R functions for random sampling
+
+You know how to make a function like `qnorm`, so you could do this for any (proper) distribution you can think of
+
+More on sampling methods in Advance Statistical Computing, for now be aware that:
+
+* Numbers are 'only' pseudo-random, and that there is something as a seed, which users can set
+* Numbers are close enough to actually random that you may act *as if* they are
+
+
+# Visualization of Density
+
+## `plot.density` 
+
+We have the variables:
+```{r, label = recap1}
+set.seed(123)
+x1 <- rnorm(1e4)
+x2 <- rnorm(1e4)
+```
+
+## `plot.function` of x1 - x2 {.columns-2}
+
+<br> 
+
+```{r, fig.width = 4.5, fig.height = 4.5}
+dnorm2 <- function(x) {
+  dnorm(x, sd = sqrt(2))}
+plot(dnorm2,
+  xlim = c(-5, 5), 
+  xlab = "x1 - x2", 
+  ylab = "density")
+points(x = x1 - x2, 
+  y = dnorm(
+    x1 - x2, sd = sqrt(2)
+  ),
+  pch = 20, cex = 0.5
+)
+title(
+  main = "Density of X1 - X2"
+)
+```
+
+## `hist` and `density` plots {.columns-2}
+
+A bit inconvenient:    
+
+<br>
+```{r, fig.width = 4.5, fig.height = 4.5}
+ds.x1mx2 <- density(x1 - x2)
+hg.x1mx2 <- hist(x1 - x2,
+    xlim = c(-5, 5), 
+    freq = FALSE,
+    xpd = TRUE
+)
+curve(expr = dnorm2, 
+      add = TRUE, 
+      col = 'red', 
+      lty = 2
+)
+lines(ds.x1mx2)
+
+```
+
+## `hist` and `density` plots {.columns-2}
+
+
+More convenient:    
+
+<br>
+
+```{r, fig.width = 4.5, fig.height = 4.5}
+plot(ds.x1mx2,
+  xlim = c(-5, 5), 
+  xlab = "x1 - x2", 
+  ylab = "density"
+)
+lines(hg.x1mx2, 
+  freq = FALSE
+)
+curve(expr = dnorm2, 
+      add = TRUE, 
+      col = 'red', 
+      lty = 2
+)
+```
+
+## `qqplot`
+
+From the helpfile of `hist`: "Comparing data with a model distribution should be done with `qqplot()`!"
+
+Compares empirical 'quantiles' with theoretical quantiles
+
+If perfectly similar: points will lie on a line
+
+In practice: random jitter, along a straight line is 'good'
+
+
+## `qqplot()`
+
+```{r, fig.asp=1, fig.height = 4, fig.width = 4, fig.align='center', f}
+qqplot(x1 - x2, qnorm(ppoints(x1 - x2), sd = sqrt(2)), asp = 1) 
+abline(0, 1, col = 2, lty = 2)
+```
+
+
+# '3D' plots
+<!-- either a 'real' 3D plot, or something that allows us to see third dimension in some other way-->
+
+
+## `contour`: contourplot!
+
+Like a map of land: contourlines are heightlines.
+
+Thus also works beautifully if plot surface behaves like a map.
+
+e.g. `volcano`
+
+
+## `contour(volcano)`
+
+```{r, fig.align="center"}
+data(volcano)
+contour(volcano)
+```
+
+
+## `contour(my_LogLikhds)` {.columns-2}
+
+E.g. a check for one single mode:
+
+```{r}
+set.seed(20181012)
+X1 <- scale(rnorm(1e4))
+my_mus <- seq(-1, 1, length.out = 50)
+my_sig <- seq(0.5, 1.5, length.out = 50)
+```
+
+```{r, include = FALSE}
+ComputeLogLikForX1 <- function(mu, sigma) {
+  sum(log(dnorm(x = X1, mean = mu, sd = sigma)))
+}
+my_LogLikhds <- outer(
+  X = my_mus,
+  Y = my_sig, 
+  FUN = Vectorize(
+    FUN  = ComputeLogLikForX1, 
+    vectorize.args = c("mu", "sigma")
+  )
+)
+rownames(my_LogLikhds) <- my_mus
+colnames(my_LogLikhds) <- my_sig
+```
+
+```{r, fig.width = 4.5, fig.height = 4.5}
+contour(
+  x = my_mus, 
+  y = my_sig, 
+  z = my_LogLikhds, 
+  xlab = bquote(mu), 
+  ylab = bquote(sigma),
+  nlevels = 25
+)
+```
+
+
+## `hexbin`: a 3d histogram
+
+Like in normal histogram: `binning`
+
+Each `bin' is But binning inside 2d hexagons, instead of 1 dimensional ranges
+
+```{r}
+set.seed(20181012)
+x1 <- scale(rnorm(1e4))
+x2 <- scale(x1+rnorm(1e4))
+cor(x1, x2)
+```
+
+## `hexbin`: the plot
+
+```{r, echo=FALSE, fig.align="center"}
+library(hexbin)
+cols <- colorRampPalette(c("darkorchid4","darkblue","green","yellow", "red") )
+plot(hexbin(x1, x2),
+colorcut = seq(0,1,length.out = 24),
+colramp = function(n) cols(24) ,
+legend = 0 )
+```
+
+
+## The bivariate density of X1 - X2, X1 + X2? 
+
+```{r}
+op <- par(mfrow = c(1, 2))
+plot(y = x1 - x2, x = x1 + x2)
+plot(y = x1 - x2, x = x1 + x2, pch = ".")
+```
+
+
+## The bivariate density of X1 - X2, X1 + X2? 
+
+```{r}
+plot(hexbin(x1 - x2, x1 + x2))
+```
+
+
+## `persp`: a more traditional 3d plot
+
+Like a scatterplot, but in 3D, instead of 2D.
+
+Requires an extra dimension of consideration: viewpoint
+
+
+## `persp`: Plot a bivariate standard normal density 
+
+
+With $x = X_1 - X_2$ an $y = X_1 + X_2$, and knowing that:   
+
+- $X_1 \sim N(0, 1)$      
+
+- $X_2 \sim N(0, 1)$       
+
+```{r, fig.align= 'left'}
+dbvnorm <- function(x,y) {
+  cnst <- (1/(2*pi*2)) 
+  nssd <- exp(-.5 * (x^2 + y^2)/2)
+  z <- cnst * nssd
+  return(z)
+}
+y <- x <- seq(-5, 5, length = 50)
+z <- outer(x, y, dbvnorm)
+persp(x, y, z) # defaul persp
+```
+
+```{r, include = FALSE, eval = FALSE}
+dbvnorm(x1[1] - x2[1], x1[1] + x2[1])
+# mvtnorm::dmvnorm(c(x1[1] - x2[1], x1[1] + x2[1]), sigma = diag(2, 2))
+```
+
+## Plot bivariate normal density  
+
+```{r}
+persp(x, y, z, theta = 45, phi = 30, expand = 0.6,
+  xlab = "x", ylab = "y", zlab = "f(x, y)")
+```
+
+
+## `persp`: a different viewpoint
+
+```{r}
+persp(x, y, z, theta = 45, phi = 0, expand = 0.6,
+  ltheta = 120, shade = 0.75, ticktype = "detailed",
+  xlab = "x", ylab = "y", zlab = "f(x, y)")
+```
+
+
+## Advanced Example
+
+Adapting plots created with `persp()` require some knowledge in Linear Algebra  
+
+```{r, fig.show = FALSE}
+#store viewing transformation in M
+persp(x, y, z, theta = 45, phi = 30,
+  expand = 0.6, box = FALSE) -> M
+M
+```
+
+
+## Advanced Example | Add elements to perspective plot
+
+```{r, eval = FALSE}
+persp(x, y, z, theta = 45, phi = 30,
+  expand = 0.6, box = FALSE, xpd = NA) -> M
+#add our points
+zp <- sapply(1:1e4, function(i) {
+  dbvnorm(x1[i] - x2[i], x1[i] + x2[i])
+  })
+newpts <- cbind(x1 - x2, x1 + x2, zp, 1) # t = 1
+N <- newpts %*% M
+points(N[,1]/N[,4], N[,2]/N[,4], 
+       pch = ".", col= 'blue'
+)
+```
+
+
+## Advanced Example | Add elements to perspective plot
+
+```{r, warning = FALSE, echo = FALSE}
+persp(x, y, z, theta = 45, phi = 30,
+  expand = 0.6, box = FALSE, xpd = FALSE) -> M
+#add our points
+zp <- sapply(1:1e4, function(i) {
+  dbvnorm(x1[i] - x2[i], x1[i] + x2[i])
+  })
+newpts <- cbind(x1 - x2, x1 + x2, zp, 1) # t = 1
+N <- newpts %*% M
+points(N[,1]/N[,4], N[,2]/N[,4], 
+       pch = ".", col= 'blue'
+)
+#add lines
+xl <- seq(-5, 5, .1)
+yl <- -xl^2 / 5
+zl <- dnorm(xl, sd = sqrt(2)) * dnorm(yl, sd = sqrt(2))
+N <- cbind(xl, yl, zl, 1) %*% M
+lines(N[,1]/N[,4], N[,2]/N[,4], col= 'red', lty = 2, lwd = 2)
+
+#add text
+xt <- c(0, 5.25)
+yt <- c(0, -5.25)
+zt <- dnorm(xt, sd = sqrt(2)) * dnorm(yt, sd = sqrt(2)) * 1.25
+N <- cbind(xt, yt, zt, 1) %*% M
+text(N[1,1]/N[1,4], N[1,2]/N[1,4], "f(x,y)")
+text(N[2,1]/N[2,4], N[2,2]/N[2,4], bquote(y == -x^2/5))
+```
+
+
+# Outro
+
+## Visualization with Mathematical Annotation 
+
+Not a part of the SCR course, but definetely helpful for later life is `bquote()` in combination with `plotmath`.
+
+```{r, eval = FALSE}
+example(plotmath)
+demo(plotmath) 
+```
+
+## Choice of graphs
+
+Most plots have a particular purpose; stick to that purpose!
+
+With `graphics` package you have all the flexibity. Esthetics however.... 
+
+Situational and personal preference   
+    - E.g. `lattice`, `ggplot2`, `ggvis`, `d3`...    
+
+There is (or can be) an  R package for everything.
+    
+Rebuild and tweak code from others:     
+- http://www.intro-stats.com     
+- http://www.datavis.ca/gallery/visual-explanation.php     
+
+
+## Recap 
+
+master the core function: `graphics::plot`    
+
+adapt layout using graphical parameters from `graphics:par`    
+
+apply functions from the `graphics` pacakge:     
+- e.g. `graphics:persp`       
+
+
+# See you Next Week | manipulation of text, and advice for the first exam!

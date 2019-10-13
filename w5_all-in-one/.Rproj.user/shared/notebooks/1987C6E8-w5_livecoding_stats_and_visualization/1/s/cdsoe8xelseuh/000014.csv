@@ -1,0 +1,2 @@
+"0","x_short <- seq(-1, 1, by=0.01)"
+"0","polygon(x_short, x_short^2, col='blue', border=NA)"

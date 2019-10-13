@@ -1,0 +1,2 @@
+"0","library(hexbin)"
+"0","plot(hexbin(my_mystery, xbins=100))"

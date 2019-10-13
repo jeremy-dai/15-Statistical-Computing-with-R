@@ -1,0 +1,1 @@
+"0","points(rnorm(100)/2, rnorm(100)/2, col = ""blue"", cex =1.5)"

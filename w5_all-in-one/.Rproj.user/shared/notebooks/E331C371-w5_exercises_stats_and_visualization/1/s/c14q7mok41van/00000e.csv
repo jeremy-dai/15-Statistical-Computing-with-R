@@ -1,0 +1,2 @@
+"0","qqline(x, distribution = function(p) qchisq(p, df = 3),"
+"0","prob = c(0.1, 0.6), col = 2)"

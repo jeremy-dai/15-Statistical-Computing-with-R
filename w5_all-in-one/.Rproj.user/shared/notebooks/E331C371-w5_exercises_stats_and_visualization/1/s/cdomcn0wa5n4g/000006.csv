@@ -1,0 +1,3 @@
+"0","library(mvtnorm) "
+"0","densities_uncor <- dmvnorm(quantiles) "
+"0","densities_cor <- dmvnorm(quantiles, sigma = sigma_cor)"

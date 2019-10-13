@@ -1,0 +1,1 @@
+"0","qqplot(x,qchisq(ppoints(500), df = 3))"
