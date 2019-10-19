@@ -1,0 +1,435 @@
+---
+title: 'SCR lecture 6: consolidating the basics'
+output: pdf_document
+---
+
+# Exercises 
+
+
+## 1 A Plenary Exercise on Share of Women Researchers by sectors of performance.
+
+This is a (slightly modified) task that once was part of an assignment for grade (SCR 2016). The goal here is to download and clean Eurostat Official Statistics data on the EU women' employment such that it can be used for further data analysis and visualization. Thus, the original data is not very tidy, at the end of this task it should have the following structure:
+
+```{r}
+load("0_data/tidy_dat.RData")
+str(tidy_dat)
+```
+
+For a descirption and its format see 
+\begin{itemize}
+\item[] \url{http://ec.europa.eu/eurostat/tgm/refreshTableAction.do?tab=table&plugin=1&pcode=tsc00005&language=en}
+\item[] \url{http://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?file=data/tsc00005.tsv.gz&unzip=true}
+\end{itemize}
+<!-- URL to data: http://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?file=data/tsc00005.tsv.gz&unzip=true --> 
+
+```{r, echo  = FALSE, eval = TRUE}
+url <- "http://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?file=data/tsc00005.tsv.gz&unzip=true"
+```
+
+
+We have created a tinyurl address that links to Eurostat data: https://tinyurl.com/w6-data-191018
+
+You will need at least one function, i.e. `strsplit()`. We have decomposed the whole task into sub-tasks. In case you come up with a different way to tackle the whole problem, you are welcome to do so! Then, just provide a cleary code written answer such that we can easily follow each of the steps you have chosen to take.
+
+
+### a
+
+Download the data from the website into `R`.
+
+**Answer:**
+
+```{r}
+url <- "https://tinyurl.com/w6-data-191018" 
+mydat <- read.delim(url)
+```
+
+
+### b
+
+Focus on the first column of the data which is called `unit.sectperf.geo.time`. Each one looks something like `PC_HC,BES,AT` where each abbreviation is separated by a column. We want the sector which in this case is `BES` and the geo location which in this case is `AT`. 
+
+Use `strsplit` to extract these values for each element in the `unit.sectperf.geo.time` column of the data, and create two new variables called `sector` and `geo`. (hint, the data is currently a `factor` and `regular expressions` work on `characters`)
+
+**Answer:**
+
+```{r}
+```
+
+
+### c
+
+Program your own function that you can apply to one of the remaining columns of the data. You may want to use the hint on how to create your function:
+
+*Hint:* 
+
+```{r}
+GiveNameThatTellsWhatThisFunctionNeedsToDo <- function(column){
+  # function takes a single column as argument, 
+  # and returns a list with two elements. 
+  # The percentages of the column are stored in 
+  # the first element and the annotated letters 
+  # are stored in the second element
+}
+```
+
+Please bear in mind that this can be a frustrating task. As you will most probably experience in your later career: cleaning data is very frustrating....
+
+**Answer:**
+
+```{r}
+```
+
+ 
+### d
+
+Apply your function of c in an explicit or implicit loop at each column. Combine the results into two data frames, one that holds the `numbers`, and one that holds the `letters`.
+
+**Answer:**
+
+```{r}
+```
+
+
+
+### e
+
+Finally, combine the `sector`, `geo`, `percentages` and `annotation` into one data frame and make sure everything has the correct class, column names and that the variables match up with the output from above. Show that your cleaned data set is the same as `tidy_dat`.
+
+
+**Answer:**
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+
+# Self-Study: Exercises for Consolidation of your R Skills
+
+
+## 2 Hashtable
+
+Primer: this exercise will require that you know how to use:
+
+* Dataframes
+* Indexing
+* Write a function
+* `for` loops
+* `if`-`else` statements
+* How to use help files
+
+In this exercise we will take a look at a (simple) hashtable! A hashtable is a lookup table (for example a phone book) where we have a key, which we need to match to some other datum, e.g. a name, for which the phonebook contains a corresponding phonenumber.
+
+A simple way to create a look up table, is to created a sorted list of names, and an equally sorted list of phone numbers so that the position of a name, corresponds to the position of the phonenumber that belongs to that name. Finding the right phonenumber could then be done by looping through the sorted list of names, and stop once we find a match for the name whose number we are looking for. We will do this first.
+
+For simplicity we'll look at a phone book that is already sorted, and which has no duplicate entries!
+
+### a
+Read in `phone_book.txt`.
+
+**Answer:**
+
+```{r}
+```
+
+
+### b
+Write a function that takes a phonebook and a name argument, and that goes through the sorted list of names in the phone book and returns the phone number of the name provided in the argument.
+
+*Hint: Use `for` and `break`*    
+
+**Answer:**
+```{r}
+```
+
+### c
+Apply your function to the following names:
+
+* Brilan
+* Dicey
+* Imre
+* Kaytelyn
+* Makia
+* Patrica
+* Shivaun
+* Vihana
+* Wilmetta
+
+And record for each name the time it takes using the function `system.time`. If it takes a long time, please just do this exercise for the first few names.
+
+**Answer:**
+```{r}
+```
+
+### d
+
+As you may have noticed, looking up a name in this way takes quite some time. It would be nice if we knew, directly from the name, the position of that name, in the phone book. This is where a hashtable comes in.
+
+This will require a hashfunction: one that converts the name into an index, and a hasthable that has the names in that position.
+
+We'll start with making a hashfunction. The hashfunction should take as input a name, and give as output a value of 6 digits (possibly including leading zero's). These 6 digits should be a product of the particular letters in the name. We will apply a very important skill in programming. We'll divide the task up into smaller pieces. For example: we will start by creating all the components we need for the hashfunction, by just focusing on applying these components on the first name. There are many ways in which we could make this hashfunction, so we will just program one example application. 
+
+We will break up this big task into smaller pieces.
+
+#### i
+
+Split the first name, using `strsplit()` into a vector of letters. 
+
+**Answer:**
+```{r}
+```
+
+#### ii
+
+Create an equally long vector, with each entry equal to the smallest digit of the position of the letter in the alphabet. E.g. 'a' would be '1', 'm' would be '3' (you can use the modulo operator function `%%` for this (see `?'%%'`)). To see the position of the letters of the name you can use the operator function `%in%` and the function `which()`. *Hint: `R` has built-in vectors containing `letters` (and capital `LETTERS`).*
+
+**Answer:**
+```{r}
+```
+
+#### iii
+
+Compress the first 6 numbers of this vector of numbers into a single number using `paste()`. Use only the first 6 numbers (or less if no more are available). Add $1$. You may have an idea already why we would need to add $1$.
+
+**Answer:**
+```{r}
+```
+
+#### iv
+Make a function called `HashFunction` that performs the actions programmed in **1 e**, using as argument a single name, pasting to a single number and returns that number.
+
+**Answer:**
+```{r}
+```
+
+### e
+Make a `list` object in `R` of length 1000000. Loop through `phone.book`, using `HashFunction` to create an index number for each name.
+
+**Answer:**
+```{r}
+```
+
+### f
+Hopefully, all names have a unique index. Probably, this is not true. Check this
+
+**Answer:**
+```{r}
+```
+
+It seems there are only 35388 unique indices! For example these names have the same hashvalue.
+
+```{r}
+```
+
+### g
+This means that our `HashFunction` cannot map each name, to a unique phone number. In general, something like this will happen with every hashtable, no matter how many possible indices we allow for.
+
+The way to solve this, is to make sure that we are able to solve these local conflicts. We can do this, by making a very small phone book, at the indices where conflicts occur: once at this position, we go through all the names that were mapped to this position, and check which corresponds to the name we were looking for.
+
+First things first. Create the hashtable by looping through all the names, and the indices, and by putting an entry of the phone number at the position of the index. If a second name is entered at the index, append it to the name and phone number already there.
+
+*Hint: This time you are allowed to create a growing container in a `for` loop!*
+
+**Answer:**
+
+```{r}
+```
+
+### h
+Write a function that finds the phone number of the name provided by using as arguments only a name, and the hashtable. 
+
+**Answer:**
+
+```{r}
+```
+
+### i
+Use the hashtable you've made, and the lookup function you've made using this particular hashfunction to look up the names mentioned in *1c*. Measure the amount of time it takes to lookup these names.
+
+*Hint: you can use the positions `c(12586, 23775, 35043, 46271, 57512, 68749, 79861, 90045, 91170)` to check your answers!*
+
+**Answer:**
+
+```{r}
+```
+
+```{r}
+```
+
+
+## 3 Cleaning a Genetics Data Set
+
+You are hired as the only biostatistician in a genetics research institute. You just started working there, and a colleague comes to you with the file `0_data/RawCompareSNPTable1.scsv`. The colleague gives you the following explanation of the file:
+
+"On the first line we see persons labeled as C180_v1, C229_v1 ... C433_v1, or not labeled at all. Every person has it's own column. A new column starts after `;`. Hence, `;` is a delimiter indicating a new field (= colum in our case).
+
+The second line gives in the first four columns nothing, and then suddenly "chr1:52840454". This indicates that for person "C249_v1" we have the genetic information about his/her base pair 52840454  on chromosome 1." 
+
+Your colleague actually already started working (manually) on the file. What your colleague wanted to create was a sort of incidence matrix from you can see which persons are genotyped for a specific base-pair on a chromosome. Could you help your colleague?
+
+In this case, it is not necessary to understand the data you are working with. However, in case you are interested to understand a bit more of the data. For an explanation of the chromosome see: https://ghr.nlm.nih.gov/primer/basics/chromosome. An explanation of DNA and a basepair check out https://ghr.nlm.nih.gov/primer/basics/dna.
+
+
+**The Task:**
+
+Create a function that has as input the unstructured semi-colon separated values (`.scsv`) file and outputs the file in a structured way. In the structured file the rownames are the chromosomes that are ordered ascendingly from 1:19, on to the last chromosome X. Also, the basepair numbers are ordered ascendingly within the chromosome too. Hence, the row with "chr1:52840454" comes before "chr1:52859391" since 52840454 is smaller then 52859391. For every column (sample / person) indicate TRUE or FALSE whether their genotyped information is present (TRUE) or not (FALSE). Finally, create a new column called `sum`, which counts the number of TRUE in each row i.e. the number of persons for whom that specific base pair is known.
+
+The final file should eventually look like the "FinalCompareSNPTable1.scsv" file (see the data folder). 
+
+Note: "In this latter file a 1 is given for TRUE, and NA is representing FALSE. You can choose yourself whether to stick with TRUE/FALSE values, or 1/NA values. Either of these solutions will obtain full points.
+
+*Hint: the function gsub() is used in de the model answers.*
+
+**Answer:**
+
+
+The function that sorts the chromosomes could have been done in a vectorized way too, that is, without for loops, or apply functions:
+
+
+```{r}
+```
+
+
+
+```{r}
+```
+
+```{r}
+```
+
+
+## 4 Looking for primes
+
+See how far you can get with this exercise in 1 hour.
+
+In this exercise we'll use most programming structures we've covered to find some prime numbers. You probabably know: a prime number (or a prime) is a natural number greater than 1 that has no positive divisors other than 1 and itself. 
+
+We'll look at two different implementations and find that something we've discussed before (and we told you to avoid) is sometimes unavoidable: 'growing objects'.
+
+### a
+Let's start off basic. Create an object called `my_primes` with the value `2`. Check if the value `3` is divisibly by `my_primes`, and if not, append `my_primes` with the entry `3`. Now check if the value `4` is divisble by any of the elements in `my_primes`, if not add it to `my_primes` otherwise do not, and continue to check `5`.
+
+**Answer:**
+
+```{r}
+```
+
+### b
+Suppose our goal is to find the smallest 100 prime numbers. You don't want to be doing this by hand right? We don't yet know however at what natural number we will have found 100 primes. We thus have to use something like `repeat` or `while` to repeatedly keep performing the operation described above.
+
+Use `repeat` to repeatedly check if some value `i` is a prime or not. Start with `my_primes` equal to `2`, and with `i` equal to `3`. Perform the check you've performed in **a**. Remember that most operators in `R`, can be be done in a vectorized manner. E.g. try `4 %% c(2, 3)` and see if you can use this to check if `4` is divisble by any of the entries in the vector.
+
+We already know that we want to find 100 primes. This means we can tell `R` to make `my_primes` a vector of length 100, fill the first entry with `2`, and as long as we keep track of how many primes we've found so far, we can fill the entire vector nicely. This way we can avoid growing the `my_primes` object.
+
+Finally, write a conditional inside your `repeat` loop to `break` out of the loop, if you've written a prime in the 100th element of the vector `my_primes`.
+
+**Answer:**
+```{r}
+```
+
+
+## 5 Visualization
+
+We can use a Q-Q-plot to compare (the Quantiles of) a theoretical distribution, with the (Quantiles of the) distribution of an observed variable. We are going to use it to compare some observed variables with a normal distribution.
+
+In the first part of this exercise we will compare a variable, sampled from a $t$ distribution with degrees of freedom equal to 10, to a normal distribution. This first part was also presented as an exercise in the course material of last week.
+
+See how far you can get with this whole exercise 30 minutes hour. You may want to look back to the lecture slides and exercises of some of the previous lectures.
+
+
+### 5a
+
+For investigation purposes, first make a plot of the density function of a t-distribution with degrees of freedom equal to 10, evaluated over the interval $[-5, 5]$. Also make a plot of the density function of the standard normal distribution, evaluated over the interval $[-5, 5]$. Set the plotting parameters such that both plots are given in the same plotting window, one on top of the other. Give the axes of both plots nice labels. *Hint: you may need to use your searchengine muscles here.*
+
+**Answer:**
+```{r}
+```
+
+### 5b
+Although this comparison gives us some idea if we look *really* carefully, it's not a very great way to compare two distributions directly. For this, we will use a Q-Q-plot. Look at the helpfiles of `qqnorm`, especially at the definition of `qqline`. Use `qqnorm` to compare the quantiles of a variable that is randomly sampled (100 samples) from a $t$ distribution with degrees of freedom equal to 10, to a normal distribution. Before you sample, set a seed. Make sure that you also plot a Q-Q-line. Make the line red and a little wider. Make the plot points solid, and a little smaller. *Hint: you may need to use your searchengine muscles here.*
+
+**Answer:**
+```{r}
+```
+
+### 5c
+
+Interpret the Q-Q-plot.
+
+**Answer:**
+Clearly the $t$ distribution has wider tails. 
+
+
+
+## 6 Outer
+
+`outer` is a very convenient function when it comes to creating data fit for `contourplot`.
+
+### a
+Use `outer` to evaluate the function $f(x, y) = sin(x)*sin(y)$ for all pairwise combinations of a sequence of a 100 equally spaced values of `x` and `y`, both in the interval $[-\pi, \pi]$
+
+**Answer:**
+```{r}
+```
+
+### b
+Use the result from **a** to make a contourplot using `contour`. What is the shape of the surface? Is each quadrant similar?
+
+**Answer:**
+
+```{r}
+```
+
+### c
+Now use `filled.contour` to make a contourplot of the data from **a**. Change the colourscheme to make use of `terrain.colors`.
+
+**Answer:**
+```{r}
+```
+
+### d
+Instead of using `outer`, write some code to perform the task you performed using `outer` yourself. Create an appropriately sized matrix, and use two nested `for` loops (i.e. a `for` loop *inside* a `for` loop), to fill this matrix. See if the results are the same as when you used `outer`.
+
+**Answer:**
+
+```{r}
+```
+
+
+## 7 Reproducing the Mona Lisa... *cough*
+
+Before you start the exercises, install the package `png`. We've talked during the lectures about how `plot` functions are basically using the graphics device as a canvas, and drawing every point, or line, on this canvas by simply telling which 'pixels' should be on or off (or of a specific colour). In this exercise we'll look at this a bit more, by drawing our own images.
+
+### a
+
+Colours on most modern LCD or OLED screens are created by combining the colours red, green and blue. This 'coding' scheme is called 'rgb'. Look at the helpfile of `writePNG`. This `rgb` coding scheme is one way to provide data to `writePNG` to write a `png` file (an image). It takes as argument a three dimensional array, with the first two dimensions equal to the width and the height of the picture, and the third dimensions as 'layers' for the colours red, green and blue. Go online to find the 'rgb' coding of your favorite colour. Create an array that writes a 400 by 400 pixel image of that colour. Note that most 'rgb' codings use a range of 0 through 255 to indicate the 'intensity' of a particular colour, while sometimes 0 through 1 is used: appropriately scale the colour code you find online!
+
+
+```{r}
+```
+
+### b
+Open the `png` file on your computer, does it look as intended?
+
+### c
+Let's create a colour gradient. Create another 'empty' array of dimensions 400 by 400 by 3. Create a sequence called `x`, of 400 equally spaced values between 0 and 1. Use this sequence to fill up the rows of the first layer of your array with these values. E.g. the entire first row of the first layer should be equal to `x[1]`, the second should be equal to `x[2]` etc. Use the same sequence and another for loop to do the same for the second layer of your array, but instead of looping over the rows, loop over the columns. In the end, write your array to a `png` file and look at the result. Is the result a colour gradient?
+
+**Answer:**
+
+```{r}
+```
+
+### d
+The third colour we're going to add by increasing it in a 'mixed' way: the intensity should increase over the rows *and* the columns. That is: it's intensity should be 0 at the [1, 1] pixel, and 1 at the [400, 400] pixel. This also means that the first column, looks exactly the same as the first row!
+
+Use a for loop to go through the columns and the rows of the third layer of the array you used for the gradient in **c** to fill each cell appropriately. 
+
+**Hint, make the other layers of the gradient 0 for now, so you can see the individual contribution of the third layer when you write the `png` file. Add back in the first two layers once you've got the correct result!**
+
+**Answer:**
+
+```{r}
+```

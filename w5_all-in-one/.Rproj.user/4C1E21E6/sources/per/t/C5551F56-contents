@@ -1,0 +1,171 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+# Exercise 1
+## 1.1
+```{r}
+p<- seq(0,1,0.01)
+plot(p,dbinom(15,20,p))
+p[which.max(dbinom(15,20,p))]
+
+```
+## 1.2
+```{r}
+p<- seq(0,1,0.01)
+plot(p,dbinom(15,20,p))
+points(p,dbinom(30,40,p), col='yellow')
+points(p,dbinom(300,400,p), col='pink')
+lines(p,dbinom(3000,4000,p), col='red')
+```
+
+## 1.3
+```{r}
+n=120; p=0.3; x=0:n 
+plot(x,dbinom(x,n,p)) 
+lines(x,dnorm(x,n*p,sqrt(n*p*(1-p))),col='pink')
+```
+
+## 1.6
+```{r}
+# 30 successes in 40 trials. Compute the 95% confidence interval
+
+getCI <- function(x,n,alpha=0.05){
+p <-  x/n
+var <- sqrt(p*(1-p)/n)
+CI <- p + var*qnorm(c(alpha/2,1-alpha/2))
+return(CI)}
+
+getCI(30,40)
+getCI(300,400,0.05)
+
+```
+
+## 1.9
+Suppose 20 patients suffering from dandruff use a medicinal shampoo and 10 of them notice some improvement. In the same study, 10 patients were given a placebo and 3 of them notice some improvement.
+a) Construct 95% confidence intervals for the improvement rates in the treatment and the placebo group.
+b) Construct a 95% confidence interval for the difference in improvement rates between the treat- ment and the placebo.
+c) Do you think the treatment helps?
+```{r}
+getCI(10,20)
+getCI(3,10)
+
+```
+
+## 1.11
+```{r}
+x=c(983,1041,1026,1025,1033,968,1028) 
+loglik=-Inf
+for (m in seq(900,1100,0.1)){
+for (s in seq(10,40,0.1)){
+tmp=sum(log(dnorm(x,m,s))) # compute the loglikelihood by summing 
+if (tmp>loglik){
+        loglik=tmp
+        mu=m
+        sigma=s
+} }}
+cat('mu is',mu,' and sigma is',sigma)
+
+```
+```{r}
+x=c(983,1041,1026,1025,1033,968,1028)
+ll = function(theta,x) {
+mu=theta[1]
+sigma=theta[2]
+-sum(log(dnorm(x,mu,sigma))) # compute loglikelihood by summing
+} # add a minus sign, because optim minimizes. 
+mle=optim(c(1000,25),ll,x=x,method="BFGS")
+mle
+```
+
+## 1.14
+```{r}
+x <- seq(-5,5,by = 0.1)
+plot(x, dnorm(x,0,1), type  ='l')
+lines(x,dt(x,5), col = 'red')
+lines(x,dt(x,20), col = 'pink')
+lines(x,dt(x,50), col = 'yellow')
+```
+
+## 1.15
+```{r}
+x=c(983,1041,1026,1025,1033,968,1028)
+n=length(x) 
+mean(x) + qt(c(0.05,0.95),n-1)*sd(x)/sqrt(n) # L=994.5 
+#U=mean(x) + qt(0.05,n-1)*sd(x)/sqrt(n) # U=1035.2
+```
+
+## 1.16
+Write an R script to take a sample of size n = 30 sample from the normal distribution with mean μ = 3 and σ = 2. Pretend you don’t know μ and σ and compute the 90% confidence interval for μ. Check if the interval covers μ. Then, repeat 10,000 times (use a for loop) and verify that the confidence interval covers μ in about 90% of the cases.
+```{r}
+count=0
+for (i in 1:1000){
+x <- rnorm(30, 3,2)
+n=length(x) 
+cl = mean(x) + qt(c(0.05,0.95),n-1)*sd(x)/sqrt(n) 
+count=count + ((cl[1] < 3)&(cl[2]>3))
+#cat(cl,'\n')
+}
+count
+```
+
+## 1.17
+```{r}
+n=10; m=15
+x=rnorm(n,0,3)
+y=rnorm(m,3,3)
+s2=((n-1)*var(x) + (m-1)*var(y))/(n+m-2) 
+s=sqrt(s2)*sqrt(1/n + 1/m) 
+L=mean(x)-mean(y) + qt(0.025,n+m-2)*s 
+U=mean(x)-mean(y) - qt(0.025,n+m-2)*s
+```
+
+# 1.18
+```{r}
+x <- c(17, 25, 17, 18,15)
+mean(x)
+lambda=seq(5,30,0.01)
+loglik=0
+for (i in 1:5){
+  loglik = loglik + log(dpois(x[i],lambda))
+}
+plot(lambda,loglik,type='l')
+ind=which.max(loglik) 
+mle=lambda[ind]
+
+```
+```{r}
+cat(log(dpois(x[i],c(5,19))))
+```
+
+## 1.19
+```{r}
+x=c(5.5,6.4,49.9,162.1,168.1,115.8,57.5,159.2,60.30,58.8) 
+ll = function(lambda){
+ sum(log(dexp(x,1/lambda)))
+}
+mle=optimize(ll,c(0,100),maximum=TRUE) # mle = 84.36
+```
+
+
+
+# Exercise 2
+## 2.2
+```{r}
+dbinom(125, 250,0.5)
+dbinom(240, 250,0.5)
+```
+## 2.4
+```{r}
+u = 125
+k = 5
+pbinom(u-k-1,250,0.5) + 1 - pbinom(u+k,250,0.5)
+
+k = 10
+pbinom(u-k-1,250,0.5) + 1 - pbinom(u+k,250,0.5)
+
+k = 20
+pbinom(u-k-1,250,0.5) + 1 - pbinom(u+k,250,0.5)
+
+```
+

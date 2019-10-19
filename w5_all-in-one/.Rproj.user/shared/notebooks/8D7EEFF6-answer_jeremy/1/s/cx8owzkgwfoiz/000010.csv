@@ -1,0 +1,3 @@
+"0","ind=which.max(loglik) "
+"0","mle=lambda[ind]"
+"0",""

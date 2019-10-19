@@ -1,0 +1,1 @@
+"0","lines(p,dbinom(3000,4000,p), col='red')"

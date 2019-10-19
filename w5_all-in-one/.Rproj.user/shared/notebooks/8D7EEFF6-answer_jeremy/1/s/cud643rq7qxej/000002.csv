@@ -1,0 +1,5 @@
+"0","x=c(5.5,6.4,49.9,162.1,168.1,115.8,57.5,159.2,60.30,58.8) "
+"0","ll = function(lambda){"
+"0"," sum(log(dexp(x,1/lambda)))"
+"0","}"
+"0","mle=optimize(ll,c(0,100),maximum=TRUE) # mle = 84.36"

@@ -1,0 +1,4 @@
+"0","tidy_dat <- data.frame('sector' = sector, "
+"0","                       'geo' = geo,"
+"0","                       'percentages' = percentages,"
+"0","                       'annotation' = annotation)"

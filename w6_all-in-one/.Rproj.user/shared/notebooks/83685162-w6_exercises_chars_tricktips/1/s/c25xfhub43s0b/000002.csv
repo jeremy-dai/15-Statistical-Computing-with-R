@@ -1,0 +1,2 @@
+"0","url <- ""https://tinyurl.com/w6-data-191018"" "
+"0","mydat <- read.delim(url)"

@@ -1,0 +1,1 @@
+"0","lines(x,dnorm(x,n*p,sqrt(n*p*(1-p))),col='pink')"

@@ -1,0 +1,6 @@
+"0","x = gsub(pattern = ""[-/:]"", replacement = "" "", x = char_dates_leap_seconds)"
+"0","x = strsplit(x,' ')"
+"0","# use do.call"
+"0","matrix = do.call('rbind',x)"
+"0","df = as.data.frame(matrix)"
+"0","names(df) <- c('y','m','d','h','m','s')"

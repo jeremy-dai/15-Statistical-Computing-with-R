@@ -1,0 +1,7 @@
+"0","n=10; m=15"
+"0","x=rnorm(n,0,3)"
+"0","y=rnorm(m,3,3)"
+"0","s2=((n-1)*var(x) + (m-1)*var(y))/(n+m-2) "
+"0","s=sqrt(s2)*sqrt(1/n + 1/m) "
+"0","L=mean(x)-mean(y) + qt(0.025,n+m-2)*s "
+"0","U=mean(x)-mean(y) - qt(0.025,n+m-2)*s"
