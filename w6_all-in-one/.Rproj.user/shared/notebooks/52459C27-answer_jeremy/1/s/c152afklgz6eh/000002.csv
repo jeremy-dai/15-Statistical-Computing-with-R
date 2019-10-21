@@ -1,0 +1,4 @@
+"0","n=135"
+"0","p=0.5"
+"0","Z=(60 - n*p)/sqrt(n*p*(1-p)) # compute the Z statistic "
+"0","pvalue=2*pnorm(-abs(Z),0,1)"

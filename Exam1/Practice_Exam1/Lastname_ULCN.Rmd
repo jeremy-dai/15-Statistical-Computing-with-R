@@ -1,0 +1,136 @@
+---
+title: "SCR Exam 1: the basics"
+output: pdf_document
+---
+
+```{r, include = FALSE}
+load("0_data/scr_exam_1_the-basics.Rdata")
+```
+
+## Instructions / Preparatory code
+
+Make sure that your write your `R` code in the `R` code chunks. When you wish or need to write text to answer one of the questions, don't use `R` comments, but just write the text outside the `R` code chunk. 
+
+Small comments to clarify the `R` code should of course appear inside the `R` code chunks.
+
+
+
+## 1 Introduction
+
+### a
+
+```{r}
+```
+
+### b
+
+```{r}
+```
+
+### c
+
+```{r}
+```
+
+## 2 Set-up
+
+### a
+
+```{r}
+```
+
+### b
+
+```{r}
+```
+
+
+## 3 Random imputation
+
+### a
+
+```{r}
+```
+
+### b
+
+```{r}
+```
+
+### c
+
+```{r}
+```
+
+### d
+
+```{r}
+```
+
+### e
+
+```{r}
+```
+
+### f
+
+```{r}
+```
+
+## 4 Informative imputation
+
+### a
+
+```{r}
+```
+
+### b
+
+```{r}
+```
+
+### c
+
+```{r}
+```
+
+### d
+
+```{r}
+```
+
+### e
+
+```{r}
+```
+
+## 5 Impute again, analyze again
+
+### a
+
+```{r}
+```
+
+### b
+
+```{r}
+```
+
+### c
+
+```{r}
+```
+
+
+## 6 Self Service Analytics
+
+### a
+
+```{r}
+```
+
+
+### Bonus
+
+```{r}
+```
