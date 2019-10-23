@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1571762364762.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2555997983",
+    "id" : "4FB4A89A",
+    "lastKnownWriteTime" : 1571865068,
+    "last_content_update" : 1571865068758,
+    "path" : "~/GitHub/15 Statistical Computing with R/w6_all-in-one/w6_exercises_chars_tricktips.rmd",
+    "project_path" : "w6_exercises_chars_tricktips.rmd",
+    "properties" : {
+        "cursorPosition" : "385,52",
+        "scrollLine" : "369"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}
