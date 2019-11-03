@@ -1,0 +1,4 @@
+"0","#par(mfrow=c(1, 2)) "
+"0","de <- merge(pay2018_wide_ub20hrs, fees2018_wide_ub20hrs[,c('NZA','dbc')], by=0, all.x=TRUE)"
+"0","de <- de[order(de$NZA),]"
+"0","plot(x=de$dbc, y=de[,insurances[1]],col=insurance_colors[1], pch =16)"

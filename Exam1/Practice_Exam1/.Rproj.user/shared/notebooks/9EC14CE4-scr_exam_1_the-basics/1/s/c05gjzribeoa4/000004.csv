@@ -1,0 +1,2 @@
+"0","data$sex <- as.factor(data$sex)"
+"0","#class(data$sex)"

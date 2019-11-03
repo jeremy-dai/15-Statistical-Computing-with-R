@@ -1,0 +1,1 @@
+"0","bloodsamples_data <- bloodsamples_data[-which(is.na(bloodsamples_data$sex)), ]"

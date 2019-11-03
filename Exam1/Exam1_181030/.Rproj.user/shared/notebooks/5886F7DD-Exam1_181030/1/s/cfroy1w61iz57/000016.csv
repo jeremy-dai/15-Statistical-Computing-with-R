@@ -1,0 +1,6 @@
+"0","df <- list()"
+"0","files <- list.files(""0_data/"", pattern = ""2018.csv"")"
+"0","files <- paste0('0_data/',files)"
+"0","for(f in files) {"
+"0","  name <- strsplit(f,split=""[/.]"")[[1]][2]"
+"0","  df[[name]] <- read.csv(file=f)[,-1] }"

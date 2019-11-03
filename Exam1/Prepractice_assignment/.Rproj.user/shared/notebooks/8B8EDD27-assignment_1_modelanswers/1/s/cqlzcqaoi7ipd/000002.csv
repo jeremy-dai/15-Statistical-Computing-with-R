@@ -1,0 +1,1 @@
+"0","difference_in_days <- as.Date(bloodsamples_data$measurement_date, format=""%d/%m/%Y"") - as.Date(bloodsamples_data$sample_date, format=""%d/%m/%Y"")"

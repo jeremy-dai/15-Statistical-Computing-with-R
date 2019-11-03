@@ -1,0 +1,1 @@
+"0","fees2018_long_ub20hrs$insurance <- factor(fees2018_long_ub20hrs$insurance,levels= names(insurance_colors ))"

@@ -1,0 +1,1 @@
+"0","write.table(df_encrypted, file=""0_data/encry.txt"",col.names=F, row.names = F,sep="" "", quote	=F)"

@@ -1,0 +1,6 @@
+"0","index_good_samples <- bloodsamples_data$corrected_difference_in_days<=30"
+"0","sum(!index_good_samples)"
+"1","[1]"
+"1"," 83"
+"1","
+"

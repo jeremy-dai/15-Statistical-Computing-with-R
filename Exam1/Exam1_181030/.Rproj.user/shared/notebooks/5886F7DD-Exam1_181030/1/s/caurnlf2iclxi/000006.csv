@@ -1,0 +1,6 @@
+"0","unique(fees2018_long$dbc)[!unique(fees2018_long$dbc) %in% fees2018_wide$dbc]"
+"1","[1]"
+"1","  NA"
+"1"," 163"
+"1","
+"

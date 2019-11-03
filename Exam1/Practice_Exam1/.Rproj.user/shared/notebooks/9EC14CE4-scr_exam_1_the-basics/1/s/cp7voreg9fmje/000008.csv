@@ -1,0 +1,2 @@
+"0","checkdata <- data[is.na(data$ir),]"
+"0","# from different place but all for male -> not random"

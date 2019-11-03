@@ -1,0 +1,1 @@
+"0","M <- tapply(data$ir, list(data$sex,data$location), mean,na.rm=TRUE)"

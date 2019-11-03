@@ -1,0 +1,3 @@
+"0","par(mfrow=c(1, 3))"
+"0","plot(all_grade$Exam2 ~ all_grade$Exam1, pch= 16,main = 'N=39',ylim=c(20,100),"
+"0","     xlim=c(20,100),xlab='Grade Exam 1', ylab ='Grade Exam 2')"

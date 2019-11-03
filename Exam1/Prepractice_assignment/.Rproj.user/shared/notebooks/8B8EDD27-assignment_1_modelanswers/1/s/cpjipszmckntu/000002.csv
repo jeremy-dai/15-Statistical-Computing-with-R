@@ -1,0 +1,1 @@
+"0","temp_string <- strsplit(""subject_Groningen: 1"", split="""")[[1]]"

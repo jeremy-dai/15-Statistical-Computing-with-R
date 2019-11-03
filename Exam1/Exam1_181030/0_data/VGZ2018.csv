@@ -1,0 +1,123 @@
+,code,Group,0.7,0.8,1,Checks,Checks,Checks,Checks,NA
+6,7,Diagnostics - from 1 up to and including 99 minutes,107.97,123.39,154.2401786,107.97,123.39,TRUE,TRUE,NA
+7,8,Diagnostics - from 100 up to and including 199 minutes,190.74,217.99,272.4866071,190.74,217.99,TRUE,TRUE,NA
+8,9,Diagnostics - from 200 up to and including 399 minutes,380.32,434.65,543.3133929,380.32,434.65,TRUE,TRUE,NA
+9,13,Crisis - from 1 up to and including 99 minutes,91.32,104.36,130.4535714,91.32,104.36,TRUE,TRUE,NA
+10,14,Crisis - from 100 up to and including 199 minutes,203.93,233.07,291.3330357,203.93,233.07,TRUE,TRUE,NA
+11,15,Crisis - from 200 up to and including 399 minutes,482.6,551.55,689.4330357,482.6,551.55,TRUE,TRUE,NA
+12,16,Crisis - from 400 up to and including 799 minutes,721.28,824.32,1030.4,721.28,824.32,TRUE,TRUE,NA
+13,27,Attention Deficit - and behaviour - from 250 up to and including 799 minutes,772.9,883.31,1104.140179,772.9,883.31,TRUE,TRUE,NA
+14,30,Attention Deficit - and behaviour - from 1800 up to and including 2999 minutes,2953.64,3375.58,4219.480357,2953.64,3375.58,TRUE,TRUE,NA
+15,31,Attention Deficit - and behaviour - from 3000 up to and including 5999 minutes,4834.55,5525.19,6906.493,4834.55,5525.19,TRUE,TRUE,NA
+16,33,Pervasive - from 250 up to and including 799 minutes,739.39,845.01,1056.266964,739.39,845.01,TRUE,TRUE,NA
+17,38,Pervasive - from 3000 up to and including 5999 minutes,4682.84,5351.81,6689.766964,4682.84,5351.81,TRUE,TRUE,NA
+18,40,Other related to childhood period - from 250 up to and including 799 minutes,804.67,919.62,1149.526786,804.67,919.62,TRUE,TRUE,NA
+19,41,Other related to childhood period - from 800 up to and including 1799 minutes,1652.41,1888.47,2360.586607,1652.41,1888.47,TRUE,TRUE,NA
+20,42,Other related to childhood period - from 1800 up to and including 2999 minutes,2886.84,3299.24,4124.053571,2886.84,3299.24,TRUE,TRUE,NA
+21,48,Delirium dementia and other - from 1800 up to and including 2999 minutes,2653.43,3032.5,3790.619643,2653.43,3032.5,TRUE,TRUE,NA
+22,49,Delirium dementia and other - from 3000 up to and including 5999 minutes,4569.04,5221.76,6527.2,4569.04,5221.76,TRUE,TRUE,NA
+23,51,Alcohol - from 250 up to and including 799 minutes,711.91,813.62,1017.019643,711.91,813.62,TRUE,TRUE,NA
+24,52,Alcohol - from 800 up to and including 1799 minutes,1428.92,1633.05,2041.313393,1428.92,1633.05,TRUE,TRUE,NA
+25,53,Alcohol - from 1800 up to and including 2999 minutes,2663.23,3043.69,3804.613393,2663.23,3043.69,TRUE,TRUE,NA
+26,54,Alcohol - from 3000 up to and including 5999 minutes,4643.32,5306.65,6633.313393,4643.32,5306.65,TRUE,TRUE,NA
+27,56,Other addictive substances - from 250 up to and including 799 minutes,722.58,825.81,1032.259821,722.58,825.81,TRUE,TRUE,NA
+28,59,Other addictive substances - from 1800 up to and including 2999 minutes,2616.73,2990.55,3738.186607,2616.73,2990.55,TRUE,TRUE,NA
+29,60,Other addictive substances - from 3000 up to and including 5999 minutes,4792.93,5477.64,6847.046429,4792.93,5477.64,TRUE,TRUE,NA
+30,66,Schizophrenia - from 1800 up to and including 2999 minutes,2847.27,3254.03,4067.533036,2847.27,3254.03,TRUE,TRUE,NA
+31,67,Schizophrenia - from 3000 up to and including 5999 minutes,4929.07,5633.22,7041.526786,4929.07,5633.22,TRUE,TRUE,NA
+32,68,Schizophrenia - from 6000 up to and including 11999 minutes,9141.38,10447.29,13059.11339,9141.38,10447.29,TRUE,TRUE,NA
+33,87,Bipolar and other - from 3000 up to and including 5999 minutes,4984.51,5696.58,7120.726786,4984.51,5696.58,TRUE,TRUE,NA
+34,118,Rest Group diagnostics - from 1800 up to and including 2999 minutes,3019.05,3450.35,4312.933036,3019.05,3450.35,TRUE,TRUE,NA
+35,119,Rest Group diagnostics - from 3000 up to and including 5999 minutes,5031.96,5750.81,7188.513393,5031.96,5750.81,TRUE,TRUE,NA
+36,121,Personality - from 250 up to and including 799 minutes,781.72,893.39,1116.740179,781.72,893.39,TRUE,TRUE,NA
+37,131,Attention Deficit - and behaviour - from 6000 up to and including 11999 minutes,9905.81,11320.93,14151.15982,9905.81,11320.93,TRUE,TRUE,NA
+38,133,Pervasive - from 6000 up to and including 11999 minutes,8987.55,10271.49,12839.35982,8987.55,10271.49,TRUE,TRUE,NA
+39,135,Other related to childhood period - from 3000 up to and including 5999 minutes,4670.74,5337.99,6672.486607,4670.74,5337.99,TRUE,TRUE,NA
+40,137,Delirium dementia and other - from 6000 up to and including 11999 minutes,8923.12,10197.85,12747.31339,8923.12,10197.85,TRUE,TRUE,NA
+41,139,Alcohol - from 6000 up to and including 11999 minutes,9106.15,10407.03,13008.78661,9106.15,10407.03,TRUE,TRUE,NA
+42,141,Other addictive substances - from 6000 up to and including 11999 minutes,8981.54,10264.62,12830.77321,8981.54,10264.62,TRUE,TRUE,NA
+43,143,Schizophrenia - from 12000 up to and including 17999 minutes,15560.63,17783.57,22229.46696,15560.63,17783.57,TRUE,TRUE,NA
+44,144,Schizophrenia - from 18000 up to and including 23999 minutes,22052.81,25203.21,31504.01339,22052.81,25203.21,TRUE,TRUE,NA
+45,146,Depression - from 12000 up to and including 17999 minutes,16155.86,18463.84,23079.8,16155.86,18463.84,TRUE,TRUE,NA
+46,148,Bipolar and other - from 6000 up to and including 11999 minutes,9120.42,10423.34,13029.17321,9120.42,10423.34,TRUE,TRUE,NA
+47,150,Anxiety - from 12000 up to and including 17999 minutes,17639.91,20159.89,25199.86696,17639.91,20159.89,TRUE,TRUE,NA
+48,156,Rest Group diagnostics - from 6000 up to and including 11999 minutes,10165.25,11617.43,14521.78661,10165.25,11617.43,TRUE,TRUE,NA
+49,158,Personality - from 12000 up to and including 17999 minutes,15351.66,17544.75,21930.94018,15351.66,17544.75,TRUE,TRUE,NA
+50,162,Diagnostics - from 400 up to and including 799 minutes,720.79,823.76,1029.7,720.79,823.76,TRUE,TRUE,NA
+51,163,Diagnostics - from 800 minutes,1237.91,1414.75,1768.440179,1237.91,1414.75,TRUE,TRUE,NA
+52,165,Crisis - from 800 up to and including 1199 minutes,1228.82,1404.37,1755.459821,1228.82,1404.37,TRUE,TRUE,NA
+53,169,Attention Deficit - and behaviour - from 800 up to and including 1799 minutes,1655.93,1892.5,2365.619643,1655.93,1892.5,TRUE,TRUE,NA
+54,170,Attention Deficit - and behaviour - from 12000 up to and including 17999 minutes,14997.2,17139.66,21424.57321,14997.2,17139.66,TRUE,TRUE,NA
+55,172,Pervasive - from 800 up to and including 1799 minutes,1470.41,1680.47,2100.586607,1470.41,1680.47,TRUE,TRUE,NA
+56,173,Pervasive - from 12000 up to and including 17999 minutes,17183.58,19638.37,24547.96696,17183.58,19638.37,TRUE,TRUE,NA
+57,175,Other related to childhood period - from 6000 up to and including 11999 minutes,10488.42,11986.76,14983.45357,10488.42,11986.76,TRUE,TRUE,NA
+58,177,Delirium dementia and other - from 12000 up to and including 17999 minutes,16616.42,18990.19,23737.74018,16616.42,18990.19,TRUE,TRUE,NA
+59,178,Delirium dementia and other - from 18000 minutes,23556.51,26921.73,33652.15982,23556.51,26921.73,TRUE,TRUE,NA
+60,179,Alcohol - from 12000 up to and including 17999 minutes,15688.33,17929.52,22411.9,15688.33,17929.52,TRUE,TRUE,NA
+61,180,Alcohol - from 18000 minutes,29105.72,33263.68,41579.6,29105.72,33263.68,TRUE,TRUE,NA
+62,181,Other addictive substances - from 800 up to and including 1799 minutes,1416,1618.29,2022.859821,1416,1618.29,TRUE,TRUE,NA
+63,182,Other addictive substances - from 12000 up to and including 17999 minutes,15368.55,17564.06,21955.07321,15368.55,17564.06,TRUE,TRUE,NA
+64,183,Other addictive substances - from 18000 minutes,28740.87,32846.71,41058.38661,28740.87,32846.71,TRUE,TRUE,NA
+65,184,Schizophrenia - from 800 up to and including 1799 minutes,1525.9,1743.88,2179.853571,1525.9,1743.88,TRUE,TRUE,NA
+66,185,Schizophrenia - from 24000 up to and including 29999 minutes,26695.11,30508.7,38135.87321,26695.11,30508.7,TRUE,TRUE,NA
+67,186,Schizophrenia - from 30000 minutes,43592.39,49819.87,62274.84018,43592.39,49819.87,TRUE,TRUE,NA
+68,187,Depression - from 18000 up to and including 23999 minutes,24156.03,27606.89,34508.61339,24156.03,27606.89,TRUE,TRUE,NA
+69,188,Depression - from 24000 minutes,31380.26,35863.15,44828.94018,31380.26,35863.15,TRUE,TRUE,NA
+70,189,Bipolar and other - from 250 up to and including 799 minutes,837.65,957.31,1196.640179,837.65,957.31,TRUE,TRUE,NA
+71,190,Bipolar and other - from 1800 up to and including 2999 minutes,2823.79,3227.19,4033.986607,2823.79,3227.19,TRUE,TRUE,NA
+72,191,Bipolar and other - from 12000 up to and including 17999 minutes,15989.88,18274.14,22842.68036,15989.88,18274.14,TRUE,TRUE,NA
+73,192,Bipolar and other - from 18000 minutes,25975.06,29685.79,37107.23304,25975.06,29685.79,TRUE,TRUE,NA
+74,193,Anxiety - from 3000 up to and including 5999 minutes,4870.91,5566.75,6958.440179,4870.91,5566.75,TRUE,TRUE,NA
+75,194,Anxiety - from 6000 up to and including 11999 minutes,10256.82,11722.08,14652.6,10256.82,11722.08,TRUE,TRUE,NA
+76,195,Anxiety - from 18000 up to and including 23999 minutes,24331.06,27806.93,34758.65982,24331.06,27806.93,TRUE,TRUE,NA
+77,196,Anxiety - from 24000 minutes,29402.7,33603.09,42003.85982,29402.7,33603.09,TRUE,TRUE,NA
+78,203,Rest Group diagnostics - from 800 up to and including 1799 minutes,1690.27,1931.74,2414.673214,1690.27,1931.74,TRUE,TRUE,NA
+79,204,Rest Group diagnostics - from 12000 up to and including 17999 minutes,16860.69,19269.36,24086.7,16860.69,19269.36,TRUE,TRUE,NA
+80,205,Rest Group diagnostics - from 18000 minutes,27317.6,31220.12,39025.14643,27317.6,31220.12,TRUE,TRUE,NA
+81,206,Personality - from 800 up to and including 1799 minutes,1639.41,1873.61,2342.013393,1639.41,1873.61,TRUE,TRUE,NA
+82,207,Personality - from 3000 up to and including 5999 minutes,5124.58,5856.66,7320.826786,5124.58,5856.66,TRUE,TRUE,NA
+83,208,Personality - from 6000 up to and including 11999 minutes,9279.04,10604.62,13255.77321,9279.04,10604.62,TRUE,TRUE,NA
+84,209,Personality - from 18000 up to and including 23999 minutes,22332.78,25523.18,31903.97321,22332.78,25523.18,TRUE,TRUE,NA
+85,213,Crisis - from 1200 up to and including 1799 minutes,1765.16,2017.33,2521.659821,1765.16,2017.33,TRUE,TRUE,NA
+86,214,Crisis - from 1800 minutes,2953,3374.86,4218.573214,2953,3374.86,TRUE,TRUE,NA
+87,215,Treatment Short - from 1 up to and including 99 minutes,86.97,99.4,124.2464286,86.97,99.4,TRUE,TRUE,NA
+88,216,Treatment Short - from 100 up to and including 199 minutes,208.29,238.05,297.5598214,208.29,238.05,TRUE,TRUE,NA
+89,217,Treatment Short - from 200 up to and including 399 minutes,400.5,457.71,572.1401786,400.5,457.71,TRUE,TRUE,NA
+90,221,Attention Deficit - and behaviour - from 18000 up to and including 23999 minutes,23149.34,26456.39,33070.48661,23149.34,26456.39,TRUE,TRUE,NA
+91,222,Attention Deficit - and behaviour - from 24000 minutes,27888.1,31872.11,39840.14018,27888.1,31872.11,TRUE,TRUE,NA
+92,223,Pervasive - from 1800 up to and including 2999 minutes,2697.99,3083.41,3854.266964,2697.99,3083.41,TRUE,TRUE,NA
+93,224,Pervasive - from 18000 up to and including 23999 minutes,23001.2,26287.08,32858.85357,23001.2,26287.08,TRUE,TRUE,NA
+94,225,Pervasive - from 24000 minutes,31813.91,36358.75,45448.44018,31813.91,36358.75,TRUE,TRUE,NA
+95,226,Other related to childhood period - from 12000 up to and including 17999 minutes,17977.85,20546.12,25682.64643,17977.85,20546.12,TRUE,TRUE,NA
+96,227,Other related to childhood period - from 18000 minutes,26476.38,30258.72,37823.4,26476.38,30258.72,TRUE,TRUE,NA
+97,228,Delirium dementia and other - from 250 up to and including 799 minutes,777.14,888.16,1110.2,777.14,888.16,TRUE,TRUE,NA
+98,229,Delirium dementia and other - from 800 up to and including 1799 minutes,1471.5,1681.71,2102.140179,1471.5,1681.71,TRUE,TRUE,NA
+99,230,Schizophrenia - from 250 up to and including 799 minutes,793.34,906.67,1133.340179,793.34,906.67,TRUE,TRUE,NA
+100,231,Depression - from 250 up to and including 799 minutes,834.16,953.32,1191.653571,834.16,953.32,TRUE,TRUE,NA
+101,232,Depression - from 800 up to and including 1799 minutes,1624.98,1857.12,2321.4,1624.98,1857.12,TRUE,TRUE,NA
+102,233,Depression - from 1800 up to and including 2999 minutes,2945.02,3365.73,4207.166964,2945.02,3365.73,TRUE,TRUE,NA
+103,234,Depression - from 3000 up to and including 5999 minutes,5053.86,5775.84,7219.8,5053.86,5775.84,TRUE,TRUE,NA
+104,235,Depression - from 6000 up to and including 11999 minutes,9873.48,11283.98,14104.97321,9873.48,11283.98,TRUE,TRUE,NA
+105,236,Bipolar and other - from 800 up to and including 1799 minutes,1582.09,1808.1,2260.126786,1582.09,1808.1,TRUE,TRUE,NA
+106,237,Anxiety - from 250 up to and including 799 minutes,816.34,932.96,1166.2,816.34,932.96,TRUE,TRUE,NA
+107,238,Anxiety - from 800 up to and including 1799 minutes,1671.73,1910.55,2388.186607,1671.73,1910.55,TRUE,TRUE,NA
+108,239,Anxiety - from 1800 up to and including 2999 minutes,2994.64,3422.44,4278.053571,2994.64,3422.44,TRUE,TRUE,NA
+109,242,Rest Group diagnostics - from 250 up to and including 799 minutes,834.35,953.54,1191.926786,834.35,953.54,TRUE,TRUE,NA
+110,243,Personality - from 1800 up to and including 2999 minutes,2924.96,3342.81,4178.513393,2924.96,3342.81,TRUE,TRUE,NA
+111,244,Personality - from 24000 up to and including 29999 minutes,31305.77,35778.02,44722.52679,31305.77,35778.02,TRUE,TRUE,NA
+112,245,Personality - from 30000 minutes,42381.41,48435.9,60544.87321,42381.41,48435.9,TRUE,TRUE,NA
+113,246,Somatoform - from 250 up to and including 799 minutes,841.63,961.86,1202.326786,841.63,961.86,TRUE,TRUE,NA
+114,247,Somatoform - from 800 up to and including 1799 minutes,1673.22,1912.25,2390.313393,1673.22,1912.25,TRUE,TRUE,NA
+115,248,Somatoform - from 1800 up to and including 2999 minutes,2953.29,3375.19,4218.986607,2953.29,3375.19,TRUE,TRUE,NA
+116,249,Somatoform - from 3000 up to and including 5999 minutes,4686.71,5356.24,6695.3,4686.71,5356.24,TRUE,TRUE,NA
+117,250,Somatoform - from 6000 up to and including 11999 minutes,9299.18,10627.63,13284.54018,9299.18,10627.63,TRUE,TRUE,NA
+118,251,Somatoform - from 12000 minutes,16111.66,18413.33,23016.65982,16111.66,18413.33,TRUE,TRUE,NA
+119,252,Eating Disorder - from 250 up to and including 799 minutes,783.08,894.95,1118.686607,783.08,894.95,TRUE,TRUE,NA
+120,253,Eating Disorder - from 800 up to and including 1799 minutes,1603.98,1833.12,2291.4,1603.98,1833.12,TRUE,TRUE,NA
+121,254,Eating Disorder - from 1800 up to and including 2999 minutes,2874.92,3285.63,4107.033036,2874.92,3285.63,TRUE,TRUE,NA
+122,255,Eating Disorder - from 3000 up to and including 5999 minutes,4771.55,5453.2,6816.5,4771.55,5453.2,TRUE,TRUE,NA
+123,256,Eating Disorder - from 6000 up to and including 11999 minutes,9575.63,10943.57,13679.46696,9575.63,10943.57,TRUE,TRUE,NA
+124,257,Eating Disorder - from 12000 up to and including 17999 minutes,14450.65,16515.03,20643.78661,14450.65,16515.03,TRUE,TRUE,NA
+125,258,Eating Disorder - from 18000 minutes,21312.94,24357.64,30447.05357,21312.94,24357.64,TRUE,TRUE,NA
+126,264,Treatment Short - from 400 minutes,668.21,763.67,954.5866071,668.21,763.67,TRUE,TRUE,NA
+127,NA,Performance Part B stay (Limited care degree),121.03,138.32,172.9,121.03,138.32,TRUE,TRUE,172.9

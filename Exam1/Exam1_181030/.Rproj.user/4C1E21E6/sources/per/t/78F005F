@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1572389584426.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "78F005F",
+    "lastKnownWriteTime" : 1540920607,
+    "last_content_update" : 1572389584426,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "id" : "d79931f4f4b24fbbb7518301bfeb8e9b",
+        "name" : "fees_raw_list",
+        "title" : "fees_raw_list"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 8,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "object_explorer"
+}

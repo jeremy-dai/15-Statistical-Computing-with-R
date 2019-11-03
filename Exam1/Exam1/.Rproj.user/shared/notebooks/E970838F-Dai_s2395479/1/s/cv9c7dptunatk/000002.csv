@@ -1,0 +1,8 @@
+"0","prob_old <- 0.25 / 699999"
+"0","prob_new <- 0.75 / 800000"
+"0","probs_ULCN <- c(rep(prob_old,699999),rep(prob_new,800000))"
+"0","sum(probs_ULCN) # equal to 1"
+"1","[1]"
+"1"," 1"
+"1","
+"

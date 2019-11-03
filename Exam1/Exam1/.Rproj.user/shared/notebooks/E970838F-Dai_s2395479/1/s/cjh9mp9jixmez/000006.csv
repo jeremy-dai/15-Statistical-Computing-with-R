@@ -1,0 +1,7 @@
+"0","all_grade <- merge(temp, Exam2, all = T)"
+"0","rm(temp)"
+"0","all.equal(all_grade,the_grades)"
+"1","[1]"
+"1"," TRUE"
+"1","
+"

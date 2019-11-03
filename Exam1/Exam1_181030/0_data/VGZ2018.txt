@@ -1,0 +1,123 @@
+"code","Productgroep","0.7","0.8","1","Controles","Controles","Controles","Controles","NA"
+"6","007","Diagnostiek - vanaf 1 tot en met 99 minuten","107.97","123.39",154.240178571429,"107.97","123.39","TRUE","TRUE",NA
+"7","008","Diagnostiek - vanaf 100 tot en met 199 minuten","190.74","217.99",272.486607142857,"190.74","217.99","TRUE","TRUE",NA
+"8","009","Diagnostiek - vanaf 200 tot en met 399 minuten","380.32","434.65",543.313392857143,"380.32","434.65","TRUE","TRUE",NA
+"9","013","Crisis - vanaf 1 tot en met 99 minuten","91.32","104.36",130.453571428571,"91.32","104.36","TRUE","TRUE",NA
+"10","014","Crisis - vanaf 100 tot en met 199 minuten","203.93","233.07",291.333035714286,"203.93","233.07","TRUE","TRUE",NA
+"11","015","Crisis - vanaf 200 tot en met 399 minuten","482.6","551.54999999999995",689.433035714286,"482.6","551.54999999999995","TRUE","TRUE",NA
+"12","016","Crisis - vanaf 400 tot en met 799 minuten","721.28","824.32",1030.4,"721.28","824.32","TRUE","TRUE",NA
+"13","027","Aandachtstekort - en gedrag - vanaf 250 tot en met 799 minuten","772.9","883.31",1104.14017857143,"772.9","883.31","TRUE","TRUE",NA
+"14","030","Aandachtstekort - en gedrag - vanaf 1800 tot en met 2999 minuten","2953.64","3375.58",4219.48035714286,"2953.64","3375.58","TRUE","TRUE",NA
+"15","031","Aandachtstekort - en gedrag - vanaf 3000 tot en met 5999 minuten","4834.55","5525.19",6906.493,"4834.55","5525.19","TRUE","TRUE",NA
+"16","033","Pervasief - vanaf 250 tot en met 799 minuten","739.39","845.01",1056.26696428571,"739.39","845.01","TRUE","TRUE",NA
+"17","038","Pervasief - vanaf 3000 tot en met 5999 minuten","4682.84","5351.81",6689.76696428571,"4682.84","5351.81","TRUE","TRUE",NA
+"18","040","Overige kindertijd - vanaf 250 tot en met 799 minuten","804.67","919.62",1149.52678571429,"804.67","919.62","TRUE","TRUE",NA
+"19","041","Overige kindertijd - vanaf 800 tot en met 1799 minuten","1652.41","1888.47",2360.58660714286,"1652.41","1888.47","TRUE","TRUE",NA
+"20","042","Overige kindertijd - vanaf 1800 tot en met 2999 minuten","2886.84","3299.24",4124.05357142857,"2886.84","3299.24","TRUE","TRUE",NA
+"21","048","Delirium dementie en overig - vanaf 1800 tot en met 2999 minuten","2653.43","3032.5",3790.61964285714,"2653.43","3032.5","TRUE","TRUE",NA
+"22","049","Delirium dementie en overig - vanaf 3000 tot en met 5999 minuten","4569.04","5221.76",6527.2,"4569.04","5221.76","TRUE","TRUE",NA
+"23","051","Alcohol - vanaf 250 tot en met 799 minuten","711.91","813.62",1017.01964285714,"711.91","813.62","TRUE","TRUE",NA
+"24","052","Alcohol - vanaf 800 tot en met 1799 minuten","1428.92","1633.05",2041.31339285714,"1428.92","1633.05","TRUE","TRUE",NA
+"25","053","Alcohol - vanaf 1800 tot en met 2999 minuten","2663.23","3043.69",3804.61339285714,"2663.23","3043.69","TRUE","TRUE",NA
+"26","054","Alcohol - vanaf 3000 tot en met 5999 minuten","4643.32","5306.65",6633.31339285714,"4643.32","5306.65","TRUE","TRUE",NA
+"27","056","Overige aan een middel - vanaf 250 tot en met 799 minuten","722.58","825.81",1032.25982142857,"722.58","825.81","TRUE","TRUE",NA
+"28","059","Overige aan een middel - vanaf 1800 tot en met 2999 minuten","2616.73","2990.55",3738.18660714286,"2616.73","2990.55","TRUE","TRUE",NA
+"29","060","Overige aan een middel - vanaf 3000 tot en met 5999 minuten","4792.93","5477.64",6847.04642857143,"4792.93","5477.64","TRUE","TRUE",NA
+"30","066","Schizofrenie - vanaf 1800 tot en met 2999 minuten","2847.27","3254.03",4067.53303571429,"2847.27","3254.03","TRUE","TRUE",NA
+"31","067","Schizofrenie - vanaf 3000 tot en met 5999 minuten","4929.07","5633.22",7041.52678571429,"4929.07","5633.22","TRUE","TRUE",NA
+"32","068","Schizofrenie - vanaf 6000 tot en met 11999 minuten","9141.3799999999992","10447.290000000001",13059.1133928571,"9141.3799999999992","10447.290000000001","TRUE","TRUE",NA
+"33","087","Bipolair en overig - vanaf 3000 tot en met 5999 minuten","4984.51","5696.58",7120.72678571429,"4984.51","5696.58","TRUE","TRUE",NA
+"34","118","Restgroep diagnoses - vanaf 1800 tot en met 2999 minuten","3019.05","3450.35",4312.93303571429,"3019.05","3450.35","TRUE","TRUE",NA
+"35","119","Restgroep diagnoses - vanaf 3000 tot en met 5999 minuten","5031.96","5750.81",7188.51339285714,"5031.96","5750.81","TRUE","TRUE",NA
+"36","121","Persoonlijkheid - vanaf 250 tot en met 799 minuten","781.72","893.39",1116.74017857143,"781.72","893.39","TRUE","TRUE",NA
+"37","131","Aandachtstekort - en gedrag - vanaf 6000 tot en met 11999 minuten","9905.81","11320.93",14151.1598214286,"9905.81","11320.93","TRUE","TRUE",NA
+"38","133","Pervasief - vanaf 6000 tot en met 11999 minuten","8987.5499999999993","10271.49",12839.3598214286,"8987.5499999999993","10271.49","TRUE","TRUE",NA
+"39","135","Overige kindertijd - vanaf 3000 tot en met 5999 minuten","4670.74","5337.99",6672.48660714286,"4670.74","5337.99","TRUE","TRUE",NA
+"40","137","Delirium dementie en overig - vanaf 6000 tot en met 11999 minuten","8923.1200000000008","10197.85",12747.3133928571,"8923.1200000000008","10197.85","TRUE","TRUE",NA
+"41","139","Alcohol - vanaf 6000 tot en met 11999 minuten","9106.15","10407.030000000001",13008.7866071429,"9106.15","10407.030000000001","TRUE","TRUE",NA
+"42","141","Overige aan een middel - vanaf 6000 tot en met 11999 minuten","8981.5400000000009","10264.620000000001",12830.7732142857,"8981.5400000000009","10264.620000000001","TRUE","TRUE",NA
+"43","143","Schizofrenie - vanaf 12000 tot en met 17999 minuten","15560.63","17783.57",22229.4669642857,"15560.63","17783.57","TRUE","TRUE",NA
+"44","144","Schizofrenie - vanaf 18000 tot en met 23999 minuten","22052.81","25203.21",31504.0133928571,"22052.81","25203.21","TRUE","TRUE",NA
+"45","146","Depressie - vanaf 12000 tot en met 17999 minuten","16155.86","18463.84",23079.8,"16155.86","18463.84","TRUE","TRUE",NA
+"46","148","Bipolair en overig - vanaf 6000 tot en met 11999 minuten","9120.42","10423.34",13029.1732142857,"9120.42","10423.34","TRUE","TRUE",NA
+"47","150","Angst - vanaf 12000 tot en met 17999 minuten","17639.91","20159.89",25199.8669642857,"17639.91","20159.89","TRUE","TRUE",NA
+"48","156","Restgroep diagnoses - vanaf 6000 tot en met 11999 minuten","10165.25","11617.43",14521.7866071429,"10165.25","11617.43","TRUE","TRUE",NA
+"49","158","Persoonlijkheid - vanaf 12000 tot en met 17999 minuten","15351.66","17544.75",21930.9401785714,"15351.66","17544.75","TRUE","TRUE",NA
+"50","162","Diagnostiek - vanaf 400 tot en met 799 minuten","720.79","823.76",1029.7,"720.79","823.76","TRUE","TRUE",NA
+"51","163","Diagnostiek - vanaf 800 minuten","1237.9100000000001","1414.75",1768.44017857143,"1237.9100000000001","1414.75","TRUE","TRUE",NA
+"52","165","Crisis - vanaf 800 tot en met 1199 minuten","1228.82","1404.37",1755.45982142857,"1228.82","1404.37","TRUE","TRUE",NA
+"53","169","Aandachtstekort - en gedrag - vanaf 800 tot en met 1799 minuten","1655.93","1892.5",2365.61964285714,"1655.93","1892.5","TRUE","TRUE",NA
+"54","170","Aandachtstekort - en gedrag - vanaf 12000 tot en met 17999 minuten","14997.2","17139.66",21424.5732142857,"14997.2","17139.66","TRUE","TRUE",NA
+"55","172","Pervasief - vanaf 800 tot en met 1799 minuten","1470.41","1680.47",2100.58660714286,"1470.41","1680.47","TRUE","TRUE",NA
+"56","173","Pervasief - vanaf 12000 tot en met 17999 minuten","17183.580000000002","19638.37",24547.9669642857,"17183.580000000002","19638.37","TRUE","TRUE",NA
+"57","175","Overige kindertijd - vanaf 6000 tot en met 11999 minuten","10488.42","11986.76",14983.4535714286,"10488.42","11986.76","TRUE","TRUE",NA
+"58","177","Delirium dementie en overig - vanaf 12000 tot en met 17999 minuten","16616.419999999998","18990.189999999999",23737.7401785714,"16616.419999999998","18990.189999999999","TRUE","TRUE",NA
+"59","178","Delirium dementie en overig - vanaf 18000 minuten","23556.51","26921.73",33652.1598214286,"23556.51","26921.73","TRUE","TRUE",NA
+"60","179","Alcohol - vanaf 12000 tot en met 17999 minuten","15688.33","17929.52",22411.9,"15688.33","17929.52","TRUE","TRUE",NA
+"61","180","Alcohol - vanaf 18000 minuten","29105.72","33263.68",41579.6,"29105.72","33263.68","TRUE","TRUE",NA
+"62","181","Overige aan een middel - vanaf 800 tot en met 1799 minuten","1416","1618.29",2022.85982142857,"1416","1618.29","TRUE","TRUE",NA
+"63","182","Overige aan een middel - vanaf 12000 tot en met 17999 minuten","15368.55","17564.060000000001",21955.0732142857,"15368.55","17564.060000000001","TRUE","TRUE",NA
+"64","183","Overige aan een middel - vanaf 18000 minuten","28740.87","32846.71",41058.3866071429,"28740.87","32846.71","TRUE","TRUE",NA
+"65","184","Schizofrenie - vanaf 800 tot en met 1799 minuten","1525.9","1743.88",2179.85357142857,"1525.9","1743.88","TRUE","TRUE",NA
+"66","185","Schizofrenie - vanaf 24000 tot en met 29999 minuten","26695.11","30508.7",38135.8732142857,"26695.11","30508.7","TRUE","TRUE",NA
+"67","186","Schizofrenie - vanaf 30000 minuten","43592.39","49819.87",62274.8401785714,"43592.39","49819.87","TRUE","TRUE",NA
+"68","187","Depressie - vanaf 18000 tot en met 23999 minuten","24156.03","27606.89",34508.6133928571,"24156.03","27606.89","TRUE","TRUE",NA
+"69","188","Depressie - vanaf 24000 minuten","31380.26","35863.15",44828.9401785714,"31380.26","35863.15","TRUE","TRUE",NA
+"70","189","Bipolair en overig - vanaf 250 tot en met 799 minuten","837.65","957.31",1196.64017857143,"837.65","957.31","TRUE","TRUE",NA
+"71","190","Bipolair en overig - vanaf 1800 tot en met 2999 minuten","2823.79","3227.19",4033.98660714286,"2823.79","3227.19","TRUE","TRUE",NA
+"72","191","Bipolair en overig - vanaf 12000 tot en met 17999 minuten","15989.88","18274.14",22842.6803571429,"15989.88","18274.14","TRUE","TRUE",NA
+"73","192","Bipolair en overig - vanaf 18000 minuten","25975.06","29685.79",37107.2330357143,"25975.06","29685.79","TRUE","TRUE",NA
+"74","193","Angst - vanaf 3000 tot en met 5999 minuten","4870.91","5566.75",6958.44017857143,"4870.91","5566.75","TRUE","TRUE",NA
+"75","194","Angst - vanaf 6000 tot en met 11999 minuten","10256.82","11722.08",14652.6,"10256.82","11722.08","TRUE","TRUE",NA
+"76","195","Angst - vanaf 18000 tot en met 23999 minuten","24331.06","27806.93",34758.6598214286,"24331.06","27806.93","TRUE","TRUE",NA
+"77","196","Angst - vanaf 24000 minuten","29402.7","33603.089999999997",42003.8598214286,"29402.7","33603.089999999997","TRUE","TRUE",NA
+"78","203","Restgroep diagnoses - vanaf 800 tot en met 1799 minuten","1690.27","1931.74",2414.67321428571,"1690.27","1931.74","TRUE","TRUE",NA
+"79","204","Restgroep diagnoses - vanaf 12000 tot en met 17999 minuten","16860.689999999999","19269.36",24086.7,"16860.689999999999","19269.36","TRUE","TRUE",NA
+"80","205","Restgroep diagnoses - vanaf 18000 minuten","27317.599999999999","31220.12",39025.1464285714,"27317.599999999999","31220.12","TRUE","TRUE",NA
+"81","206","Persoonlijkheid - vanaf 800 tot en met 1799 minuten","1639.41","1873.61",2342.01339285714,"1639.41","1873.61","TRUE","TRUE",NA
+"82","207","Persoonlijkheid - vanaf 3000 tot en met 5999 minuten","5124.58","5856.66",7320.82678571429,"5124.58","5856.66","TRUE","TRUE",NA
+"83","208","Persoonlijkheid - vanaf 6000 tot en met 11999 minuten","9279.0400000000009","10604.62",13255.7732142857,"9279.0400000000009","10604.62","TRUE","TRUE",NA
+"84","209","Persoonlijkheid - vanaf 18000 tot en met 23999 minuten","22332.78","25523.18",31903.9732142857,"22332.78","25523.18","TRUE","TRUE",NA
+"85","213","Crisis - vanaf 1200 tot en met 1799 minuten","1765.16","2017.33",2521.65982142857,"1765.16","2017.33","TRUE","TRUE",NA
+"86","214","Crisis - vanaf 1800 minuten","2953","3374.86",4218.57321428571,"2953","3374.86","TRUE","TRUE",NA
+"87","215","Behandeling kort - vanaf 1 tot en met 99 minuten","86.97","99.4",124.246428571429,"86.97","99.4","TRUE","TRUE",NA
+"88","216","Behandeling kort - vanaf 100 tot en met 199 minuten","208.29","238.05",297.559821428571,"208.29","238.05","TRUE","TRUE",NA
+"89","217","Behandeling kort - vanaf 200 tot en met 399 minuten","400.5","457.71",572.140178571429,"400.5","457.71","TRUE","TRUE",NA
+"90","221","Aandachtstekort - en gedrag - vanaf 18000 tot en met 23999 minuten","23149.34","26456.39",33070.4866071429,"23149.34","26456.39","TRUE","TRUE",NA
+"91","222","Aandachtstekort - en gedrag - vanaf 24000 minuten","27888.1","31872.11",39840.1401785714,"27888.1","31872.11","TRUE","TRUE",NA
+"92","223","Pervasief - vanaf 1800 tot en met 2999 minuten","2697.99","3083.41",3854.26696428571,"2697.99","3083.41","TRUE","TRUE",NA
+"93","224","Pervasief - vanaf 18000 tot en met 23999 minuten","23001.200000000001","26287.08",32858.8535714286,"23001.200000000001","26287.08","TRUE","TRUE",NA
+"94","225","Pervasief - vanaf 24000 minuten","31813.91","36358.75",45448.4401785714,"31813.91","36358.75","TRUE","TRUE",NA
+"95","226","Overige kindertijd - vanaf 12000 tot en met 17999 minuten","17977.849999999999","20546.12",25682.6464285714,"17977.849999999999","20546.12","TRUE","TRUE",NA
+"96","227","Overige kindertijd - vanaf 18000 minuten","26476.38","30258.720000000001",37823.4,"26476.38","30258.720000000001","TRUE","TRUE",NA
+"97","228","Delirium dementie en overig - vanaf 250 tot en met 799 minuten","777.14","888.16",1110.2,"777.14","888.16","TRUE","TRUE",NA
+"98","229","Delirium dementie en overig - vanaf 800 tot en met 1799 minuten","1471.5","1681.71",2102.14017857143,"1471.5","1681.71","TRUE","TRUE",NA
+"99","230","Schizofrenie - vanaf 250 tot en met 799 minuten","793.34","906.67",1133.34017857143,"793.34","906.67","TRUE","TRUE",NA
+"100","231","Depressie - vanaf 250 tot en met 799 minuten","834.16","953.32",1191.65357142857,"834.16","953.32","TRUE","TRUE",NA
+"101","232","Depressie - vanaf 800 tot en met 1799 minuten","1624.98","1857.12",2321.4,"1624.98","1857.12","TRUE","TRUE",NA
+"102","233","Depressie - vanaf 1800 tot en met 2999 minuten","2945.02","3365.73",4207.16696428571,"2945.02","3365.73","TRUE","TRUE",NA
+"103","234","Depressie - vanaf 3000 tot en met 5999 minuten","5053.8599999999997","5775.84",7219.8,"5053.8599999999997","5775.84","TRUE","TRUE",NA
+"104","235","Depressie - vanaf 6000 tot en met 11999 minuten","9873.48","11283.98",14104.9732142857,"9873.48","11283.98","TRUE","TRUE",NA
+"105","236","Bipolair en overig - vanaf 800 tot en met 1799 minuten","1582.09","1808.1",2260.12678571429,"1582.09","1808.1","TRUE","TRUE",NA
+"106","237","Angst - vanaf 250 tot en met 799 minuten","816.34","932.96",1166.2,"816.34","932.96","TRUE","TRUE",NA
+"107","238","Angst - vanaf 800 tot en met 1799 minuten","1671.73","1910.55",2388.18660714286,"1671.73","1910.55","TRUE","TRUE",NA
+"108","239","Angst - vanaf 1800 tot en met 2999 minuten","2994.64","3422.44",4278.05357142857,"2994.64","3422.44","TRUE","TRUE",NA
+"109","242","Restgroep diagnoses - vanaf 250 tot en met 799 minuten","834.35","953.54",1191.92678571429,"834.35","953.54","TRUE","TRUE",NA
+"110","243","Persoonlijkheid - vanaf 1800 tot en met 2999 minuten","2924.96","3342.81",4178.51339285714,"2924.96","3342.81","TRUE","TRUE",NA
+"111","244","Persoonlijkheid - vanaf 24000 tot en met 29999 minuten","31305.77","35778.019999999997",44722.5267857143,"31305.77","35778.019999999997","TRUE","TRUE",NA
+"112","245","Persoonlijkheid - vanaf 30000 minuten","42381.41","48435.9",60544.8732142857,"42381.41","48435.9","TRUE","TRUE",NA
+"113","246","Somatoforme - vanaf 250 tot en met 799 minuten","841.63","961.86",1202.32678571429,"841.63","961.86","TRUE","TRUE",NA
+"114","247","Somatoforme - vanaf 800 tot en met 1799 minuten","1673.22","1912.25",2390.31339285714,"1673.22","1912.25","TRUE","TRUE",NA
+"115","248","Somatoforme - vanaf 1800 tot en met 2999 minuten","2953.29","3375.19",4218.98660714286,"2953.29","3375.19","TRUE","TRUE",NA
+"116","249","Somatoforme - vanaf 3000 tot en met 5999 minuten","4686.71","5356.24",6695.3,"4686.71","5356.24","TRUE","TRUE",NA
+"117","250","Somatoforme - vanaf 6000 tot en met 11999 minuten","9299.18","10627.63",13284.5401785714,"9299.18","10627.63","TRUE","TRUE",NA
+"118","251","Somatoforme - vanaf 12000 minuten","16111.66","18413.330000000002",23016.6598214286,"16111.66","18413.330000000002","TRUE","TRUE",NA
+"119","252","Eetstoornis - vanaf 250 tot en met 799 minuten","783.08","894.95",1118.68660714286,"783.08","894.95","TRUE","TRUE",NA
+"120","253","Eetstoornis - vanaf 800 tot en met 1799 minuten","1603.98","1833.12",2291.4,"1603.98","1833.12","TRUE","TRUE",NA
+"121","254","Eetstoornis - vanaf 1800 tot en met 2999 minuten","2874.92","3285.63",4107.03303571429,"2874.92","3285.63","TRUE","TRUE",NA
+"122","255","Eetstoornis - vanaf 3000 tot en met 5999 minuten","4771.55","5453.2",6816.5,"4771.55","5453.2","TRUE","TRUE",NA
+"123","256","Eetstoornis - vanaf 6000 tot en met 11999 minuten","9575.6299999999992","10943.57",13679.4669642857,"9575.6299999999992","10943.57","TRUE","TRUE",NA
+"124","257","Eetstoornis - vanaf 12000 tot en met 17999 minuten","14450.65","16515.03",20643.7866071429,"14450.65","16515.03","TRUE","TRUE",NA
+"125","258","Eetstoornis - vanaf 18000 minuten","21312.94","24357.64",30447.0535714286,"21312.94","24357.64","TRUE","TRUE",NA
+"126","264","Behandeling kort - vanaf 400 minuten","668.21","763.67",954.586607142857,"668.21","763.67","TRUE","TRUE",NA
+"127",NA,"Deelprestatie verblijf B (Beperkte verzorgingsgraad)","121.03","138.32",172.9,"121.03","138.32","TRUE","TRUE",172.9

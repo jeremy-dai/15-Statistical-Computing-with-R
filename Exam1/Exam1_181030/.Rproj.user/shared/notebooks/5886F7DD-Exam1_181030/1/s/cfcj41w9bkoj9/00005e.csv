@@ -1,0 +1,3 @@
+"0","for (i in 2:6){points(x=de$dbc, y=de[,insurances[i]],col=insurance_colors[i], pch =16)}"
+"2","Error in `[.data.frame`(de, , insurances[i]) : undefined columns selected
+"

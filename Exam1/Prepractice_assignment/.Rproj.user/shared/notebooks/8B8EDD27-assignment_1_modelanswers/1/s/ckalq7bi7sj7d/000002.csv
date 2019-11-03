@@ -1,0 +1,3 @@
+"0","Stringtail <- function(x, a){"
+"0","  return(paste(tail(strsplit(x, split="""")[[1]], a), collapse=""""))"
+"0","}"

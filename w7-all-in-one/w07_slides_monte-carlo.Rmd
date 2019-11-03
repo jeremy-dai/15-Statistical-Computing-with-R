@@ -1,0 +1,515 @@
+---
+title: "Monte-Carlo Studies"
+subtitle: "SCR Lecture 7"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+author: "R-team"
+output:
+  ioslides_presentation:
+    keep_md: yes
+    fig_caption: true
+    fig_height: 4
+    fig_width: 5
+    transition: faster
+    css: 0_css/SCR1718.css
+    logo: 0_css/logo.png
+    template: 0_template/R1718style.html
+    highlight: tango
+    widescreen: TRUE
+    mode: standalone
+editor_options: 
+  chunk_output_type: console
+header-includes: 
+- \usepackage{graphicx}
+- \usepackage{float}
+- \usepackage{placeins}
+- \usepackage{amsmath}
+---
+
+
+```{r label = setup, echo = FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(
+  dev.args = list(bg = 'transparent'),
+  fig.align = "center",
+  cache = FALSE
+)
+```
+
+# SCR Part 2
+
+## SCR Part 2: 
+ 
+- Statistical Computing: (Re)sampling studies (4 lectures)
+
+- Reproducibility: Dynamic Documents / Tidyverse (2 Lectures)            
+
+
+## About the assignment and the exam
+
+- ~~Midterm~~
+
+- Assignment     
+
+- Next Exam    
+
+
+# Monte-Carlo Studies
+
+##  Outline of today
+
+Using Monte-Carlo experiments to study a certain statistic. 
+
+Chapter 6 Book Rizzo!
+
+Objectives: 
+
+* Get familiar with Statistical Jargon in Monte Carlo studies
+* Awareness of simulation error
+* A general framework for Monte Carlo studies to e.g.:
+    - approximate the bias of an estimator
+    - approximate the type I error and/or Power of a test
+
+
+
+## Monte Carlo Studies
+
+We know $f_X$, and we need to study $T(\mathbf{X})$.
+
+DISTRIBUTION: $f_X$
+
+DATA: $\mathbf{X} = \{ X_1, \ldots, X_n \} \overset{\text{iid}}{\sim} f_X$
+
+STATISTIC: $T(\mathbf{X})$     
+
+
+## Why? 
+
+In statistics / data science:
+
+* to investigate statistical properties (e.g. the properties of a sampling distribution);
+* to evaluate the performance of statistical procedure (e.g. thesis!);
+* to clarify or verify your math (e.g. see the central limit theorem at work)
+
+
+## All about built-in Random Variate Generators 
+
+Functions in `R` to generate variates randomly:
+
+* `rnorm()`: Normal distribution
+* `rbinom()`: Binomial distribution
+* `rt()`: t-distribution
+* `runif()`: Uniform distribution
+* `rchisq()`: Chi-squared distribution
+* `rgamma()`: Gamma distribution
+* `rexp()`: Exponential distribution
+
+
+##  Monte Carlo Studies: Today
+
+We know $f_X$, and we need to study $T(\mathbf{X})$.
+
+For example to estimate distributions, integrals, probabilities: 
+
+* Sampling distribution    
+* Bias of an estimator   
+* Mean Squared Error (MSE)   
+* Simulation Error   
+* Type I error   
+* Power   
+
+<!-- Goal is to get started with an example, then formalize some of it -->
+
+
+# A first example: throwing a ball
+
+
+## Throwing a ball
+
+Suppose you ask me to throw a ball 50 meters, how far will my throw on average be?
+
+How would you answer this question?
+
+<!-- drawing on the board -->
+
+
+# Exercises part 1
+
+
+## Throwing a ball: summary
+
+Which answer did you prefer, the analytical one or the monte carlo one?
+
+<!-- Which one is faster? In more difficult cases? If you are trained to program these? -->
+
+The answer you got differed from the answer of your neighbour, why?
+
+<!-- briefly about simulation error -->
+
+The exercise was about different sample and sampling distributions, which ones?
+
+<!--  - Sample distribution of throws (throwing 10 times), 
+      - Sampling distribution of average of throws (1000 times, average of 10 throws)
+      - Sampling distribution of average of average of throws (last comparison between you and fellow student) -->
+
+
+# Sampling Distribution 
+
+
+## Sampling distribution
+
+<!-- Will for example help us think about the properties of a test -->
+
+DATA: $\mathbf{X} = \{ X_1, \ldots, X_n \} \overset{\text{iid}}{\sim} f_X$
+
+STATISTIC: $T(\mathbf{X})$     
+
+The distribution of $T$ is called sampling distribution 
+
+
+## Theoretical Sampling Distribution
+
+Towards a theoretical sampling distribution:
+
+If $\mathbf{X} = X_1, \ldots, X_n \stackrel{i.i.d.}{\sim} N(0, \sigma^2)$    
+
+with sample variance $S^2 = \frac{1}{n - 1} \sum^{n}_{i = 1} (X_i - \overline{X})^2$,    
+
+then 
+
+$$T(\mathbf{X}) = \frac{\overline{X}\sqrt{n}}{S} ~ \sim t_{n - 1},$$
+
+where $t_{n - 1}$ is a theoretical $t$-distribution.
+<!-- Proof: http://stats.stackexchange.com/questions/151854/a-normal-divided-by-the-sqrt-chi2s-s-gives-you-a-t-distribution-proof  -->
+
+## Estimation of a Sampling distribution
+
+For $b = 1,\ldots,B$
+
+* generate replicate $b$ for data $\mathbf{X}$, called $\mathbf{X}^{b}$
+* compute $T^b =T(\mathbf{X}^{b})$   
+
+Make a plot (histogram, density, ecdf) of $T^1,\ldots,T^B$.
+
+
+## Live coding: monte carlo sampling distribution
+
+```{r}
+set.seed(20171102)
+N <- 25
+B <- 10000
+
+T_function <- function(X){
+  n <- length(X)
+  return(mean(X) * sqrt(n) / sd(X))
+}
+
+T_replicates <- numeric(B)
+for (b in 1:B){
+  X <- rnorm(N)
+  T_replicates[b] <- T_function(X)
+}
+```
+
+## Live coding: monte carlo sampling distribution
+```{r}
+hist(T_replicates, freq=F, breaks="FD", col='lightgreen')
+x_seq <- seq(-10, 10, by=0.01)
+lines(x_seq, dt(x_seq, df=N-1), lwd=2)
+```
+
+# Standard Error 
+
+## Standard Error
+
+DATA: $\mathbf{X} = \{ X_1, \ldots, X_n \} \overset{\text{iid}}{\sim} f_X$
+
+STATISTIC: $T(\mathbf{X})$     
+
+The standard deviation in the sampling distribution of $T$ is called the standard error.   
+
+## Example: Standard Error 
+
+<!-- Will for example help us think about the properties of a test -->
+
+If $\mathbf{X} = X_1, \ldots, X_n \overset{\text{iid}}{\sim} N(0, \sigma^2)$    
+
+and $T(\mathbf{X}) = \overline{X}$,    
+
+then standard error is $$\sigma_{\overline{X}} = \frac{\sigma}{\sqrt{n}}$$      
+
+(Also known as S.E., SE)        
+
+
+## Example: monte carlo Standard Error
+
+DATA $\mathbf{X} = X_1, \ldots, X_n \overset{\text{iid}}{\sim} N(0, \sigma^2)$    
+
+STATISTIC $T = T(\mathbf{X})$   
+
+DETERMINATION OF STANDARD ERROR BY SIMULATION:
+
+For $b = 1,\ldots,B$
+
+* generate independent replicate $\mathbf{X}^b$    
+* compute $T^b =T(\mathbf{X}^b)$   
+
+Compute root of variance $T^1, \ldots, T^B$, i.e.
+
+$$
+\widehat{\text{SE}_T} = \sqrt{ \frac{1}{B} \sum^B_{b = 1} (T^b - \overline{T})^2}, \qquad \qquad \textrm{where } \overline{T} = \frac{1}{B} \sum^B_{b = 1} T^b
+$$
+
+
+## Live coding: standard error, monte carlo in `R`
+
+```{r}
+N <- 100
+B <- 1000
+
+sample <- rnorm(N)
+mean(sample)
+
+#theoretical:
+1/sqrt(N)
+#'empirical':
+sd(replicate(B, mean(rnorm(N))))
+```
+
+# Exercises part 2
+
+
+# Bias and MSE of estimators
+
+## Bias of estimators
+
+ESTIMATOR $T = T(\mathbf{X})$ OF QUANTITY $\theta$   
+
+BIAS of $T$: $\textrm{E}\left[T\right] - \theta$
+
+EXAMPLE OF THEORETICAL BIAS:   
+
+- If $X_1, \ldots, X_n \stackrel{i.i.d.}{\sim} N(0,\sigma^2)$, then bias of $\bar{X}$ for $\theta$ is 0.   
+
+
+## Bias of estimators
+
+ESTIMATOR $T = T(\mathbf{X})$ OF QUANTITY $\theta$   
+
+BIAS of $T$: $\textrm{E}\left[T\right] - \theta$
+
+MONTE CARLO EXAMPLE OF THEORETICAL BIAS:   
+
+For $b = 1,\ldots,B$
+
+* generate independent replicate $\mathb{X}^b$ 
+* compute $T^b =T(\mathbf{X}^b)$   
+
+Compute:    
+$$
+\widehat{(\textrm{E}\left[T\right] - \theta)} = \frac{1}{B} \sum^B_{b = 1} T^b - \theta
+$$
+
+
+## MSE: Mean Square Error
+
+MSE of an estimator is the sum of its Bias$^2$ and its Variance
+
+<!-- Dartboard drawing -->
+
+Recall throwing a ball: the mean throw was already off.
+
+So the average squared error (from target to throwing distance) will be off by bias^2, plus the variance around the throw
+
+
+## MSE: Mean Square Error
+
+ESTIMATOR $T = T(\mathbf{X})$ OF QUANTITY $\theta$    
+
+The *mean square error* (MSE) of $T$ is $\textrm{E}\left[(T - \theta)^2\right]$.
+
+## MSE: decomposed
+
+MSE:     
+$\textrm{E}[(T - \theta)^2] = \textrm{E}[T^2] + \theta^2 - 2\textrm{E}[T]\theta$     
+
+Squared bias:    
+$(\textrm{E}[(T - \theta)])^2 = (\textrm{E}[T])^2 + \theta^2 - 2\textrm{E}[T]\theta$    
+
+Variance:    
+$\textrm{E}[(T - \textrm{E}[T])^2 = \textrm{E}[T^2] - ( \textrm{E}[T])^2$   
+   
+MSE = Squared bias + Variance
+
+## Verify Theoretical MSE  
+
+If $\mathbf{X} = X_1, \ldots, X_n \overset{\text{iid}}{\sim} N(\theta, \sigma^2)$, then MSE of $\overline{X}$ for $\theta$ is \(\sigma^2/n\).
+
+USING MONTE CARLO APPROXIMATION:
+
+For $b = 1,\ldots,B$   
+
+* generate independent replicate $\mathbf{X}^b$
+* compute $T^b =T(X^b)$   
+
+Compute 
+$$
+\widehat{MSE} = \frac{1}{B} \sum^B_{b = 1} (T^b - \theta)^2
+$$
+<!-- The estimator may be unbiased, but the estimate itself will most definately be biased! -->
+
+
+# Exercises part 3
+
+## Levels of sampling.
+
+Be very mindful of the level at which you need extra repetitions:
+
+* If you want a better estimate of the median per sample, increase $n$
+* If you want a better estimate of the mean of the median, increase $B$ (to decrease simulation error)
+* If you want a better estimate of the standard error of the sampling distribution of the mean of the median, repeat the expirment with $B$ replicates $M$ time, and check out the average of the $M$ standard errors...
+
+## Simulation error
+
+By making $B$ larger, the simulation error can be made arbitrarily small. $B = 10,000$ is desirable, but $B = 1,000$ is typical, and only $B = 100$ may be feasible.
+
+If $\textrm{E}\left[T\right]$ is estimated by $\overline{T}$ for i.i.d. $T^1,\ldots,T^B,$ then CLT kicks in (again):
+
+$$
+\bar{T}_B - \textrm{E}\left[T\right] \sim N(0, \sigma_T^2/B).
+$$
+
+Why would CLT kick in?
+
+Thus the standard error of simulation, $\sqrt{\textrm{var}_T/ B},$ and can be estimated by
+
+$$
+\sqrt{B^{-1} \sum^B_{b=1} (T^b - \overline{T})^2/B }
+$$
+
+## Standard error of Simulation
+
+By making $B$ larger, the simulation error can be made arbitrarily small. $B = 10,000$ is desirable, but $B = 1,000$ is typical, and only $B = 100$ may be feasible.
+
+EXAMPLE:   
+
+If the MSE, $\textrm{E}\left[(T - \theta)^2\right]$, is estimated by $\widehat{MSE} = B^{-1} \sum^B_{b = 1}(T^b - \theta)^2$, then the simulation error can be estimated by 
+$$
+\widehat{\text{SE}_\text{sim}} = \frac{1}{B}\sqrt{\sum^B_{b=1}\left[ (T^b - \theta)^2 - \widehat{MSE} \right]^2}
+$$
+
+<!-- [ The leading fraction 1/B (and not 1/√B) is not a mistake. Do you see where it came from?] Compare with previous slide! -->
+
+# Size / Type 1 error
+
+## Size / Type 1 error
+
+STATISTIC $T = T(\mathbf{X})$    
+
+$H_0 :=$ null hyptohesis
+
+Reject $H_0$ if $T \in K_0$.     
+
+$K_0: =$ domain of values for $T$ which are unlikely under $H_0$.
+
+$\alpha = P_{H_0}(T \in K_0)$.   
+
+Remember: Most tests are constructed so that the size equals the level (= \alpha), e.g. 0.05.
+
+
+## Compute size or Type 1 error by Simulation.
+
+Reject $H_0$ if $T \in K_0$.     
+
+$K: =$ domain of values for $T$ which are unlikely under $H_0$.
+
+What is $\alpha = P_{H_0}(T \in K)$? 
+
+For $b = 1,\ldots,B$   
+
+* generate independent replicate $\mathbf{X}^b$ using the null distribution  
+* compute $T^b =T(X^b)$   
+* compute
+
+$$
+\hat{\alpha} = \frac{1}{B} \sum^B_{b = 1} 1_{T^b \in K} = \textrm{fraction rejections},
+$$
+
+where $1_{T^b \in K} = 1$ if $T^b \in K$, and $0$ otherwise.
+
+<!--  
+If H0 is composite, must simulate using the worst case null distribution, or repeatedly simulate using all null distributions and take the maximum of the simulated $\alpha$.
+-->
+
+
+## Live coding: Size / Type 1 error in `R`
+
+Suppose we define the following. We know that the average of a sample is distributed according to a normal distribution, with standard deviation $1$. The *null hypothesis* is that the average of this distribution is $0$. The test, for $N=10$ is: we reject the null hypothesis that the mean of the population is $0$ if the test statistic is smaller than -1, or larger than 1.
+
+```{r}
+set.seed(21135)
+N <- 10
+B <- 1000
+
+# simulate from null distribution.
+z <- replicate(B, rnorm(N))
+
+t_in_k <- (z < -1) + (z > 1)
+mean(t_in_k)
+```
+
+With this test, we falsely reject the null hypothesis for 31.54% in samples of size $N=10$.
+
+# Power
+
+## Power
+
+STATISTIC $T = T(\mathbf{X})$    
+
+$H_1 :=$ Alternative hypothesis
+
+STATISTIC $T = T(\mathbf{X})$ 
+
+We reject $H_0$ if it falls in critical region $K_0$
+
+The power is $P_{H_1}(T \in K_0)$ viewed as function of the parameter space in $H_1$.   
+
+
+## Power
+
+The power is $P_{\theta_1}(T \in K_0)$ viewed as function of the alternative $\theta_1$ from $H_1$.   
+ 
+DETERMINATION OF POWER BY SIMULATION
+
+For $b = 1,\ldots,B$
+
+* generate independent replicate $\mathbf{X}^b$ while *using alternative* $\theta_1$    
+* compute $T^b =T(\mathbf{X}^b)$   
+
+Compute 
+
+$$
+\frac{1}{B}\sum^B_{b = 1} 1_{T^b \in K_0}
+$$
+
+Repeat for all alternatives.
+
+## When you do **Simulations / Monte Carlo Experiments**
+
+Note to self: 
+
+* Good documentation is essential! 
+* Write separate programs for each case or keep a precise record 
+* Think about which output you need to save, and do that in a structured way    
+* Make programs 're-startable' in case of emergency..
+* Divide the work over more computers.     
+
+## Recap of today
+
+* Statistical distribution functions 
+* Sampling distribution
+* Estimators: Bias and MSE
+* Standard Error of Simulation
+* Type 1 error
+* Power
+
+# Work on the exercises / self-study | and see you next week!
+

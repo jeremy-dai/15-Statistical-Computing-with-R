@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1571920622826.000,
+    "dirty" : true,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3003942614",
+    "id" : "45EF59F8",
+    "lastKnownWriteTime" : 1571914423,
+    "last_content_update" : 1571923905539,
+    "path" : "~/GitHub/15 Statistical Computing with R/Exam1/Practice_Exam1/scr_exam_1_the-basics_answers.Rmd",
+    "project_path" : "scr_exam_1_the-basics_answers.Rmd",
+    "properties" : {
+        "cursorPosition" : "164,0",
+        "scrollLine" : "160"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

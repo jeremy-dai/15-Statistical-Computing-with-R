@@ -1,0 +1,230 @@
+---
+title: "SCR Exam 1: the Midterm"
+author: "<Write Down Your Name Here, and ULCN Here>"
+output: pdf_document
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  dev.args = list(bg = 'transparent'),
+  fig.align = "center", figh.height = 4,
+  cache = FALSE
+)
+load("0_data/model_answer_vars.RData")
+```
+
+\newpage
+  
+## 1.1   
+
+### 1.1a   
+line 1: load the library of readxl
+line 2: create a vector with tab names i.e. c("Exam1", "Assignment", "Exam2") 
+line 3: loop through the tab names
+line 4: assign the xlsx file location to file_name
+line 5: for each tab, read all rows, column 1 to 4 and assign the data to the
+corresponding variable, i.e. Exam1, Assignment, Exam2
+
+### 1.1b   
+```{r}
+all.equal(names(Exam1), names(Assignment), names(Exam2))
+```
+
+### 1.1c   
+```{r}
+e1_id <- Exam1$ULCN
+e2_id <- Exam2$ULCN
+as_id <- Assignment$ULCN
+total_id <- unique(c(e1_id ,e2_id,as_id))
+length(total_id) #There are 49 unique students
+sum((total_id %in% e1_id) & (total_id %in% e2_id) & (total_id %in% as_id ))
+# 37 students took them all
+
+```
+
+
+### 1.1d   
+```{r}
+for (f in c(Exam1, Assignment, Exam2)) paste(str(f),'\n')
+rm(f)
+```
+
+### 1.1e   
+```{r}
+mean(Exam1$`Final Grade`>=55) #74.5% pass Exam1
+mean(Assignment$`Final Grade`>=55) #75.6% pass Assignment
+mean(Exam2$`Final Grade`>=55) #87.5% pass Exam2
+```
+All statements are TRUE.
+
+## 1.2   
+
+### 1.2a  
+```{r}
+names(Exam1)[4] <- 'Exam1'
+names(Assignment)[4] <- 'Assignment'
+names(Exam2)[4] <- 'Exam2'
+```
+
+### 1.2b
+```{r}
+temp <- merge(Exam1, Assignment,all = T)
+```
+
+### 1.2c   
+```{r}
+all_grade <- merge(temp, Exam2, all = T)
+rm(temp)
+all.equal(all_grade,the_grades)
+```
+
+
+## 1.3  
+```{r}
+par(mfrow=c(1, 3))
+plot(all_grade$Exam2 ~ all_grade$Exam1, pch= 16,main = 'N=39',ylim=c(20,100),
+     xlim=c(20,100),xlab='Grade Exam 1', ylab ='Grade Exam 2')
+abline(h=50, col='red', lty = 2)
+plot(all_grade$Assignment ~ all_grade$Exam1, pch= 16,main = 'N=39',ylim=c(20,100),
+     xlim=c(20,100),xlab='Grade Exam 1', ylab ='Grade Assignment')
+abline(h=50, col='red', lty = 2)
+plot(all_grade$Assignment ~ all_grade$Exam2, pch= 16,main = 'N=38',ylim=c(20,100),
+     xlim=c(20,100),xlab='Grade Exam 2', ylab ='Grade Assignment')
+abline(h=50, col='red', lty = 2)
+abline(v=50, col='red', lty = 2)
+```
+
+ 
+## 1.4  
+
+### 1.4a   
+```{r}
+sum(rowSums(is.na(all_grade)[,c('Exam1', 'Assignment','Exam2')]) == 0)
+# 37 students attend all
+```
+
+### 1.4b   
+```{r}
+
+grade_analysis <- function(the_grades){
+ list_grade <- list()
+ E_1 <- the_grades$Exam1 
+ E_1[is.na(E_1)] <- 10
+ E_2 <- the_grades$Exam2
+ E_2[is.na(E_2)] <- 10
+ E <- (E_2 + max(E_1, E_2)) / 2   
+ A <- the_grades$Assignment  
+ A[is.na(A)] <- 10
+ Y <- (2*E + A)/3
+ Y <- ifelse((E>=50 & E_2 >=50 & A>=50), Y, min(50,Y))
+ list_grade[['if_pass']] <- factor(Y>=55, labels =c('resit','passed'))
+ list_grade[['final_grade']] <- Y
+ return(list_grade)
+}
+```
+
+### 1.4c   
+```{r}
+grade_factor <- grade_analysis(the_grades)[['if_pass']]
+table(grade_factor)
+barplot(table(grade_factor),main='SCR Course in-one-go',col=c('pink','green'))
+```
+
+### 1.4d   
+```{r}
+tapply( 
+X = final_grades$CourseGrade, 
+INDEX = final_grades$pass,
+FUN = mean)
+```
+
+
+
+\newpage
+
+## 2.1   
+
+### 2.1a  
+```{r}
+ULCN_nrs = 1000001:2499999
+length(ULCN_nrs) # 1499999 numbers
+table(ULCN_nrs < 1700000) #800000 larger or equal, 699999 smaller
+```
+
+### 2.1b  
+```{r}
+prob_old <- 0.25 / 699999
+prob_new <- 0.75 / 800000
+probs_ULCN <- c(rep(prob_old,699999),rep(prob_new,800000))
+sum(probs_ULCN) # equal to 1
+```
+### 2.1c   
+```{r}
+set.seed(20191030)
+id_number <- sample(ULCN_nrs,49,prob=probs_ULCN)
+```
+
+```{r}
+# Another way to do this
+set.seed(20191030)
+population = c(rep(1000001:1699999,1),rep(1700000:2499999,3))
+sample(population, 49, replace = F)
+```
+
+### 2.1d  
+```{r}
+ran_ULCNs <- paste0('s',sort(id_number))
+```
+
+
+## 2.2   
+
+### 2.2a   
+```{r}
+df <- read.table('0_data/names.txt',sep=' ',stringsAsFactors=F, 
+                 col.names=c('voornaam','achternaam'))
+str(df)
+```
+
+
+### 2.2b   
+```{r}
+encrypt <- function(vector,key=key20191030){
+  sec_name <- c()
+  for (v in vector){
+  name <- lapply(strsplit(v,split = ""),function(n) key$encrypt[key$decrypt %in% n])[[1]]
+  sec_name<-c(sec_name,cat(name,sep = ""))
+  }
+  return (sec_name)
+}
+
+
+encrypt(c('Tommy','Francina'),key20191030)
+```
+
+### 2.2c 
+```{r}
+df_encrypted <- lapply(df,function(n) Surrogate(n,key20191030))
+
+```
+
+### 2.2d   
+```{r}
+write.table(df_encrypted, file="0_data/encry.txt",col.names=F, row.names = F,sep=" ", quote	=F)
+```
+
+\newpage
+
+# 3   
+```{r}
+plot(c(0, 200), c(0, 200), type= "n", xlab = "", ylab = "")
+rect(0, 0, 200, 200,col='black')
+abline(v=20, col='#FFFFFF90',lwd=5)
+abline(v=80, col='#FFFFFF90',lwd=5)
+abline(v=140, col='#FFFFFF90',lwd=5)
+abline(h=20, col='#FFFFFF90',lwd=5)
+abline(h=80, col='#FFFFFF90',lwd=5)
+abline(h=140, col='#FFFFFF90',lwd=5)
+points(rep(c(20,80,140),times=3),rep(c(20,80,140),each=3),col='white',pch=19)
+```
+

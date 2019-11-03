@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1572368758249.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1926878556",
+    "id" : "4BB199C7",
+    "lastKnownWriteTime" : 1572426199,
+    "last_content_update" : 1572426199591,
+    "path" : "~/GitHub/15 Statistical Computing with R/Exam1/Exam1_181030/Exam1_181030.Rmd",
+    "project_path" : "Exam1_181030.Rmd",
+    "properties" : {
+        "cursorPosition" : "348,6",
+        "scrollLine" : "338"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

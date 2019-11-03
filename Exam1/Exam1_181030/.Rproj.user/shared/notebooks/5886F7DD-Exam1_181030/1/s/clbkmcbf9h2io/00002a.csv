@@ -1,0 +1,1 @@
+"0","fees2018_wide[rowSums(fees2018_wide$NZA < fees2018_wide[,insurances],na.rm = TRUE),]"

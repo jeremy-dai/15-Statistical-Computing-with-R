@@ -1,0 +1,6 @@
+"0","sum(rowSums(is.na(all_grade)[,c('Exam1', 'Assignment','Exam2')]) == 0)"
+"1","[1]"
+"1"," 37"
+"1","
+"
+"0","# 37 students attend all"

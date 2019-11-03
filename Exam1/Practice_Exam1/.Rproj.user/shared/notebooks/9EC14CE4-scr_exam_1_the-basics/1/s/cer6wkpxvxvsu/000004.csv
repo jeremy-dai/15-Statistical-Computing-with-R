@@ -1,0 +1,5 @@
+"0","repeat{"
+"0","  d <- readline(prompt = 'type in your answer below, ""EXIT"" if you want to quit \n')"
+"0","  if (d=='EXIT'){break}"
+"0","} "
+"0","EXIT"

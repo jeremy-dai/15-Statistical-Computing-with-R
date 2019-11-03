@@ -1,0 +1,3 @@
+"0","age_in_years <- data$age_years * 12 + data$age_months / 12[4]"
+"2","Error in data$age_years : object of type 'closure' is not subsettable
+"

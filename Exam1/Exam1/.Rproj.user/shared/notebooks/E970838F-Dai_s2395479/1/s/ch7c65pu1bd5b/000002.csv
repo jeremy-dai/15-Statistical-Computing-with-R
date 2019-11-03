@@ -1,0 +1,6 @@
+"0","knitr::opts_chunk$set("
+"0","  dev.args = list(bg = 'transparent'),"
+"0","  fig.align = ""center"", figh.height = 4,"
+"0","  cache = FALSE"
+"0",")"
+"0","load(""0_data/model_answer_vars.RData"")"

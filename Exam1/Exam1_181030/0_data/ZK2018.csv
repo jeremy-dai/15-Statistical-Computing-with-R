@@ -1,0 +1,123 @@
+,code,Group,nza,0.75,100
+7,7,Diagnostics - from 1 up to and including 99 minutes,160.57,100.51,134.0133333
+8,8,Diagnostics - from 100 up to and including 199 minutes,331.94,206.69,275.5866667
+9,9,Diagnostics - from 200 up to and including 399 minutes,639.16,398.3,531.0666667
+10,13,Crisis - from 1 up to and including 99 minutes,170.09,105.78,141.04
+11,14,Crisis - from 100 up to and including 199 minutes,351.47,218.9,291.8666667
+12,15,Crisis - from 200 up to and including 399 minutes,670.66,419.45,559.2666667
+13,16,Crisis - from 400 up to and including 799 minutes,1264.17,787.09,1049.453333
+14,27,Attention Deficit - and behaviour - from 250 up to and including 799 minutes,1383.04,860.65,1147.533333
+15,30,Attention Deficit - and behaviour - from 1800 up to and including 2999 minutes,4767.38,2973.61,3964.813333
+16,31,Attention Deficit - and behaviour - from 3000 up to and including 5999 minutes,8106.64,5051.93,6735.906667
+17,33,Pervasive - from 250 up to and including 799 minutes,1323.03,823.31,1097.746667
+18,38,Pervasive - from 3000 up to and including 5999 minutes,8168.92,5086.21,6781.613333
+19,40,Other related to childhood period - from 250 up to and including 799 minutes,1290.61,805.13,1073.506667
+20,41,Other related to childhood period - from 800 up to and including 1799 minutes,2575.1,1607.57,2143.426667
+21,42,Other related to childhood period - from 1800 up to and including 2999 minutes,4681.53,2919.73,3892.973333
+22,48,Delirium dementia and other - from 1800 up to and including 2999 minutes,4691.51,2920.21,3893.613333
+23,49,Delirium dementia and other - from 3000 up to and including 5999 minutes,8213.37,5110.55,6814.066667
+24,51,Alcohol - from 250 up to and including 799 minutes,1246.62,776.25,1035
+25,52,Alcohol - from 800 up to and including 1799 minutes,2486.78,1548.67,2064.893333
+26,53,Alcohol - from 1800 up to and including 2999 minutes,4688.08,2918.73,3891.64
+27,54,Alcohol - from 3000 up to and including 5999 minutes,8327,5182.07,6909.426667
+28,56,Other addictive substances - from 250 up to and including 799 minutes,1243.79,774.77,1033.026667
+29,59,Other addictive substances - from 1800 up to and including 2999 minutes,4600.79,2864.47,3819.293333
+30,60,Other addictive substances - from 3000 up to and including 5999 minutes,8118.35,5058.64,6744.853333
+31,66,Schizophrenia - from 1800 up to and including 2999 minutes,4774.89,2975.63,3967.506667
+32,67,Schizophrenia - from 3000 up to and including 5999 minutes,8473.97,5277.85,7037.133333
+33,68,Schizophrenia - from 6000 up to and including 11999 minutes,16392.31,10200.2,13600.26667
+34,87,Bipolar and other - from 3000 up to and including 5999 minutes,8779.16,5465,7286.666667
+35,118,Rest Group diagnostics - from 1800 up to and including 2999 minutes,4881.34,3044.56,4059.413333
+36,119,Rest Group diagnostics - from 3000 up to and including 5999 minutes,8413.84,5243.71,6991.613333
+37,121,Personality - from 250 up to and including 799 minutes,1363.44,848.92,1131.893333
+38,131,Attention Deficit - and behaviour - from 6000 up to and including 11999 minutes,16107.09,10044.87,13393.16
+39,133,Pervasive - from 6000 up to and including 11999 minutes,15733.48,9795.37,13060.49333
+40,135,Other related to childhood period - from 3000 up to and including 5999 minutes,7367.63,4598.03,6130.706667
+41,137,Delirium dementia and other - from 6000 up to and including 11999 minutes,15899.53,9894.92,13193.22667
+42,139,Alcohol - from 6000 up to and including 11999 minutes,16005.5,9964.81,13286.41333
+43,141,Other addictive substances - from 6000 up to and including 11999 minutes,15978.44,9945.33,13260.44
+44,143,Schizophrenia - from 12000 up to and including 17999 minutes,27960.37,17397.72,23196.96
+45,144,Schizophrenia - from 18000 up to and including 23999 minutes,39068.18,24293.96,32391.94667
+46,146,Depression - from 12000 up to and including 17999 minutes,28395.38,17677.86,23570.48
+47,148,Bipolar and other - from 6000 up to and including 11999 minutes,16643.82,10352.83,13803.77333
+48,150,Anxiety - from 12000 up to and including 17999 minutes,27896.38,17408.64,23211.52
+49,156,Rest Group diagnostics - from 6000 up to and including 11999 minutes,16373.15,10213.1,13617.46667
+50,158,Personality - from 12000 up to and including 17999 minutes,28175.55,17523.72,23364.96
+51,162,Diagnostics - from 400 up to and including 799 minutes,1181.01,736.38,981.84
+52,163,Diagnostics - from 800 minutes,2114.66,1317.26,1756.346667
+53,165,Crisis - from 800 up to and including 1199 minutes,2171.53,1351.81,1802.413333
+54,169,Attention Deficit - and behaviour - from 800 up to and including 1799 minutes,2671.65,1666.44,2221.92
+55,170,Attention Deficit - and behaviour - from 12000 up to and including 17999 minutes,26815.23,16686.95,22249.26667
+56,172,Pervasive - from 800 up to and including 1799 minutes,2631.83,1637.73,2183.64
+57,173,Pervasive - from 12000 up to and including 17999 minutes,27058.55,16887.56,22516.74667
+58,175,Other related to childhood period - from 6000 up to and including 11999 minutes,15987.15,9985.79,13314.38667
+59,177,Delirium dementia and other - from 12000 up to and including 17999 minutes,28092.07,17503.24,23337.65333
+60,178,Delirium dementia and other - from 18000 minutes,45920.65,28500.76,38001.01333
+61,179,Alcohol - from 12000 up to and including 17999 minutes,27443.33,17086.91,22782.54667
+62,180,Alcohol - from 18000 minutes,43283.68,27013.76,36018.34667
+63,181,Other addictive substances - from 800 up to and including 1799 minutes,2486.55,1548.23,2064.306667
+64,182,Other addictive substances - from 12000 up to and including 17999 minutes,27909.17,17362.85,23150.46667
+65,183,Other addictive substances - from 18000 minutes,42741.1,26693.49,35591.32
+66,184,Schizophrenia - from 800 up to and including 1799 minutes,2655.97,1653.77,2205.026667
+67,185,Schizophrenia - from 24000 up to and including 29999 minutes,48355.56,30043.46,40057.94667
+68,186,Schizophrenia - from 30000 minutes,85073.04,52744.29,70325.72
+69,187,Depression - from 18000 up to and including 23999 minutes,40414.43,25160.92,33547.89333
+70,188,Depression - from 24000 minutes,57133.75,35487.14,47316.18667
+71,189,Bipolar and other - from 250 up to and including 799 minutes,1394.27,869.04,1158.72
+72,190,Bipolar and other - from 1800 up to and including 2999 minutes,4967.12,3092.11,4122.813333
+73,191,Bipolar and other - from 12000 up to and including 17999 minutes,28512.4,17744.14,23658.85333
+74,192,Bipolar and other - from 18000 minutes,45141.95,28073.65,37431.53333
+75,193,Anxiety - from 3000 up to and including 5999 minutes,8380.96,5219.83,6959.773333
+76,194,Anxiety - from 6000 up to and including 11999 minutes,16147.64,10077.99,13437.32
+77,195,Anxiety - from 18000 up to and including 23999 minutes,39433.07,24570.16,32760.21333
+78,196,Anxiety - from 24000 minutes,53039.63,32958.25,43944.33333
+79,203,Rest Group diagnostics - from 800 up to and including 1799 minutes,2582.24,1612.82,2150.426667
+80,204,Rest Group diagnostics - from 12000 up to and including 17999 minutes,28242.23,17600.53,23467.37333
+81,205,Rest Group diagnostics - from 18000 minutes,44692.12,27830.31,37107.08
+82,206,Personality - from 800 up to and including 1799 minutes,2749.23,1713.27,2284.36
+83,207,Personality - from 3000 up to and including 5999 minutes,8539.45,5322.41,7096.546667
+84,208,Personality - from 6000 up to and including 11999 minutes,16604.21,10332.52,13776.69333
+85,209,Personality - from 18000 up to and including 23999 minutes,38737.9,24097.81,32130.41333
+86,213,Crisis - from 1200 up to and including 1799 minutes,3209.09,1996.63,2662.173333
+87,214,Crisis - from 1800 minutes,5457.5,3394.52,4526.026667
+88,215,Treatment Short - from 1 up to and including 99 minutes,165.35,102.77,137.0266667
+89,216,Treatment Short - from 100 up to and including 199 minutes,379.79,236.24,314.9866667
+90,217,Treatment Short - from 200 up to and including 399 minutes,696.11,433.46,577.9466667
+91,221,Attention Deficit - and behaviour - from 18000 up to and including 23999 minutes,38177.97,23772.23,31696.30667
+92,222,Attention Deficit - and behaviour - from 24000 minutes,52840.39,32796.42,43728.56
+93,223,Pervasive - from 1800 up to and including 2999 minutes,4734.71,2947.58,3930.106667
+94,224,Pervasive - from 18000 up to and including 23999 minutes,38457.2,23947.2,31929.6
+95,225,Pervasive - from 24000 minutes,59946.85,37211.37,49615.16
+96,226,Other related to childhood period - from 12000 up to and including 17999 minutes,27663.15,17274.74,23032.98667
+97,227,Other related to childhood period - from 18000 minutes,48585.84,30188.03,40250.70667
+98,228,Delirium dementia and other - from 250 up to and including 799 minutes,1340.77,835.01,1113.346667
+99,229,Delirium dementia and other - from 800 up to and including 1799 minutes,2518.49,1568.75,2091.666667
+100,230,Schizophrenia - from 250 up to and including 799 minutes,1370.11,853.26,1137.68
+101,231,Depression - from 250 up to and including 799 minutes,1379.29,859.94,1146.586667
+102,232,Depression - from 800 up to and including 1799 minutes,2712.24,1690.59,2254.12
+103,233,Depression - from 1800 up to and including 2999 minutes,4957.3,3089.32,4119.093333
+104,234,Depression - from 3000 up to and including 5999 minutes,8489.77,5290.94,7054.586667
+105,235,Depression - from 6000 up to and including 11999 minutes,16474.74,10268.9,13691.86667
+106,236,Bipolar and other - from 800 up to and including 1799 minutes,2759.17,1717.95,2290.6
+107,237,Anxiety - from 250 up to and including 799 minutes,1347.97,840.33,1120.44
+108,238,Anxiety - from 800 up to and including 1799 minutes,2683.04,1673.75,2231.666667
+109,239,Anxiety - from 1800 up to and including 2999 minutes,4917.44,3065.96,4087.946667
+110,242,Rest Group diagnostics - from 250 up to and including 799 minutes,1291.77,806.54,1075.386667
+111,243,Personality - from 1800 up to and including 2999 minutes,4997.76,3113.18,4150.906667
+112,244,Personality - from 24000 up to and including 29999 minutes,51778.07,32220.57,42960.76
+113,245,Personality - from 30000 minutes,63026.22,39295.25,52393.66667
+114,246,Somatoform - from 250 up to and including 799 minutes,1303.73,814.01,1085.346667
+115,247,Somatoform - from 800 up to and including 1799 minutes,2606.26,1627.04,2169.386667
+116,248,Somatoform - from 1800 up to and including 2999 minutes,4824.46,3008.35,4011.133333
+117,249,Somatoform - from 3000 up to and including 5999 minutes,8073.08,5027.95,6703.933333
+118,250,Somatoform - from 6000 up to and including 11999 minutes,16369.19,10189.91,13586.54667
+119,251,Somatoform - from 12000 minutes,30112.63,18721.39,24961.85333
+120,252,Eating Disorder - from 250 up to and including 799 minutes,1316.2,820.19,1093.586667
+121,253,Eating Disorder - from 800 up to and including 1799 minutes,2659.83,1657.99,2210.653333
+122,254,Eating Disorder - from 1800 up to and including 2999 minutes,4796.53,2989.47,3985.96
+123,255,Eating Disorder - from 3000 up to and including 5999 minutes,8506.37,5293.79,7058.386667
+124,256,Eating Disorder - from 6000 up to and including 11999 minutes,14957.88,9337.22,12449.62667
+125,257,Eating Disorder - from 12000 up to and including 17999 minutes,28218.88,17528.48,23371.30667
+126,258,Eating Disorder - from 18000 minutes,43495.53,26974.13,35965.50667
+127,264,Treatment Short - from 400 minutes,1142.78,711.84,949.12
+128,NA,Performance Part B stay (Limited care degree),229.25,162.14,216.1866667

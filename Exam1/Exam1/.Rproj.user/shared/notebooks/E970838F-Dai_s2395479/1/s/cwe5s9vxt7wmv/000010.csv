@@ -1,0 +1,2 @@
+"0","df_encrypted <- lapply(df,function(n) Surrogate(n,key20191030))"
+"0",""

@@ -1,0 +1,4 @@
+"0","location <- character(nrow(bloodsamples_data))"
+"0","for (i in 1:nrow(bloodsamples_data)){"
+"0","  location[i] <- GetLocation(bloodsamples_data$bloodSampleID[i])"
+"0","}"

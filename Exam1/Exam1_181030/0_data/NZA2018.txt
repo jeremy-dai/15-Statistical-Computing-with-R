@@ -1,0 +1,122 @@
+"code","Productgroep","tarief"
+"1","007","Diagnostiek - vanaf 1 tot en met 99 minuten",160.57
+"2","008","Diagnostiek - vanaf 100 tot en met 199 minuten",331.94
+"3","009","Diagnostiek - vanaf 200 tot en met 399 minuten",639.16
+"4","162","Diagnostiek - vanaf 400 tot en met 799 minuten",1181.01
+"5","307","Diagnostiek - vanaf 800 minuten",2114.66
+"6","013","Crisis - vanaf 1 tot en met 99 minuten",170.09
+"7","014","Crisis - vanaf 100 tot en met 199 minuten",351.47
+"8","015","Crisis - vanaf 200 tot en met 399 minuten",670.66
+"9","016","Crisis - vanaf 400 tot en met 799 minuten",1264.17
+"10","165","Crisis - vanaf 800 tot en met 1199 minuten",2171.53
+"11","213","Crisis - vanaf 1200 tot en met 1799 minuten",3209.09
+"12","214","Crisis - vanaf 1800 minuten",5457.5
+"13","215","Behandeling kort - vanaf 1 tot en met 99 minuten",165.35
+"14","216","Behandeling kort - vanaf 100 tot en met 199 minuten",379.79
+"15","217","Behandeling kort - vanaf 200 tot en met 399 minuten",696.11
+"16","264","Behandeling kort - vanaf 400 minuten",1142.78
+"17","027","Aandachtstekort - en gedrag - vanaf 250 tot en met 799 minuten",1383.04
+"18","169","Aandachtstekort - en gedrag - vanaf 800 tot en met 1799 minuten",2671.65
+"19","030","Aandachtstekort - en gedrag - vanaf 1800 tot en met 2999 minuten",4767.38
+"20","031","Aandachtstekort - en gedrag - vanaf 3000 tot en met 5999 minuten",8106.64
+"21","131","Aandachtstekort - en gedrag - vanaf 6000 tot en met 11999 minuten",16107.09
+"22","170","Aandachtstekort - en gedrag - vanaf 12000 tot en met 17999 minuten",26815.23
+"23","221","Aandachtstekort - en gedrag - vanaf 18000 tot en met 23999 minuten",38177.97
+"24","222","Aandachtstekort - en gedrag - vanaf 24000 minuten",52840.39
+"25","033","Pervasief - vanaf 250 tot en met 799 minuten",1323.03
+"26","172","Pervasief - vanaf 800 tot en met 1799 minuten",2631.83
+"27","223","Pervasief - vanaf 1800 tot en met 2999 minuten",4734.71
+"28","038","Pervasief - vanaf 3000 tot en met 5999 minuten",8168.92
+"29","133","Pervasief - vanaf 6000 tot en met 11999 minuten",15733.48
+"30","173","Pervasief - vanaf 12000 tot en met 17999 minuten",27058.55
+"31","224","Pervasief - vanaf 18000 tot en met 23999 minuten",38457.2
+"32","225","Pervasief - vanaf 24000 minuten",59946.85
+"33","040","Overige kindertijd - vanaf 250 tot en met 799 minuten",1290.61
+"34","041","Overige kindertijd - vanaf 800 tot en met 1799 minuten",2575.1
+"35","042","Overige kindertijd - vanaf 1800 tot en met 2999 minuten",4681.53
+"36","135","Overige kindertijd - vanaf 3000 tot en met 5999 minuten",7367.63
+"37","175","Overige kindertijd - vanaf 6000 tot en met 11999 minuten",15987.15
+"38","226","Overige kindertijd - vanaf 12000 tot en met 17999 minuten",27663.15
+"39","227","Overige kindertijd - vanaf 18000 minuten",48585.84
+"40","228","Delirium dementie en overig - vanaf 250 tot en met 799 minuten",1340.77
+"41","229","Delirium dementie en overig - vanaf 800 tot en met 1799 minuten",2518.49
+"42","048","Delirium dementie en overig - vanaf 1800 tot en met 2999 minuten",4691.51
+"43","049","Delirium dementie en overig - vanaf 3000 tot en met 5999 minuten",8213.37
+"44","137","Delirium dementie en overig - vanaf 6000 tot en met 11999 minuten",15899.53
+"45","177","Delirium dementie en overig - vanaf 12000 tot en met 17999 minuten",28092.07
+"46","178","Delirium dementie en overig - vanaf 18000 minuten",45920.65
+"47","051","Alcohol - vanaf 250 tot en met 799 minuten",1246.62
+"48","052","Alcohol - vanaf 800 tot en met 1799 minuten",2486.78
+"49","053","Alcohol - vanaf 1800 tot en met 2999 minuten",4688.08
+"50","054","Alcohol - vanaf 3000 tot en met 5999 minuten",8327
+"51","139","Alcohol - vanaf 6000 tot en met 11999 minuten",16005.5
+"52","179","Alcohol - vanaf 12000 tot en met 17999 minuten",27443.33
+"53","180","Alcohol - vanaf 18000 minuten",43283.68
+"54","056","Overige aan een middel - vanaf 250 tot en met 799 minuten",1243.79
+"55","181","Overige aan een middel - vanaf 800 tot en met 1799 minuten",2486.55
+"56","059","Overige aan een middel - vanaf 1800 tot en met 2999 minuten",4600.79
+"57","060","Overige aan een middel - vanaf 3000 tot en met 5999 minuten",8118.35
+"58","141","Overige aan een middel - vanaf 6000 tot en met 11999 minuten",15978.44
+"59","182","Overige aan een middel - vanaf 12000 tot en met 17999 minuten",27909.17
+"60","183","Overige aan een middel - vanaf 18000 minuten",42741.1
+"61","230","Schizofrenie - vanaf 250 tot en met 799 minuten",1370.11
+"62","184","Schizofrenie - vanaf 800 tot en met 1799 minuten",2655.97
+"63","066","Schizofrenie - vanaf 1800 tot en met 2999 minuten",4774.89
+"64","067","Schizofrenie - vanaf 3000 tot en met 5999 minuten",8473.97
+"65","068","Schizofrenie - vanaf 6000 tot en met 11999 minuten",16392.31
+"66","143","Schizofrenie - vanaf 12000 tot en met 17999 minuten",27960.37
+"67","144","Schizofrenie - vanaf 18000 tot en met 23999 minuten",39068.18
+"68","185","Schizofrenie - vanaf 24000 tot en met 29999 minuten",48355.56
+"69","186","Schizofrenie - vanaf 30000 minuten",85073.04
+"70","231","Depressie - vanaf 250 tot en met 799 minuten",1379.29
+"71","232","Depressie - vanaf 800 tot en met 1799 minuten",2712.24
+"72","233","Depressie - vanaf 1800 tot en met 2999 minuten",4957.3
+"73","234","Depressie - vanaf 3000 tot en met 5999 minuten",8489.77
+"74","235","Depressie - vanaf 6000 tot en met 11999 minuten",16474.74
+"75","146","Depressie - vanaf 12000 tot en met 17999 minuten",28395.38
+"76","187","Depressie - vanaf 18000 tot en met 23999 minuten",40414.43
+"77","188","Depressie - vanaf 24000 minuten",57133.75
+"78","189","Bipolair en overig - vanaf 250 tot en met 799 minuten",1394.27
+"79","236","Bipolair en overig - vanaf 800 tot en met 1799 minuten",2759.17
+"80","190","Bipolair en overig - vanaf 1800 tot en met 2999 minuten",4967.12
+"81","087","Bipolair en overig - vanaf 3000 tot en met 5999 minuten",8779.16
+"82","148","Bipolair en overig - vanaf 6000 tot en met 11999 minuten",16643.82
+"83","191","Bipolair en overig - vanaf 12000 tot en met 17999 minuten",28512.4
+"84","192","Bipolair en overig - vanaf 18000 minuten",45141.95
+"85","237","Angst - vanaf 250 tot en met 799 minuten",1347.97
+"86","238","Angst - vanaf 800 tot en met 1799 minuten",2683.04
+"87","239","Angst - vanaf 1800 tot en met 2999 minuten",4917.44
+"88","193","Angst - vanaf 3000 tot en met 5999 minuten",8380.96
+"89","194","Angst - vanaf 6000 tot en met 11999 minuten",16147.64
+"90","150","Angst - vanaf 12000 tot en met 17999 minuten",27896.38
+"91","195","Angst - vanaf 18000 tot en met 23999 minuten",39433.07
+"92","196","Angst - vanaf 24000 minuten",53039.63
+"93","242","Restgroep diagnoses - vanaf 250 tot en met 799 minuten",1291.77
+"94","203","Restgroep diagnoses - vanaf 800 tot en met 1799 minuten",2582.24
+"95","118","Restgroep diagnoses - vanaf 1800 tot en met 2999 minuten",4881.34
+"96","119","Restgroep diagnoses - vanaf 3000 tot en met 5999 minuten",8413.84
+"97","156","Restgroep diagnoses - vanaf 6000 tot en met 11999 minuten",16373.15
+"98","204","Restgroep diagnoses - vanaf 12000 tot en met 17999 minuten",28242.23
+"99","205","Restgroep diagnoses - vanaf 18000 minuten",44692.12
+"100","121","Persoonlijkheid - vanaf 250 tot en met 799 minuten",1363.44
+"101","206","Persoonlijkheid - vanaf 800 tot en met 1799 minuten",2749.23
+"102","243","Persoonlijkheid - vanaf 1800 tot en met 2999 minuten",4997.76
+"103","207","Persoonlijkheid - vanaf 3000 tot en met 5999 minuten",8539.45
+"104","208","Persoonlijkheid - vanaf 6000 tot en met 11999 minuten",16604.21
+"105","158","Persoonlijkheid - vanaf 12000 tot en met 17999 minuten",28175.55
+"106","209","Persoonlijkheid - vanaf 18000 tot en met 23999 minuten",38737.9
+"107","244","Persoonlijkheid - vanaf 24000 tot en met 29999 minuten",51778.07
+"108","245","Persoonlijkheid - vanaf 30000 minuten",63026.22
+"109","246","Somatoforme - vanaf 250 tot en met 799 minuten",1303.73
+"110","247","Somatoforme - vanaf 800 tot en met 1799 minuten",2606.26
+"111","248","Somatoforme - vanaf 1800 tot en met 2999 minuten",4824.46
+"112","249","Somatoforme - vanaf 3000 tot en met 5999 minuten",8073.08
+"113","250","Somatoforme - vanaf 6000 tot en met 11999 minuten",16369.19
+"114","251","Somatoforme - vanaf 12000 minuten",30112.63
+"115","252","Eetstoornis - vanaf 250 tot en met 799 minuten",1316.2
+"116","253","Eetstoornis - vanaf 800 tot en met 1799 minuten",2659.83
+"117","254","Eetstoornis - vanaf 1800 tot en met 2999 minuten",4796.53
+"118","255","Eetstoornis - vanaf 3000 tot en met 5999 minuten",8506.37
+"119","256","Eetstoornis - vanaf 6000 tot en met 11999 minuten",14957.88
+"120","257","Eetstoornis - vanaf 12000 tot en met 17999 minuten",28218.88
+"121","258","Eetstoornis - vanaf 18000 minuten",43495.53

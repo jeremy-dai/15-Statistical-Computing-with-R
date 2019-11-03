@@ -1,0 +1,8 @@
+"0","NZA_ordered <- fees2018_wide_ub20hrs[order(fees2018_wide_ub20hrs$NZA),]"
+"0","pay_df <- NZA_ordered$NZA -NZA_ordered[,insurances]*0.75"
+"0","all.equal(pay_df, pay2018_wide_ub20hrs)"
+"1","[1]"
+"1"," TRUE"
+"1","
+"
+"0","#<- with(fees2018_wide_ub20hrs, split(fee - reimbursed,insurance)"

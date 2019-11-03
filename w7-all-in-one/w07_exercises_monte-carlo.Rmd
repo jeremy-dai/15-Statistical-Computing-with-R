@@ -1,0 +1,299 @@
+---
+title: "Week 8 Exercises"
+author: "R-team"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: 
+  pdf_document: 
+    keep_tex: yes
+---
+
+
+# Exercises part 1
+
+## 1.1 Throwing a ball
+
+During the lecture we talked about the statistics of throwing a ball. The question was: given that I am asked to throw the ball 50 meters, what is the average distance I will actually throw the ball?
+
+We discussed three parts to this 'equation': the angle at which I throw the ball, the power with which I throw the ball, and my precision in my estimate of how far I need to throw a ball. As discussed, probably there are many more factors that play into this, and also surely we can break down a concept such as 'precision' into many more factors that each play a role (e.g. my 'talent', my concentration, whether I'm wearing glasses or not). Instead of breaking these down, and refining our 'model' further, we'll just 'take our losses' and use randomness to model these unknown, underlying, factors. We do this by formulating assumptions, i.e. models defined as probability distributions.
+
+Suppose the outcome ($D$ := distance) of a throw is the result of the following function $D(x, y, z)$, defined as 
+$$
+D(x, y, z) = x \cdot (y - (z - \frac{1}{4})^2), 
+$$
+where $x$ denotes the power, $y$ denotes the precision, and $z$ denotes the angle a. The probability density function of a throw would then by defined by $f_D(x,y,z)$, i.e. the join probability density function of $x, \, y\, z$.
+
+In this assignment we assume that these three variables are independent of each other and have the following (marginal) continuous probability density functions:
+
+* $f_{\textrm{power}}(x) =\frac{1}{\sqrt(0.5pi)}e^{-{\frac{(x-5)^2}{0.5}}}$
+* $f_{\textrm{precision}}(y) = \frac{1}{11-9}$, for $y\in [9, 11]$ and $0$ otherwise  
+* $f_{\textrm{angle}}(z) = \frac{\frac{z}{0.5\pi}^{10-1}(1-\frac{z}{0.5\pi})^{10-1}}{B(10, 10)}$, where  $B(a, b) = \frac{\Gamma(a)\Gamma(b)}{\Gamma(a+b)}$, and $\Gamma(n) = (n-1)!$, for $z\in[0, \frac{1}{2}\pi]$, and $0$ otherwise.
+
+Thus, 
+
+$$
+f_D(x,y,z) := f_{\textrm{power}}(x) \cdot f_{\textrm{precision}}(y) \cdot f_{\textrm{angle}}(z).
+$$
+
+### a
+
+We talked about two ways to find the average distance that the ball is thrown: an analytical one, and the monte carlo one. Write down what steps you would need to take to find the analytical solution.
+
+### b
+
+Take a careful look at the density functions provided in the introduction. They look an aweful lot like well known probability density functions. Look online, or in your favourite textbook and see which probablity functions (and particular parameterization) resembles the density functions provided. **Hint: these distributions are part of the `base` set of distribution functions `R` provides you.**
+
+### c
+
+Now use a Monte Carlo study to provide an answer to the original question: given the model provided in the introduction, what would be a good estimate of the average throwing distance? 
+
+Act as if you throw the ball 10 times. Make sure you set a seed, but make sure you set a different seed compared to the student sitting next to you. Compare your answers, and check whether you used similar code? Would you claim one of the two averages is correct?
+
+*Hint: notice that for the beta distribution the domain is 'stretched' so that it's values fall in the interval $[0, \frac{1}{2}\pi]$, instead of in $[0, 1]$. To stretch your values coming out of the `rbeta()` multiply the values by $\pi/2$.*
+
+### d
+
+Use `replicate` to repeat the experiment in **c** many times (e.g. a 1000 times). What is the variation of the average distance obtained in each experiment?
+
+### e
+
+Suppose you would throw the ball a 1000 times, instead of just 10 times. Do you think your estimate of the average will improve? Also compare your result of a 1000 throws with those of a fellow student. First think about it together, then write some code to check your answer. 
+
+
+### f
+
+Use summary statistics you can obtain from the results in **e** to produce a 95% confidence interval around the average throwing distance you've found. How would you judge my throwing technique?
+
+Use central limit theorem, i.e. the average throwing distance follows the process of a normal distribution.
+
+
+# Exercises part 2
+
+## 2.1 Statistical distributions in R (recap, i.e. skip if you are confident with these)
+
+Go to the following website about [Statistical distributions in R](http://www.cyclismo.org/tutorial/R/probability.html). Read the text of chapter 4 thoroughly, and perform the examples of 4.1 through 4.4 in R.
+
+## 2.2 A mini Monte Carlo operation about the Standard Error of the Mean
+
+As you know from your basic statistics course, the standard error of the sample mean is given by
+
+$$
+\sigma_{\overline{X}} = \sigma / \sqrt{N},
+$$
+
+where $\sigma$ denotes the standard deviation in the population, $\overline{X}$ denotes the sample mean and $N$ denotes the sample size. In this assignment you will provide some evidence for this formula using `R` programming.
+
+### a
+Take `set.seed(1105)` and generate $B = 1000$ samples of each $N_1 = 10$ objects (= participants) from a $\chi^2$ distribution with $10$ degrees of freedom.
+
+Repeat this (with $B = 1000$) for $N_2 = 100$ and $N_3 = 1000$. 
+
+Show in `R` with computations on the generated samples that the formula of the standard error holds for a growing number of objects $N$.
+
+### b
+There is a clear relationship between sample size $N$ and $\sigma_{\overline{X}}$. Explain this relationship by visualizing the sampling distributions of the mean for the samples with the three different sample sizes generated for question 1 (you may show three separate plots).
+
+### c
+What happens with the standard error of the sample mean for samples of sizes $N_1 = 10, \, N_1 = 100, N_3 = 1000$ if we add a non-centrality parameter $\lambda = 5$ to the $\chi^2(10)$-distribution from which we generate the data? 
+
+What are the theoretical standard errors of the mean? 
+
+What would be your estimates of the standard error of the mean for each sample size using R code? Use, again, $B = 1000$ Monte Carlo samples for each sample size. 
+
+
+# Exercises part 3
+
+
+## 3.1 Biased exercise
+In this exercise we'll look at something you know quite well: if a distribution is symmetric, the median and the mean are the same. If however a distribution is skewed, the mean and median are different.
+
+### a
+Sample $N=1000$ values from a standard normal distribution. Calculate the median and use this as an estimate for the mean.
+
+### b
+Repeat **a** $B=1000$ times and determine the bias of the estimate of the mean, via the median.
+
+### c
+Repeat **a** and **b** but instead of sampling from a normal distribution, sample from an exponential distribution with mean 1. Is the median biased as estimate of the mean?
+
+
+## 3.2 Simulation with the use of set operations
+
+Read the extended example 8.6.3 of the Matloff book "A combinatorial simulation".
+
+### a
+First try to imagine what the output is of `sim()` and `choosecom()`.
+
+### b
+Simulate a solution to the problem by using these functions (given below). Choose `nreps` = 100.
+
+```{r}
+sim <- function(nreps) {
+   commdata <- list()  # will store all our info about the 3 committees
+   commdata$countabsamecomm <- 0
+   for (rep in 1:nreps) {
+      commdata$whosleft <- 1:20  # who's left to choose from
+      commdata$numabchosen <- 0  # number among A, B chosen so far
+      # choose committee 1, and check for A,B serving together
+      commdata <- choosecomm(commdata,5)
+      # if A or B already chosen, no need to look at the other comms.
+      if (commdata$numabchosen > 0) next  
+      # choose committee 2 and check
+      commdata <- choosecomm(commdata,4)
+      if (commdata$numabchosen > 0) next  
+      # choose committee 3 and check
+      commdata <- choosecomm(commdata,3)
+   }
+   print(commdata$countabsamecomm/nreps)
+}
+
+choosecomm <- function(comdat,comsize) {
+   # choose committee
+   committee <- sample(comdat$whosleft,comsize)
+   # count how many of A and B were chosen
+   comdat$numabchosen <- length(intersect(1:2,committee))
+   if (comdat$numabchosen == 2) 
+      comdat$countabsamecomm <- comdat$countabsamecomm + 1
+   # delete chosen committee from the set of people we now have to choose from
+   comdat$whosleft <- setdiff(comdat$whosleft,committee)
+   return(comdat)
+}
+```
+
+
+### c 
+Adapt the code in `sim()` in such a way that we can solve the following problem: Two committees of sizes 5 and 10 are chosen from 20 people. What is the probability that persons A and B are chosen for the same committee?
+
+
+
+# Self Study / Exercises
+
+## Simulation error
+In this exercise we'll 'verify' our math in one of the slides about simulation error. In that particular slide we posit that:
+
+* if $\textrm{E}[T]$ is estimated by $\overline{T}$ for i.i.d. $T^1,\ldots,T^B,$ then $\overline{T}_B - \textrm{T}[Z] \sim \approx N(0, \sigma_T^2/B)$.
+* the simulation error can be made arbitrarily small, by making $B$ larger. 
+
+Show using code that this relation is approximately true for the following case: $N=50$ and data $Z \sim \chi^2_5$. Thus $Z^1$ is the mean of a vector of $N$ values that are distributed according to a chi-squared distribution with $5$ degrees of freedom. Take $B=50$ and $B=250$ and compare the results.
+
+**Answer:**
+
+
+## 3.3 Power, an example
+
+In this exercise we'll see how you could implement a monte carlo study to estimate the power. We'll work with a test we devise ourselves. Power is an important property of the test, so it is only natural we would want to investigate this for our newly devised test. Work through the pieces of code in each of the subquestions and try to understand what the code does.
+
+### a
+This is test statistic for the test we've devised. The test is going to be two-sided.
+
+```{r}
+# our test statistic function
+TestStat <- function(x) {
+    n <- length(x)
+    k <- trunc(0.3 * n)
+    y <- sort(x)[(k + 1):(n - k)]
+    statistic_T <- mean(y)/sd(y)
+    return(statistic_T)
+}
+```
+
+
+### b
+In this piece of code, we're looking at some of the properties of our test under the null hypothesis.
+
+```{r}
+mean_h0 <- 0
+N <- 20
+B <- 10000
+
+statistic_t <- numeric(B)
+
+set.seed(37682362)
+for (i in 1:B) {
+  statistic_t[i] <- TestStat(rnorm(N, mean_h0))
+}
+
+alpha <- 0.05
+critical_value <- quantile(statistic_t, 1-alpha/2)
+```
+
+
+### c
+Here we check the set-up we've created for the test in **a** and **b**.
+
+```{r}
+a <- numeric(B)
+
+set.seed(14234712)
+for (i in 1:B) {
+    x <- rnorm(N, mean_h0)
+    a[i] <- (abs(TestStat(x)) > critical_value)
+}
+
+mean(a)
+```
+
+
+### d
+Here we look at some properties of our test under an alternative hypothesis.
+```{r}
+mean_ha <- seq(0, 2, by = 0.2)
+
+b <- numeric(length(mean_ha))
+
+set.seed(1231273)
+for (j in 1:length(mean_ha)) {
+  statistic_t <- numeric(B)
+    for (i in 1:B) {
+        x <- rnorm(N, mean_ha[j])
+        statistic_t[i] <- TestStat(x)
+    }
+    b[j] <- mean(abs(statistic_t) > critical_value)
+}
+
+plot(mean_ha, b, type='l')
+```
+
+### e
+Repeat the above process but instead of calculating the standardized mean of trimmed data, calculate the standardized mean of the complete set of data. Repeat the process of determining $\alpha$ and $\beta$ under the same set of alternative hypotheses. Which test is better?
+
+### f
+Do you think the power curve for the test looked at in **a** through **e** would be different if the sample size was different? For example $N = 100$ instead of $N = 20$?
+
+
+## Power of a t-test (Difficult!)
+
+Time to do this on your own. Suppose we have a random sample A of $N$ observations from a normal distribution with $\mu = 3$ and $\sigma = 1$. (Imagine, for example, that the population mean of 3 indicates that members of this population play *on average* three hours of computer games a day). In addition, we have a random sample B of $N$ observations from a normal distribution with $\mu = 2.5$ and $\sigma = 1$. (Imagine, for example, that due to an intervention, members of population B play *on average* two and a half hours of computer games a day). 
+
+Let the null hypothesis be $\mu{_A} = \mu{_B}$, where $\mu{_A}$ denotes the mean value of population A (the control group), and $\mu{_B}$ denotes the mean value of population B (the intervention group). The alternative hypothesis is that $\mu{_A} \neq \mu{_B}$. By means of an independent Student's $t$-test, we are investigating whether the intervention indeed changed the amount of time spend on computer gaming (in other words whether the alternative hypothesis was true). Remember that we can make two types of error: Either we accept the alternative hypothesis, while the null-hypothesis is true (i.e., Type I error, denoted with $\alpha$), or we accept the null hypothesis, while the alternative hypothesis is true (i.e., Type II error, denoted with $\beta$).
+
+If $N_A = N_B = 64$, the power (i.e., $1 - \beta$) of the independent Student's $t$-test equals 0.80, given a two-sided $\alpha = 0.05$. Show empirically (by simulating many samples, and performing a $t$-test on each of these samples) that this is true. Use set.seed(4444).
+
+```{r}
+set.seed(44445)
+N <- 64
+alpha <- 0.05
+many_means <- replicate(10000, expr = {
+sampleA <- rnorm(N,2,1)
+sampleB <- rnorm(N,1.5,1)
+diff <- sampleA - sampleB
+return(mean(diff))
+})
+
+diff_sd <- sd(many_means)
+
+beta <- mean((many_means>(0+qt(alpha/2,N-1)*diff_sd)) & (many_means<(0+qt(1-alpha/2,N-1)*diff_sd)) )
+
+```
+
+## 3.4 Sample size calculation
+In many applied research fields, a sample size calculation is performed before the actual experiment (e.g., a randomized controlled trial) is conducted. Besides levels for power and $\alpha$, a sample size calculation (for Student's $t$-test) needs a difference in the means between two samples (e.g., this difference can be based on previous studies). The mean difference is usually expressed as a standardized mean difference (i.e. an effect size $d$). In the example above, the effect size $d$ was equal to 0.50, which is considered to be a medium effect size (Cohen, 1988).
+
+Perform a simulation study to investigate empirically which minimum sample size is needed for a given combination of effect size, power level and alpha level. 
+Use the following design factors in your simulation study: an effect size of 0.20, 0.50, and 0.80, and a power level of 0.80 and 0.90. Fix the two-sided $\alpha$ level at 0.05. Use a full factorial design, thus in this case 3 by 2 combinations are possible. For each of these combinations, find **empirically** the minimum sample size needed. Do not use any existing formula for sample size calculation. Again, use `set.seed(4444)`.
+
+Show in your answer:
+- the code you used for this simulation study, 
+- a clear presentation of the results of the simulations, and
+- a conclusion.
+
+*Hint: start with writing code to sample the data you need to perform a test. Then write some code to perform the actual test. Then write code to repeat those two steps.*

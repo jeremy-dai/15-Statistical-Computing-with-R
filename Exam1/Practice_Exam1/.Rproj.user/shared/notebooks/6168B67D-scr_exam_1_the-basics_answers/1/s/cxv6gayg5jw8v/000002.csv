@@ -1,0 +1,4 @@
+"0","n.missing <- sum(is.na(bloodsamples_data$ir))"
+"0",""
+"0","set.seed(20170807)"
+"0","ir.sample <- rnorm(n.missing, mean=ir.mean, sd=ir.sd)"

@@ -1,0 +1,5 @@
+"0","nrow(bloodsamples_data[bloodsamples_data$corrected_difference_in_days<=30,])"
+"1","[1]"
+"1"," 561"
+"1","
+"

@@ -1,0 +1,6 @@
+"0","insurances <- c(""CZ"", ""Menzis"", ""VGZ"", ""ZandZ"", ""ZK"")"
+"0","sum(is.na(fees2018_wide[,insurances]))"
+"1","[1]"
+"1"," 9"
+"1","
+"

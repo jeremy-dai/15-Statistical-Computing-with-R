@@ -1,0 +1,1 @@
+"0","qqnorm(data$ir, main = expression(""Q-Q plot for ir"")) "

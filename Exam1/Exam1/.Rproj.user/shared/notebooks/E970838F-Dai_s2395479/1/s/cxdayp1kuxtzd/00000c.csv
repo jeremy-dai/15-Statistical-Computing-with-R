@@ -1,0 +1,13 @@
+"0","grade_factor <- grade_analysis(the_grades)[['if_pass']]"
+"0","table(grade_factor)"
+"1","grade_factor
+"
+"1"," resit "
+"1","passed "
+"1","
+"
+"1","    16 "
+"1","    33 "
+"1","
+"
+"0","barplot(table(grade_factor),main='SCR Course in-one-go',col=c('pink','green'))"

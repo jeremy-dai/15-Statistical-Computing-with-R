@@ -1,0 +1,6 @@
+"0","ImputedCor <- function(hg, ir, mu, std){"
+"0","  n_missing <- sum(is.na(ir))"
+"0","  ir_impute <- rnorm(n_missing,mu,std)"
+"0","  ir[is.na(ir)] <- ir_impute"
+"0","  return(cor(ir,hg,use = 'complete.obs'))"
+"0","}"

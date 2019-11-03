@@ -1,0 +1,2 @@
+"0","ir.mean <- mean(bloodsamples_data$ir, na.rm = T)"
+"0","ir.sd <- sd(bloodsamples_data$ir, na.rm = T)"

@@ -1,0 +1,6 @@
+"0","strsplit('subject_Groningen: 1', split = ':')[[1]]"
+"1","[1]"
+"1"," ""subject_Groningen"""
+"1"," "" 1""               "
+"1","
+"

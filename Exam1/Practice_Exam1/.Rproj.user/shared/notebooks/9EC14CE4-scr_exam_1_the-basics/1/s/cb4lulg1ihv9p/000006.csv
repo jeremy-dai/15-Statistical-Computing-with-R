@@ -1,0 +1,6 @@
+"0","fillin <- function(row){"
+"0","  if (is.na(row$ir)){"
+"0","    row$ir <- M[row$sex,row$location]}"
+"0","  return(row)"
+"0","}"
+"0",""

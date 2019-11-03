@@ -1,0 +1,123 @@
+"Code", "Product group", "nza", "0.75", "100"
+"7", "007", "Diagnostics - from 1 to 99 minutes", "160.57", "100.51", 134.013333333333
+"8", "008", "Diagnostics - from 100 to 199 minutes", "331.94", "206.69", 275.586666666667
+"9", "009", "Diagnostics - from 200 to 399 minutes", "639.16", "398.3," 531.066666666667
+"10", "013", "Crisis - from 1 to 99 minutes", "170.09", "105.78", 141.04
+"11", "014", "Crisis - from 100 to 199 minutes", "351.47", "218.9" 291.866666666667
+"12", "015", "Crisis - from 200 to 399 minutes", "670.66", "419.45", 559.266666666667
+"13", "016", "Crisis - from 400 to 799 minutes," "1264.17", "787.09", 1049.45333333333
+"14", "027", "Attention Deficit - and behavior - from 250 through 799 minutes", "1383.04", "860.65", 1147.53333333333
+"15", "030", "Attention Deficit - and Behavior - from 1800 to 2999 minutes," "4767.38" "2973.61", 3964.81333333333
+"16", "031", "Attention Deficit - and Behavior - from 3000 to 5999 minutes," "8106.64" "5051.93", 6735.90666666667
+"17", "033", "pervasive - from 250 through 799 minutes", "1323.03", "823.31", 1097.74666666667
+"18", "038", "pervasive - from 3000 to 5999 minutes," "8168.92" "5086.21", 6781.61333333333
+"19", "040", "Other childhood - from 250 to 799 minutes," "1290.6099999999999", "805.13", 1073.50666666667
+"20", "041", "Other childhood - from 800 to 1799 minutes", "2575.1", "1607.57" 2143.42666666667
+"21", "042", "Other childhood - from 1800 to 2999 minutes", "4681.53," "2919.73" 3892.97333333333
+"22", "048", "Delirium dementia and other - from 1800 to 2999 minutes," "4691.51" "2920.21", 3893.61333333333
+"23", "049", "Delirium dementia and other - from 3000 to 5999 minutes", "8213.3700000000008," "5110.55", 6814.06666666667
+"24", "051", "Alcohol - from 250 to 799 minutes," "1246.6199999999999", "776.25", 1035
+"25", "052", "Alcohol - from 800 to 1799 minutes", "2486.7800000000002", "1548.67" 2064.89333333333
+"26", "053", "Alcohol - from 1800 to 2999 minutes", "4688.08," "2918.73" 3891.64
+"27", "054", "Alcohol - from 3000 to 5999 minutes", "8327", "5182.07" 6909.42666666667
+"28", "056", "Other means to - from 250 to 799 minutes," "1243.79", "774.77", 1033.02666666667
+"29", "059", "Other means to - from 1800 to 2999 minutes", "4600.79," "2864.47" 3819.29333333333
+"30", "060", "Additional to a resource - from 3000 to 5999 minutes", "8118.35", "5058.6400000000003", 6744.85333333333
+"31", "066", "Schizophrenia - from 1800 to 2999 minutes", "4774.8900000000003," "2975.63", 3967.50666666667
+"32", "067", "Schizophrenia - from 3000 to 5999 minutes", "8473.9699999999993," "5277.85", 7037.13333333333
+"33", "068", "Schizophrenia - from 6000 up to 11999 minutes", "16392.310000000001", "10200.200000000001", 13600.2666666667
+"34", "087", "Bipolar and others - from 3000 to 5999 minutes", "8779.16", "5465", 7286.66666666667
+"35", "118", "Rest Group diagnosis - from 1800 to 2999 minutes," "4881.34" "3044.56", 4059.41333333333
+"36", "119", "Rest Group diagnosis - from 3000 to 5999 minutes," "8413.84" "5243.71", 6991.61333333333
+"37", "121", "Personality - from 250 through 799 minutes", "1363.44", "848.92", 1131.89333333333
+"38", "131", "Attention Deficit - and Behavior - from 6000 up to 11999 minutes", "16107.09," "10044.870000000001", 13393.16
+"39", "133", "pervasive - from 6000 up to 11999 minutes", "15733.48," "9795.3700000000008", 13060.4933333333
+"40", "135", "Other childhood - from 3000 to 5999 minutes", "7367.63," "4598.03" 6130.70666666667
+"41", "137", "Delirium dementia and other - from 6000 up to 11999 minutes", "15899.53," "9894.92", 13193.2266666667
+"42", "139", "Alcohol - from 6000 up to 11999 minutes", "16005.5", "9964.81", 13286.4133333333
+"43", "141", "Additional to a resource - from 6000 to 11999 minutes", "15978.44," "9945.33", 13260.44
+"44", "143", "Schizophrenia - from 12000 up to 17999 minutes", "27960.37," "17397.72", 23196.96
+"45", "144", "Schizophrenia - from 18000 up to 23999 minutes", "39068.18," "24293.96", 32391.9466666667
+"46", "146", "Depression - from 12000 up to 17999 minutes", "28395.38," "17677.86", 23570.48
+"47", "148", "Bipolar and others - from 6000 up to 11999 minutes", "16643.82," "10352.83", 13803.7733333333
+"48", "150", "Fear - from 12 000 to 17 999 minutes", "27896.38", "17408.64", 23211.52
+"49", "156", "Rest Group diagnosis - from 6000 up to 11999 minutes", "16373.15", "10213.1", 13617.4666666667
+"50", "158", "Personality - from 12 000 to 17 999 minutes", "28175.55", "17523.72", 23364.96
+"51", "162", "Diagnostics - from 400 through 799 minutes", "1181.01", "736.38", 981.84
+"52", "163", "Diagnostics - from 800 minutes", "2114.66," "1317.26" 1756.34666666667
+"53", "165", "Crisis - from 800 to 1199 minutes", "2171.5300000000002," "1351.81", 1802.41333333333
+"54", "169", "Attention Deficit - and Behavior - from 800 to 1799 minutes," "2671.65" "1666.44", 2221.92
+"55", "170", "Attention Deficit - and behavior - from 12 000 to 17 999 minutes", "26815.23", "16686.95" 22249.2666666667
+"56", "172", "pervasive - from 800 to 1799 minutes," "2631.83" "1637.73", 2183.64
+"57", "173", "pervasive - from 12 000 to 17 999 minutes", "27058.55", "16887.560000000001" 22516.7466666667
+"58", "175", "Other childhood - from 6000 to 11 999 minutes", "15987.15", "9985.7900000000009" 13314.3866666667
+"59", "177", "Delirium and dementia other - from 12000 to 17999 minutes," "28092.07", "17503.240000000002" 23337.6533333333
+"60", "178", "Delirium and dementia other - from 18 000 minutes", "45920.65", "28500.76" 38001.0133333333
+"61", "179", "Alcohol - from 12 000 to 17 999 minutes", "27443.33", "17086.91" 22782.5466666667
+"62", "180", "Alcohol - for 18000 minutes", "43283.68," "27013.759999999998", 36018.3466666667
+"63", "181", "Other means to - from 800 to 1799 minutes", "2486.5500000000002", "1548.23" 2064.30666666667
+"64", "182", "Other means of a - from 12 000 to 17 999 minutes", "27909.17", "17362.849999999999" 23150.4666666667
+"65", "183", "Other means of a - from 18 000 minutes", "42741.1" "26693.49", 35591.32
+"66", "184", "Schizophrenia - from 800 to 1799 minutes", "2655.97," "1653.77" 2205.02666666667
+"67", "185", "Schizophrenia - from 24000 up to 29999 minutes", "48355.56," "30043.46", 40057.9466666667
+"68", "186", "Schizophrenia - for 30000 minutes", "85073.04," "52744.29", 70325.72
+"69", "187", "Depression - from 18000 to 23999 minutes," "40414.43", "25160.92" 33547.8933333333
+"70", "188", "Depression - from 24 000 minutes", "57133.75", "35487.14" 47316.1866666667
+"71", "189", "Bipolar and other - from 250 to 799 minutes," "1394.27", "869.04", 1158.72
+"72", "190", "Bipolar and others - from 1800 to 2999 minutes," "4967.12" "3092.11", 4122.81333333333
+"73", "191", "Bipolar and other - from 12000 to 17999 minutes", "28512.400000000001" "17744.14" 23658.8533333333
+"74", "192", "Bipolar and other - from 18 000 minutes", "45141.95", "28073.65" 37431.5333333333
+"75", "193", "Anxiety - from 3000 to 5999 minutes", "8380.9599999999991," "5219.83", 6959.77333333333
+"76", "194", "Anxiety - from 6000 up to 11999 minutes", "16147.64," "10077.99", 13437.32
+"77", "195", "Fear - from 18000 to 23999 minutes," "39433.07", "24570.16" 32760.2133333333
+"78", "196", "Anxiety - for 24000 minutes", "53039.63," "32958.25", 43944.3333333333
+"79", "203", "Rest Group diagnostics - from 800 to 1799 minutes", "2582.2399999999998", "1612.82" 2150.42666666667
+"80", "204", "Rest Group diagnostics - from 12 000 to 17 999 minutes", "28242.23", "17600.53" 23467.3733333333
+"81", "205", "Rest Group diagnostics - from 18 000 minutes", "44692.12", "27830.31", 37107.08
+"82", "206", "Personality - from 800 to 1799 minutes," "2749.23" "1713.27", 2284.36
+"83", "207", "Personality - from 3000 to 5999 minutes", "8539.4500000000007," "5322.41", 7096.54666666667
+"84", "208", "Personality - from 6000 up to 11999 minutes", "16604.21," "10332.52", 13776.6933333333
+"85", "209", "Personality - from 18 000 to 23 999 minutes", "38737.9" "24097.81" 32130.4133333333
+"86", "213", "Crisis - from 1200 to 1799 minutes", "3209.09," "1996.63" 2662.17333333333
+"87", "214", "Crisis - from 1800 minutes", "5457.5", "3394.52" 4526.02666666667
+"88", "215", "Treatment short - from 1 to 99 minutes", "165.35", "102.77", 137.026666666667
+"89", "216", "short treatment - from 100 to 199 minutes", "379.79", "236.24", 314.986666666667
+"90", "217", "short treatment - from 200 to 399 minutes", "696.11", "433.46", 577.946666666667
+"91", "221", "Attention Deficit - and Behavior - from 18000 up to 23999 minutes", "38177.97," "23772.23", 31696.3066666667
+"92", "222", "Attention Deficit - and behavior - for 24000 minutes", "52840.39," "32796.42", 43728.56
+"93", "223", "pervasive - from 1800 to 2999 minutes," "4734.71" "2947.58", 3930.10666666667
+"94", "224", "pervasive - from 18000 up to 23999 minutes", "38457.199999999997", "23947.200000000001", 31929.6
+"95", "225", "pervasive - from 24 000 minutes", "59946.85", "37211.370000000003" 49615.16
+"96", "226", "Other childhood - from 12 000 to 17 999 minutes", "27663.15", "17274.740000000002" 23032.9866666667
+"97", "227", "Other childhood - from 18 000 minutes", "48585.84", "30188.03" 40250.7066666667
+"98", "228", "Delirium dementia and other - from 250 through 799 minutes", "1340.77", "835.01", 1113.34666666667
+"99", "229", "Delirium and dementia other - from 800 to 1799 minutes", "2518.4899999999998", "1568.75" 2091.66666666667
+"100", "230", "Schizophrenia - from 250 through 799 minutes", "1370.11", "853.26", 1137.68
+"101", "231", "Depression - from 250 through 799 minutes", "1379.29", "859.94", 1146.58666666667
+"102", "232", "Depression - from 800 to 1799 minutes," "2712.24" "1690.59", 2254.12
+"103", "233", "Depression - from 1800 to 2999 minutes", "4957.3", "3089.32" 4119.09333333333
+"104", "234", "Depression - from 3000 to 5999 minutes," "8489.77" "5290.94", 7054.58666666667
+"105", "235", "Depression - from 6000 up to 11999 minutes", "16474.740000000002", "10268.9", 13691.8666666667
+"106", "236", "Bipolar and others - from 800 to 1799 minutes," "2759.17" "1717.95", 2290.6
+"107", "237", "Anxiety - from 250 through 799 minutes", "1347.97", "840.33", 1120.44
+"108", "238", "Fear - from 800 to 1799 minutes", "2683.04," "1673.75" 2231.66666666667
+"109", "239", "Anxiety - from 1800 to 2999 minutes", "4917.4399999999996," "3065.96", 4087.94666666667
+"110", "242", "Rest Group diagnosis - from 250 through 799 minutes", "1291.77", "806.54", 1075.38666666667
+"111", "243", "Personality - from 1800 to 2999 minutes", "4997.76," "3113.18" 4150.90666666667
+"112", "244", "Personality - from 24000 up to 29999 minutes", "51778.07," "32220.57", 42960.76
+"113", "245", "Personality - from 30 000 minutes", "63026.22", "39295.25" 52393.6666666667
+"114", "246", "Somatoform - from 250 through 799 minutes", "1303.73", "814.01", 1085.34666666667
+"115", "247", "Somatoform - from 800 to 1799 minutes", "2606.2600000000002," "1627.04", 2169.38666666667
+"116", "248", "Somatoform - from 1800 to 2999 minutes", "4824.46," "3008.35" 4011.13333333333
+"117", "249", "Somatoform - from 3000 to 5999 minutes," "8073.08" "5027.95", 6703.93333333333
+"118", "250", "Somatoform - from 6000 up to 11999 minutes", "16369.19," "10189.91", 13586.5466666667
+"119", "251", "Somatoform - from 12 000 minutes", "30112.63", "18721.39" 24961.8533333333
+"120", "252", "Eating disorder - from 250 through 799 minutes", "1316.2", "820.19", 1093.58666666667
+"121", "253", "Eating Disorder - from 800 to 1799 minutes", "2659.83," "1657.99" 2210.65333333333
+"122", "254", "Eating disorder - from 1800 to 2999 minutes," "4796.53" "2989.47", 3985.96
+"123", "255", "Eating Disorder - from 3000 to 5999 minutes", "8506.3700000000008", "5293.79" 7058.38666666667
+"124", "256", "Eating Disorder - from 6000 to 11 999 minutes", "14957.88", "9337.2199999999993" 12449.6266666667
+"125", "257", "Eating Disorder - from 12 000 to 17 999 minutes", "28218.880000000001" "17528.48" 23371.3066666667
+"126", "258", "Eating Disorder - from 18 000 minutes", "43495.53", "26974.13" 35965.5066666667
+"127", "264", "short treatment - from 400 minutes", "1142.78", "711.84", 949.12
+"128" NA, "Performance Part B stay (Limited nursing degree)," "229.25", "162.13999999999999" 216.186666666667

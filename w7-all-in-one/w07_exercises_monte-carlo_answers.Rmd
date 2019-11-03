@@ -1,0 +1,820 @@
+---
+title: "Week 8 Exercises"
+author: "R-team"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: 
+  pdf_document: 
+    keep_tex: yes
+---
+
+
+# Exercises part 1
+
+## 1.1 Throwing a ball
+
+During the lecture we talked about the statistics of throwing a ball. The question was: given that I am asked to throw the ball 50 meters, what is the average distance I will actually throw the ball?
+
+We discussed three parts to this 'equation': the angle at which I throw the ball, the power with which I throw the ball, and my precision in my estimate of how far I need to throw a ball. As discussed, probably there are many more factors that play into this, and also surely we can break down a concept such as 'precision' into many more factors that each play a role (e.g. my 'talent', my concentration, whether I'm wearing glasses or not). Instead of breaking these down, and refining our 'model' further, we'll just 'take our losses' and use randomness to model these unknown, underlying, factors. We do this by formulating assumptions, i.e. models defined as probability distributions.
+
+Suppose the outcome ($D$ := distance) of a throw is the result of the following function $D(x, y, z)$, defined as 
+$$
+D(x, y, z) = x \cdot (y - (z - \frac{1}{4})^2), 
+$$
+where $x$ denotes the power, $y$ denotes the precision, and $z$ denotes the angle a. The probability density function of a throw would then by defined by $f_D(x,y,z)$, i.e. the join probability density function of $x, \, y\, z$.
+
+In this assignment we assume that these three variables are independent of each other and have the following (marginal) continuous probability density functions:
+
+* $f_{\textrm{power}}(x) =\frac{1}{\sqrt(0.5pi)}e^{-{\frac{(x-5)^2}{0.5}}}$
+* $f_{\textrm{precision}}(y) = \frac{1}{11-9}$, for $y\in [9, 11]$ and $0$ otherwise  
+* $f_{\textrm{angle}}(z) = \frac{\frac{z}{0.5\pi}^{10-1}(1-\frac{z}{0.5\pi})^{10-1}}{B(10, 10)}$, where  $B(a, b) = \frac{\Gamma(a)\Gamma(b)}{\Gamma(a+b)}$, and $\Gamma(n) = (n-1)!$, for $z\in[0, \frac{1}{2}\pi]$, and $0$ otherwise.
+
+Thus, 
+
+$$
+f_D(x,y,z) := f_{\textrm{power}}(x) \cdot f_{\textrm{precision}}(y) \cdot f_{\textrm{angle}}(z).
+$$
+
+### a
+
+We talked about two ways to find the average distance that the ball is thrown: an analytical one, and the monte carlo one. Write down what steps you would need to take to find the analytical solution.
+
+**Answer:**
+We need to find $E[D]$ (over all three random variables). This means:
+
+$$ 
+\int_x \int_y \int_z D(x, y, z) f_D(x, y, z)\, dx\, dy\, dz
+$$
+Since the variables are independent we can write:
+
+$$
+\int_x \int_y \int_z D(x,y,z) f_{\textrm{power}}(x) f_{\textrm{precision}}(y) f_{\textrm{angle}}(z) \, dx \, dy \,dz
+$$
+
+Then see whether you can solve this multiple integral analytically or whether you'll have to use numerical approximations (not a part of this course!).
+
+### b
+
+Take a careful look at the density functions provided in the introduction. They look an aweful lot like well known probability density functions. Look online, or in your favourite textbook and see which probablity functions (and particular parameterization) resembles the density functions provided. **Hint: these distributions are part of the `base` set of distribution functions `R` provides you.**
+
+**Answer:**
+
+The first is a normal density with mean $50$, and standard deviation $\frac{1}{2}$.
+
+The second a uniform distribution with values between $9$ and $11$.
+
+The third a beta distribution with parameters $10$ and $10$, but 'stretched' so that it's values fall in the interval $[0, \frac{1}{2}\pi]$, instead of in $[0, 1]$.
+
+### c
+
+Now use a Monte Carlo study to provide an answer to the original question: given the model provided in the introduction, what would be a good estimate of the average throwing distance? 
+
+Act as if you throw the ball 10 times. Make sure you set a seed, but make sure you set a different seed compared to the student sitting next to you. Compare your answers, and check whether you used similar code? Would you claim one of the two averages is correct?
+
+*Hint: notice that for the beta distribution the domain is 'stretched' so that it's values fall in the interval $[0, \frac{1}{2}\pi]$, instead of in $[0, 1]$. To stretch your values coming out of the `rbeta()` multiply the values by $\pi/2$.*
+
+**Answer:**
+
+```{r}
+set.seed(438734587)
+
+ComputeD <- function(x, y, z){
+  x * (y - (z - 1/4)^2)
+}
+
+N <- 10
+power_mean <- 5
+power_sd <- 0.5
+angle_a <- 10
+angle_b <- 10
+precision_left <- 9
+precision_right <- 11
+
+power_samples <- rnorm(N, power_mean, power_sd)
+angle_samples <- rbeta(N, angle_a, angle_b)*(pi/2)
+precision_samples <- runif(N, precision_left, precision_right)
+
+distance <- ComputeD(power_samples, precision_samples, angle_samples)
+
+mean(distance)
+
+# mimicing second student:
+set.seed(12314454)
+
+power_samples <- rnorm(N, power_mean, power_sd)
+angle_samples <- rbeta(N, angle_a, angle_b)*(pi/2)
+precision_samples <- runif(N, precision_left, precision_right)
+
+distance_colleague <- ComputeD(power_samples, precision_samples, angle_samples)
+
+mean(distance_colleague)
+```
+
+There's a difference, which is to be expected, given that we're sampling (probably) different values! Neither is correct: since the distribution function of the mean of samples of throwing distance is continuous the probability of getting the mean exactly correct is negligible.
+
+
+### d
+
+Use `replicate` to repeat the experiment in **c** many times (e.g. a 1000 times). What is the variation of the average distance obtained in each experiment?
+
+**Answer:**
+```{r}
+N <- 10
+many_means <- replicate(1000, expr = {
+  power_samples <- rnorm(N, power_mean, power_sd)
+  angle_samples <- rbeta(N, angle_a, angle_b)*(pi/2)
+  precision_samples <- runif(N, precision_left, precision_right)
+
+  distance_colleague <- ComputeD(power_samples, precision_samples, angle_samples)
+
+  return(mean(distance_colleague))
+})
+
+# there's quite some difference in what the average throwing distance is.
+mean(many_means)
+var(many_means)
+hist(many_means, breaks="FD", col='lightgreen')
+```
+Note that this is like comparing the results of a 1000 students performing the experiment in **c**!
+
+### e
+
+Suppose you would throw the ball a 1000 times, instead of just 10 times. Do you think your estimate of the average will improve? Also compare your result of a 1000 throws with those of a fellow student. First think about it together, then write some code to check your answer. 
+
+**Answer:**
+
+The estimator is the same. However there variance is a lot smaller. Therefore the difference between your answers should be less, as the sample size gives more reliable results.
+
+
+```{r}
+N <- 1000
+
+many_means <- replicate(1000, expr = {
+  power_samples <- rnorm(N, power_mean, power_sd)
+  angle_samples <- rbeta(N, angle_a, angle_b)*(pi/2)
+  precision_samples <- runif(N, precision_left, precision_right)
+  
+  distance_colleague <- ComputeD(power_samples, precision_samples, angle_samples)
+
+  return(mean(distance_colleague))
+})
+
+mean(many_means)
+var(many_means)
+hist(many_means, breaks="FD", col='lightgreen')
+```
+
+The variance drastically reduces (by a factor of (1000/10)).
+
+
+### f
+
+Use summary statistics you can obtain from the results in **e** to produce a 95% confidence interval around the average throwing distance you've found. How would you judge my throwing technique?
+
+Use central limit theorem, i.e. the average throwing distance follows the process of a normal distribution.
+
+**Answer:**
+```{r}
+interval <- mean(many_means) - c(qnorm(0.975), qnorm(0.0275)) * sd(many_means)
+interval
+```
+
+Pretty bad, the throw is *biased*! On average, it is a few meters short from what it should be!
+
+
+
+# Exercises part 2
+
+## 2.1 Statistical distributions in R (recap, i.e. skip if you are confident with these)
+
+Go to the following website about [Statistical distributions in R](http://www.cyclismo.org/tutorial/R/probability.html). Read the text of chapter 4 thoroughly, and perform the examples of 4.1 through 4.4 in R.
+
+
+## 2.2 A mini Monte Carlo operation about the Standard Error of the Mean
+
+As you know from your basic statistics course, the standard error of the sample mean is given by
+
+$$
+\sigma_{\overline{X}} = \sigma / \sqrt{N},
+$$
+
+where $\sigma$ denotes the standard deviation in the population, $\overline{X}$ denotes the sample mean and $N$ denotes the sample size. In this assignment you will provide some evidence for this formula using `R` programming.
+
+### a
+Take `set.seed(1105)` and generate $B = 1000$ samples of each $N_1 = 10$ objects (= participants) from a $\chi^2$ distribution with $10$ degrees of freedom.
+
+Repeat this (with $B = 1000$) for $N_2 = 100$ and $N_3 = 1000$. 
+
+Show in `R` with computations on the generated samples that the formula of the standard error holds for a growing number of objects $N$.
+
+**Answer:**
+We generate the data with the following code:
+
+```{r, label = MC.data}
+set.seed(1105)
+B <- 1000
+N1 <- matrix(rchisq(B * 10, df = 10), nrow = 10)
+N2 <- matrix(rchisq(B * 100, df = 10), nrow = 100)
+N3 <- matrix(rchisq(B * 1000, df = 10), nrow = 1000)
+mc_data <- list(N1 = N1, N2 = N2, N3 = N3)
+```
+
+Now that we have the `mc_data` object, we can directly calculate the standard error of the sample mean for the sample sizes $N_1 = 10, \, N_2 = 100$ and $N_3 = 1000$:
+
+```{r}
+do.call(c,lapply(mc_data, function(X){
+  sd(colMeans(X))
+}))
+```
+
+The variance of a $\chi^2$-distribution is twice the mean (degrees of freedom = `df`) of the distribution. Hence, the true standard error of the sampling mean four our specif sample sizes are
+
+```{r}
+exp_df <- 10; N_e1 <- 10; N_e2 <- 100; N_e3 <- 1000
+true_se <- round(c( N1 = sqrt(2*exp_df/N_e1),
+                    N2 = sqrt(2*exp_df/N_e2), 
+                    N3 = sqrt(2*exp_df/N_e3)
+                  ), 3)
+paste0("N", 1:3, " = ", true_se)
+```
+
+The estimated standard errors were:
+
+```{r}
+est_se <- round(unlist(est_se), 3)
+paste0("N", 1:3, " = ", est_se)
+```
+
+Hence, we can verify that the estimate of our standard error of the mean is really close to the true value.
+
+### b
+There is a clear relationship between sample size $N$ and $\sigma_{\overline{X}}$. Explain this relationship by visualizing the sampling distributions of the mean for the samples with the three different sample sizes generated for question 1 (you may show three separate plots).
+
+
+**Answer:**
+See below the histograms, of the sampling distributions of the mean, for the three different sample sizes
+
+```{r, label = histograms, echo = FALSE, fig.height = 3}
+par(mfrow= c(1, 3))
+for(n in 1:length(mc_data)){
+  hist(colMeans(mc_data[[n]]), 
+       main = paste("Xbars for N = ", 
+                    nrow(mc_data[[n]]), sep = ""),
+       xlab = " Xbars from Chi-square (df = 10) ",
+       xlim = c(4,16)
+     )
+}
+par(mfrow = c(1,1))
+```
+
+From these histograms, we may conclude that the smaller the size of the samples, the wider the sampling distribution of the sample mean is around the population mean. In other words, the sample means of larger samples are closer to the population mean.
+
+### c
+What happens with the standard error of the sample mean for samples of sizes $N_1 = 10, \, N_1 = 100, N_3 = 1000$ if we add a non-centrality parameter $\lambda = 5$ to the $\chi^2(10)$-distribution from which we generate the data? 
+
+What are the theoretical standard errors of the mean? 
+
+What would be your estimates of the standard error of the mean for each sample size using R code? Use, again, $B = 1000$ Monte Carlo samples for each sample size. 
+
+**Answer:**
+The standard error of the mean would be $$\sqrt{(2*df + 4*\lambda)/N}.$$For our samples the theoretical standard errors are:
+
+```{r}
+lmbd <- 5; 
+true_se <- round(c( N1 = sqrt((2 * exp_df + 4 * lmbd)/N_e1),
+                    N2 = sqrt((2 * exp_df + 4 * lmbd)/N_e2), 
+                    N3 = sqrt((2 * exp_df + 4 * lmbd)/N_e3)
+                  ), 3
+                 )
+paste0("N", 1:3, " = ", true_se)
+```
+
+Our estimates:
+```{r}
+N_10nc <- matrix(rchisq(B*N_e1, df = 10, ncp = lmbd), nrow = N_e1)
+N_100nc <- matrix(rchisq(B*N_e2, df = 10, ncp = lmbd), nrow = N_e2)
+N_1000nc <- matrix(rchisq(B*N_e3, df = 10, ncp = lmbd), nrow = N_e3)
+mc_ncdata <- list(N1 = N_10nc, N2 = N_100nc, N3 = N_1000nc)
+
+do.call(c, lapply(mc_ncdata, function(X){
+  sd(colMeans(X))
+}))
+```
+
+
+# Exercises part 3
+
+
+## 3.1 Biased exercise
+In this exercise we'll look at something you know quite well: if a distribution is symmetric, the median and the mean are the same. If however a distribution is skewed, the mean and median are different.
+
+### a
+Sample $N=1000$ values from a standard normal distribution. Calculate the median and use this as an estimate for the mean.
+
+**Answer:**
+```{r}
+N <- 1000
+my_sample <- rnorm(N)
+median(my_sample)
+```
+
+### b
+Repeat **a** $B=1000$ times and determine the bias of the estimate of the mean, via the median.
+
+**Answer:**
+```{r}
+B <- 1000
+
+set.seed(435344)
+my_sim_result <- replicate(B, {
+  median(rnorm(N))
+})
+
+mean(my_sim_result)
+t.test(my_sim_result)
+```
+The average of the medians is not too far off the true mean, which is $0$. If $N$ is smaller, e.g. 100 you may see a different result!
+
+### c
+Repeat **a** and **b** but instead of sampling from a normal distribution, sample from an exponential distribution with mean 1. Is the median biased as estimate of the mean?
+
+**Answer:**
+```{r}
+set.seed(435344)
+my_sim_result <- replicate(B, {
+  median(rexp(N))
+})
+
+mean(my_sim_result)
+t.test(my_sim_result, mu=1)
+```
+This result is much different from the result in **b**. In this case we would advice against using the median as an estimate of the mean (especially since we have such a good alternative available to us (which is just directly calculating the mean)).
+
+
+## 3.2 Simulation with the use of set operations
+
+Read the extended example 8.6.3 of the Matloff book "A combinatorial simulation".
+
+### a
+First try to imagine what the output is of `sim()` and `choosecom()`.
+
+### b
+Simulate a solution to the problem by using these functions (given below). Choose `nreps` = 100.
+
+```{r}
+sim <- function(nreps) {
+   commdata <- list()  # will store all our info about the 3 committees
+   commdata$countabsamecomm <- 0
+   for (rep in 1:nreps) {
+      commdata$whosleft <- 1:20  # who's left to choose from
+      commdata$numabchosen <- 0  # number among A, B chosen so far
+      # choose committee 1, and check for A,B serving together
+      commdata <- choosecomm(commdata,5)
+      # if A or B already chosen, no need to look at the other comms.
+      if (commdata$numabchosen > 0) next  
+      # choose committee 2 and check
+      commdata <- choosecomm(commdata,4)
+      if (commdata$numabchosen > 0) next  
+      # choose committee 3 and check
+      commdata <- choosecomm(commdata,3)
+   }
+   print(commdata$countabsamecomm/nreps)
+}
+
+choosecomm <- function(comdat,comsize) {
+   # choose committee
+   committee <- sample(comdat$whosleft,comsize)
+   # count how many of A and B were chosen
+   comdat$numabchosen <- length(intersect(1:2,committee))
+   if (comdat$numabchosen == 2) 
+      comdat$countabsamecomm <- comdat$countabsamecomm + 1
+   # delete chosen committee from the set of people we now have to choose from
+   comdat$whosleft <- setdiff(comdat$whosleft,committee)
+   return(comdat)
+}
+```
+
+**Answer:**
+```{r, label = sol_4b}
+sim(100)
+```
+Thus the probability that A and B are in the same committee is 12 percent.
+
+### c 
+Adapt the code in `sim()` in such a way that we can solve the following problem: Two committees of sizes 5 and 10 are chosen from 20 people. What is the probability that persons A and B are chosen for the same committee?
+
+```{r, label = sol_4c}
+SimAdapt <- function(nreps) {
+   commdata <- list()  # will store all our info about the 3 committees
+   commdata$countabsamecomm <- 0
+   for (rep in 1:nreps) {
+      commdata$whosleft <- 1:20  # who's left to choose from
+      commdata$numabchosen <- 0  # number among A, B chosen so far
+      # choose committee 1, and check for A,B serving together
+      commdata <- choosecomm(commdata, 5)
+      # if A or B already chosen, no need to look at the other comms.
+      if (commdata$numabchosen > 0) next  
+      # choose committee 2 and check
+      commdata <- choosecomm(commdata, 10)
+      if (commdata$numabchosen > 0) next  
+       }
+   print(commdata$countabsamecomm/nreps)
+}
+SimAdapt(100)
+```
+Thus, in this new situation with two committees of sizes 5 and 10 chosen from 20 people, the probability that A and B are chosen for the same committee is ca. 34 percent.
+
+
+
+# Self Study / Exercises
+
+## Simulation error
+In this exercise we'll 'verify' our math in one of the slides about simulation error. In that particular slide we posit that:
+
+* if $\textrm{E}[T]$ is estimated by $\overline{T}$ for i.i.d. $T^1,\ldots,T^B,$ then $\overline{T}_B - \textrm{T}[Z] \sim \approx N(0, \sigma_T^2/B)$.
+* the simulation error can be made arbitrarily small, by making $B$ larger. 
+
+Show using code that this relation is approximately true for the following case: $N=50$ and data $Z \sim \chi^2_5$. Thus $Z^1$ is the mean of a vector of $N$ values that are distributed according to a chi-squared distribution with $5$ degrees of freedom. Take $B=50$ and $B=250$ and compare the results.
+
+**Answer:**
+
+Instead of $T$, we will use $Z$ in this answer...
+
+To clarify: we perform a monte carlo study, to look at, for example, the sampling distribution of the mean of a sample $Z$. $Z^1$ is a single sample, of which we can calculate the mean. This mean will have a sampling dsitribution: depending on the sample, the mean may be smaller, or larger, than the true mean, with varying size differences. The mean of this sampling distribution, can be considered our 'monte carlo' estimate of the mean of this sampling distribution. The standard error of simulation is the standard error of this monte carlo estimate. To find this empirically, simply repeat our monte carlo study and look at the standard deviation of the various results we got from these monte carlo replicates.
+
+```{r}
+# some preliminary setting of constants and looking at distribution of values from chi-squared distribution
+N <- 50
+df <- 5
+x <- seq(0, 20, by = 0.01)
+plot(x, dchisq(x, df = df), type = 'l')
+
+set.seed(5674)
+B <- 50
+# theoretically:
+variance <- df*2
+Z <- replicate(B, mean(rchisq(N, df = df)))
+# error of sampling distribution of Z_bar:
+sqrt(sum((Z-mean(Z))^2)/B)
+# simulation error of mean
+sqrt(1/B * sum((Z-mean(Z))^2)/B)
+
+# emperically, via monte carlo:
+# standard deviation of the replicates of simulation of the mean of Z:
+monte_carlo_replications <- 100
+sd(replicate(monte_carlo_replications, {
+  Z <- replicate(B, mean(rchisq(N, df = df)))
+  mean(Z)
+}))
+
+set.seed(5674)
+B <- 250
+# theoretically:
+variance <- df*2
+Z <- replicate(B, mean(rchisq(N, df=df)))
+# error of sampling distribution of Z_bar:
+sqrt(sum((Z - mean(Z))^2)/B)
+# simulation error of mean
+sqrt(1/B * sum((Z - mean(Z))^2)/B)
+
+# via monte carlo:
+# standard deviation of the replicates of simulation of the mean of Z:
+sd(replicate(monte_carlo_replications, {
+  Z <- replicate(B, mean(rchisq(N, df = df)))
+  mean(Z)
+}))
+```
+Simulation error is smaller for $B=250$ of course. This size however also depends on $N$! A study with more replicates, will be more precise and so the average of those studies will also be more precise.
+
+
+## 3.3 Power, an example
+In this exercise we'll see how you could implement a monte carlo study to estimate the power. We'll work with a test we devise ourselves. Power is an important property of the test, so it is only natural we would want to investigate this for our newly devised test. Work through the pieces of code in each of the subquestions and try to understand what the code does.
+
+### a
+This is test statistic for the test we've devised. The test is going to be two-sided.
+
+```{r}
+# our test statistic function
+TestStat <- function(x) {
+    n <- length(x)
+    k <- trunc(0.3 * n)
+    y <- sort(x)[(k + 1):(n - k)]
+    statistic_T <- mean(y)/sd(y)
+    return(statistic_T)
+}
+```
+
+**Answer:**
+The statistic of test is basically a standardized mean, based on trimmed data!
+
+### b
+In this piece of code, we're looking at some of the properties of our test under the null hypothesis.
+
+```{r}
+mean_h0 <- 0
+N <- 20
+B <- 10000
+
+statistic_t <- numeric(B)
+
+set.seed(37682362)
+for (i in 1:B) {
+  statistic_t[i] <- TestStat(rnorm(N, mean_h0))
+}
+
+alpha <- 0.05
+critical_value <- quantile(statistic_t, 1-alpha/2)
+```
+
+**Answer:**
+More specifically, we're looking at the sampling distribution of our test statistic of the test, when $N=20$. Then we use the sampling distribution to determine the critical value for a two-sided test: if we reject the null hypotheses for observed test statistics more extreme than this value, we're garanteed to *falsely* reject the null hypothesis in at most $\alpha=0.05$ proportion of cases. *Disclaimer*: we've determined the critical value using a simulation using random sampling! `quantile` will have a sampling distribution *around* the true quantile value for our test. Furthermore we've based the result on a single replicate of a monte carlo study, so we're also subject to some simulation error!
+
+<!-- Is there some sampling error in here as well? -->
+
+### c
+Here we check the set-up we've created for the test in **a** and **b**.
+
+```{r}
+a <- numeric(B)
+
+set.seed(14234712)
+for (i in 1:B) {
+    x <- rnorm(N, mean_h0)
+    a[i] <- (abs(TestStat(x)) > critical_value)
+}
+
+mean(a)
+```
+
+**Answer:**
+As mentioned the critical value is determined with some simulation error, furthermore the mean of the vector `a` is subject to some simulation error and sampling error, so it's not going to be *exactly* equal to $\alpha$! But it is close.
+
+### d
+Here we look at some properties of our test under an alternative hypothesis.
+```{r}
+mean_ha <- seq(0, 2, by = 0.2)
+
+b <- numeric(length(mean_ha))
+
+set.seed(1231273)
+for (j in 1:length(mean_ha)) {
+  statistic_t <- numeric(B)
+    for (i in 1:B) {
+        x <- rnorm(N, mean_ha[j])
+        statistic_t[i] <- TestStat(x)
+    }
+    b[j] <- mean(abs(statistic_t) > critical_value)
+}
+
+plot(mean_ha, b, type='l')
+```
+
+**Answer:**
+We're evaluating the proportion of times the null hypothesis is rejected when data is generated under some alternative hypothesis. These alternative hypotheses are represented by varying means in `mean_ha`. The test shows some favourable properties: under the null hypothesis our $\alpha$ is garanteed, and as the alternative hypothesis is more different from the null hypothesis, the power increases (it even goest to 1).
+
+Note thus that: $\alpha \neq 1 - \beta$.
+
+<!-- [ Is it useful to resimulate new normal samples for every b?] -->
+
+### e
+Repeat the above process but instead of calculating the standardized mean of trimmed data, calculate the standardized mean of the complete set of data. Repeat the process of determining $\alpha$ and $\beta$ under the same set of alternative hypotheses. Which test is better?
+
+**Answer:**
+```{r}
+TestStat <- function(x) {
+    statistic_T <- mean(x)/sd(x)
+    return(statistic_T)
+}
+
+# Already defined in the above code:
+# mean_h0 <- 0
+# N <- 20
+# B <- 10000
+# alpha <- 0.05
+# mean_ha <- seq(0, 2, by = 0.2)
+
+# determine critical value:
+statistic_t <- numeric(B)
+set.seed(37682362)
+for (i in 1:B) {
+  statistic_t[i] <- TestStat(rnorm(N, mean_h0))
+}
+critical_value <- quantile(statistic_t, 1-alpha/2)
+
+#check alpha
+a <- numeric(B)
+set.seed(14234712)
+for (i in 1:B) {
+    x <- rnorm(N, mean_h0)
+    a[i] <- (abs(TestStat(x)) > critical_value)
+}
+mean(a)
+
+
+b_untrimmed <- numeric(length(mean_ha))
+
+set.seed(1231273)
+for (j in 1:length(mean_ha)) {
+  statistic_t <- numeric(B)
+    for (i in 1:B) {
+        x <- rnorm(N, mean_ha[j])
+        statistic_t[i] <- TestStat(x)
+    }
+    b_untrimmed[j] <- mean(abs(statistic_t) > critical_value)
+}
+
+plot(mean_ha, b, type = 'l')
+lines(mean_ha, b_untrimmed, col = 'red')
+```
+The power of the untrimmed test is higher! This would indicate that this test is better to detect a mean different from the null hypothesis.
+
+### f
+Do you think the power curve for the test looked at in **a** through **e** would be different if the sample size was different? For example $N = 100$ instead of $N = 20$?
+
+**Answer:**
+Yes, would be very different! Try this for yourself by simply changing the value of `N` and plotting the power curve again.
+
+
+
+\newpage
+
+# Self-Study (Difficult!!! Already at Difficult Questions of the Exam Level)
+
+## Power of a t-test
+
+Time to do this on your own. Suppose we have a random sample A of $N$ observations from a normal distribution with $\mu = 3$ and $\sigma = 1$. (Imagine, for example, that the population mean of 3 indicates that members of this population play *on average* three hours of computer games a day). In addition, we have a random sample B of $N$ observations from a normal distribution with $\mu = 2.5$ and $\sigma = 1$. (Imagine, for example, that due to an intervention, members of population B play *on average* two and a half hours of computer games a day). 
+
+Let the null hypothesis be $\mu{_A} = \mu{_B}$, where $\mu{_A}$ denotes the mean value of population A (the control group), and $\mu{_B}$ denotes the mean value of population B (the intervention group). The alternative hypothesis is that $\mu{_A} \neq \mu{_B}$. By means of an independent Student's $t$-test, we are investigating whether the intervention indeed changed the amount of time spend on computer gaming (in other words whether the alternative hypothesis was true). Remember that we can make two types of error: Either we accept the alternative hypothesis, while the null-hypothesis is true (i.e., Type I error, denoted with $\alpha$), or we accept the null hypothesis, while the alternative hypothesis is true (i.e., Type II error, denoted with $\beta$).
+
+If $N_A = N_B = 64$, the power (i.e., $1 - \beta$) of the independent Student's $t$-test equals 0.80, given a two-sided $\alpha = 0.05$. Show empirically (by simulating many samples, and performing a $t$-test on each of these samples) that this is true. Use set.seed(4444).
+
+**Answer:**
+```{r, label = solution1}
+set.seed(4444)
+k <- 10000
+matA <- matrix(rnorm(64 * k, 2, 1), nrow = 64)
+matB <- matrix(rnorm(64 * k, 1.5, 1), nrow = 64)
+pval <- numeric(k)
+
+for (i in 1:k){
+  pval[i] <- t.test(matA[ ,i], matB[ ,i])$p.value
+}
+
+sum(pval < 0.05) / k
+```
+
+## 3.4 Sample size calculation
+In many applied research fields, a sample size calculation is performed before the actual experiment (e.g., a randomized controlled trial) is conducted. Besides levels for power and $\alpha$, a sample size calculation (for Student's $t$-test) needs a difference in the means between two samples (e.g., this difference can be based on previous studies). The mean difference is usually expressed as a standardized mean difference (i.e. an effect size $d$). In the example above, the effect size $d$ was equal to 0.50, which is considered to be a medium effect size (Cohen, 1988).
+
+Perform a simulation study to investigate empirically which minimum sample size is needed for a given combination of effect size, power level and alpha level. 
+Use the following design factors in your simulation study: an effect size of 0.20, 0.50, and 0.80, and a power level of 0.80 and 0.90. Fix the two-sided $\alpha$ level at 0.05. Use a full factorial design, thus in this case 3 by 2 combinations are possible. For each of these combinations, find **empirically** the minimum sample size needed. Do not use any existing formula for sample size calculation. Again, use `set.seed(4444)`.
+
+Show in your answer:
+- the code you used for this simulation study, 
+- a clear presentation of the results of the simulations, and
+- a conclusion.
+
+*Hint: start with writing code to sample the data you need to perform a test. Then write some code to perform the actual test. Then write code to repeat those two steps.*
+
+**Answer:**
+First we create a function to generate the data for two populations with varying standardized difference in means.
+
+```{r, label = generate_data}
+gendata <- function(es, nsamp, k){
+  #function that generates data
+  #
+  #Args:
+  #es = standardized difference in population means
+  #nsamp = number of observations in our sample
+  #k = number of samples
+  #population A is our "control" group population
+  meanA <- 2
+  matA <- matrix(rnorm(nsamp * k, meanA, 1), nrow = nsamp)
+  #Population B is our "intervention" group population
+  matB <- matrix(rnorm(nsamp * k, meanA - es, 1), nrow = nsamp)
+  #We combine the data in a list object with pairs of columns, 
+  #one column from matA and one from matB.
+  listobj <- lapply(1:k, function(i){
+                  cbind(matA[ ,i], matB[ ,i])
+                  })
+  return(listobj)
+}
+```
+
+Now, we can generate the data with small, medium, and large effect size, using this function:
+
+```{r, label = create}
+set.seed(4444)
+es <- c(0.20, 0.50, 0.80)
+nsamp <- 800
+datasmall <- gendata(es[1], nsamp, 1000)
+datamed <- gendata(es[2], nsamp, 1000)
+datalarge <- gendata(es[3], nsamp, 1000)
+```
+
+Now that we have our list objects, we can make a  function that we are going to apply to this list. The function needs to return the 
+$p$-value of a two-sample $t$-test.
+
+```{r, label = function_ttestp}
+ttestp <- function(X, n) { 
+  # function that returns p-value of indep samples t-test
+  #
+  # Args:
+  #   X: matrix with observations in the rows, and the
+  #     two samples in the (two) columns.
+  #   n: number of observations we select
+  #
+  tobj <- t.test(X[1:n, 1], X[1:n, 2])
+  return(tobj$p.value)
+}
+```
+
+Now we can start to determine the minimum sample size $n$ to achieve a power of higher or equal to a critical value, say, 0.80.
+Let's write a function to do this:
+
+```{r, label = function_samplesize}
+samplesize <- function(nobs, listobj, powercrit = 0.80){
+  #function to determin the minimumn sample size for a critical power   level 
+  #Args:
+  #   nobs: a vector with possible values for n
+  #   listobj: list with pairs of observations from 2 populations
+  #   powercrit: the critical power level
+  power <- 0
+  i <- 1
+  while (power < powercrit){
+    i <- i + 1
+    pval <- sapply(listobj, ttestp, n = nobs[i])
+    #calculate the power:
+    power <- sum(pval < 0.05)/length(pval)
+    #follow the output:
+    print(c(nobs[i], power))
+  }
+  return(nobs[i])
+}
+```
+We apply the sample size function to our data. To speed up the process, we first use a vector with possible values of $n$ (`nobs`) with large intervals in between, and then with small intervals.
+
+Results for effect size = 0.20 and power = 0.80:
+```{r, label = result1}
+ntot <- nrow(datasmall[[1]])
+#Vector nobs with large intervals:
+nobs <- seq(1, ntot, by = 50)
+nminrough <- samplesize(nobs, datasmall, powercrit = 0.80)
+#Vector nobs with small intervals:
+nobs <- seq(nminrough - 20, nminrough, by = 1)
+nminsmall80 <- samplesize(nobs, datasmall, powercrit = 0.80)
+nminsmall80
+```
+Thus the minimum sample size needed is 393.
+
+Results for effect size = 0.20 and power = 0.90:
+For a critical power level of 0.90, the minimum sample size needed will be higher than the previous one. We apply the same stategy as before, but start with the previous result, to speed up the search process a bit.
+
+```{r, label = result2}
+#Vector nobs with large intervals:
+nobs <- seq(nminsmall80, ntot, by = 50)
+nminrough <- samplesize(nobs, datasmall, powercrit = 0.90)
+#Vector nobs with small intervals:
+nobs <- seq(nminrough - 20, nminrough, by = 1)
+nminsmall90 <- samplesize(nobs, datasmall, powercrit = 0.90)
+nminsmall90
+```
+Thus the minimum sample size needed is 542.
+
+Results for effect size = 0.50 and power = 0.80:
+```{r, label = result3}
+nminrough <- samplesize(seq(1, ntot, by = 50), datamed)
+#Vector nobs with small intervals:
+nobs <- seq(nminrough - 40, nminrough, by = 1)
+nminmed80 <- samplesize(nobs, datamed)
+nminmed80
+```
+
+Results for effect size = 0.50 and power = 0.90:
+```{r, label = result4}
+nminrough <- samplesize(seq(nminmed80, ntot, by = 50), 
+                        datamed, powercrit = 0.90)
+#Vector nobs with small intervals:
+nobs <- seq(nminrough - 40, nminrough, by = 1)
+nminmed90 <- samplesize(nobs, datamed, powercrit = 0.90)
+nminmed90
+```
+
+Results for effect size = 0.80 and power = 0.80:
+```{r, label = result5}
+nminrough <- samplesize(seq(0, ntot, by = 50), 
+                        datalarge, powercrit = 0.80)
+#Vector nobs with small intervals:
+nobs <- seq(nminrough - 40, nminrough, by = 1)
+nminlarge80 <- samplesize(nobs, datalarge, powercrit = 0.80)
+nminlarge80
+```
+
+Results for effect size = 0.80 and power = 0.90:
+```{r, label = result6}
+#Vector nobs with small intervals:
+nobs <- seq(nminlarge80, nminlarge80 + 50, by = 1)
+nminlarge90 <- samplesize(nobs, datalarge, powercrit = 0.90)
+nminlarge90
+```
+
+Conclusion: the minimum sample size needed is highly influenced by the effect size. Higher effect sizes result in smaller required sample sizes. The minimum sample size needed is also influenced by the critical power level:  to achieve a higher power level (i.e. lower risk of Type II error) a higher minimum sample size is needed.

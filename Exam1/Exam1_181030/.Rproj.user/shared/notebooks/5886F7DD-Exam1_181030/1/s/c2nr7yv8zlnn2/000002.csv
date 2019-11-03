@@ -1,0 +1,1 @@
+"0","fees2018_wide[rowSums(is.na(fees2018_wide[, as.character(insurances)])) > 0, ]"

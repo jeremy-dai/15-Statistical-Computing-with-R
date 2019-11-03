@@ -1,0 +1,2 @@
+"0","mu <- mean(data$ir, na.rm = TRUE)"
+"0","std <- sqrt(var(data$ir, na.rm = TRUE))"

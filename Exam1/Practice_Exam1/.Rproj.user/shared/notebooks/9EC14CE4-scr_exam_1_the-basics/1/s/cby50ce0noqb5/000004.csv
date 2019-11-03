@@ -1,0 +1,6 @@
+"0","# var(data$hg,data$ir,na.rm = TRUE)"
+"0","cor(data$hg,data$ir,use = 'complete.obs')"
+"1","[1]"
+"1"," 0.1258918"
+"1","
+"

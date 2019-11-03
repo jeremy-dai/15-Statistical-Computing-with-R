@@ -1,0 +1,1 @@
+"0","subset(fees2018_long, insurance %in% c('VGZ','ZK') & fee==NA) # no"

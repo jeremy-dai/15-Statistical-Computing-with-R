@@ -1,0 +1,1 @@
+"0","boxplot(ir ~ sex + location ,data = data,col=c('pink','blue'), horizontal = TRUE ,las = 2)"

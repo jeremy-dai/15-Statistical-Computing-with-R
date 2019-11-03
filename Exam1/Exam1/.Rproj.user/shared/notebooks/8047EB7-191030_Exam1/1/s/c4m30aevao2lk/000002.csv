@@ -1,0 +1,12 @@
+"0","library(readxl) # line 1"
+"0","sheets <- c(""Exam1"", ""Assignment"", ""Exam2"") # line 2"
+"0","for (sheet in sheets) { # line 3"
+"0","  file_name <- ""0_data/190108_SCR_Grades.xlsx"" # line 4"
+"0","  assign(sheet, read_excel(file_name, sheet = sheet)[, 1:4]) # line 5"
+"0","}; rm(sheet)"
+"2","New names:
+* `Overall Grade` -> `Overall Grade...5`
+* `Comments T2.2b` -> `Comments T2.2b...17`
+* `Comments T2.2b` -> `Comments T2.2b...19`
+* `Overall Grade` -> `Overall Grade...48`
+"

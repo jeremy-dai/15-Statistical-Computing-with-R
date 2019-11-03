@@ -1,0 +1,6 @@
+"0",""
+"0","# or"
+"0",""
+"0","hist_data <- hist(bloodsamples_data$ir, plot=FALSE, breaks=""FD"")"
+"0","hist_data$counts <- hist_data$counts/sum(hist_data$counts)"
+"0","plot(hist_data)"

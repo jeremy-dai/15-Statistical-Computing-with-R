@@ -1,0 +1,364 @@
+---
+title: "SCR assignment 1"
+output: pdf_document
+---
+
+# Assignment introduction
+
+
+\newpage 
+
+# Data cleaning
+
+## Introduction
+
+A researcher from another department in your workplace comes to you with a request. The researcher has collected data for one of his experiments. The data are a set of measurements on blood samples taken from patients. The blood samples have been sent out to twelve different research centres in the Netherlands for processing, because this would be faster than waiting for a single center to process all the samples by themselves. Unfortunately, each of the centers uses a slightly different coding scheme for their samples.
+
+The researcher wants to know which sample comes from which center, but does not want to code over a 1000 samples by hand. You are going to use your `R` skills to automate this, doing work that, by hand, would take a week to do, but using `R` only seconds. While you are at it, he talks to you about a few other issues you might be able to solve...
+
+Although the data and the problem in this assignment are fictitious, the scenario is quite realistic!
+
+First, let's do some exploratory work to see what kind of data we have.
+
+## 1.1 Reading in the data
+
+### a
+The researcher already tried to read in the data, the `R` object for this can be found on under the name `bloodsamples_data_bad`. And he tried to do some calculation, seen in the code below. However, the code produces an error. Explain why. Rewrite the code to make it work.
+
+```{r}
+load("0_data/assignment_1.Rdata")
+```
+```{r, eval=FALSE}
+as_num <- as.numeric(bloodsamples_data_bad[, 10]) * 10
+```
+
+Answer:
+Because the mode is character.
+```{r}
+as.numeric(bloodsamples_data_bad[, 10])*10
+```
+
+### b
+Read in the data yourself using one of the `read.` functions (e.g `read.csv`). Tell `R`, you don't want it to interpret strings as factors. Look at the help file of the `read.` functions to see how to do this. The file to read in is called `bloodsamples_data.txt`.
+```{r}
+bloodsamples_data_me <- read.csv('0_data/bloodsamples_data.txt', sep='&', stringsAsFactors=FALSE)
+```
+
+Answer:
+```{r}
+bloodsamples_data_correct <- read.table("0_data/bloodsamples_data.txt", header=T, sep="&", stringsAsFactors = F)
+```
+
+### c
+If you've read in the data correctly, it should be equal to the `R` object `bloodsamples_data`. Check that it is. *Hint, see if you should use `all.equal` or `identical`*.
+
+Answer:
+```{r}
+all.equal(bloodsamples_data, bloodsamples_data_me )
+```
+
+## 1.2 Exploratory 
+For the rest of the assignment, continue working with the `bloodsamples_data` object.
+
+Before we start doing the work the researcher wants help with, we do some exploratory work to see if the data looks OK. Just because reading in the data did not fail, does not necessarily mean it worked completely correct.
+
+### a.
+How many samples in total have been processed?
+```{r}
+nrow(bloodsamples_data)
+```
+
+
+Answer:
+```{r}
+nrow(bloodsamples_data)
+```
+
+### b.
+Sometimes, missing values are coded, not with `NA`, but rather with some clearly 'impossible' value. Are there any missings or strange measurements? If so, in what rows? For now, do not look at the `sample_date`, `measurement_date` and `difference_in_days` variables. 
+```{r}
+sapply(bloodsamples_data, unique)
+```
+
+
+Answer:
+```{r}
+# NA's:
+which(rowSums(is.na(bloodsamples_data))>0)
+
+# 9999's:
+which(rowSums(bloodsamples_data[, 8:10]==9999)>0)
+```
+
+### c.
+Convert any strange measurements to `NA`'s.
+```{r}
+
+```
+
+
+Answer:
+```{r}
+bloodsamples_data[which(bloodsamples_data==9999, arr.ind = T)] <- NA
+```
+
+### d.
+Create an index to select in the data set only the rows with *no* NA's.
+```{r}
+index <- !rowSums(is.na(bloodsamples_data) )
+```
+
+
+Answer:
+```{r}
+index <- (1:nrow(bloodsamples_data))[-unique(which(rowSums(is.na(bloodsamples_data))>0))]
+```
+
+*Hint: if selected correctly, you will have about 619 valid cases...*
+
+### e.
+Give some summary statistics for the variable `ir` (at least the mean and standard deviation). Also give these summary statistics for this variables for `males` and `females` seperately. Do you think there is any population difference between male and female values of iron concentration in the blood?
+```{r}
+mean(bloodsamples_data$ir, na.rm = T)
+sd(bloodsamples_data$ir, na.rm = T)
+
+tapply(X = bloodsamples_data$ir,INDEX =  bloodsamples_data$sex, FUN = mean, na.rm = T)
+tapply(X = bloodsamples_data$ir,INDEX =  bloodsamples_data$sex, FUN = summary)
+```
+
+
+Answer:
+```{r}
+ir_male <- bloodsamples_data$ir[bloodsamples_data$sex=="male"]
+summary(ir_male)
+sd(ir_male, na.rm = TRUE)
+ir_female <- bloodsamples_data$ir[bloodsamples_data$sex=="female"]
+summary(ir_female)
+sd(ir_female, na.rm = TRUE)
+
+# or (nicer?):
+tapply(bloodsamples_data$ir, bloodsamples_data$sex, summary)
+tapply(bloodsamples_data$ir, bloodsamples_data$sex, sd, na.rm = TRUE)
+```
+Quite likely yes.
+
+### f.
+The researcher wants to calculate the age of every subject in years as unit, also using the information about the months. He wants to calculate the following:
+
+$$
+\frac{age_{years} \cdot 12 + age_{months}}{12}
+$$
+
+He didn't have the correct data in `R` yet, so he could not test hist code, but he thinks this will work:
+```{r, researcher_age_mistake, eval=F}
+age_in_years <- data$age_years * 12 + data$age_months / 12[4]
+```
+
+Explain why the results of the `R` code above do not work.
+
+Answer:
+Because precedence (`12[4]` does not work) and because implementation not equal to formula (`(a + b)/c != a + b/c`).
+
+## 1.3 Working with dates
+Because the blood samples go 'bad' quite quickly, the centers have also included a variable that denotes the days that have passed between taking the blood sample (`sample_date`) and the date the blood sample was measured (`measurement_date`). The researcher checked a few of these by hand and thinks this calculation has not been done correctly.
+
+### a.
+Many softwarepackages, including R, provide ways to calculate differences between calendar dates, for example in days. Look at the function `as.Date()`. There are many ways to use this function. Use the `as.Date()` function to calculate the difference between the day of sampling (when the blood was taken), and the day of measurement (when the blood was measured in the lab).
+
+*Hint: You will have to tell `R` how the dates are formatted: dates can be written in many ways (such as day/month/year or day-month-year) and `R` needs to know how to interpret the string correctly!*
+
+Answer:
+```{r}
+difference_in_days <- as.Date(bloodsamples_data$measurement_date, format="%d/%m/%Y") - as.Date(bloodsamples_data$sample_date, format="%d/%m/%Y")
+```
+
+### b.
+Store the correctly calculated difference in days between sample and measurement time as a variable called `corrected_difference_in_days` in the dataset.
+
+Answer:
+```{r}
+bloodsamples_data$corrected_difference_in_days <- difference_in_days
+```
+
+### c.
+Using the correct dates, create an index with `TRUE` or `FALSE` entries that can be used to select *only* the rows for which the number of days between the two dates is smaller or equal to **30**. How many samples have more than 30 days beteen time of measurement and time of sampling?
+```{r}
+nrow(bloodsamples_data[bloodsamples_data$corrected_difference_in_days<=30,])
+```
+
+Answer:
+```{r}
+index_good_samples <- bloodsamples_data$corrected_difference_in_days<=30
+sum(!index_good_samples)
+```
+
+## 1.4 Doing the work
+The assignments **a** and **b** below help you divide the task of this part of the assignment smaller pieces. Feel free to skip these if you think you have a more effective way to deal with the problem! However: make sure you use `strsplit` and `if-else` statements to show us that you know how these work!
+
+Before you start working on this part, you might want to check the helpfile of `strsplit` and work through the examples in the helpfile.
+
+### a.
+
+#### i.
+Use the function `strsplit()` to split up the following string: "subject_Groningen: 1" into a *vector* of individual characters.
+```{r}
+strsplit('subject_Groningen: 1', split = ':')[[1]]
+```
+
+Answer:
+```{r}
+temp_string <- strsplit("subject_Groningen: 1", split="")[[1]]
+```
+
+#### ii.
+There is a single character that is recurring for every sample name that can be used to denote the *end* of a center location. Namely: the double colon (':')! Determine the position of the ':' character in the string you've split up using `strsplit` and `which`.
+```{r}
+which(strsplit('subject_Groningen: 1', split = '')[[1]] == ':')
+
+```
+
+Answer:
+```{r}
+which(temp_string==":")
+```
+
+### b.
+We can use the colon character as a reference point. If we read characters in reverse order from this position we will get the characters that belong to the particular centers. We can use `paste` to put these letters back together, and easily check which center location is equal to the string we get from this paste operation. Unfortunately not all center locations are of equal character length. There are two simple ways to solve this, and we will do both to show that are multiple ways of solving these types of problems. Sometimes one of these comes to use quickly, and others require more thinking. Often you have to iterate on the design of your solution, because one is more elegant or faster than the other, or possibly more robust against changes in the data at a later moment. Different situations often require slightly different solutions. But the concepts are often the same.
+
+### b: The short route
+Write a function called `GetLocation` that takes as argument one of the strings considered above (e.g. "subject_Groningen: 1") and splits it at the colon (':') character. Select the left part of the split and use some `if-else` statements to see to which location the string belongs to (e.g. "subject_Groningen", belongs to Groningen).
+
+Answer:
+```{r}
+string <- bloodsamples_data[1, 1]
+
+GetLocation <- function(string){
+  identifier_string <- strsplit(string, split=":")[[1]][1]
+  if (identifier_string == "subjectGroningen"){
+    center_location <- "Groningen"
+  } else if (identifier_string == "IDLeeuwarden") {
+    center_location <- "Leeuwarden"
+  } else if (identifier_string == "sIDAssen") {
+    center_location <- "Assen"
+  } else if (identifier_string == "persIDZwolle") {
+    center_location <- "Zwolle"
+  } else if (identifier_string == "subject_numberLelystad") {
+    center_location <- "Lelystad"
+  } else if (identifier_string == "sampleIDArnhem") {
+    center_location <- "Arnhem"
+  } else if (identifier_string == "subjectUtrecht") {
+    center_location <- "Utrecht"
+  } else if (identifier_string == "IDHaarlem") {
+    center_location <- "Haarlem"
+  } else if (identifier_string == "sIDDen Haag") {
+    center_location <- "Den Haag"
+  } else if (identifier_string == "persIDMiddelburg") {
+    center_location <- "Middelburg"
+  } else if (identifier_string == "subject_number's-Hertogenbosch") {
+    center_location <- "'s-Hertogenbosch"
+  } else if (identifier_string == "sampleIDMaastricht") {
+    center_location <- "Maastricht"
+  } else {
+    center_location <- "UNKNOWN"
+  }
+  
+  return(center_location)
+}
+```
+
+### b: The long route
+
+#### i
+Create a vector with all the center names.
+
+Answer:
+```{r}
+center_locations <- c("Groningen", "Leeuwarden", "Assen", "Zwolle", "Lelystad", "Arnhem", "Utrecht", "Haarlem", "Den Haag", "Middelburg", "'s-Hertogenbosch", "Maastricht")
+```
+
+#### ii
+Create a `for` loop, to go through all of these centers, to split up the characters of each of the center locations, and save *only* the last character of each location in a character vector called `center_abbreviated`. I.e. suppose you have three centers called `c("Alpha", "Bravo", "Charlie")` then the resulting vector should be `c("a", "o", "e")`. Check if there are any duplicates.
+
+Answer:
+```{r}
+n.centers <- length(center_locations)
+center_abbreviated <- character(n.centers)
+for (i in 1:n.centers){
+  center_abbreviated[i] <- tail(strsplit(center_locations[i], split="")[[1]], 1)
+}
+duplicated(center_abbreviated)
+```
+
+#### iii
+If done correctly you will have found that there are some duplicate entries in `center_abbreviated`: "Groningen" and "Leeuwarden" both end in the letter 'n'. So we will need more characters to uniquely identify each center. 
+
+Create a function called `Stringtail` that takes as argument a string, such as "Groningen" (call this argument `x`), and a total number of characters (`a`) to keep. Let the output return the last `a` characters of string `x`, pasted as a single string.
+
+Answer:
+```{r}
+Stringtail <- function(x, a){
+  return(paste(tail(strsplit(x, split="")[[1]], a), collapse=""))
+}
+```
+
+#### iv
+Like in question **4b-ii** create a character vector with center location abbreviations, but this time saving the last 2, 3, 4, 5 and 6 characters. Use `for` to loop over both the centers, and the variable number of characters to save. Save all these vectors (each vector contains abbrevations for each of the twelve centers) into a list object.
+
+Answer:
+```{r}
+list_center_abbr <- list()
+for (j in 2:6){
+    center.abbrevated <- character(n.centers)
+    for (i in 1:n.centers){
+      center_abbreviated[i] <- Stringtail(center_locations[i], j)
+    }
+    list_center_abbr[[j]] <- center_abbreviated
+}
+list_center_abbr <- list_center_abbr[-1]
+```
+
+#### v
+Check for each of the elements in your list whether the character vectors contain duplicates or not. How many characters do you need, minimally, to uniquely identify each center?
+```{r}
+for (j in 1:5){print(sum(duplicated(list_center_abbr[[j]] )))}
+```
+
+Answer:
+```{r}
+for (i in list_center_abbr){
+  if (sum(duplicated(i))==0){
+    break
+  }
+}
+```
+
+Four! With just three "Maastricht" and "Utrecht" are the same (both are end in "cht").
+
+### c
+We will continue with the work we did in the short route, as this is probably most convenient.
+
+Use the function `GetLocation`, you created in **b: the short route* to create a new `R` object, a character vector, called `location`. This vector should contain, for each sample, an entry equal to one of the twelve locations, depending on the location the sample was analysed at, found by looking at the variable `bloodSampleID`.
+
+Answer:
+```{r}
+location <- character(nrow(bloodsamples_data))
+for (i in 1:nrow(bloodsamples_data)){
+  location[i] <- GetLocation(bloodsamples_data$bloodSampleID[i])
+}
+```
+
+### d
+Add the vector `location` as a variable to the dataset.
+
+Answer:
+```{r}
+bloodsamples_data$location <- location
+```
+
+### e
+Save the cleaned up dataset as an `.Rdata` file with name `cleaned_data.Rdata`.
+
+Answer:
+```{r}
+save(list="bloodsamples_data", file="0_data/cleaned_data.Rdata")
+```

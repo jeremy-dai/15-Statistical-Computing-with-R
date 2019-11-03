@@ -1,0 +1,2 @@
+"0","plot(all_grade$Assignment ~ all_grade$Exam2, pch= 16,main = 'N=38',ylim=c(20,100),"
+"0","     xlim=c(20,100),xlab='Grade Exam 2', ylab ='Grade Assignment')"

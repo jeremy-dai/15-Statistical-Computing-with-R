@@ -1,0 +1,7 @@
+"0","fees2018_long_ub20hrs$me <- ifelse(fees2018_long_ub20hrs$insurance =='NZA', fees2018_long_ub20hrs$fee, fees2018_long_ub20hrs$fee * 0.75)"
+"0","all.equal(fees2018_long_ub20hrs$me, fees2018_long_ub20hrs$reimbursed)"
+"1","[1]"
+"1"," TRUE"
+"1","
+"
+"0","#fees2018_long_ub20hrs$me - fees2018_long_ub20hrs$reimbursed"

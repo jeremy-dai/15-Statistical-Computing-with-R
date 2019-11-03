@@ -1,0 +1,7 @@
+"0","boxplot("
+"0","  formula = ir ~ sex + location, "
+"0","  data = bloodsamples_data, "
+"0","  col=c(""blue"", ""pink""), "
+"0","  horizontal = TRUE"
+"0","  #staplewex = "
+"0",")"
