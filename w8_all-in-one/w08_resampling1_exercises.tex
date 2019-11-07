@@ -1,0 +1,673 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={SCR Week 08 Exercises},
+            pdfauthor={R-team},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\providecommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{SCR Week 08 Exercises}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{R-team}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{07 November, 2019}
+
+
+\begin{document}
+\maketitle
+
+\hypertarget{exercises-part-1}{%
+\section{Exercises part 1}\label{exercises-part-1}}
+
+\hypertarget{tutorial-of-combinations-and-permutations}{%
+\subsection{1.1 Tutorial of Combinations and
+Permutations}\label{tutorial-of-combinations-and-permutations}}
+
+In this section, we reflect upon some typical combination and
+permutation problems, the corresponding mathematical notation, and the
+implementation in R. In the first half, we will show two examples of
+combination and permutation of a vector, without using replacement. This
+means that each element of a vector may occur only once (it is not
+repeated). In the second half, we will show examples with replacement.
+
+For more information, see
+\href{http://www.mathsisfun.com/combinatorics/combinations-permutations.html}{combinations
+and permutations.}
+
+\hypertarget{a-combination-1}{%
+\subsubsection{a: Combination 1}\label{a-combination-1}}
+
+How many different committees of 4 (\(r = 4\)) students can be chosen
+from a group of 5 (\(n = 5\)) students? Make sure your answer is
+verified with \texttt{R} code.
+
+\emph{Hint: when writing your \LaTeX, you may like the code
+\texttt{\textbackslash{}binom\{\}\{\}} or
+\texttt{\{\textbackslash{}choose\}}.}
+
+\hypertarget{b-combination-2}{%
+\subsubsection{b: Combination 2}\label{b-combination-2}}
+
+Take a look at examples of the helpfile of the function
+\texttt{utils::combn}. Can you create the whole ``sample space'' for all
+combinations of 4 students out of the 5 available students? Store it
+inside a variable.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{all_students <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Xinru"}\NormalTok{, }\StringTok{"Ionica"}\NormalTok{, }\StringTok{"Elise"}\NormalTok{, }\StringTok{"Maryam"}\NormalTok{, }\StringTok{"Gina"}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{c-permutation-1}{%
+\subsubsection{c: Permutation 1}\label{c-permutation-1}}
+
+In how many ways can we permute a vector with 5 elements?
+
+\hypertarget{c-permutation-2}{%
+\subsubsection{c: Permutation 2}\label{c-permutation-2}}
+
+Could you use the function \texttt{sample()} to draw a random
+permutation out of all possible permutations of the variable
+\texttt{all\_students}?
+
+\hypertarget{d-permutation-3}{%
+\subsubsection{d: Permutation 3}\label{d-permutation-3}}
+
+Store 4 random draws (with replacement) from all possible permutations
+of \texttt{all\_students} in a \texttt{list} or \texttt{matrix}.
+
+\hypertarget{e-permutation-and-combination-with-replacement}{%
+\subsubsection{e: Permutation and combination with
+replacement}\label{e-permutation-and-combination-with-replacement}}
+
+How many permutations are possible of a vector of 5 elements, when we
+allow for repetition, i.e.~the same student can occur more often than
+once.
+
+NB. For your answer no \texttt{R} code is needed.
+
+\hypertarget{f-permutation-and-combination-with-replacement}{%
+\subsubsection{f: Permutation and combination with
+replacement}\label{f-permutation-and-combination-with-replacement}}
+
+In this R-code, we use a the function \texttt{expand.grid()}. This
+function creates a data frame from all combinations of the categories of
+the supplied vectors or factors. We will first give a small illustration
+of this function:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sunsetcolor <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"red"}\NormalTok{, }\StringTok{"orange"}\NormalTok{, }\StringTok{"yellow"}\NormalTok{)}
+\KeywordTok{expand.grid}\NormalTok{(sunsetcolor, sunsetcolor)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     Var1   Var2
+## 1    red    red
+## 2 orange    red
+## 3 yellow    red
+## 4    red orange
+## 5 orange orange
+## 6 yellow orange
+## 7    red yellow
+## 8 orange yellow
+## 9 yellow yellow
+\end{verbatim}
+
+Here, all possibilities of 2 colors are shown, and repetition of the
+same color is allowed.
+
+Use \texttt{expand.grid()} to show all possibilities there are for 5
+student names using \texttt{all\_students}.
+
+Note that the first argument(s) in \texttt{expand.grid()} can be
+vectors, factors or a list containing these. Thus,
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{list_args <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\KeywordTok{list}\NormalTok{(all_students), }\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+could be convenient to use in your answer.
+
+\hypertarget{all-pincodes}{%
+\subsection{1.2 All Pincodes}\label{all-pincodes}}
+
+Test whether you are fluent with \texttt{R} already, this exercise
+should not take you more than 10 minutes at an exam.
+
+Create a vector that contains all possible unique PIN codes of bank
+cards that consist of 4 numbers. The first element of the vector is
+\texttt{"0000"} and the last element of the vector is \texttt{"9999"}.
+
+Hint: You may want to use the \texttt{paste0()} function with the
+\texttt{collapse\ =\ ""} argument in combination with an implicit loop
+(\texttt{{[}*{]}pply}), or an explicit loop
+(\texttt{for\ (elem\ in\ vector)\{\}}.
+
+\hypertarget{lady-tasting-tea-to-the-max.}{%
+\subsection{1.3 Lady tasting tea to the
+max.}\label{lady-tasting-tea-to-the-max.}}
+
+Perform a permutation test for Dr.~Muriel Bristol's exhaustive tea
+tasting experiment where she had 800 cups of the ``Milk first'' cups
+correct.
+
+We generated the data with the following \emph{R} code:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{171123}\NormalTok{)}
+\NormalTok{Truth <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"Milk"}\NormalTok{, }\StringTok{"Tea"}\NormalTok{), }\DataTypeTok{each =} \DecValTok{1000}\NormalTok{)}
+\NormalTok{choice_Lady <-}\StringTok{ }\NormalTok{Truth}
+\NormalTok{MilkyChange_idx <-}\StringTok{ }\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{1000}\NormalTok{, }\DecValTok{200}\NormalTok{)}
+\NormalTok{TeaChange_idx <-}\StringTok{ }\KeywordTok{sample}\NormalTok{(}\DecValTok{1001}\OperatorTok{:}\DecValTok{2000}\NormalTok{, }\DecValTok{200}\NormalTok{)}
+\NormalTok{choice_Lady[MilkyChange_idx] <-}\StringTok{ "Tea"}
+\NormalTok{choice_Lady[TeaChange_idx] <-}\StringTok{ "Milk"}
+\end{Highlighting}
+\end{Shaded}
+
+and we use the function:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{GetNrSuccesses <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(choice, truth) \{}
+  \KeywordTok{sum}\NormalTok{(}\StringTok{"Milk"} \OperatorTok{==}\StringTok{ }\NormalTok{choice }\OperatorTok{&}\StringTok{ "Milk"} \OperatorTok{==}\StringTok{ }\NormalTok{truth) }\CommentTok{# R recycling behavior trick}
+\NormalTok{\}}
+\NormalTok{t_stat <-}\StringTok{ }\KeywordTok{GetNrSuccesses}\NormalTok{(choice_Lady, Truth)}
+\NormalTok{t_stat}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 800
+\end{verbatim}
+
+Code your own permutation test with the above ingredients. What do you
+think Sir Ronald Fisher would have concluded from this experiment?
+
+\hypertarget{exercises-part-2}{%
+\section{Exercises part 2}\label{exercises-part-2}}
+
+\hypertarget{a-permutation-test-on-students-sleep-data}{%
+\subsection{2.1 A Permutation test on Student's sleep
+data}\label{a-permutation-test-on-students-sleep-data}}
+
+Create a function with which you can perform a permutation test instead
+of the following two-samples t.test:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{t_stat <-}\StringTok{ }\KeywordTok{t.test}\NormalTok{(extra }\OperatorTok{~}\StringTok{ }\NormalTok{group, }\DataTypeTok{data =}\NormalTok{ sleep)}
+\end{Highlighting}
+\end{Shaded}
+
+\emph{Note:} stick to the example of the helpfile of the
+\texttt{t.test()} function in \texttt{R} (\texttt{example(t.test})).
+Thus, assume we have two independent groups being measured on their
+\texttt{extra} hours of sleep. We supposedly have 2 groups of each 10
+persons in the data.
+
+\hypertarget{two-samples-permutation-tests-of-the-trimmed-mean}{%
+\subsection{2.2 Two samples permutation tests of the trimmed
+mean}\label{two-samples-permutation-tests-of-the-trimmed-mean}}
+
+In this exercise we create a test statistic \(T\) to test whether the
+``20\% trimmed mean" of the samples \(X_1,...,X_m\) and those of
+\(Y_1,...,Y_n\) come from populations where the mean is the same.
+
+The data example:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{160929}\NormalTok{)}
+\NormalTok{mu <-}\StringTok{ }\FloatTok{0.5}
+\NormalTok{x <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{8}\NormalTok{) }\CommentTok{# sampling distr F}
+\NormalTok{y <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{12}\NormalTok{, mu, }\DecValTok{2}\NormalTok{) }\CommentTok{# sampling distr G}
+\end{Highlighting}
+\end{Shaded}
+
+The test statistic:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Get20TrimmedMean <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x,y) \{}
+\NormalTok{  out <-}\StringTok{ }\KeywordTok{mean}\NormalTok{(x, }\DataTypeTok{trim =} \FloatTok{0.2}\NormalTok{) }\OperatorTok{-}\StringTok{ }\KeywordTok{mean}\NormalTok{(y, }\DataTypeTok{trim =} \FloatTok{0.2}\NormalTok{) }
+  \KeywordTok{return}\NormalTok{(out)}
+\NormalTok{\}}
+\NormalTok{t_obs <-}\StringTok{ }\KeywordTok{Get20TrimmedMean}\NormalTok{(x,y)}
+\NormalTok{t_obs}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -1.089706
+\end{verbatim}
+
+\hypertarget{a}{%
+\subsubsection{a}\label{a}}
+
+How many times does each \textbf{combination} of the \(m = 8\) samples
+out \(N = n + m = 20\) occur in the \texttt{factorial(N)} possible
+\textbf{permutations}?
+
+\hypertarget{b}{%
+\subsubsection{b}\label{b}}
+
+Can you create the whole ``sample space'' for all combinations of
+\(m= 8\) combinations out of \(N= 20\)? Store it into an object. Use
+\texttt{utils::combn()}.
+
+\hypertarget{c}{%
+\subsubsection{c}\label{c}}
+
+Perform a two-sided permutation test for the difference between the 20\%
+trimmed of \(X_1,...,X_m\) and \(Y_1,...,Y_n\).
+
+Use all samples from the complete sample space (that does not contain
+any doubles). You have computed this sample space in \textbf{b}. Thus,
+\texttt{B\ \textless{}-\ choose(m\ +\ n,\ m)}. Using the same data
+everytime, and without setting a seed, would your \(p\)-value be the
+same every time you run this test?
+
+\emph{Note: the test may run a while on your computer!}
+
+\hypertarget{d}{%
+\subsubsection{d}\label{d}}
+
+Perform the two-sided permutation test again, but this time you do not
+need to use the whole sample space variable \texttt{all\_combs} from
+subtask \textbf{b}. Instead, use \(B = 1000\) random permutations, e.g.
+\texttt{sample(1:N,\ m)}. Why is your p-value different from \textbf{c}?
+
+\hypertarget{e}{%
+\subsubsection{e}\label{e}}
+
+Would you know of a study / experiment to check whether on average the
+previous two test are the same? You don't need to programme this in
+\texttt{R}, though for the assignment this could perhaps be a
+task\ldots{}\ldots{}
+
+\hypertarget{paired-two-sample-permutation-test}{%
+\subsection{2.3 Paired two-sample permutation
+test}\label{paired-two-sample-permutation-test}}
+
+The data:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{190933}\NormalTok{)}
+\NormalTok{mu <-}\StringTok{ }\FloatTok{1.75}
+\NormalTok{x <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{30}\NormalTok{)}
+\NormalTok{y <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{30}\NormalTok{, mu, }\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+The test statistic (but now for paired testing\ldots{}):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Get20TrimmedMean <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x,y) }\KeywordTok{mean}\NormalTok{(x, }\DataTypeTok{trim =} \FloatTok{0.2}\NormalTok{) }\OperatorTok{-}\StringTok{ }\KeywordTok{mean}\NormalTok{(y, }\DataTypeTok{trim =} \FloatTok{0.2}\NormalTok{) }
+\NormalTok{t_obs <-}\StringTok{ }\KeywordTok{Get20TrimmedMean}\NormalTok{(x,y)}
+\NormalTok{t_obs}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -2.040649
+\end{verbatim}
+
+To perform a permutation test we need to swap the elements in \(X\) and
+\(Y\). We have \texttt{2\^{}length(x)} possibilities for swapping the
+elements in X and Y.
+
+\hypertarget{a-1}{%
+\subsubsection{a}\label{a-1}}
+
+Create a function that can perform a permutation test (set \(B\) = 1000
+as a default). Your function shoul output the \(p\)-value, the estimated
+mean and the estimated standard error of your test statistic.
+
+Start with the default permutation test where we just use
+
+\texttt{swaps\ \textless{}-\ sample(c(0,\ 1),\ N/2,\ replace\ =\ TRUE)}
+
+directly for each permutation. When \texttt{swaps{[}1{]}\ ==\ 1}, it
+means that the first value for \(X\) and \(Y\) should be swapped, when
+it \texttt{swaps{[}1{]}\ ==\ 0}, then we do not swap these values.
+
+\hypertarget{b-1}{%
+\subsubsection{b}\label{b-1}}
+
+Note that the p-values in \textbf{a} can vary a lot (if you don't use
+\texttt{set.seed}). Since there are ``only'' \texttt{2\^{}length(x)}
+possibilties, it is highly likely that with \texttt{B\ =\ 1000} draws,
+and with \texttt{sample(c(0,\ 1),\ length(x),\ replace\ =\ TRUE)} we
+will get multiple swap vectors that may be the same.
+
+The probability of one double swap vector is related
+\href{https://en.wikipedia.org/wiki/Birthday_problem}{birthday problem}
+formula:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{B <-}\StringTok{ }\DecValTok{1000}
+\DecValTok{1} \OperatorTok{-}\StringTok{ }\KeywordTok{prod}\NormalTok{(}\DecValTok{1} \OperatorTok{-}\StringTok{ }\DecValTok{1}\OperatorTok{:}\NormalTok{(B }\OperatorTok{-}\StringTok{ }\DecValTok{1}\NormalTok{)}\OperatorTok{/}\NormalTok{(}\DecValTok{2}\OperatorTok{^}\KeywordTok{length}\NormalTok{(x)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.0004650876
+\end{verbatim}
+
+Hence, the probability is practically 1!
+
+\emph{Perhaps} a practical solution to this variability problem of the
+p-values in \textbf{a} would be to create a random swap matrix of \(B\)
+rows (and N/2 columns) beforehand. Each row \(b\) (out of the \(B\)
+rows) is a realization of
+\texttt{sample(c(0,\ 1),\ length(x),\ replace\ =\ TRUE)}, but all rows
+are unique.
+
+To do so, first sample e.g. \(3B\) rows, and then check whether you can
+reduce this ``swap'' matrix into \(B\) unique rows. If not, sample
+\(4B\) rows, etc. The code we used:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# The swap matrix:}
+\NormalTok{swaps <-}\StringTok{ }\KeywordTok{sample}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{), }\KeywordTok{length}\NormalTok{(x)}\OperatorTok{*}\NormalTok{(B}\OperatorTok{*}\DecValTok{3}\NormalTok{), }\DataTypeTok{replace =} \OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{dim}\NormalTok{(swaps) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(B}\OperatorTok{*}\DecValTok{3}\NormalTok{, }\KeywordTok{length}\NormalTok{(x))}
+\NormalTok{swaps <-}\StringTok{ }\KeywordTok{unique}\NormalTok{(swaps)[}\DecValTok{1}\OperatorTok{:}\NormalTok{B, ] }\CommentTok{# select only the unique rows}
+\end{Highlighting}
+\end{Shaded}
+
+Code again the permutation test, but this time use a beforehand
+specified swap matrix. Did it help to get a more robust (= stable)
+\(p\)-value?
+
+\hypertarget{c-1}{%
+\subsubsection{c}\label{c-1}}
+
+The p-value remains quite unstable in \textbf{b}. Code a permutation
+test where we use all unique swap possibilities (the whole sample space,
+without duplications). Thus, \(B = 4096\). What is the permutation test
+\(p\)-value that we were trying to estimate in \textbf{a} and
+\textbf{b}?
+
+\emph{Hint: You may want to use the function \texttt{expand.grid()}}
+
+\hypertarget{d-1}{%
+\subsubsection{d}\label{d-1}}
+
+What could be a reason that the variability in results of the
+permutation test in \textbf{a} and \textbf{b} are impossible to test for
+this data set?
+
+\newpage
+
+\hypertarget{self-study-permutations-in-genetics}{%
+\section{self-study: Permutations in
+Genetics}\label{self-study-permutations-in-genetics}}
+
+\emph{by courtesy of Jelle Goeman}
+
+Install the package \texttt{penalized}, and have a look at the nki70
+data contained in that package. You should be able to run the following
+code:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(penalized)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: survival
+\end{verbatim}
+
+\begin{verbatim}
+## Welcome to penalized. For extended examples, see vignette("penalized").
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{data}\NormalTok{(nki70)}
+\end{Highlighting}
+\end{Shaded}
+
+The nki70 data consists of gene expression data of 70 genes that are
+prognostic for disease-free survival in breast cancer patients, the
+so-called ``mammaprint'' signature, together with survival status and
+some clinical covariates. These genes and covariates are measured for a
+sample of 144 young breast cancer patients.
+
+We are interested in association between gene expression and estrogen
+receptor status (ER), which is itself an important predictor of breast
+cancer prognosis.
+
+Install the package \texttt{penalized}, and have a look at the nki70
+data contained in that package. You should be able to run the following
+code:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(penalized)}
+\KeywordTok{data}\NormalTok{(nki70)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{permutations-in-genetics}{%
+\subsection{2.4 Permutations in
+Genetics}\label{permutations-in-genetics}}
+
+\hypertarget{a-2}{%
+\subsubsection{a}\label{a-2}}
+
+Test whether the expression of the WISP1 gene is associated with ER
+status. You can choose any test of your preference. In the model answers
+we used a t-test.
+
+\hypertarget{b-2}{%
+\subsubsection{b}\label{b-2}}
+
+Make a randomly permuted version of the ER status variable, and test for
+association of the WISP1 gene with the permuted ER.
+
+\hypertarget{c-2}{%
+\subsubsection{c}\label{c-2}}
+
+Repeat exercise (b) 100 times and make a histogram of the 100 resulting
+test statistics.
+
+\hypertarget{d-2}{%
+\subsubsection{d}\label{d-2}}
+
+Calculate a permutation p-value. Hint: two-sided test: remember to take
+absolute values
+
+\hypertarget{e-1}{%
+\subsubsection{e}\label{e-1}}
+
+Make a histogram of the p-values for the 100 permutations.
+
+\hypertarget{f}{%
+\subsubsection{f}\label{f}}
+
+Test association with ER status for all 70 genes (columns 8 to 77).
+
+\hypertarget{g}{%
+\subsubsection{g}\label{g}}
+
+Use Bonferroni to correct the results for multiple testing. How many
+null hypotheses can be rejected at a type-I error rate of 0.05?
+
+\hypertarget{multipe-testing-by-permutation}{%
+\subsection{2.5 Multipe testing by
+permutation}\label{multipe-testing-by-permutation}}
+
+\hypertarget{a-3}{%
+\subsubsection{a}\label{a-3}}
+
+Calculate the minimum p-value over all 70 genes.
+
+\hypertarget{b-3}{%
+\subsubsection{b}\label{b-3}}
+
+Permute ER status, test association of all genes with permuted ER status
+and calculate the minimum p-value.
+
+\hypertarget{c-3}{%
+\subsubsection{c}\label{c-3}}
+
+Repeat the permutation 100 times and make a histogram of the minimum
+p-values.
+
+\hypertarget{d-3}{%
+\subsubsection{d}\label{d-3}}
+
+Find the 0.05 quantile of the permutation distribution of minimum
+p-values, and compare with the Bonferroni threshold.
+
+\hypertarget{e-2}{%
+\subsubsection{e}\label{e-2}}
+
+How many hypotheses can be rejected based on the critical value found in
+exercise (d)?
+
+\hypertarget{f-1}{%
+\subsubsection{f}\label{f-1}}
+
+Repeat sub exercises 2.5c - 2.5e using only the hypotheses that could
+not (yet) be rejected in exercise (e). How many new rejections are made?
+And how many hypotheses in total?
+
+\emph{Hint: The answers you should find with \texttt{R} are 3 and 34}
+
+\hypertarget{g-1}{%
+\subsubsection{g}\label{g-1}}
+
+Optional: repeat exercise (f) until no further rejections occur. In this
+way you've created a permuted version of the {[}holm's p-value
+method{]}. See the \texttt{stats::p.adjust} function or check:
+
+\emph{Holm, S. (1979). A simple sequentially rejective multiple test
+procedure. Scandinavian Journal of Statistics 6, 65-70.}
+
+
+\end{document}

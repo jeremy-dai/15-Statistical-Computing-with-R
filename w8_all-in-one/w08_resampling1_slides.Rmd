@@ -1,0 +1,502 @@
+---
+title: "Permutations Tests"
+subtitle: "SCR Lecture "
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+author: "R-team"
+css: 0_css/custom.css
+output:
+  ioslides_presentation:
+    keep_md: yes
+    fig_caption: true
+    fig_height: 4
+    fig_width: 5
+    transition: faster
+    css: 0_css/SCR1718.css
+    logo: 0_css/logo.png
+    template: 0_template/R1718style.html
+    widescreen: true
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r label = setup, echo = FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(
+  dev.args = list(bg = 'transparent'),
+  fig.align = "center",
+  cache = FALSE
+)
+set.seed(171123)
+library("tidyverse")
+```
+
+# Recap Monte Carlo? | Throwing a ball example?
+
+<img src="./0_images/Real_Monte_Carlo_Casino.jpg" alt="Monte Carlo"  width = "50%" height = "50%">
+
+## Monte Carlo Studies
+
+We know $f_X$, and we need to study $T(\mathbf{X})$.
+
+KNOWN DISTRIBUTION: $f_X$ 
+
+DATA: $\mathbf{X} = \{ X_1, \ldots, X_n \} \overset{\text{iid}}{\sim} f_X$
+
+STATISTIC: $T(\mathbf{X})$     
+
+# TA Announcement | Discuss the midterm-exam?
+
+# Today
+
+## Today's schedule
+
+13.30 - 14.15 : Lecture & Live coding
+
+14.30 - 15.15 : Exercises part 1
+
+15.30 - 16.15 : Lecture ctd. & Live coding
+
+16.30 - 17.15 : Exercises part 2
+
+Background Literature: Rizzo Chapter 8 (8.1 and 8.2)
+
+## Known vs unknown distribution of each data point 
+
+**Goal:**   
+Obtain a good idea of the sampling distribution of an statistic under a certain hypothesis (e.g. nullhypothesis)
+
+**Monte Carlo studies:**    
+We know the true distribution of each data point under a certain hypothesis, thus we can  simulate the sampling distribution of the statistic by a **Monte Carlo sampling distribution**.
+
+## Known vs. unknown distribution of each data point 
+
+**Goal:**    
+Obtain a good idea of the sampling distribution of an statistic under a certain hypothesis (e.g. nullhypothesis)
+
+**Permutation context:**   
+Given our certain hypothesis, we do not assume a known distribution for each data point. However we can still simulate the sampling distribution for certain hypotheses. We can set up a **Permutation sampling distribution**: a **sampling distribution** that is **conditional** on your data.
+  
+
+## Learning Objectives
+
+Refreshing permutations and combinations
+
+Notion of an hypothesis, represented by a sampling distribution
+
+Notion of exchangeability
+
+Code your own Permutation Tests
+
+
+# Sampling distribution of your hypothesis | Example: Lady tasting tea
+
+<!-- div class="columns-2"-->
+<!--img src="./0_images/ladytastingtea.jpg" alt="Lady tasting tea"  width="20%" height="20%"-->
+
+## Example: [Lady tasting tea](https://en.wikipedia.org/wiki/Lady_tasting_tea)
+
+`The lady in question (Dr. Muriel Bristol) claimed to be able to tell whether the tea or the milk was added first to a cup. Fisher proposed to give her eight cups, four of each variety, in random order. One could then ask what the probability was for her getting the specific number of cups she identified correct, but just by chance.'
+
+<img src="./0_images/220px-Nice_Cup_of_Tea.jpg" alt="Teapot Cup and Milk"  width="40%" height="40%">
+
+
+
+## Example: [Lady tasting tea](https://en.wikipedia.org/wiki/Lady_tasting_tea)
+
+This is our sampling distribution of success counts **under the nullhypothesis**
+
+Success count  | "milk first" correct | Number of permutations (out of 70)
+------------- | ------------- | -------------
+0  | oooo  | 1 
+1  | xooo oxoo ooxo ooox | 16
+2  | xxoo xoxo xoox oxxo oxox ooxx | 36
+3  | oxxx xoxx xxox xxxo | 16
+4  | xxxx  | 1
+
+x = correct, o = incorrect
+<!-- the sample space -->
+
+## Hypergeometric Distribution
+
+... applied to the lady tasting tea example.
+
+$m + n:$ the 8 cups in total        
+$m:$ 4 "milk first" cups     
+$n:$ 4 "tea first" cups    
+$k:$ 4 cups the Lady recognizes as "milk first"    
+$x:$ succesfully assigned "milk first"
+
+
+$$P(x) = \frac{{m \choose x} {n \choose k - x}}{ m + n \choose k}$$ 
+
+
+## Monte Carlo
+
+A Monte Carlo simulated sampling distribution of the number of succesfully assigned "milk first" cups:
+
+```{r}
+B <- 7e5
+Sampdistr_mc <- table(stats::rhyper(B, m = 4, n = 4, k = 4))
+round(Sampdistr_mc / 1e4)
+```
+
+# Towards a Permutation Test
+
+## Towards our first Permutation Test
+
+- DATA: $\mathbf{X}$ (each value from an unknown distribution!)
+- STATISTIC: $T(\mathbf{X})$     
+- an idea to simulate the sampling distribution of $T(\mathbf{X})$ under the nullhypothesis.
+- when $T(\mathbf{X})$ is extreme, reject the nullhypothesis
+
+## The Data $\mathbf{X}$
+
+Sir Ronald Fisher\s experiment on what he poured first: 
+```{r}
+set.seed(1234)
+Truth <- sample(rep(c("Milk", "Tea"), each = 4))
+```
+
+Suppose Lady Muriel Bristol Guessed all of them correctly, then our data is
+
+```{r}
+X <- Truth 
+```
+
+
+## The Test Statistic $T = T(\mathbf{X})$
+
+$T(\mathbf{X})$: The number of correct "Milk first" cups    
+
+```{r}
+CountSuccesses <- function(X, truth) {
+  sum("Milk" == X & "Milk" == truth) # R recycling behavior trick
+}
+t_obs <- CountSuccesses(X = X, truth = Truth)
+```
+
+
+## Simulate the Sampling Distribution of $T$
+
+Suppose we do not assume a known distribution for each data point or our statistic.  
+
+Can we still simulate a good estimate of the sampling distribution for the nullhypothesis? 
+
+Yes! We can set up a **Permutation sampling distribution**: a **sampling distribution** that is **conditional** on your data.
+
+
+## Permutation sampling distribution
+
+There are 
+
+```{r}
+factorial(length(X))
+```
+
+possible permutations we can make of Dr. Muriel Bristol's choices: permuted data!
+
+
+
+## Simulate the Sampling Distribution of $T$
+
+Obtain all $B = 40320$ possible samples, such that we can create the complete permutation distribution of $T$
+
+```{r, include = FALSE, eval = TRUE}
+ExtractAllPermutations <- function(x) {
+  if (all(x == X)) load("./0_data/X_bs.RData")  
+  return(X_bs)
+}
+```
+
+```{r, eval = TRUE}
+X_bs <- ExtractAllPermutations(X) # each possible data set in a column
+dim(X_bs)
+```
+
+
+## Complete Permutation sampling distribution of $T$
+
+The full / complete permutation sampling distribution of $T$
+```{r, eval = TRUE}
+T_bs <- numeric(B)
+X_bs <- ExtractAllPermutations(X) # difficult function!
+B <- ncol(X_bs); T_bs <- numeric(B)
+for (b in 1:B) {
+  T_bs[b] <- CountSuccesses(X_bs[, b], Truth)
+}
+table(T_bs) # compare with 70 * table(T_bs) / B
+```
+
+
+## Common Permutation sampling distribution of $T$
+
+The "default" permutation sampling distribution of $T$
+
+```{r, eval = TRUE}
+B <- 1000; N <- length(X)
+T_bs <- numeric(B)
+for (b in 1:B) {
+  T_bs[b] <- CountSuccesses(sample(X), Truth)
+}
+table(T_bs) # compare with 70 * table(T_bs) / B
+```
+
+
+## Towards our first Permutation Test
+
+## Towards our first Permutation Test
+
+We need...   
+
+- DATA: $\mathbf{X}$ (each value from an unknown distribution!)
+- STATISTIC: $T(\mathbf{X})$     
+- an idea to simulate the sampling distribution of $T(\mathbf{X})$ under the nullhypothesis.
+- when $T(\mathbf{X})$ is extreme, reject the nullhypothesis
+
+
+## The Data $\mathbf{X}$
+
+Sir Ronald Fisher\s experiment on what he poured first: 
+```{r}
+set.seed(1234)
+Truth <- sample(rep(c("Milk", "Tea"), each = 4))
+```
+
+Suppose Lady Muriel Bristol Guessed all of them correctly, then our data is
+
+```{r}
+X <- Truth 
+```
+
+
+## The Test Statistic $T = T(\mathbf{X})$
+
+T(\mathbf{X}): The number of correct "Milk first" cups    
+
+```{r}
+CountSuccesses <- function(X, truth) {
+  sum("Milk" == X & "Milk" == truth) # R recycling behavior trick
+}
+t_obs <- CountSuccesses(X = X, truth = Truth)
+```
+
+
+## The (most common) permutation test
+
+```{r}
+B <- 1000; N <- length(X)
+T_bs <- numeric(B)
+for (b in 1:B) {
+  T_bs[b] <- CountSuccesses(sample(X), Truth)
+}
+mean(T_bs >= t_obs)
+# Note that it is an estimate of 1/70
+```
+
+
+## A much bigger experiment in tasting
+
+Can we test Dr. Muriel Bristol's ability in tasting for 
+
+- 800 cups where milk was poured first, and
+- 200 cups where tea was poured first?    
+
+E.g. number the permutations for 800 succesfully assigned cups of "Milk First" (and 200 for "Tea First") is
+```{r}
+choose(1000, 800)*choose(1000, 200)
+```
+
+Permutation test is a fine way to go!
+
+
+# Part 1 Exercises
+
+
+# Exchangeability | Crucial for the Permutation Test
+
+## Exchangeability
+
+Under the $H_0$ for any permutation of the data, the sampling distributions of $T(\mathbf{X})$ and $T(\pi(\mathbf{X}))$ are the same, i.e. $T(\mathbf{X})$ should be random among all $T(\pi(\mathbf{X}))$.
+
+
+Hypothesis: $H_0$    
+
+Data: $\mathbf{X} = \{ X_1, \ldots, X_n \}$
+
+Test statistic: $T(\mathbf{X})$       
+
+Permuted data: $\pi(\mathbf{X}) = \{ X_{\pi(1)}, \ldots, X_{\pi(n)} \}$
+
+
+<!-- Advantages: in general a more flexible theoretic framework.  -->    
+<!-- Disadvantage: computationally very expensive.    -->
+<!-- The *level* is guaranteed, because     
+- conditionally given any observed data, we reject with probability less than, say 5%.     
+-  Hence, unconditionally, we reject with probability less than 5% -->
+
+
+# Two sample test
+
+## Two sample test
+
+**DATA / HYPOTHESIS / TEST **  
+
+- Let $X_1,...,X_m$ and $Y_1,...,Y_n$ be independent random samples from unknown distributions $F$ and $G$, respectively.     
+- $H_0: F = G$      
+- Reject $H_0$ if $T = T(X_1,...,X_m,Y_1,...,Y_n)$ is extreme.    
+
+**EXPLOITING EXCHANGEABILITY**     
+
+Let $\mathbf{Z} = \{Z_1,...,Z_N\} = \{X_1,...,X_m,Y_1,...,Y_n\}$, the *pooled* sample, where $N = m + n$. 
+
+Then, under the $H_0: F = G$, the samples in $\mathbf{Z}$ are i.i.d. and so are those in every permutation $Z_{\pi (1)}, . . . , Z_{\pi (N)}$.
+
+
+## Two sample test
+
+**DATA** $X_1,...,X_m$ and $Y_1,...,Y_n$ independent random samples from $F$ and $G$. 
+
+**TEST STATISTIC** $T = T(X_1,...,X_m,Y_1,...,Y_n)$
+
+**PERMUTATION TEST**   
+
+For every partition $b$ of the observed values $z_1, . . . , z_N$ into 2 sets of sizes $m$ and $n$, compute $T^b$ with the $X$s and $Y$s taken equal to the two sets.
+
+For $t_{obs} = T(x_1, \ldots, x_m, y_1, \ldots, y_n)$ the observed value, compute
+
+$$ \widehat{p} = \frac{1}{B}\sum^B_{b = 1}1_{T^b \geq t_{obs}} $$
+
+where $1_{T^b \geq t_{obs}} = 1$ if $T^b \geq t_{obs}$, and $0$ otherwise.
+
+
+## Two sample test
+
+**DATA** $X_1,...,X_m$ and $Y_1,...,Y_n$ independent random samples from $F$ and $G$. 
+
+**TEST STATISTIC** $T = T(X_1,...,X_m,Y_1,...,Y_n)$
+
+**PERMUTATION TEST**   
+For every partition b of the observed values $z_1, . . . , z_N$ into 2 sets of sizes $m$ and $n$ compute $T^b$ with the $X$’s and $Y$’s taken equal to the two sets.
+
+**IN PRACTICE**    
+The number of partitions ${N \choose m}$ is too large and one takes a large number of *random partitions* instead.
+
+# Paired two-sample test
+
+## Paired two-sample test
+
+**DATA / HYPOTHESIS / TEST ** 
+- $(X_1, Y_1), ..., (X_n, Y_n)$ random sample from unknown bivariate distribution.    
+- $H_0: F_{X_i} = G_{Y_i}$, within each pair $X$ and $Y$ have the same (marginal) distribution.
+- Reject $H_0$ if $T = T((X_1, Y_1), ..., (X_n, Y_n))$ is extreme   
+
+**EXCHANGEABILITY**
+
+Under $H_0$ each $X$ is exchangeable with its $Y$. We can permute within each pair, thus we can create $2^n$ permuted data sets: $\pi(X_1, Y_1), ..., \pi(X_n, Y_n)$
+
+
+## Paired two-sample test
+
+**DATA** $(X_1, Y_1), ..., (X_n, Y_n)$ random sample from bivariate distribution.
+
+**TEST STATISTIC** $T = T((X_1, Y_1), ..., (X_n, Y_n))$
+
+**PERMUTATION TEST**   
+
+For each $b$ of the $B = 2^n$ possible permuted data sets were $X$ and $Y$-labels may have been swapped with each other, compute $T^b = T(\pi(X_1, Y_1), ..., \pi(X_n, Y_n)$.
+
+For the observed $t_{obs} = T(x_1, ..., x_m, y_1, ..., y_n)$, compute 
+
+$$\widehat{p} = \frac{1}{B} \sum^B_{b = 1} 1_{T^b \geq t_{obs}} $$
+
+
+## Paired two-sample test
+
+**PERMUTATION TEST**   
+
+For each $b$ of the $B = 2^n$ possible permuted data sets were $X$ and $Y$-labels may have been swapped with each other, compute $T^b = T(\pi(X_1, Y_1), ..., \pi(X_n, Y_n)$.
+
+For the observed $t_{obs} = T(x_1, ..., x_m, y_1, ..., y_n)$, compute 
+
+$$\widehat{p} = \frac{1}{B} \sum^B_{b = 1} 1_{T^b \geq t_{obs}} $$
+
+**IN PRACTICE**
+the number of possible reassignments is too large and one takes a large number random reassignments instead.
+
+
+# Tricky Example | Discussing what we've learned
+
+## Exploiting Symmetry about $\theta$
+
+Random sample $X_1, ... , X_n \overset{\text{iid}}{\sim} F$, where $F$ is unknown but symmetric about $\theta$. 
+
+Suppose the distribution $F$ is symmetric about $\theta$, then for $\{S_1, \ldots, S_n\}$ random signs, $\{X_1, \ldots, X_n\}$ and $\{S_1(X_1 - \theta) + \theta, \ldots, S_n(X_n  - \theta) + \theta)\}$ and have the same distribution.  
+
+```{r}
+X <- rnorm(1e6, mean = 3) 
+mean(X)
+exchangers <- sample(c(-1,1), length(X), replace = TRUE) 
+mean(exchangers * (X - 3) + 3)
+```
+
+## Symmetry about $\theta$
+
+Random sample $X_1, ... , X_n \overset{\text{iid}}{\sim} F$, where $F$ is unknown but symmetric about $\theta$.    
+
+Suppose $H_0: \theta = 0.4$, and we have the following sample $\mathbf{X}$ where we don't know with what symmetric distribution the data was created: 
+
+**DATA EXAMPLE**: 
+```{r}
+set.seed(191107); n <- 1e2
+X <- rnorm(n, mean = 0.25) # we don't understand this code
+t_obs <- mean(X)
+t_obs
+```
+
+## Symmetry about $\theta$
+
+- Random sample $X_1, ... , X_n \overset{\text{iid}}{\sim} F$, where $F$ is unknown but symmetric about $\theta$.   
+- $H_0: \theta >= 0.4$     
+- $T(X_1, \ldots, X_n)$ is test statistic for $\theta$
+- $T(X_1, \ldots, X_n)$ and $T(S_1(X_1 - \theta) + \theta, \ldots, S_n(X_n  - \theta) + \theta))$ have the same distribution under $H_0$.
+
+**"PERMUTATION" TEST**       
+
+For each of the $2^n$ possible sign vectors, compute $T^b = T(S_1X_1, \ldots, S_nX_n)$.     
+In practice the number of sign vectors is too large and one takes a large number of random sign vectors instead.    
+
+
+## Exploiting symmetry about $\theta$
+
+The Permutation test: 
+
+For each b out of $B$ samples from the $2^n$ possible sign vectors, compute
+$T^b = T(S_1X_1, \ldots, S_nX_n)$.      
+
+For $t_{obs} = T(X_1, ... , X_n)$ the observed value, compute 
+$$ \widehat{p} = \frac{1}{B} \sum^B_{b = 1} 1_{T^b \geq t_{obs}}$$
+
+
+##  Exploiting symmetry about $\theta$ in *R*
+
+```{r}
+theta <- 0.4; t_obs <- abs(mean(X) - theta)
+B <- 1e3; t_prms <- numeric(B)
+for (b in 1:B) {
+  S <- sample(c(-1, 1), length(X), replace = TRUE) # random signs
+  t_prms[b] <- abs(mean(S * (X - theta)))
+}
+pval <- mean(t_prms >= t_obs)
+pval
+```
+
+
+## Concluding Remarks
+
+Even if you have found a good exchangeability principle, the whole frameworks breaks down if you have too little data ($N$ is too small), or when you use too few permuted data sets ($B$).
+
+Often a permutation $p$-value based on random permutations is simply seen as an estimate of the $p$-value based on all permutations.
+
+# Next week --> Bootstrapping
+
+# Part 2 Exercises and Self-Study
+

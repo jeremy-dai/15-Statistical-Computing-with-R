@@ -1,0 +1,352 @@
+---
+title: "SCR Week 08 Exercises"
+author: "R-team"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  pdf_document:
+    keep_tex: yes
+---
+
+```{r label = setup, echo = FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(
+  dev.args = list(bg = 'transparent'),
+  fig.align = "center",
+  cache = FALSE
+)
+# install.packages("penalized")
+```
+
+
+# Exercises part 1
+
+## 1.1 Tutorial of Combinations and Permutations
+
+In this section, we reflect upon some typical combination and permutation problems, the corresponding mathematical notation, and the implementation in R.
+In the first half, we will show two examples of combination and permutation of a vector, without using replacement. This means that each element of a vector may occur only once (it is not repeated). In the second half, we will show examples with replacement.
+
+For more information, see [combinations and permutations.](http://www.mathsisfun.com/combinatorics/combinations-permutations.html)
+
+### a: Combination 1
+
+How many different committees of 4 ($r = 4$) students can be chosen from a group of 5 ($n = 5$) students? Make sure your answer is verified with `R` code.
+
+*Hint: when writing your \LaTeX, you may like the code `\binom{}{}` or `{\choose}`.*
+
+
+### b: Combination 2
+
+Take a look at examples of the helpfile of the function `utils::combn`. Can you create the whole "sample space" for all combinations of 4 students out of the 5 available students? Store it inside a variable.
+
+```{r, label = combin}
+all_students <- c("Xinru", "Ionica", "Elise", "Maryam", "Gina") 
+```
+
+
+### c: Permutation 1
+
+In how many ways can we permute a vector with 5 elements? 
+
+
+### c: Permutation 2
+
+Could you use the function `sample()` to draw a random permutation out of all possible permutations of the variable `all_students`?
+
+
+### d: Permutation 3
+
+Store 4 random draws (with replacement) from all possible permutations of `all_students` in a `list` or `matrix`. 
+
+
+### e: Permutation and combination with replacement
+
+How many permutations are possible of a vector of 5 elements, when we allow for repetition, i.e. the same student can occur more often than once.
+
+NB. For your answer no `R` code is needed.
+
+
+### f: Permutation and combination with replacement
+
+In this R-code, we use a the function `expand.grid()`. This function creates a data frame from all combinations of the categories of the supplied vectors or factors. We will first give a small illustration of this function:
+
+```{r, label = expand.grid_ex}
+sunsetcolor <- c("red", "orange", "yellow")
+expand.grid(sunsetcolor, sunsetcolor)
+```
+
+Here, all possibilities of 2 colors are shown, and repetition of the same color is allowed.
+
+Use `expand.grid()` to show all possibilities there are for 5 student names using `all_students`. 
+
+Note that the first argument(s) in `expand.grid()` can be vectors, factors or a list containing these. Thus, 
+
+```{r}
+list_args <- rep(list(all_students), 5)
+```
+
+could be convenient to use in your answer.
+
+
+## 1.2 All Pincodes
+
+Test whether you are fluent with `R` already, this exercise should not take you more than 10 minutes at an exam.
+
+Create a vector that contains all possible unique PIN codes of bank cards that consist of 4 numbers. The first element of the vector is `"0000"` and the last element of the vector is `"9999"`.
+
+Hint: You may want to use the `paste0()` function with the `collapse = ""` argument in combination with an implicit loop (`[*]pply`), or an explicit loop (`for (elem in vector){}`.
+
+
+## 1.3 Lady tasting tea to the max.
+
+Perform a permutation test for Dr. Muriel Bristol's exhaustive tea tasting experiment where she had 800 cups of the "Milk first" cups correct. 
+
+We generated the data with the following *R* code:
+
+```{r}
+set.seed(171123)
+Truth <- rep(c("Milk", "Tea"), each = 1000)
+choice_Lady <- Truth
+MilkyChange_idx <- sample(1:1000, 200)
+TeaChange_idx <- sample(1001:2000, 200)
+choice_Lady[MilkyChange_idx] <- "Tea"
+choice_Lady[TeaChange_idx] <- "Milk"
+```
+
+and we use the function:
+
+```{r}
+GetNrSuccesses <- function(choice, truth) {
+  sum("Milk" == choice & "Milk" == truth) # R recycling behavior trick
+}
+t_stat <- GetNrSuccesses(choice_Lady, Truth)
+t_stat
+```
+
+Code your own permutation test with the above ingredients. What do you think Sir Ronald Fisher would have concluded from this experiment?
+
+
+# Exercises part 2
+
+
+## 2.1 A Permutation test on Student's sleep data
+
+Create a function with which you can perform a permutation test instead of the following two-samples t.test:
+
+```{r}
+t_stat <- t.test(extra ~ group, data = sleep)
+```
+
+*Note:* stick to the example of the helpfile of the `t.test()` function in `R` (`example(t.test`)). Thus, assume we have two independent groups being measured on their `extra` hours of sleep. We supposedly have 2 groups of each 10 persons in the data.
+
+
+## 2.2 Two samples permutation tests of the trimmed mean
+
+In this exercise we create a test statistic $T$ to test whether the ``20% trimmed mean" of the samples $X_1,...,X_m$ and those of $Y_1,...,Y_n$ come from populations where the mean is the same. 
+
+The data example:
+
+```{r}
+set.seed(160929)
+mu <- 0.5
+x <- rnorm(8) # sampling distr F
+y <- rnorm(12, mu, 2) # sampling distr G
+```
+
+The test statistic: 
+
+```{r}
+Get20TrimmedMean <- function(x,y) {
+  out <- mean(x, trim = 0.2) - mean(y, trim = 0.2) 
+  return(out)
+}
+t_obs <- Get20TrimmedMean(x,y)
+t_obs
+```
+
+### a 
+
+How many times does each **combination** of the $m = 8$ samples out $N = n + m = 20$ occur in the `factorial(N)` possible **permutations**? 
+
+
+### b
+
+Can you create the whole "sample space" for all combinations of $m= 8$ combinations out of $N= 20$? Store it into an object. Use `utils::combn()`.
+
+
+### c
+
+Perform a two-sided permutation test for the difference between the 20% trimmed of $X_1,...,X_m$ and $Y_1,...,Y_n$.
+
+Use all samples from the complete sample space (that does not contain any doubles). You have computed this sample space in **b**. Thus, `B <- choose(m + n, m)`. Using the same data everytime, and without setting a seed, would your $p$-value be the same every time you run this test?
+
+*Note: the test may run a while on your computer!*
+
+### d
+
+Perform the two-sided permutation test again, but this time you do not need to use the whole sample space variable `all_combs` from subtask **b**. Instead, use $B = 1000$ random permutations, e.g. `sample(1:N, m)`. Why is your p-value different from **c**? 
+
+
+### e 
+
+Would you know of a study / experiment to check whether on average the previous two test are the same? You don't need to programme this in `R`, though for the assignment this could perhaps be a task...... 
+
+
+## 2.3 Paired two-sample permutation test
+
+The data:
+
+```{r}
+set.seed(190933)
+mu <- 1.75
+x <- rnorm(30)
+y <- rnorm(30, mu, 2)
+```
+
+The test statistic (but now for paired testing...): 
+
+```{r}
+Get20TrimmedMean <- function(x,y) mean(x, trim = 0.2) - mean(y, trim = 0.2) 
+t_obs <- Get20TrimmedMean(x,y)
+t_obs
+```
+
+To perform a permutation test we need to swap the elements in $X$ and $Y$. We have `2^length(x)` possibilities for swapping the elements in X and Y. 
+
+### a
+
+Create a function that can perform a permutation test (set $B$ = 1000 as a default). Your function shoul output the $p$-value, the estimated mean and the estimated standard error of your test statistic.
+
+Start with the default permutation test where we just use 
+
+`swaps <- sample(c(0, 1), N/2, replace = TRUE)` 
+
+directly for each permutation. When `swaps[1] == 1`, it means that the first value for $X$ and $Y$ should be swapped, when it `swaps[1] == 0`, then we do not swap these values.
+
+
+### b 
+
+Note that the p-values in **a** can vary a lot (if you don't use `set.seed`). Since there are "only" `2^length(x)` possibilties, it is highly likely that with `B = 1000` draws, and with `sample(c(0, 1), length(x), replace = TRUE)` we will get multiple swap vectors that may be the same. 
+
+The probability of one double swap vector is related [birthday problem](https://en.wikipedia.org/wiki/Birthday_problem) formula:
+```{r}
+B <- 1000
+1 - prod(1 - 1:(B - 1)/(2^length(x)))
+```
+Hence, the probability is practically 1!
+
+*Perhaps* a practical solution to this variability problem of the p-values in **a** would be to create a random swap matrix of $B$ rows (and N/2 columns) beforehand. Each row $b$ (out of the $B$ rows) is a realization of  `sample(c(0, 1), length(x), replace = TRUE)`, but all rows are unique. 
+
+To do so, first sample e.g. $3B$ rows, and then check whether you can reduce this "swap" matrix into $B$ unique rows. If not, sample $4B$ rows, etc. The code we used:
+
+```{r, eval = FALSE}
+# The swap matrix:
+swaps <- sample(c(0, 1), length(x)*(B*3), replace = TRUE)
+dim(swaps) <- c(B*3, length(x))
+swaps <- unique(swaps)[1:B, ] # select only the unique rows
+```
+
+Code again the permutation test, but this time use a beforehand specified swap matrix. Did it help to get a more robust (= stable) $p$-value?
+
+
+### c
+
+The p-value remains quite unstable in **b**. Code a permutation test where we use all unique swap possibilities (the whole sample space, without duplications). Thus, $B = 4096$. What is the permutation test $p$-value that we were trying to estimate in **a** and **b**?
+
+*Hint: You may want to use the function `expand.grid()`*
+
+
+### d
+
+What could be a reason that the variability in results of the permutation test in **a** and **b** are impossible to test for this data set? 
+
+
+\newpage
+
+# self-study: Permutations in Genetics
+
+*by courtesy of Jelle Goeman*
+
+Install the package `penalized`, and have a look at the nki70 data contained in that package. You should be able to run the following code:
+
+```{r}
+library(penalized)
+data(nki70)
+```
+
+The nki70 data consists of gene expression data of 70 genes that are prognostic for disease-free survival in breast cancer patients, the so-called "mammaprint" signature, together with survival status and some clinical covariates. These genes and covariates are measured for a sample of 144 young breast cancer patients. 
+
+We are interested in association between gene expression and estrogen receptor status (ER), which is itself an important predictor of breast cancer prognosis.
+
+Install the package `penalized`, and have a look at the nki70 data contained in that package. You should be able to run the following code:
+
+```{r}
+library(penalized)
+data(nki70)
+```
+
+## 2.4 Permutations in Genetics
+
+### a
+
+Test whether the expression of the WISP1 gene is associated with ER status. You can choose any test of your preference. In the model answers we used a t-test.
+
+
+### b
+
+Make a randomly permuted version of the ER status variable, and test for association of the WISP1 gene with the permuted ER.
+
+
+### c
+
+Repeat exercise (b) 100 times and make a histogram of the 100 resulting test statistics.
+
+
+### d
+Calculate a permutation p-value. Hint: two-sided test: remember to take absolute values
+
+
+### e
+Make a histogram of the p-values for the 100 permutations.
+
+
+### f
+Test association with ER status for all 70 genes (columns 8 to 77).
+
+
+### g
+Use Bonferroni to correct the results for multiple testing. How many null hypotheses can be rejected at a type-I error rate of 0.05?
+
+
+##  2.5 Multipe testing by permutation 
+
+### a
+Calculate the minimum p-value over all 70 genes.
+
+
+### b
+Permute ER status, test association of all genes with permuted ER status and calculate the minimum p-value.
+
+
+### c
+Repeat the permutation 100 times and make a histogram of the minimum p-values.
+
+
+### d
+Find the 0.05 quantile of the permutation distribution of minimum p-values, and compare with the Bonferroni threshold.
+
+
+### e
+How many hypotheses can be rejected based on the critical value found in exercise (d)?
+
+
+### f
+
+Repeat sub exercises 2.5c - 2.5e using only the hypotheses that could not (yet) be rejected in exercise (e). How many new rejections are made? And how many hypotheses in total? 
+
+*Hint: The answers you should find with `R` are 3 and 34*
+
+
+### g
+Optional: repeat exercise (f) until no further rejections occur. In this way you've created a permuted version of the [holm's p-value method]. See the `stats::p.adjust` function or check:
+
+*Holm, S. (1979). A simple sequentially rejective multiple test procedure. Scandinavian Journal of Statistics 6, 65-70.*
+
