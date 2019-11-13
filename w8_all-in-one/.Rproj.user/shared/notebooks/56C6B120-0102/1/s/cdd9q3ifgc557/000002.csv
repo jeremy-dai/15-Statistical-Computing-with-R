@@ -1,0 +1,23 @@
+"0","```r
+anova(satreg)
+```"
+"1","Analysis of Variance Table
+
+Response: total
+          Df Sum Sq Mean Sq F value   Pr(>F)   
+expend     1  39722   39722  8.4276 0.005658 **
+ratio      1   1143    1143  0.2424 0.624795   
+salary     1  16631   16631  3.5285 0.066668 . 
+Residuals 46 216812    4713                    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+"
+"0","```r
+k <- 3
+RegSS<- sum(anova(satreg)[1:3,2])
+RMS<-anova(satreg)[4,3]
+F <- (RegSS/k)/(RMS)
+1-pf(F,k,satreg$df.residual)
+```"
+"1","[1] 0.01208607
+"

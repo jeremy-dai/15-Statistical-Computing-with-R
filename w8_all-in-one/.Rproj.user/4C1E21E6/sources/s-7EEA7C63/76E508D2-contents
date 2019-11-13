@@ -1,0 +1,25 @@
+---
+title: "0201"
+output: html_notebook
+---
+# 1
+It captures the effect. But is there a preference?
+
+# 2
+a. The assuption is there is no interation btw the variables.
+b. Condtional estimate when other two variable reach their means
+c. 
+```{r}
+> ; attributes(mu) <- NULL
+> (lc <- mu[1] - 0.5*(mu[2]+mu[3]))
+> (se <- sqrt(3/20)*summary(gi)$sigma)
+
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file). 
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+

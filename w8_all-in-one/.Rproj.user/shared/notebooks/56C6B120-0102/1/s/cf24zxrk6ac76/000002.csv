@@ -1,0 +1,8 @@
+"0","```r
+r1 <- residuals(lm(prestige ~  income + women, data=Prestige))
+r2 <- residuals(lm(education ~  income + women, data=Prestige))
+coef(lm(r1~r2))
+```"
+"1","  (Intercept)            r2 
+-2.991663e-15  4.186637e+00 
+"

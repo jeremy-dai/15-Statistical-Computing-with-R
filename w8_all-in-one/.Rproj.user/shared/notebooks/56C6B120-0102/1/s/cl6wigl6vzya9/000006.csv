@@ -1,0 +1,5 @@
+"0","x_bar = mean(x)"
+"0","y_bar = mean(y)"
+"0","B=sum((x-x_bar)*(y-y_bar))/sum((x-x_bar)^2)"
+"0","A=y_bar - B*x_bar"
+"0","abline(A,B,col='pink')"

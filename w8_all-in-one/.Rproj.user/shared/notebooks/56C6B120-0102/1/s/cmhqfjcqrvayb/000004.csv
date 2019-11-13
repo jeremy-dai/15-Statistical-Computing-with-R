@@ -1,0 +1,8 @@
+"0","FM <- lm(prestige ~ income + education , data=Duncan)"
+"0","RM <- lm(prestige ~ I(income + education) , data=Duncan)"
+"0","F <- ((deviance(RM) - deviance(FM))/1)/(deviance(FM)/df.residual(FM))"
+"0","(Pval <- 1-pf(F,1,df.residual(FM)))"
+"1","[1]"
+"1"," 0.795204"
+"1","
+"

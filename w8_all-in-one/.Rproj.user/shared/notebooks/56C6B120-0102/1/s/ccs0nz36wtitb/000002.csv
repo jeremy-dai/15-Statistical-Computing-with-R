@@ -1,0 +1,16 @@
+"0","```r
+satreg_f <- lm(total ~  expend + ratio + salary + takers, data=sat)
+anova(satreg_f)
+```"
+"1","Analysis of Variance Table
+
+Response: total
+          Df Sum Sq Mean Sq  F value    Pr(>F)    
+expend     1  39722   39722  37.1436 2.260e-07 ***
+ratio      1   1143    1143   1.0685 0.3068088    
+salary     1  16631   16631  15.5514 0.0002779 ***
+takers     1 168688  168688 157.7379 2.607e-16 ***
+Residuals 45  48124    1069                       
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+"

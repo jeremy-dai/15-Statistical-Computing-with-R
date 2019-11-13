@@ -1,0 +1,64 @@
+"0","```r
+x <- c(1,2,3)
+y <- c(2,5,5)
+summary(lm(y~x))
+```"
+"1","
+Call:
+lm(formula = y ~ x)
+
+Residuals:
+   1    2    3 
+-0.5  1.0 -0.5 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)
+(Intercept)    1.000      1.871   0.535    0.687
+x              1.500      0.866   1.732    0.333
+
+Residual standard error: 1.225 on 1 degrees of freedom
+Multiple R-squared:   0.75,	Adjusted R-squared:    0.5 
+F-statistic:     3 on 1 and 1 DF,  p-value: 0.3333
+"
+"0","```r
+y <- c(2,5,5) + 10
+summary(lm(y~x))
+```"
+"1","
+Call:
+lm(formula = y ~ x)
+
+Residuals:
+   1    2    3 
+-0.5  1.0 -0.5 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)
+(Intercept)   11.000      1.871   5.880    0.107
+x              1.500      0.866   1.732    0.333
+
+Residual standard error: 1.225 on 1 degrees of freedom
+Multiple R-squared:   0.75,	Adjusted R-squared:    0.5 
+F-statistic:     3 on 1 and 1 DF,  p-value: 0.3333
+"
+"0","```r
+y <- c(2,5,5) * 5
+summary(lm(y~x))
+```"
+"1","
+Call:
+lm(formula = y ~ x)
+
+Residuals:
+   1    2    3 
+-2.5  5.0 -2.5 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)
+(Intercept)    5.000      9.354   0.535    0.687
+x              7.500      4.330   1.732    0.333
+
+Residual standard error: 6.124 on 1 degrees of freedom
+Multiple R-squared:   0.75,	Adjusted R-squared:    0.5 
+F-statistic:     3 on 1 and 1 DF,  p-value: 0.3333
+"

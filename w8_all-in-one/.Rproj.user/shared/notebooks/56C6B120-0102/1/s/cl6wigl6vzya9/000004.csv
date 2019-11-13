@@ -1,0 +1,4 @@
+"0","data <- Sahlins[c(1,5,10,15,20),]"
+"0","x <- data$consumers"
+"0","y <- data$acres"
+"0","plot(x,y)"

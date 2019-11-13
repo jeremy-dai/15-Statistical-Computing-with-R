@@ -1,0 +1,5 @@
+"0","```r
+hist(replicate(10000,sum(rnorm(5)^2)),freq = F)
+x<-seq(0.1,20,0.1)
+lines(x,dchisq(x,df=5))
+```"

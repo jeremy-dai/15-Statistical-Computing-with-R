@@ -1,0 +1,7 @@
+"0","Get20TrimmedMean <- function(x,y) mean(x, trim = 0.2) - mean(y, trim = 0.2) "
+"0","t_obs <- Get20TrimmedMean(x,y)"
+"0","t_obs"
+"1","[1]"
+"1"," -2.040649"
+"1","
+"

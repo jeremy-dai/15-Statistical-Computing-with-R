@@ -1,0 +1,7 @@
+"0","```r
+StCoef <- lm(prestige ~ education + income + women, data=Prestige)
+coef(StCoef)
+```"
+"1"," (Intercept)    education       income        women 
+-6.794334203  4.186637275  0.001313560 -0.008905157 
+"

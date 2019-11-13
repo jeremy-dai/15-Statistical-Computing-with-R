@@ -1,0 +1,22 @@
+"0","```r
+s <- NULL
+r2<- NULL
+
+lmo <- lm(lpsa~lcavol, data = prostate)
+s[1] <- summary(lmo)$sigma
+r2[1] <- summary(lmo)$r.squared
+
+lmo <- lm(lpsa~lcavol+lweight, data = prostate)
+s[2]<-summary(lmo)$sigma
+r2[2] <- summary(lmo)$r.squared
+
+lmo <- lm(lpsa~lcavol+lweight+age, data = prostate)
+s[3]<-summary(lmo)$sigma
+r2[3] <- summary(lmo)$r.squared
+
+lmo <- lm(lpsa~lcavol+lweight+age+lbph, data = prostate)
+s[4]<-summary(lmo)$sigma
+r2[4] <- summary(lmo)$r.squared
+
+plot(s,type='l', col='red')
+```"
