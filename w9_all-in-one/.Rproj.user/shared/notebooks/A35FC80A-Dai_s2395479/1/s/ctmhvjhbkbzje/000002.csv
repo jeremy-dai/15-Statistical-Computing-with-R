@@ -1,0 +1,3 @@
+"0","df_encrypted <- lapply(df,function(n) Surrogate(n,key20191030))"
+"2","Error in Surrogate(n, key20191030) : could not find function ""Surrogate""
+"

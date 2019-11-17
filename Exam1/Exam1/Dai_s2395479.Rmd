@@ -201,25 +201,33 @@ key20191030 <- {
 ```{r}
 cat(sapply(strsplit('Francina',split = "")[[1]], function(ch) key$encrypt[key$decrypt %in% ch]),sep='')
 ```
+```{r}
+sapply(strsplit('Francina Love',split = "")[[1]], function(ch) key$encrypt[key$decrypt %in% ch])
+```
 
 
 ### 2.2b   
 ```{r}
-encrypt <- function(vect,key=key20191030){
-  sec_name <- ''
-  for (v in vect){
-  #print(v)
-  name <- paste0(sapply(strsplit(v,split = "")[[1]], function(ch) key$encrypt[key$decrypt %in% ch]))
-  #print(name)
-  sec_name <- c(sec_name,name)
-  #sec_name<- sapply(vect, function(v) cat(sapply(strsplit(v,split = "")[[1]], function(ch) key$encrypt[key$decrypt %in% ch]),sep=''))
-  }
-  return (sec_name)
-}
 
-
-ans <- encrypt(c('Tommy','Francina'),key20191030)
 ```
+
+```{r}
+Encrypt <- function(names_decr, key = key20191030) { # names_decr <- student_names$V1
+# key <- key20191030
+raw_names <- strsplit(names_decr, split = "") 
+map_to_decr <- 1:nrow(key)
+names(map_to_decr) <- key$decrypt
+names_encr <- sapply(raw_names, function(decr_name) { # decr_name <- raw_names[[1]]
+name_encr <- key$encrypt[map_to_decr[decr_name]] 
+name_encr <- paste(name_encr, collapse = "") 
+return(name_encr)
+})
+return(names_encr) }
+```
+```{r}
+Encrypt(c("Tommy", "Francina"))
+```
+
 
 ### 2.2c 
 ```{r}

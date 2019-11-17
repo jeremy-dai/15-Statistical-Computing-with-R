@@ -1,0 +1,1 @@
+{"frames":[{"character_number":0,"end_character_number":0,"end_line_number":0,"file":"","func":"lapply(df, function(n) Surrogate(n, key20191030))","line_number":0},{"character_number":0,"end_character_number":0,"end_line_number":0,"file":"","func":"FUN(X[[i]], ...)","line_number":0}],"message":"Error in Surrogate(n, key20191030) : could not find function \"Surrogate\"\n"}

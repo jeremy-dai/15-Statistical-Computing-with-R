@@ -1,0 +1,692 @@
+---
+title: "Resampling II: Bootstrapping"
+subtitle: "SCR Lecture 09"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+author: "R-team"
+css: 0_css/custom.css
+output:
+  ioslides_presentation:
+    keep_md: yes
+    fig_caption: true
+    fig_height: 4
+    fig_width: 5
+    transition: faster
+    css: 0_css/SCR1718.css
+    logo: 0_css/logo.png
+    template: 0_template/R1718style.html
+    widescreen: true
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r label = setup, echo = FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(
+  dev.args = list(bg = 'transparent'),
+  fig.align = "center",
+  cache = FALSE
+)
+set.seed(171123)
+library("tidyverse")
+```
+
+# Prelude 1: About the Midterm   
+
+## About the Midterm   
+
+- Model Answers and Grades are online!    
+
+- Feedback will follow soon.       
+
+- The Midterm Exam will be discussed on Nov 21, Nov 28 (and possibly Dec 5) from 13.15 - 14.00 hours.      
+
+- Erratum in the exam? R version related...
+
+
+## About the Midterm: Erratum due to RNG
+
+Somehow the encrypted student names where not the same as you may have expeced. This was related to the `sample()` function with which the `key20191030` `data.frame` was generated. 
+
+Apparantly, even if one sets a seed (using `set.seed()`) the default random generator works different for the R versions < `3.6.0`, compared to R versions >= 3.6.0.
+
+In R versions 3.6.0 the Random Number Generator got updated with a new sampling strategy, see https://bugs.r-project.org/bugzilla/show_bug.cgi?id=17494
+
+
+## About the Midterm: Erratum due to RNG
+
+This presentation is made in R version `r getRversion()`. While working in a R version >= 3.6.0, by default we would have 
+
+```{r, eval = FALSE}
+set.seed(191114)
+sample(x = 1:10, size = 2)
+```
+
+## About the Midterm: Erratum due to RNG
+
+To mimic the default random number generators for R versions < 3.6.0, we would need the code
+
+```{r, eval = FALSE}
+RNGkind(sample.kind = "Round") # back to default R versions < 3.6.0
+set.seed(191114)
+sample(x = 1:10, size = 2)
+```
+
+To use the default `sample.kind` again: 
+
+```{r, eval = FALSE}
+RNGkind(sample.kind = "default")
+```
+
+
+# Prelude 2: Recap Movations of (Re)sampling
+
+# Monte Carlo
+<img src="./0_images/Real_Monte_Carlo_Casino.jpg" alt="Monte Carlo"  width = "50%" height = "50%">
+
+## Known vs. unknown distribution 
+
+**Goal:**   
+Obtain a good idea of the sampling distribution of an estimator/statistic under a certain hypothesis (e.g. nullhypothesis)
+
+**Monte Carlo studies:**    
+the true distribution of each data point is assumed known and used to set up a simulation s.t. we can obtain a **Monte Carlo sampling distribution** of any estimator of interest.
+
+
+# Permutation Tests
+
+<img src="./0_images/220px-Nice_Cup_of_Tea.jpg" alt="Monte Carlo"  width = "45%" height = "45%">
+
+
+## Known vs. unknown distribution
+
+**Goal:**    
+Obtain a good idea of the sampling distribution of an estimator/statistic under a certain hypothesis (e.g. nullhypothesis)
+
+**Permutation context:**   
+there is not necessarily a known distribution for each data point. We use (random) permutations in our data to set up a **Permutation sampling distribution**, assumed to be a **conditional sampling distribution** in accordance with the hypothesis.
+
+
+# Bootstrap
+
+<div class="columns-2">
+</br> </br> </br> </br> </br> </br> </br> </br> 
+</br> </br> </br> </br> </br> </br> </br> </br> </br> </br> 
+<img src="./0_images/Munchhausen_zieht_sich_am_Zopf_aus_dem_Sumpf.png" alt=""  width="80%" height="80%">
+</div>
+
+
+## Known vs. unknown distribution
+
+**Goal:**    
+Obtain a good idea of the sampling distribution of an estimator/statistic under a certain hypothesis (e.g. nullhypothesis)
+
+**Bootstrapping:**   
+There is not necessarily a (fully) known distribution for each data point. We sample from a distribution based on empirical parameter estimates or the Empirical Distribution function to create an estimate of the sampling distribution.
+
+
+## Learning Objectives
+
+Obtain a notion of the (cumulative) empirical density function.
+
+Recall the difference between the parametric and the empirical bootstrap
+
+Code your own bootstrap procedure to study variance related properties of a statistic.
+
+<!-- study the effects of the sizes of B and the sizes of n -->
+
+
+## Remaining Topics
+
+~~Prelude 1: Random Number Generator~~
+
+~~Prelude 2: Recap~~
+
+Parametric Bootstrap
+
+Empirical Bootstrap and Empirical Distribution Function    
+
+Example 1: Regression
+
+Example 2: Confidence intervals    
+
+Discussion: When the bootstrap fails   
+
+**Literature**: Rizzo Chapter & (7.1 and 7.4)
+
+
+## Today's schedule
+
+14.25 - 15.00 : Lecture Parametric Bootstrap + a bit of the Empirical Bootstrap?
+
+15.15 - 16.00 : Exercises
+
+16.15 - 17.00 : Empirical Bootstrap and Confidence Intervals
+
+17.15 - 18.00 : Exercises
+
+
+## Bootstrap Etymology
+
+**Bootstrap**: The name "bootstrapping" comes from the phrase, "To lift himself up by his bootstraps." This refers to doing something that is impossible. 
+
+"The use of bootstrapping feels like doing something impossible. Although it does not seem like you would be able to improve upon the estimate of a population statistic by reusing the same sample over and over again, bootstrapping can in fact do this."
+
+[Efron (1979)](http://projecteuclid.org/euclid.aos/1176344552)
+
+
+## Efron's Bootstrap Etymology
+
+'I also wish to thank the many friends who suggested names more colorful than Bootstrap, including Swiss Army Knife, Meat Axe, Swan-Dive, Jack-Rabbit, and my personal favorite, the Shotgun, which, to paraphrase Tukey, "can blow the head off any problem if the statistician can stand the resulting mess."'
+
+[Efron (1979)](http://projecteuclid.org/euclid.aos/1176344552)
+
+
+## Unknown distribution
+
+The execution of the <span style="color:rgb(100%,0%,0%);"> bootstrap </span> is similar to Monte Carlo studies, however it is an actual procedure on real data. Its main use is to construct <span style="color:rgb(100%,0%,0%);"> confidence sets, or standard errors</span>.
+
+Two versions:    
+
+<span style="color:rgb(0%,0%,100%);"> parametric bootstrap</span>, a clear subset of Monte Carlo studies.
+
+<span style="color:rgb(0%,0%,100%);"> empirical bootstrap </span> (aka nonparametric / Efron's bootstrap), possibly more surprising at first.
+
+
+# Parametric bootstrap
+
+## Parametric bootstrap
+
+**DATA** Random sample $X_1, \ldots, X_n$ of distribution $f_\theta$, where $\theta$ is assumed unknown.
+
+**STATISTIC** $T = T(\mathbf{X})$      
+
+The sampling distribution of $T$ depends on the unknown value of parameter $\theta$ in $f_\theta$. However, we do know how to obtain a good $\widehat{\theta}$.
+
+Questions:     
+- What is a good confidence set for $T$?    
+- What is the standard error of $T$?   
+- Could we still come up with an estimate of the sampling distribution of $T$?   
+
+## Parametric bootstrap
+
+APPROXIMATE COMPUTATION BY SIMULATION    
+
+For $b = 1, \ldots, B$      
+- generate independent "replicate" $\mathbf{X}^b$ of data $\mathbf{X}$ <span style="color:rgb(100%,0%,0%);"> using $\widehat{\theta}$ </span>.      
+- compute $T^b = T(\mathbf{X}^b)$      
+
+Make a histogram or compute the standard deviation of $T^1, \ldots, T^B$.     
+
+
+## $t$-test alternative
+
+Suppose we do not know about [William S. Gosset](https://priceonomics.com/the-guinness-brewer-who-revolutionized-statistics/) and the [Student's $t$-test](http://seismo.berkeley.edu/~kirchner/eps_120/Odds_n_ends/Students_original_paper.pdf).
+
+**Data**: Random sample of i.i.d. $X_1, \ldots, X_n$ from distribution $f_\theta$    
+
+**Prior idea:*** $f_\theta := N(\mu = 0, \, \theta)$, where $\theta$ is unknown.     
+
+**Question:** How likely is the mean of $\mu = 0$?    
+
+**Statistic**: $T(\mathbf{X}) = \overline{X}$, i.e. the mean.     
+
+# Example 1: $t$-test alternative
+
+## $t$-test alternative
+
+**Data**: Random sample of i.i.d. $X_1, \ldots, X_n$ from distribution $f_\theta$    
+
+**Prior idea:*** $f_\theta := N(\mu = 0, \, \theta)$, where $\theta$ is unknown.       
+
+Suppose we have the following observed $\mathbf{X}$, and our estimate of $\theta$, denoted by $\widehat{\theta}$    
+
+```{r}
+set.seed(1908)
+n <- 100
+X <- rnorm(n, 0.35, 2) # we only observe X, assume normality 
+c(mean_data = mean(X), hat_sd = sd(X)) # mean and our estimate of sigma
+```
+
+
+## $t$-test alternative
+
+**Question:** How likely is the mean of $\mu = 0$?    
+
+**Statistic**: $T(\mathbf{X}) = \overline{X}$, i.e. the mean.     
+
+Generate sampling distribution based on **parametric** bootstrapped samples:
+
+```{r}
+hat_sigma <- sd(X)
+B <- 1e3; t_boots <- numeric(B)
+for (b in 1:B) {
+  t_boots[b] <- mean(
+    rnorm(n, 0, sd = hat_sigma) # plug in our estimate of the sd
+  )
+}
+pval <- mean(abs(t_boots) >= abs(mean(X)))
+pval 
+```
+
+
+## $t$-test alternative
+
+Sampling distribution based on parametric bootstrapped samples, with a good estimate of the 95% credible set for $\theta$. 
+
+
+```{r, echo = FALSE}
+hist(t_boots, breaks = "FD", prob = TRUE,
+     xlab = "mean", col = "lightblue",
+     main = "Parametric Sampling Distr."
+)
+lines(y = dnorm(sort(t_boots), sd = 2/sqrt(n)), x = sort(t_boots), col = "red", lwd = 2) # true distr.
+# lines(density(t_boots))
+abline(v = mean(X), lty = 2, lwd = 2)
+abline(v = -mean(X), lty = 2, lwd = 2)
+```
+
+
+# Example 2: Reaction Time and the Gamma Distribution
+
+## Reaction Time and the Gamma Distribution
+
+There are [good working models out there](https://web.stanford.edu/group/csli-suppes/techreports/IMSSS_61.pdf) where it is assumed that reaction time is Gamma distributed. Using this assumption, could we use the bootstrap to take a look at the properties of the median reaction time? 
+
+Our data and corresponding maximum likelihood estimates:
+
+```{r, fig.show = TRUE, fig.width = 4, fig.height = 3}
+set.seed(20181121)
+alpha <- 3; beta <- 1 # unknown true values
+X <- rgamma(n = 100, alpha, beta) # data, for unknown alpha and beta 
+beta_hat <- mean(X) / var(X)
+alpha_hat <- mean(X) * beta_hat
+c(alpha_hat = alpha_hat, beta_hat = beta_hat, median = median(X))
+```
+
+
+## Reaction Time and the Gamma Distribution
+
+```{r}
+B <- 1e3
+medians_bs <- numeric(B)
+for (b in 1:B) {
+  X_b <- rgamma(100, alpha_hat, beta_hat) # parametric bootstrap
+  medians_bs[b] <- median(X_b)
+}
+```
+
+```{r}
+c("E[T]" = mean(medians_bs), "S_T" = sd(medians_bs))
+```
+
+
+## Suboptimal but Functional: Parametric Bootstrap
+
+```{r}
+mean(replicate(20, {
+  
+  B <- 1e3
+  medians_bs <- numeric(B)
+  
+  for (b in 1:B) {
+    X_b <- rgamma(100, alpha_hat, beta_hat) # parametric bootstrap
+    medians_bs[b] <- median(X_b)
+  }
+  
+  sd(medians_bs)
+  
+}))
+```
+
+
+## The (More) Accurate Story via Monte Carlo
+
+```{r}
+mean(replicate(20, {
+  
+  B <- 1e3
+  medians_mc <- numeric(B)
+  
+  for (b in 1:B) {
+    X_b <- rgamma(100, alpha, beta) # Monte Carlo using True params
+    medians_mc[b] <- median(X_b)
+  }
+  
+  sd(medians_mc)
+
+}))
+```
+
+## Parametric Bootstrap discussed
+
+Parametric bootstrap 
+
+1. requires a good estimator (= a good sample: is $n$ big enough?)        
+    +   Normal Distribution Example = efficient    
+    +   Gamma Distribution Example = much less efficient     
+
+2. requires strong modelling assumptions!      
+    +  e.g does the standard deviation in a mean-shifted sample change? Normal vs. Gamma distr.    
+
+3. is widely used in Parametric Empirical Bayes methods!!   
+
+# Exercises
+
+# Empirical Bootstrap
+
+## Empirical distribution function
+
+**DATA** Random sample $X_1, \ldots, X_n$ are i.i.d. realizations from a completely **unknown** distribution $f$.
+
+**STATISTIC** $T = T(\mathbf{X})$      
+
+**A REFRESHER:**    
+
+The distribution of $T$ is called sampling distribution, and depends on the distribution $f$ (or its cdf, $F$).    
+
+The standard deviation of $T$ is called standard error, here denoted by $\sigma_T$.
+
+
+## Empirical distribution function
+
+**DATA** Random sample $X_1, \ldots, X_n$ are i.i.d. realizations from a completely **unknown** distribution $f$.
+
+**STATISTIC** $T = T(\mathbf{X})$
+
+**EXAMPLE $T(\mathbf{X}) = \overline{X}$:** 
+
+if $X_1, \ldots, X_n$ are i.i.d with some unknown cdf $F$, then the sampling distribution of $T(\mathbf{X}) = \overline{X}$ has some form dependent on $F$.
+
+<SUB> Note that by the CLT for large $n$, $T(\mathbf{X}) = \overline{X}$ is close to normal with mean $\mu_T = \int x dF(x)$ and variance $\sigma^2_T = n^{-1} \int (x - \mu_F)^2 dF(x)$.) </SUB>
+<!-- https://www.statlect.com/fundamentals-of-probability/expected-value-->
+
+
+
+## Empirical distribution function
+
+**DATA** Random sample $X_1, \ldots, X_n$ of **unknown** distribution $f$
+
+**STATISTIC** $T = T(\mathbf{X})$, but...     
+- what is the variance of T? what is a good estimate for $\sigma^2_T$?    
+
+<span style="color:rgb(0%,0%,100%);">
+**BOOTSTRAPPING SOLUTION**     
+Replace the cdf of $X$ by an estimate $\widehat{F}_n$!
+</span>
+
+
+## Empirical distribution function
+
+<span style="color:rgb(0%,0%,100%);">
+**BOOTSTRAPPING SOLUTION**      
+"Replace the cdf of $X$ by an estimate $\widehat{F}_n$: 
+</span>
+
+$$\widehat{F}_n(x) = n^{-1} \sum^n_{i = 1} 1_{X_i \leq x},$$
+
+where $1_{X_i \leq x} = 1$ if $X_i \leq x$, and $0$ otherwise.
+
+**BOOTSTRAPPING PROCEDURE**    
+
+Draw data sets $\mathbf{X}^{b = 1} \ldots \mathbf{X}^{b = B}$ based on $\widehat{F}_n$ (instead of $F$) to obtain an idea of the properties for  the estimate for the sampling distribution for $T$.
+
+
+## Empirical distribution function
+
+```{r}
+set.seed(123); X <- rnorm(100)
+Fn_hat <- ecdf(X)
+```
+```{r, echo = FALSE}
+plot(Fn_hat, pch = ".", verticals = TRUE, lwd = 2, ylab = "Fn_hat")
+X_qs <- (-30:30)/10
+lines(X_qs, pnorm(X_qs), col = "blue", lty = 2, lwd = 2)
+```
+
+## Drawing samples using $\widehat{F}_n(x)$
+
+Taking an i.i.d. sample $\mathbf{X}^b$ of size $n$ from $\widehat{F}_n$ is the same as <span style="color:rgb(100%,0%,0%);">drawing $n$ values from $\{X_1, \ldots, X_n\}$ with replacement</span>.
+
+We are *reusing* the data, which initially may seem counter-intuitive....
+
+
+## Example: the standard error
+
+If $X_1, \ldots, X_n$ are i.i.d. $N(\mu, \sigma^2)$, then the sampling distribution of $T(\mathbf{X} = \overline{X})$ is $N(\mu, \sigma^2/n)$. Let's validate this "statistical truth" in `R`:
+
+```{r}
+set.seed(123); 
+n <- 100; X <- rnorm(n)
+se_mean <- 1/sqrt(n)
+se_hat_mean <- sd(X)/sqrt(n)
+c(se_mean, se_hat_mean)
+```
+
+
+## Example: the standard error
+
+If $X_1, \ldots, X_n$ are i.i.d. $N(\mu, \sigma^2)$, then the sampling distribution of $T(\mathbf{X} = \overline{X})$ is $N(\mu, \sigma^2/n)$. We could validate this "statistical truth" with the empirical bootstrap:
+
+```{r, fig.show = TRUE}
+B <- 1e4; means_bs <- rep(NA, B)
+for (b in 1:B) {
+  X_b <- sample(X, replace = TRUE) # sample from \widehat{F}_n
+  means_bs[b] <- mean(X_b)
+}
+```
+
+```{r}
+sd(means_bs)
+```
+
+## WARNING: although a good estimate of the standard error...
+
+this is our histogram estimate of the true sampling distribution (in red):
+
+```{r, echo = FALSE}
+hist(means_bs, breaks = "FD", col = "lightblue", xlab = "mean", ylab = "", main = "bootstrapped sampling distribution for n = 100", prob = TRUE)
+lines((-500:500)/1000, dnorm((-500:500)/1000, sd = .1), col = 'red')
+```
+
+## Empirical distribution (= Estimate $\widehat{F}_n$)
+
+The *empirical distribution* $\widehat{F}_n$ of data $X_1, \ldots, X_n$ is the discrete distribution that puts mass $1/n$ at each of $X_1, \ldots, X_n$.
+
+- The mean of $\widehat{f}_n$ is $\overline{X} = n^{-1}\sum^n_{i = 1}X_i$     
+- The variance of $\widehat{f}_n$ is $n^{-1}\sum^n_{i = 1} (X_i - \overline{X}_n)^2$       
+- For any set $A$ the mass $\widehat{F}_n(A) = n^{-1}\sum^n_{i = 1} 1_{X_i \in A}$       
+
+If $X_1, \ldots, X_n$ are i.i.d. with law $f$ (and cdf $F$), then $\widehat{F}_n(A) \rightarrow F(A)$ a.s. by LLN (law of large numbers).
+
+So we can think $\widehat{F}_n$ and as an estimator of $F$, given large enough $n$.
+
+
+## Implementation Empirical bootstrap
+
+**Monte Carlo:** Sampling based on true and completely known $F$    
+
+**Parametric Bootstrap:** Sampling based on known $F$ with its unknown parameters estimated based on $\mathbf{X}$ itself.
+
+**Permutations:** Sampling based on an estimate $\widehat{F}$ for $F$ which can be done while using exchangeability under a certain hypothesis (using `sample()`).
+
+**Empirical Bootstrap:** Sampling based on an $\widehat{F}_n$, the empirical distribution function, i.e. sampling with replacement from the observed data (using `sample()`).
+
+
+# Two Examples Empirical Bootstrap | Regression Analysis and Confidence Intervals
+
+# Regression
+
+## Regression
+
+DATA $\mathbf{Y} = \mathbf{X} \beta + e$, for deterministic $\mathbf{X}_{n \times p}$ and $\beta_{p \times 1}$ and a random error vector $e_{n \times 1}$.     
+
+QUESTION: Can we come up with our own covariance matrix for the $\beta_{p \times 1}$ vector?
+
+PARAMETRIC BOOTSTRAP
+Given a parametric model for $e$, the parametric bootstrap is (usually) valid: $Y | X \sim N(0, \widehat{\sigma}^2)$.
+
+EMPIRICAL BOOTSTRAP: using the i.i.d. assumption on the errors, we resample with replacement from $\{\widehat{e}_1, \ldots, \widehat{e}_n\}$.
+
+
+## Empirical Bootstrap for Regression 
+
+If the errors are assumed i.i.d. we might "resample the errors", or     
+
+1. compute estimate $\widehat{\beta}$ (on data)      
+2. compute residuals $\widehat{e}_i = Y_i - X_{i.}\widehat{\beta}$, for $i = 1, \ldots, n$.   
+3. for $b = 1, \ldots, B$:      
+    - resample with replacement from $\{\widehat{e}_1, \ldots, \widehat{e}_n\}$ giving $e^b_1, \ldots, e_n^b$   
+    - form new responses $Y^b_i = {X}_{i.}\widehat{\beta} + e^b_i$        
+    - regress $Y^b = (Y^b_1, \ldots, Y^b_n)^{T}$ on original X, giving $\widehat{\beta}^b$. 
+4. Obtain (co)variance matrix based on the B bootstrapped $\beta_{p \times 1}$ vectors.
+
+(Easy to adapt into a parametric bootstrap!)
+
+
+# 95% Confidence Intervals | Based on the Empirical Bootstrap
+
+## Bootstrapping of 95% Confidence Intervals
+
+There are many variants for Bootstrapping Confidence Intervals, all based on:
+
+- We have observed data $\mathbf{X}$    
+- The underlying distribution $f$ that is dependent on $\theta \in \Theta$. 
+- Not only $f$, but also $\theta$ is unknown.
+- However, estimator $T$ for $\theta$ can be computed.
+- Confidence bounds $[L, U]$ are estimated based on $\widehat{F}_n$
+
+
+## Variant 1: Percentile method for 95% Confidence interval
+ 
+Generate replicates $T^1, \dots , T^B$. Put them in ascending order, then report the closest lower quantile corresponding to 0.025 ($q_b(0.025)$) and report the closest upper quantile at probability 0.975 ($q_b(0.975)$):
+
+$$[L = T^{q_b(0.025)}, U =  T^{q_b(0.975)}].$$
+
+Works well for $T^{b_{0.5}} \simeq \theta$, but is less preferred in theory (see Chapter 22 of Aad van der Vaart's book on Asymptotic Statistics).
+
+
+## Variant 1: Go to Live-Coding the Percentile Method
+
+
+```{r}
+# this will fill out nicely
+```
+
+## Variant 2: Using CLT (and a pivot function)
+
+A pivot is a function of both the data and the model parameters, whose distribution does not depend on those parameters. 
+
+Let 
+
+$$Z := (T(\mathbf{X}) - \theta) / S,$$
+
+for some estimated $T$ of $\theta$ and some estimator for scale denoted by $S$. Then, if distribution of $Z$ depends weakly on $\theta$, then we can use $Z$ as an approximate pivot and create the following approximate confidence interval 
+
+$$\left[ L = T(\mathbf{X}) - q_Z(0.975)S,\, U = T(\mathbf{X}) + q_Z(0.025)S \right],$$
+
+where $q_T$ is the quantile function of sampling distribution of $Z$ (or an approximation).
+
+
+## Variant 2: Using CLT (and a pivot function)
+
+A pivot is a function of both the data and the model parameters, whose distribution does not depend on those parameters. 
+
+**Example using $T(X) = \overline{X}$:**
+
+Suppose $X_1, \ldots ,X_n \sim N(\mu, \sigma)$ and define 
+$$Z = (\overline{X} − \mu) / \left( S_X/\sqrt{n} \right),$$ where $S_X$ is the sample standard deviation. Then $Z \sim t_{n−1}$, regardless of $\mu$ and $\sigma$. So $Z$ is a pivot.
+
+## Variant 2: Using CLT (and a pivot function)
+
+If $q_{n−1}$ is the quantile function of $t_{n−1}$, then we have with 95% prob:
+
+$$ q_{n−1}(0.025) \leq Z \leq q_{n−1}(0.975),$$
+and hence
+
+$$\overline{X} − (S_X / \sqrt{n})q_{n−1}(0.975) ≤ \mu ≤ \overline{X} − (S_X / \sqrt{n})q_{n−1}(0.025),$$ 
+the normal theory confidence interval for $\mu$.
+
+**NB.** you should be able to work this out for yourself using the definition of $Z$ on the previous slide.
+
+
+## Variant 3: Empirical Bootstrap with approx. pivot
+
+There are many variants for Bootstrapping Confidence Intervals, all based on:
+
+- Observed data $\mathbf{X}$, but model $\{ P_\theta\}$ is **unknown**.
+- Estimator $T$ for $\theta$ can be computed.
+- The random variables $L$, $U$ are estimated based on $\widehat{F}_n$
+- $Z = \left(T(X) - \theta \right) / S$ should be an approximate pivot.
+
+
+##  Variant 3: Empirical Bootstrap with approx. pivot
+
+Bootstrap $Z$ by drawing replicates $\mathbf{X}^b$ of the data $X$, for $b = 1, \ldots B$
+
+1. Set $$Z^{b} = (T(\mathbf{X}^b) - \overline{T}) / S(X_b), \text{ where } \overline{T} = \sum_{b = 1} T(\mathbf{X}^b) / B.$$
+
+2. Let $\widehat{q}_z$ be the quantile function of the bootstrapped sampling distribution of $Z$.
+
+3. Then, report the 95% confidence interval as
+
+$$[L = T(\mathbf{X}) - \widehat{q}_z(0.975)S(\mathbf{X}), \, U =  T(\mathbf{X}) - \widehat{q}_z(0.025)S(\mathbf{X})].$$
+
+Taking $S(X) = S(X_b) = 1$ has often `ok' properties when the true scale does not vary much over for each $\mathbf{X}^b$.
+
+
+## Live Code: Empirical Bootstrap with approx. pivot
+
+
+# Failure of the Empirical Bootstrap
+
+## When does the bootstrap fail?
+
+Failure of the bootstrap arises when the distribution of $T$ based on $\widehat{F}_n$, does not resemble the true distritions of $T$ based on $F$.
+
+This *can* happen when $\widehat{F}_n$ does not resemble $F$ or/and the dependence on $F$ is discontinuous. Something that typically happens when $n$ is not "big enough", especially for the empirical bootstrap. Justification requires that $n \rightarrow \infty$, so that $\widehat{F}_n \to F$.
+
+Typically $n$ needs to bo larger for the empirical bootstrap than the parametric bootstrap. However, the parametric bootstrap is much more sensitive to the assumptions set for $F$.
+
+
+## Examples of failure (Empirical Bootstrap)
+
+**Strong dependency between samples**:
+
+Resampling with replacement from data $X_1, \ldots, X_n$ gives independent variables. Any dependence in the original data will be lost by the empirical bootstrap and hence this will often fail in non independently distributed statistical models (e.g. time series, longitudinal or hierarchical models)
+
+
+## Examples of failure (Empirical Bootstrap)
+
+Bootstrap may also fail if the sampling distribution of $T$ or the pivot is not a "smooth function" of the distribution on X:
+
+1. The distribution of $T = \max(X_1, \ldots, X_n)$ of a sample $X_1, \ldots, X_n \stackrel{i.i.d.}{\sim} F$, depends in a subtle manner on the right tail of $F$. The tail of the empirical distribution function $\widehat{F}_n$ does not resemble this tail. Hence the empirical bootstrap will fail for $T$    
+
+2. The distribution of $T$ being a quantile (e.g. median) of a sample $(X_1, \ldots, X_n) \stackrel{i.i.d.}{\sim} F$, depends on the density of $F$ near its quantile. The approximation error is larger than with smoother functions of the data (where an interval or a set of densities of $F$ is combined).    
+
+
+# Failure bootstrap
+
+
+# Recap
+
+## Recap
+
+~~Prelude 1: Random Number Generator~~
+
+~~Prelude 2: Recap~~
+
+Parametric Bootstrap
+
+Empirical Bootstrap and Empirical Distribution Function    
+
+Example 1: Regression
+
+Example 2: Confidence intervals    
+
+Discussion: When the bootstrap fails   
+
+**Literature**: Rizzo Chapter & (7.1 and 7.4) 
+
+
+# Exercises
+
+# See you next week!

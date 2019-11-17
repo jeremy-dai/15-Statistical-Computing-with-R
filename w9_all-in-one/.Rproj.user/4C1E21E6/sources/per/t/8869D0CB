@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1573832125521.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1401137855",
+    "id" : "8869D0CB",
+    "lastKnownWriteTime" : 1573834805,
+    "last_content_update" : 1573834805946,
+    "path" : "~/GitHub/15 Statistical Computing with R/Exam1/Exam1/Dai_s2395479.Rmd",
+    "project_path" : null,
+    "properties" : {
+        "cursorPosition" : "222,17",
+        "scrollLine" : "212"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

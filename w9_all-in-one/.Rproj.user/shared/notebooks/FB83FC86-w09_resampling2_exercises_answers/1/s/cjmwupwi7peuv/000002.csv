@@ -1,0 +1,7 @@
+"0","# all possible combinations of the factors in a data.frame"
+"0","dat <- data.frame(expand.grid("
+"0","  sex = factor(0:1, labels=c(""male"",""female"")),"
+"0","  treat = factor(0:1, labels= c(""active"",""placebo"")),"
+"0","  age = factor(0:1, labels=c(""young"",""old"")),"
+"0","  bmi = factor(0:3, labels=c(""under"",""normal"",""over"",""obese""))"
+"0","))"

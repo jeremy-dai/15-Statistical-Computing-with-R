@@ -1,0 +1,8 @@
+"0","sigma <- 2"
+"0","betas <- c(b0 = 10, b1 = -1, b2 = -2, b3 = -1.3,"
+"0","           b4 = .1, b5 = -1, b6 = -1.2)"
+"0","X <- model.matrix(~dat$sex + dat$treat + dat$age + dat$bmi)"
+"0","mu.i <- X %*% betas"
+"0","set.seed(123)"
+"0","BMI   <- dat[rep(rownames(dat), each = 50), ]"
+"0","BMI$y <- rnorm(50*32)*sigma + rep(mu.i, each = 50)"

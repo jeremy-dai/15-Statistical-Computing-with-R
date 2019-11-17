@@ -1,0 +1,8 @@
+"0","key20191030 <- {"
+"0","  set.seed(20191030)  "
+"0","  data.frame("
+"0","    decrypt = c(letters, LETTERS, 0:9, "" "", NA, ""."", ""/"", ""-""),  "
+"0","    encrypt = sample(c(letters, LETTERS, 0:9, "" "", NA, ""."", ""/"", ""-"")),"
+"0","    stringsAsFactors = FALSE"
+"0","  )"
+"0","}  "
