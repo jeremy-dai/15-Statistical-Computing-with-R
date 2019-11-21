@@ -1,0 +1,86 @@
+.larger {
+  font-size: 32px;
+}
+
+/* Defaults taken from default.css of R markdown*/
+.smaller_output pre {
+  font-family: 'Source Code Pro', 'Courier New', monospace;
+  /*font-size: 20px;*/
+  font-size: 14px;
+  /*line-height: 28px;*/
+  line-height: 20px;
+  padding: 10px 0 10px 60px;
+  letter-spacing: -1px;
+  margin-bottom: 20px;
+  width: 100%;
+  left: -120px;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  /*overflow: hidden;*/
+}
+
+
+slides > slide.title-slide {
+  background-image: url(leiden_colour_texture.png) !important;
+}
+slides > slide.title-slide hgroup h1 {
+  color: white;
+  background-image: url(leiden_colour_texture.png) !important;
+}
+slides > slide.title-slide hgroup h2 {
+  color: #ff8c00;
+  background-image: url(leiden_colour_texture.png) !important;
+}
+
+.gdbar {
+  background-image: url(leiden_colour_texture.png) !important;
+}
+
+slides > slide.dark {
+  background-image: url(leiden_colour_texture.png) !important;
+  color:white-space;
+}
+
+slides > slide.dark code {
+  font-size: 95%;
+  font-family: 'Source Code Pro', 'Courier New', monospace;
+  color:gray
+}
+
+body slides > slide {
+  font-family: "Helvetica Neue";
+  border: 5px solid #012169;
+}
+
+
+
+/* slides > slide.backdrop {
+  background-color: #FFFFFF;
+  background-image: url(leiden_colour_texture.png);
+  background-position: 0 100%;
+  background-repeat: repeat-x;
+}
+
+h1{
+  color: white;
+  padding: 10px;
+  background-color: #3399ff
+}
+
+ul {
+  list-style-type: square;
+}
+
+.MathJax_Display {
+  padding: 0.5em;
+  background-color: #eaeff3
+}
+
+code {
+  font-size: 95%;
+  font-family: 'Source Code Pro', 'Courier New', monospace;
+  color: orange;
+}
+/*

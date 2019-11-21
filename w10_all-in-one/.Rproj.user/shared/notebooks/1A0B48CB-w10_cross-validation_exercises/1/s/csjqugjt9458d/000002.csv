@@ -1,0 +1,2 @@
+"0","K <- 5"
+"0","index <- rep(1:K, floor(nrow(mtcars)/K)+1)[1:nrow(mtcars)]"
