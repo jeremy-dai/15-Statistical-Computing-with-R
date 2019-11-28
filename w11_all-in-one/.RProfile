@@ -1,0 +1,7 @@
+#Nov 2, 2017: My Project .RProfile file for Project X
+
+## .First() run at the start of every R session.
+.First <- function() {cat('\nSuccessfully loaded .Rprofile at', date(),'\n\nYeah! Let the coding begin!\n\n')}
+
+## .Last() run at the start of every R session.
+.Last <- function(){}

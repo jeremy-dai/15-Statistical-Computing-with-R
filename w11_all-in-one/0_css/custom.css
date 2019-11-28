@@ -1,0 +1,41 @@
+.larger {
+  font-size: 32px;
+}
+
+/* Defaults taken from default.css of R markdown*/
+.smaller_output pre {
+  font-family: 'Source Code Pro', 'Courier New', monospace;
+  /*font-size: 20px;*/
+  font-size: 14px;
+  /*line-height: 28px;*/
+  line-height: 20px;
+  padding: 10px 0 10px 60px;
+  letter-spacing: -1px;
+  margin-bottom: 20px;
+  width: 100%;
+  left: -120px;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  /*overflow: hidden;*/
+}
+
+slides > slide.dark {
+  background-image: url(leiden_colour_texture.png) !important;
+  color:white-space;
+}
+
+body slides > slide {
+  font-family: "Helvetica Neue";
+  border: 5px solid #012169;
+}
+
+/* slides > slide.backdrop {
+  background-color: #FFFFFF;
+  background-image: url(leiden_colour_texture.png);
+  background-position: 0 100%;
+  background-repeat: repeat-x;
+}
+/*
+

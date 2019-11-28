@@ -1,0 +1,2 @@
+"0","y <- Duncan$prestige"
+"0","X <- cbind(rep(1, 45),Duncan$income,Duncan$education)"
