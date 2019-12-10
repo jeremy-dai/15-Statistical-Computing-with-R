@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1574948191316.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4253274227",
+    "id" : "27C3FDCC",
+    "lastKnownWriteTime" : 1574945114,
+    "last_content_update" : 1574957840027,
+    "path" : "~/GitHub/15 Statistical Computing with R/w11_all-in-one/w11_Reproducible_Reports_exercises.Rmd",
+    "project_path" : "w11_Reproducible_Reports_exercises.Rmd",
+    "properties" : {
+        "cursorPosition" : "42,0",
+        "last_setup_crc32" : "",
+        "scrollLine" : "35"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}
