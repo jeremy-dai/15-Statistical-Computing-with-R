@@ -1,0 +1,54 @@
+---
+title: "A Colorful Christmas:"
+subtitle: about Stats and Floyd-Steinberg Dithering
+author: "Your Name / ULCN"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+graphics: yes
+output: 
+    pdf_document:
+      fig_caption: yes
+      keep_tex: yes
+header-includes: 
+- \usepackage{graphicx}
+- \usepackage{float}
+- \usepackage{placeins}
+- \usepackage{amsmath}
+- \newcommand{\argmin}{\operatornamewithlimits{argmin}}
+- \newcommand{\argmax}{\operatornamewithlimits{argmax}}
+---
+
+
+```{r label = setup, echo = FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(
+  dev.args = list(bg = 'transparent'),
+  fig.align = "center", 
+  fig.height = 5, 
+  cache = TRUE,
+  echo = TRUE,
+  eval = FALSE
+)
+library("tidyverse")
+load("0_data/Model_Answer_Variables.RData")
+```
+
+# 1 About Colors: A Picture = A Data set.
+
+\clearpage
+
+# 2 A Further Understanding of the RGB Space
+
+
+\clearpage
+
+# 3 Floyd-Steinberg dithering algorithm
+
+
+\clearpage
+
+
+## 4 Statistical Computing on the Floyd-Steinberg algorithm
+
+\clearpage
+
+## 5. Bonus: Something new, the package `Rcpp` (15 points)
+

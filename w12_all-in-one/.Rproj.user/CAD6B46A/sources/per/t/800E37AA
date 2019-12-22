@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1576157203518.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2123567903",
+    "id" : "800E37AA",
+    "lastKnownWriteTime" : 1576162670,
+    "last_content_update" : 1576162670889,
+    "path" : "~/Dropbox/temp/w12_all-in-one/w12_intro_tidyverse_slides.Rmd",
+    "project_path" : "w12_intro_tidyverse_slides.Rmd",
+    "properties" : {
+        "chunk_output_type" : "console",
+        "cursorPosition" : "28,0",
+        "scrollLine" : "110"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

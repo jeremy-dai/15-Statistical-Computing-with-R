@@ -1,0 +1,27 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1573995740058.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "53363301",
+    "id" : "B86D731B",
+    "lastKnownWriteTime" : 1576142435,
+    "last_content_update" : 1576142435,
+    "path" : "~/Dropbox/0_Teaching/SCR/R_1920/200109_Assignment/1920_Assignment.Rmd",
+    "project_path" : "1920_Assignment.Rmd",
+    "properties" : {
+        "cursorPosition" : "7,17",
+        "marks" : "<:0,0\n>:0,0",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

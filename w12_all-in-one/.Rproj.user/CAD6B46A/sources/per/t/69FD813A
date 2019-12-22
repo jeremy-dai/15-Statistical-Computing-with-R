@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1576156848863.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1035239432",
+    "id" : "69FD813A",
+    "lastKnownWriteTime" : 1576065902,
+    "last_content_update" : 1576065902,
+    "path" : "~/Dropbox/temp/w12_all-in-one/w12_intro_tidyverse_exercises.Rmd",
+    "project_path" : "w12_intro_tidyverse_exercises.Rmd",
+    "properties" : {
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

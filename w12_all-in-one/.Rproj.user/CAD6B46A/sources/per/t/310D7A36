@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1576162095869.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "731724613",
+    "id" : "310D7A36",
+    "lastKnownWriteTime" : 1576066580,
+    "last_content_update" : 1576162357934,
+    "path" : "~/Dropbox/temp/w12_all-in-one/w12_intro_tidyverse_exercises_answers.Rmd",
+    "project_path" : "w12_intro_tidyverse_exercises_answers.Rmd",
+    "properties" : {
+        "cursorPosition" : "15,126",
+        "scrollLine" : "7"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

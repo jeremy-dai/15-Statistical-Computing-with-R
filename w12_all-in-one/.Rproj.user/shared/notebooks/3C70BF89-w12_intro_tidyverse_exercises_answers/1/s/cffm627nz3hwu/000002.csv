@@ -1,0 +1,5 @@
+"0","load(""./0_data/Phone_calltime.RData"")"
+"0","call_time <- Calls_minutes_pm %>% "
+"0","  unite(in_out_type, In_Out, Type) %>%"
+"0","  gather(key = ""Month"", value = ""Value"", one_of(month.name), na.rm = TRUE) %>%"
+"0","  spread(in_out_type, Value)"

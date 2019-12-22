@@ -1,0 +1,119 @@
+---
+title: "Exercises Topics in Tidyverse"
+subtitle: "Exercises Week 12"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output: pdf_document
+---
+
+```{r, include = FALSE}
+library("tidyverse")
+```
+
+# Exercises part 1: Grammar of Data 
+
+## Optional: In case the lecture went a bit too fast...
+
+When the lecture about the functions in `dplyr` went a bit to fast for you, then try out the [Dataschool tutorial](http://www.dataschool.io/dplyr-tutorial-for-faster-data-manipulation-in-r/) and watch the youtube video that is posted on that site. 
+
+Alternatively, take a look at Hadley Wickham's [R for Data Science](https://r4ds.had.co.nz/) book, specifically chapters 9 to 13.
+
+## Practicing the `tidyverse`
+
+Fot this task, you are a data analyst intern at the phone company BORANGE and just received two phony data sets. The first data set is called `Calls_minutes_pm` and the second is called `Traffic_MB`. Each data set is supposedly coming from a different department in the company. Your project leader requested you to obtain the information of 60 randomly sampled, anonymous phone users.
+
+Your project leader wants you to gather the information of a stratified random sample of 20 enthusiastic phone users, 20 passive phone users, and 20 average users that are neither passive nor specifically enthusiastic. The information requested regarding these 60 anonymous phone users (ID = 1.... 60) concerns their calling time (in minutes), and data upload/download for each month of the year. This information is stored in the data sets `Calls_minutes_pm` and `Traffic_MB`, respectively.
+
+You should be able to load the data as follows:
+
+```{r}
+load("./0_data/Calls_minutes_pm.RData")
+load("./0_data/Traffic_MB.RData")
+```
+
+### Merging / Joining Two Data Sets
+
+Your project leader does not know much about statistics (and computing). Because it is very annoying to work with missing data, he requested that the departments should only send data of those months where no phone user has any missing (`NA`) values.
+
+At first sight it looks like there are many `NA` values. However, when you merge the two data sets to fit the exact requirements of your project leader, your data would have no missings at all:
+
+```{r}
+load("./0_data/Phone_data.RData")
+Phone_data
+```
+
+#### 1.1 The task
+
+Merge the `Calls_minutes_pm` and `Traffic_MB` data such that the newly merged data set is equal to the wide format data set `Phone_data`. 
+
+**Hint:** You could do it in three steps: 
+1. Recreate `Phone_calltime` data (check the data folder) from the `Calls_minutes_pm.RData`.
+2. Recreate `Phone_traffic` (check the data folder) from Traffic_MB. Note: You have to find a way to, in the end, only select those columns that have at least one non-missing value.
+3. Merge the two resulting data frames.
+
+### 1.2 Data Description
+
+For further analysis, a 60x38 `data.frame` is desired. The first two columns remain `ID` and `Group`, the remaing `36` columns represent the variables that represent the average calling time per month, or the average number of MB's used for up or downloading. 
+
+Your new `data.frame` should be similar to the `Phone_means` data (see the data folder).
+
+# Exercises part 2: Grammar of Graphics
+
+## 2. Visualization of a Statistical Model
+
+After some intractable and obscurious re-scaling of the variables, the `Phone_means` data set got transformed into the data set `Phone_transfmeans`. Your project leader states that a good statistical model of the `Phone_transfmeans` data can be visualized as follows: 
+
+```{r, echo = FALSE}
+par(bg = "transparent")
+plot(x = c(0, 36), y = c(0, 60), type = "n", xlab = "", 
+     ylab = "i within the N = 60 objects", xaxt = "n", yaxt = "n", 
+     frame.plot = FALSE, ylim = rev(range(c(0, 60))), xaxs = "i", yaxs = "i")
+  axis(2, at = (0:6) * 10, labels = 0:6 * 10)
+  axis(3, at = (0:4) * 9, labels = 0:4 * 9)
+  mtext("k within the P = 36 variables", side = 3, line = 2.5)
+	#rect(xleft = 0, ybottom = 0, xright = 110, ytop = 100, col="lightgrey", border = NA)
+
+	# red:
+	rect(xleft = 0, ybottom = 20, xright = 36, ytop = 0, col = "red", border = NA)
+	text(18,10, expression(~ N(+1.2, 1)), cex = 2, col = 'white')
+	#green:
+	rect(xleft = 0, ybottom = 40, xright = 36, ytop = 20, col = "grey", border = NA)
+	text(18,30, expression(~N(0.0, 1)), cex = 2, col = 'white')
+	#blue:
+	rect(xleft = 0, ybottom = 60, xright = 36, ytop = 40, col = "blue", border = NA)
+	text(18,50, expression(~N(-1.2, 1)), cex = 2, col = 'white')
+```
+
+The first 20 rows in the plot are the enthusastic phone users. Their re-scaled values of the average minutes and MB's (per month) can be seen as random draws from a normal distribution with the mean equal to 1.2 and a variance of 1. The values for the passive phone users (the blue group) can be seen as random draws from a normal distribution with a mean of -1.2 and variance of 1. The group in the middle (depicted in grey) have realizations that come frome a standard normal distribution.
+
+
+### 2.1a. Visualize the statistical model in `ggplot2`
+
+Try to recreate the above visualization of the statistical model with `ggplot2`. You may use the data that we have specified below:
+
+```{r}
+transf_data <- data.frame(
+  cbind(
+    expand.grid(Objects = 1:60, Variables = 1:36), 
+    Value = rep(rep(c(+1.2, 0, -1.2), each = 20), 36)
+))
+```
+
+### 2.1b. Using Monte Carlo Data Sets
+
+Create 1000 Monte Carlo data sets that come from the above statistical model. Then, show two plots next to each other. In the first plot visualize only one Monte Carlo data set in the same was as the statistical model is visualized. Do the the same for the second plot, but show the visualization of your estimate of the expectation of each value in the Monte Carlo data sets, i.e. your esimate of the expectation for the value of the first row and first variable ($x_{ij}$) is calculated as 
+
+$$E\left[x_{ij}\right] = \frac{1}{B} \sum_{b = 1}^B x_{11}^{(b)},$$
+
+where $B$ is the number of Monte Carlo data sets, indexed over $b$.
+
+**Note that the second plot representing the expectation of the Monte Carlo data sets should very closely resemble your visualization of the statistical model**
+
+### 2.2  Using the Real (Transformed Means) Data
+
+Also create the plot of **2.1** for the `Phone_transfmeans` data. This time keep the legend. Just by looking at the pictures only, do you think it would be fair to say that we can assume the statistical model for the `Phone_transfmeans` data? 
+
+You can load the `Phone_transfmeans` data as follows:
+
+```{r}
+load("./0_data/Phone_transfmeans.RData")
+```
