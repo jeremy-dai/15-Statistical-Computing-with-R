@@ -1,0 +1,55 @@
+---
+title: "old"
+output: html_document
+---
+
+
+```{r}
+load("0_data/Model_Answer_Variables.RData")
+```
+
+
+### 2.3.a Compress thepicture into the colors from the 3-bit RGB palette
+
+
+```{r echo=FALSE}
+### old function to get closest rgb
+close_rgb_old <- function(xmas_row, RGB) {
+  diff <- (with(xmas_row,c(red,green,blue))*255 + 0.5)  %>% 
+    floor(.) - RGB$dat
+
+  min_row <- diff  %>%
+    mutate(Distance = Red**2 + Green**2 + Blue**2) %>%
+    select(Distance) %>%
+    t(.) %>%
+    which.min(.)
+  new_rgb <- RGB$dat[min_row,]%>% 
+    mutate(rgb_color = rgb(Red,Green,Blue,max=255))
+  return(new_rgb$rgb_color)
+}
+#new_rbg <- close_rgb_old(df_xmas[1,] ,RGB_03bit)
+```
+
+
+```{r}
+Floyd_Steinberg <- function(pic, RGB){
+  err <- pic # error matrix, update later
+  nrow <- dim(pic)[1]
+  ncol <- dim(pic)[2]
+  pic <- floor(pic*255+0.5)
+  for (r in 1:nrow){
+     for (c in 1:ncol){
+       x <- pic[r,c,] 
+       pic[r,c,] <- update_rgb(x,RGB) %>% unlist(.) %>% as.vector(.)
+       err[r,c,] <- x - pic[r,c,] 
+       try(pic[r  ,c+1,] <- pic[r  ,c+1,] + err[r,c,] * 7 / 16)
+       try(pic[r+1,c-1,] <- pic[r+1,c-1,] + err[r,c,] * 3 / 16)
+       try(pic[r+1,c  ,] <- pic[r+1,c  ,] + err[r,c,] * 5 / 16)
+       try(pic[r+1,c+1,] <- pic[r+1,c+1,] + err[r,c,] * 1 / 16)
+     } 
+  }
+  pic = pic/255
+  loss <- (err/255)^2 %>% apply(., MARGIN=c(1,2), sum) %>% sum(.)
+  return(list(img = pic, err_mat = err, loss = loss))
+}
+```
