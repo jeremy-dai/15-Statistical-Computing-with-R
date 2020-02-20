@@ -18,7 +18,7 @@ header-includes:
 ---
 
 
-```{r label = setup, echo = FALSE, message = FALSE, warning = FALSE}
+```{r label = setup, echo = F, message = FALSE, warning = FALSE}
 knitr::opts_chunk$set(
   dev.args = list(bg = 'transparent'),
   fig.align = "center", 
@@ -41,20 +41,20 @@ options(show.error.messages = F)
 # 1 About Colors: A Picture = A Data set.
 ## 1.1 Explore your PNG R object
 Load the file.
-```{r}
+```{r eval = T}
 # file.info("0_img/xmas.png")[, c("size", "mtime")]
 xmas <- png::readPNG(source = '0_img/xmas.png', native = FALSE)
 xmas <- xmas[,,-4] # first three matrices only
 ```
 
 Show the Red, Green and Blue values for the pixel in row 106, and column 467:
-```{r}
+```{r eval = T}
 color <- xmas[106,467,]
 color
 ```
 
 It should be dark red. Let's Draw the color:
-```{r color, fig.height = 1, fig.width = 1}
+```{r eval = T}
 plot(NULL, xlim=c(0, 1), ylim=c(0, 1),axes=FALSE, frame.plot=TRUE, ann = FALSE)
 rect(0, 0, 1, 1, col = rgb(color[1],color[2],color[3]))
 ```
@@ -115,7 +115,7 @@ raster_rgb <- df_xmas %>%
   as.raster()
 ```
 
-```{r echo=TRUE}
+```{r}
 my_pic_1 <- plot(raster_rgb)
 ```
 
@@ -167,6 +167,7 @@ get_palette <- function(K = 0, n_bit = 0){
 
 ```{r}
 My_RGB_03bit <- get_palette(n_bit=3)
+My_RGB_03bit$dat
 ```
 
 ## 2.3 A Naive Approach to Color Reduction 
@@ -256,6 +257,10 @@ Floyd_Steinberg <- function(pic, RGB){
 
 ```{r}
 dither_ans_03 <- Floyd_Steinberg(xmas, RGB_03bit) 
+```
+
+```{r}
+plot(NULL, xlim=c(0, 1), ylim=c(0, 1),axes=FALSE, frame.plot=TRUE, ann = FALSE)
 grid::grid.raster(dither_ans_03$img)
 ```
 
@@ -263,7 +268,7 @@ grid::grid.raster(dither_ans_03$img)
 ## 3.2 Plotting the Loss for 3-bit, 9-bit, and 15-bit
 ```{r}
 los <- c(dither_ans_03$loss,sum(dither_09bit$err_mat^2),sum(dither_15bit$err_mat^2))
-plot(c(3,9,15),log(los),type='l')
+plot(c(3,9,15),log(los),type='l',xlab='n_bit')
 points(c(3,9,15),log(los))
 ```
 
@@ -291,6 +296,7 @@ create_a_perm <- function(xmas,B){
   return(perm_pic)
 }
 #perm_pic<-create_a_perm(xmas,2020)
+#plot(NULL, xlim=c(0, 1), ylim=c(0, 1),axes=FALSE, frame.plot=TRUE, ann = FALSE)
 #grid::grid.raster(perm_pic)
 ```
 
@@ -389,51 +395,35 @@ gridExtra::grid.arrange(p1,p2,ncol=2)
 
 ## 4.6 Alternatives
 Could you explain why the GAP statistic is small for too small K, and also small for too large K? For your explanation, relate to the bias variance trade-off.
-???
 
+Ans: 
+- When K is small, there are not many color options. The RGB platte can only provide rough approximation of the original colors. This leads to high *bias*. Therefore, both permutation and original picture will have large but close log loss. Close log loss will give a small GAP statistic.
+- However, too many color options will cuase high *variancce* since a tiny change in the original color may lead to a different RGB platte color. Therefore, both permutation and original picture will have small but close log loss. Close log loss will give a small GAP statistic.
 
 \clearpage
 
 # 5. Bonus: Something new, the package `Rcpp` (15 points)
 
-```{r}
-cppFunction('double***  Floyd_Steinberg(double*** pic_old) {
-  double*** pic = pic_old;
-  int nrow = pic.nrow(), ncol = pic.ncol();
-  for (int i = 1; i < nrow-1; i++) {
-      for (int j = 1; j < ncol-1; j++) {
-          int P = trunc(pic(i, j)+0.5);
-          double err = pic(i, j) - P;
-          pic(i, j) = P;
-          pic(i, j+1) = pic(i, j+1) + (err * 7/16);
-          pic(i+1, j-1) = pic(i+1, j-1) + (err * 3/16);
-          pic(i+1, j) = pic(i+1, j) + (err * 5/16);
-          pic(i+1, j+1) = pic(i+1, j+1) + (err * 1/16);
+```{r eval=FALSE}
+cppFunction('int***  Floyd_Steinberg_cpp(int*** pic,int height,int width) {
+  int h = width, int w = width;
+  for (int x = 1; x < h-1; x ++) {
+      for (int y = 2; j < w; y++) {
+          int oldPixel = pic[x][y];
+          int newPixel = find_closest_palette_color(oldPixel);
+          pic[x][y] = newPixel;
+          int quant_error = oldPixel - newPixel;
+          pic[x 1][y+1] = pic[x 1][y+1] + (quant_error * 7/16);
+          pic[x+1][y-1] = pic[x+1][y-1] + (quant_error * 3/16);
+          pic[x+1][y  ] = pic[x+1][y  ] + (quant_error * 5/16);
+          pic[x+1][y+1] = pic[x+1][y+1] + (quant_error * 1/16);
       }
   }
   return pic;
 }')
 
-https://github.com/Wolfattackx/Floyd-Steinberg-dithering-algo/blob/master/bitmap.cpp
+
+ new_pic <- Floyd_Steinberg_cpp(xmas*255,dim(xmas)[1],dim(xmas)[2])
 ```
 
-
-```{r}
-cppFunction(
-    'int fib_cpp_0(int n){
-         if(n==1||n==2) return 1;
-         return(fib_cpp_0(n-1)+fib_cpp_0(n-2));
-    }'
-)
-
-cppFunction("
-NumericVector logabs(NumericVector x) {
-for (int r=1; r <= floor(r/20); r++) {
-
-return log(abs(x));
-}
-")
-
-
-```
 

@@ -182,7 +182,7 @@ base_plot <- ggplot() +
   theme(legend.position = "none")
 ```
 
-```{r}
+```{r eval=F}
 P <- 36
 N <- 60
 B <- 1e3

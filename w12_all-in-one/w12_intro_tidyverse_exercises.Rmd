@@ -50,6 +50,30 @@ Merge the `Calls_minutes_pm` and `Traffic_MB` data such that the newly merged da
 2. Recreate `Phone_traffic` (check the data folder) from Traffic_MB. Note: You have to find a way to, in the end, only select those columns that have at least one non-missing value.
 3. Merge the two resulting data frames.
 
+```{r}
+Phone_calltime2 <- Calls_minutes_pm %>% 
+  pivot_longer(cols = April:September, names_to = "Month", values_to = 'time') %>%
+  pivot_wider(id_cols = ID:Month, names_from = 'Type', values_from = 'time')
+
+```
+
+```{r}
+call_time <- Calls_minutes_pm %>% 
+  unite(in_out_type, In_Out, Type) %>% 
+  gather(key = "Month", value = "Value", one_of(month.name), na.rm = TRUE) %>%
+  spread(in_out_type, Value)
+```
+
+```{r}
+traffic <- Traffic_MB %>%
+  unite(type_network, Up_Down, Network, sep = "") %>%
+  gather(key = "Type", value = "Value", -ID, -Group, -Month, -type_network) %>% unite(combined_type, Type, type_network) %>%
+  spread(combined_type, Value) %>%
+  select_if(~ any(!is.na(.x))) %>%
+  # `~any(!is.na(.x))` is equal to `function(x) any(!is.na(x))`
+  mutate(Month = month.name[Month])
+```
+
 ### 1.2 Data Description
 
 For further analysis, a 60x38 `data.frame` is desired. The first two columns remain `ID` and `Group`, the remaing `36` columns represent the variables that represent the average calling time per month, or the average number of MB's used for up or downloading. 

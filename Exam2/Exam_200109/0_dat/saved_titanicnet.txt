@@ -1,0 +1,485 @@
+Surname	First Names	Age	Boarded	Class	Lifeboat #
+Ab Ä«-Al-MunÃ 	Mr NÄs Ä«f QÄsim	26	Cherbourg	3rd	15
+Abbott	Mrs Rhoda Mary “Rosa”	39	Southampton	3rd	A
+Abelseth	Mr Olaus JÃ¸rgensen	25	Southampton	3rd	A
+Abelseth	Miss Karen Marie	16	Southampton	3rd	16
+Abelson	Mrs Hannah	28	Cherbourg	2nd	10
+Abrahamsson	Mr Abraham August Johannes	20	Southampton	3rd	15
+Aks	Mrs Leah	18	Southampton	3rd	13
+Aks	Master Frank Philip	10m	Southampton	3rd	11
+Allen	Miss Elisabeth Walton	29	Southampton	1st	2
+Allison	Master Hudson Trevor	11m	Southampton	1st	11
+Andersen-Jensen	Miss Carla Christine Nielsine	19	Southampton	3rd	16
+Anderson	Mr Harry	47	Southampton	1st	3
+Andersson	Miss Erna Alexandra	17	Southampton	3rd	D
+Andrews	Miss Kornelia Theodosia	62	Cherbourg	1st	10
+Angle	Mrs Florence Agnes	36	Southampton	2nd	11
+Appleton	Mrs Charlotte	53	Southampton	1st	2
+Asplund	Mrs Selma Augusta Emilia	38	Southampton	3rd	15
+Asplund	Mr Johan Charles	23	Southampton	3rd	13
+Asplund	Miss Lillian Gertrud	5	Southampton	3rd	15
+Asplund	Master Edvin Rojj Felix	3	Southampton	3rd	15
+Assaf	Mrs Mariana	45	Cherbourg	3rd	C
+Astor	Mrs Madeleine Talmage	18	Cherbourg	1st	4
+Aubart	Mme. LÃ©ontine Pauline “Ninette”	24	Cherbourg	1st	9
+Ayoub Daher	Miss Banoura	15	Cherbourg	3rd	C
+Baclini	Mrs Latifa	24	Cherbourg	3rd	C
+Baclini	Miss Helene Barbara	9m	Cherbourg	3rd	C
+Baclini	Miss Marie Catherine	5	Cherbourg	3rd	C
+Baclini	Miss Eugenie	3	Cherbourg	3rd	C
+Badman	Miss Emily Louisa	18	Southampton	3rd	C
+Balls	Mrs Ada E.	36	Southampton	2nd	10
+Barber	Miss Ellen Mary (Maid to Mrs Tyrell William Cavendish)	26	Southampton	1st	6
+Barkworth	Mr Algernon Henry	47	Southampton	1st	B
+Bassani	Mrs Albina (Maid to Mrs William Robert Bucknell)	32	Cherbourg	1st	8
+Baxter	Mrs HÃ©lÃ¨ne	50	Cherbourg	1st	6
+Beane	Mr Edward	32	Southampton	2nd	13
+Beane	Mrs Ethel	22	Southampton	2nd	13
+Becker	Mrs Nellie E.	35	Southampton	2nd	11
+Becker	Miss Ruth Elizabeth	12	Southampton	2nd	13
+Becker	Miss Marion Louise	4	Southampton	2nd	11
+Becker	Master Richard F.	1	Southampton	2nd	11
+Beckwith	Mrs Sallie	46	Southampton	1st	5
+Beckwith	Mr Richard Leonard	37	Southampton	1st	5
+Beesley	Mr Lawrence	34	Southampton	2nd	13
+Behr	Mr Karl Howell	26	Cherbourg	1st	5
+Bentham	Miss Lillian W.	19	Southampton	2nd	12
+Bessette	Miss Nellie Mayo (Maid to Mrs Ella Holmes White)	39	Cherbourg	1st	8
+Bidois	Miss Rosalie (Maid to Mrs John Jacob Astor)	46	Cherbourg	1st	4
+Bing	Mr Lee	32	Southampton	3rd	C
+Bird	Miss Ellen (Maid to Mr & Mrs Isodor Straus)	31	Southampton	1st	8
+Bishop	Mr Dickinson H.	25	Cherbourg	1st	7
+Bishop	Mrs Helen	19	Cherbourg	1st	7
+BjÃ¶rnstrÃ¶m-Steffansson	Mr Mauritz Hokan	28	Southampton	1st	D
+Blank	Mr Henry	39	Cherbourg	1st	7
+Bonnell	Miss Elizabeth	61	Southampton	1st	8
+Bonnell	Miss Caroline	30	Southampton	1st	8
+Bowen	Miss Grace Scott (Maid to Mr & Mrs Arthur Ryerson)	45	Cherbourg	1st	4
+Bowerman	Miss Elsie Edith	22	Southampton	1st	6
+Bradley	Miss Bridget Delia	22	Queenstown	3rd	13
+Brereton	Mr George Andrew	37	Southampton	1st	9
+Brown	Mrs Caroline Lane	59	Southampton	1st	D
+Brown	Mrs Margaret “Molly”	44	Cherbourg	1st	6
+Brown	Mrs Elizabeth Catherine	40	Southampton	2nd	14
+Brown	Miss Amelia Mary	18	Southampton	2nd	11
+Brown	Miss Edith Eileen	15	Southampton	2nd	14
+Bryhl	Miss Dagmar Jenny Ingeborg	20	Southampton	2nd	12
+Buckley	Mr Daniel	21	Queenstown	3rd	13
+Bucknell	Mrs Emma Eliza	58	Cherbourg	1st	8
+Burns	Miss Elizabeth Margaret (Nanny to Master Robert Douglas Spedden)	41	Cherbourg	1st	3
+Buss	Miss Kate	36	Southampton	2nd	9
+Calderhead	Mr Edward Pennington	42	Southampton	1st	5
+Caldwell	Mrs Sylvia Mae	28	Southampton	2nd	13
+Caldwell	Mr Albert Francis	26	Southampton	2nd	13
+Caldwell	Master Alden Gates	10m	Southampton	2nd	13
+Cameron	Miss Clear Annie	35	Southampton	2nd	14
+Candee	Mrs Helen Churchill	52	Cherbourg	1st	6
+Cardeza	Mrs Charlotte Wardle	58	Cherbourg	1st	3
+Cardeza	Mr Thomas Drake Martinez	36	Cherbourg	1st	3
+Carter	Mrs Lucile	36	Southampton	1st	4
+Carter	Mr William Ernest	36	Southampton	1st	C
+Carter	Miss Lucile Polk	13	Southampton	1st	4
+Carter	Master William Thornton II	11	Southampton	1st	4
+Cassebeer	Mrs Eleanor Genevieve	36	Cherbourg	1st	5
+Cavendish	Mrs Julia Florence	25	Southampton	1st	6
+Chaffee	Mrs Carrie Constance	47	Southampton	1st	4
+Chambers	Mrs Bertha	32	Southampton	1st	5
+Chambers	Mr Norman Campbell	27	Southampton	1st	5
+Chaudanson	Miss Victorine (Maid to Mrs Emily Ryerson)	36	Cherbourg	1st	4
+Cherry	Miss Gladys	30	Southampton	1st	8
+ChevrÃ©	Mr Paul Romaine Marie LÃ©once	45	Cherbourg	1st	7
+Chibnall	Mrs Edith Martha Bowerman	48	Southampton	1st	6
+Chip	Mr Chang	32	Southampton	3rd	C
+Christy	Mrs Alice Frances	45	Southampton	2nd	12
+Christy	Miss Rachel Juli Cohen	25	Southampton	2nd	12
+Clark	Mrs Virginia Estelle	26	Cherbourg	1st	4
+Clarke	Mrs Ada Maria	28	Southampton	2nd	14
+Cleaver	Miss Alice Catherine (Nanny to Master Hudson Trevor Allison)	22	Southampton	1st	11
+Cohen	Mr Gurshon	18	Southampton	3rd	12
+Collett	Mr Sidney Clarence Stuart	25	Southampton	2nd	9
+Collyer	Mrs Charlotte Caroline	31	Southampton	2nd	14
+Collyer	Miss Marjorie Lottie	8	Southampton	2nd	14
+Compton	Mrs Mary Eliza	64	Cherbourg	1st	14
+Compton	Miss Sara Rebecca	39	Cherbourg	1st	14
+Connolly	Miss Catherine	23	Queenstown	3rd	13
+Cook	Mrs Selena	22	Southampton	2nd	14
+Cornell	Mrs Malvina Helen	55	Southampton	1st	2
+Corr	Miss Ellen	16	Queenstown	3rd	16
+Coutts	Mrs Winnie	36	Southampton	3rd	2
+Coutts	Master William Loch	9	Southampton	3rd	2
+Coutts	Master Neville Leslie	3	Southampton	3rd	2
+Cribb	Miss Laura Mae	16	Southampton	3rd	12
+Crosby	Mrs Catherine Elizabeth	64	Southampton	1st	7
+Crosby	Miss Harriette Rebecca	39	Southampton	1st	7
+Cumings	Mrs Florence Briggs	35	Cherbourg	1st	4
+Dahl	Mr Charles Edward	45	Southampton	3rd	15
+Daly	Miss Margaret Marcella	33	Queenstown	3rd	15
+Daly	Mr Eugene Patrick	29	Queenstown	3rd	B
+Daniel	Mr Robert Williams	27	Southampton	1st	3
+Daniels	Miss Sarah Rebecca (Maid to Mr & Mrs Allison)	33	Southampton	1st	8
+Davidson	Mrs Orian	27	Cherbourg	1st	3
+Davies	Mrs Agnes	48	Southampton	2nd	14
+Davies	Master John Morgan Jr	8	Southampton	2nd	14
+Davis	Miss Mary Ann Charlotte	28	Southampton	2nd	13
+Davison	Mrs Mary Elizabeth	34	Southampton	3rd	16
+De Messemaeker	Mrs Anna	36	Southampton	3rd	13
+De Messemaeker	Mr Guillaume Joseph	36	Southampton	3rd	15
+De Mulder	Mr Theodoor	30	Southampton	3rd	11
+Dean	Mrs Eva Georgetta	32	Southampton	3rd	10
+Dean	Miss Elizabeth Gladys “Millvina”	2m	Southampton	3rd	10
+Dean	Master Bertram Vere	1	Southampton	3rd	10
+Del Carlo	Mrs Argene	24	Cherbourg	2nd	11
+Devaney	Miss Margaret Delia	19	Queenstown	3rd	C
+Dick	Mr Albert Adrian	31	Southampton	1st	3
+Dick	Mrs Vera	17	Southampton	1st	3
+Dodge	Dr Washington	52	Southampton	1st	13
+Dodge	Mrs Ruth	34	Southampton	1st	5
+Dodge	Master Washington	4	Southampton	1st	5
+Dorking	Mr Edward Arthur	18	Southampton	3rd	B
+Douglas	Mrs Mahala	48	Cherbourg	1st	2
+Douglas	Mrs Mary HÃ©lÃ¨ne	27	Cherbourg	1st	6
+Dowdell	Miss Elizabeth	31	Southampton	3rd	13
+Drew	Mrs Maria Louisa Thorne	34	Southampton	2nd	10
+Drew	Master Marshall Brines	8	Southampton	2nd	10
+Driscoll	Miss Bridget	27	Queenstown	3rd	D
+Duff Gordon	Sir Cosmo Edmund	49	Cherbourg	1st	1
+Duff Gordon	Lucy Christiana, Lady	48	Cherbourg	1st	1
+Duquemin	Mr Joseph Pierre	24	Southampton	3rd	D
+DurÃ¡n I MonÃ©	Senora Florentina	30	Cherbourg	2nd	12
+DurÃ¡n I MonÃ©	Senora Asuncion	27	Cherbourg	2nd	12
+Dyker	Mrs Anna Elisabeth Judith	22	Southampton	3rd	16
+Earnshaw	Mrs Olive	23	Cherbourg	1st	7
+Emanuel	Miss Virginia Ethel	5	Southampton	3rd	13
+Endres	Miss Caroline Louise (Nurse to Mrs Madeleine Astor)	39	Cherbourg	1st	4
+Eustis	Miss Elizabeth Mussey	54	Cherbourg	1st	4
+Finoli	Mr Luigi	34	Southampton	3rd	15
+Flegenheim	Mrs Antoinette	48	Cherbourg	1st	7
+Fleming	Miss Margaret (Maid to Mr & Mrs Thayer)	42	Cherbourg	1st	4
+Flynn	Mr John Irwin	36	Southampton	1st	5
+Foo	Mr Choong	32	Southampton	3rd	13
+Fortune	Mrs Mary	60	Southampton	1st	10
+Fortune	Miss Ethel Flora	28	Southampton	1st	10
+Fortune	Miss Alice Elizabeth	24	Southampton	1st	10
+Fortune	Miss Mabel Helen	23	Southampton	1st	10
+FrÃ¶licher	Miss Hedwig Margaritha	22	Cherbourg	1st	5
+FrÃ¶licher-Stehli	Mr Maximilian Josef	60	Cherbourg	1st	5
+FrÃ¶licher-Stehli	Mrs Margaretha Emerentia	48	Cherbourg	1st	5
+Francatelli	Miss Laura Mabel (Secretary to Lady Duff-Gordon)	31	Cherbourg	1st	1
+Frauenthal	Dr Henry William	49	Southampton	1st	5
+Frauenthal	Mr Isaac Gerald	43	Cherbourg	1st	5
+Frauenthal	Mrs Clara	42	Southampton	1st	5
+Futrelle	Mrs Lily May	35	Southampton	1st	D
+Garside	Miss Ethel	39	Southampton	2nd	12
+George/Joseph	Mrs Shawneene	38	Cherbourg	3rd	C
+Gibson	Mrs Pauline Caroline	44	Cherbourg	1st	7
+Gibson	Miss Dorothy Winifred	22	Cherbourg	1st	7
+Gieger	Miss Amalie (Maid to Mrs George Dunton Widener)	35	Southampton	1st	4
+Gilnagh	Miss Katherine	17	Queenstown	3rd	16
+Glynn	Miss Mary Agatha	19	Queenstown	3rd	13
+Goldenberg	Mr Samuel L.	47	Cherbourg	1st	5
+Goldenberg	Mrs Nella	40	Cherbourg	1st	5
+Goldsmith	Mrs Emily Alice	31	Southampton	3rd	C
+Goldsmith	Master Frank John William	9	Southampton	3rd	C
+Gracie	Colonel Archibald	53	Southampton	1st	B
+Graham	Mrs Edith	59	Southampton	1st	3
+Graham	Miss Margaret Edith	19	Southampton	1st	3
+Greenfield	Mrs Blanche	45	Cherbourg	1st	7
+Greenfield	Mr William Bertram	23	Cherbourg	1st	7
+HÃ¤mÃ¤lÃ¤inen	Mrs Anna	23	Southampton	2nd	4
+HÃ¤mÃ¤lÃ¤inen	Master Viljo Unto Johannes	7m	Southampton	2nd	4
+Hakkarainen	Mrs Elin Matilda	24	Southampton	3rd	15
+Hannah	Mr Borak	27	Cherbourg	3rd	15
+Hansen	Mrs Jennie Louise	45	Southampton	3rd	11
+Harder	Mr George Achilles	25	Cherbourg	1st	5
+Harder	Mrs Dorothy	21	Cherbourg	1st	5
+Harper	Mrs Myra Raymond	49	Cherbourg	1st	3
+Harper	Mr Henry Sleeper	48	Cherbourg	1st	3
+Harper	Miss Annie Jessie	6	Southampton	2nd	11
+Harris	Mr George	62	Southampton	2nd	15
+Harris	Mrs Irene	35	Southampton	1st	D
+Hart	Mrs Esther Ada	48	Southampton	2nd	14
+Hart	Miss Eva Miriam	7	Southampton	2nd	14
+Hassab	Mr Hammad (Interpreter to Mr Henry Sleeper Harper)	27	Cherbourg	1st	3
+Hawksford	Mr Walter James	45	Southampton	1st	3
+Hays	Mrs Clara Jennings	52	Southampton	1st	3
+Hays	Miss Margaret Bechstein	24	Cherbourg	1st	7
+Healy	Miss Honor	29	Queenstown	3rd	16
+Hedman	Mr Oskar Arvid	27	Southampton	3rd	15
+Hee	Mr Ling	24	Southampton	3rd	C
+HellstrÃ¶m	Miss Hilda Maria	22	Southampton	3rd	C
+Herman	Mrs Jane	48	Southampton	2nd	9
+Herman	Miss Alice	23	Southampton	2nd	9
+Herman	Miss Kate	23	Southampton	2nd	9
+Hewlett	Mrs Mary Dunbar	56	Southampton	2nd	13
+Hippach	Mrs Ida Sophia	44	Cherbourg	1st	4
+Hippach	Miss Jean Gertrude	17	Cherbourg	1st	4
+Hirvonen	Mrs Helga Elisabeth Lindqvist	22	Southampton	3rd	15
+Hirvonen	Miss Hildur Elisabeth	2	Southampton	3rd	15
+Hocking	Mrs Eliza	54	Southampton	2nd	4
+Hocking	Miss Ellen	20	Southampton	2nd	4
+Hogeboom	Mrs Anna Louisa	51	Cherbourg	1st	10
+Hold	Mrs Annie Margaret	29	Southampton	2nd	10
+Holverson	Mrs Mary Aline	35	Southampton	1st	8
+Homer	Mr Harry	40	Southampton	1st	15
+Hosono	Mr Masabumi	41	Southampton	2nd	10
+Howard	Miss May Elizabeth	26	Southampton	3rd	C
+Hoyt	Mr William Fisher	42	Cherbourg	1st	14
+Hoyt	Mr Frederick Maxfield	38	Southampton	1st	D
+Hoyt	Mrs Jane Anne	31	Southampton	1st	D
+Hyman	Mr Abraham Joseph	34	Southampton	3rd	C
+IbrÄhÄ«m	Mrs SÄfiyah	18	Cherbourg	3rd	C
+Icard	Miss Rose AmÃ©lie (Maid to Mrs George Nelson Stone)	39	Southampton	1st	6
+Ismay	Mr Joseph Bruce	49	Southampton	1st	C
+Jacobsohn	Mrs Amy Frances Christy	24	Southampton	2nd	12
+JalÅ¡evac	Mr Ivan	29	Cherbourg	3rd	15
+Jansson	Mr Carl Olof	21	Southampton	3rd	A
+Jermyn	Miss Annie Jane	26	Queenstown	3rd	D
+Jerwan	Mrs Marie Marthe	23	Cherbourg	2nd	11
+Johannesen	Mr Bernt Johannes	29	Southampton	3rd	13
+Johansson Palmquist	Mr Oskar Leander	26	Southampton	3rd	15
+Johnson	Mrs Elisabeth Vilhelmina	26	Southampton	3rd	15
+Johnson	Master Harold Theodor	4	Southampton	3rd	15
+Johnson	Miss Eleanor Ileen	1	Southampton	3rd	15
+Jonsson	Mr Carl	25	Southampton	3rd	15
+Jussila	Mr Eiriik	32	Southampton	3rd	15
+Kantor	Mrs Miriam	24	Southampton	2nd	12
+Karlsson	Mr Einar Gervasius	21	Southampton	3rd	13
+Karun	Mr Franz	39	Cherbourg	3rd	15
+Karun	Miss Manca	4	Cherbourg	3rd	15
+Keane	Miss Nora Agnes	46	Queenstown	2nd	10
+Kelly	Mrs Fanny Maria	45	Southampton	2nd	9
+Kelly	Miss Mary	22	Queenstown	3rd	D
+Kelly	Miss Anna Katherine	20	Queenstown	3rd	16
+Kenyon	Mrs Marion Estelle	40	Southampton	1st	8
+Kimball	Mrs Susan Gertrude	45	Southampton	1st	5
+Kimball	Mr Edwin Nelson Jr.	42	Southampton	1st	5
+Kink	Mr Anton	29	Southampton	3rd	2
+Kink-Heilmann	Mrs Luise	26	Southampton	3rd	2
+Kink-Heilmann	Miss Luise Gretchen	4	Southampton	3rd	2
+Krekorian	Mr Neshan	25	Cherbourg	3rd	10
+Kreuchen	Miss Emilie (Maid to Mrs Edward Scott Robert)	29	Southampton	1st	2
+Lam	Mr Ali	38	Southampton	3rd	C
+Landergren	Miss Aurora Adelia	22	Southampton	3rd	13
+Lang	Mr Fang	32	Southampton	3rd	14
+Laroche	Mrs Juliette Marie Louise	22	Cherbourg	2nd	14
+Laroche	Miss Simonne Marie Anne AndrÃ©e	3	Cherbourg	2nd	14
+Laroche	Miss Louise	1	Cherbourg	2nd	14
+Leader	Dr Alice May	49	Southampton	1st	8
+Lehmann	Miss Bertha	17	Cherbourg	2nd	12
+Leitch	Miss Jessie Wills	31	Southampton	2nd	11
+Lemore	Mrs Amelia	46	Southampton	2nd	14
+Leroy	Miss Berthe (Maid to Mrs Walter Donald Douglas)	27	Cherbourg	1st	2
+Lesueur	Mr Gustave J. (Manservant to Mr Thomas Cardeza)	35	Cherbourg	1st	3
+Lindell	Mr Edvard Bengtsson	36	Southampton	3rd	A
+Lindell	Mrs Elin Gerda	30	Southampton	3rd	A
+Lindqvist	Mr Eino William	20	Southampton	3rd	15
+LindstrÃ¶m	Mrs Sigrid	55	Cherbourg	1st	6
+Lines	Mrs Elizabeth Lindsey	50	Cherbourg	1st	9
+Lines	Miss Mary Conover	16	Cherbourg	1st	9
+Livshin	Mr David	25	Southampton	3rd	B
+Longley	Miss Gretchen Fiske	21	Cherbourg	1st	10
+Lulic	Mr Nikola	29	Southampton	3rd	15
+Lundin	Miss Olga Elida	23	Southampton	3rd	10
+LundstrÃ¶m	Mr Thure Edvin	32	Southampton	3rd	15
+Lurette	Miss EugÃ©nie Elise (Maid to Mr & Mrs Spencer)	59	Cherbourg	1st	6
+MÄmÄ	Mr HannÄ MikÄ’ Ä«l	18	Cherbourg	3rd	15
+Madigan	Miss Margaret	21	Queenstown	3rd	15
+Madill	Miss Georgette Alexandra	16	Southampton	1st	2
+Madsen	Mr Fridtjof Arne	24	Southampton	3rd	13
+Maioni	Miss Roberta Elizabeth Mary (Maid to the Countess of Rothes)	19	Southampton	1st	8
+Mallet	Mrs Antonine Marie	24	Cherbourg	2nd	10
+Mallet	Master AndrÃ© Clement	1	Cherbourg	2nd	10
+Mannion	Miss Margaret	28	Queenstown	3rd	16
+MarÃ©chal	Mr Pierre	29	Cherbourg	1st	7
+Marvin	Mrs Mary Graham Carmichael	18	Southampton	1st	10
+MaynÃ©	Mlle Berthe Antonine	24	Cherbourg	1st	6
+McCarthy	Miss Catherine	24	Queenstown	3rd	16
+McCoy	Miss Agnes	29	Queenstown	3rd	16
+McCoy	Miss Alice	26	Queenstown	3rd	16
+McCoy	Mr Bernard	24	Queenstown	3rd	16
+McDermott	Miss Bridget Delia	31	Queenstown	3rd	13
+McGough	Mr James Robert	35	Southampton	1st	7
+McGovern	Ms Mary	22	Queenstown	3rd	13
+Mellinger	Mrs Elizabeth Anne	41	Southampton	2nd	14
+Mellinger	Miss Violet Madeline	13	Southampton	2nd	14
+Mellors	Mr William John	19	Southampton	2nd	A
+Meyer	Mrs Leila	25	Cherbourg	1st	6
+MidtsjÃ¸	Mr Karl Albert	21	Southampton	3rd	15
+Minahan	Mrs Lillian E.	37	Queenstown	1st	14
+Minahan	Miss Daisy E.	33	Queenstown	1st	14
+Mock	Mr Philipp Edmund	30	Cherbourg	1st	11
+Mockler	Miss Ellen Mary	23	Queenstown	3rd	16
+Moor	Mrs Beila	29	Southampton	3rd	14
+Moor	Master Meier	7	Southampton	3rd	14
+Moran	Miss Bridget	28	Queenstown	3rd	16
+Moss	Mr Albert Johan	29	Southampton	3rd	B
+MubÄrik	Mrs Am Ä«nah	24	Cherbourg	3rd	C
+MubÄrik	Master Jirjis	7	Cherbourg	3rd	C
+MubÄrik	Master Hal Ä«m	4	Cherbourg	3rd	C
+Mullin	Miss Catherine	21	Queenstown	3rd	16
+Mulvihill	Miss Bridget Elizabeth	25	Queenstown	3rd	15
+Murphy	Miss Nora	34	Queenstown	3rd	16
+Murphy	Miss Margaret Jane	25	Queenstown	3rd	16
+Murphy	Miss Catherine	18	Queenstown	3rd	16
+MuslamÄn Ä«	Mrs Fat Ä«mah Muhammad	22	Cherbourg	3rd	C
+N Ä«qÅ«la YÄrid	Miss Jamilah	14	Cherbourg	3rd	C
+N Ä«qÅ«la YÄrid	Master IlyÄs	11	Cherbourg	3rd	C
+Najib Kiamie	Miss Adele	15	Cherbourg	3rd	C
+Nakid	Mr Sahid	20	Cherbourg	3rd	C
+Nakid	Mrs Waika	19	Cherbourg	3rd	C
+Nakid	Miss Maria	1	Cherbourg	3rd	C
+Navratil	Master Michel Marcel	3	Southampton	2nd	D
+Navratil	Master Edmond Roger	2	Southampton	2nd	D
+Newell	Miss Madeleine	31	Cherbourg	1st	6
+Newell	Miss Marjorie Anne	23	Cherbourg	1st	6
+Newsom	Miss Helen Monypeny	19	Southampton	1st	5
+Nilsson	Miss Helmina Josefina	26	Southampton	3rd	13
+Nilsson	Miss Berta Olivia	18	Southampton	3rd	D
+NiskÃ¤nen	Mr Juha	39	Southampton	3rd	9
+Nourney	Mr Alfred	20	Cherbourg	1st	7
+Nye	Mrs Elizabeth	29	Southampton	2nd	11
+Nysten	Miss Anna Sofia	22	Southampton	3rd	13
+O’Dwyer	Miss Ellen	25	Queenstown	3rd	10
+O’Keefe	Mr Patrick	21	Queenstown	3rd	B
+O’Leary	Miss Hanora	16	Queenstown	3rd	13
+Ã…hman	Miss Velin	22	Southampton	3rd	C
+Oliva Y Ocana	Dona Fermina (Maid to Mrs Victor de Satode PeÃ±asco y Castellana)	39	Cherbourg	1st	8
+Olsen	Master Artur Karl	9	Southampton	3rd	13
+Olsson	Mr Oscar Wilhelm	32	Southampton	3rd	A
+Omont	Mr Alfred Fernand	29	Cherbourg	1st	7
+Ã˜stby	Miss Helen Ragnhild	22	Southampton	1st	5
+Oxenham	Mr Percy Thomas	22	Southampton	2nd	13
+Padron Manent	Mr Julian	26	Cherbourg	2nd	9
+PallÃ s I CastellÃ³	Senor Emili	29	Cherbourg	2nd	9
+Parrish	Mrs Lutie Davis	59	Southampton	2nd	12
+PeÃ±asco Y Castellana	Mrs Maria Josefa Perezde Soto y Vallejo	22	Cherbourg	1st	8
+Pears	Mrs Edith	22	Southampton	1st	8
+Perreault	Miss Mary Anne (Maid to Mrs Charles Melville Hays)	33	Southampton	1st	3
+Persson	Mr Ernst Ulrik	25	Southampton	3rd	15
+Peter/Joseph	Master Michael J.	4	Cherbourg	3rd	D
+Peter/Joseph	Miss Anna	2	Cherbourg	3rd	C
+Peuchen	Major Arthur Godfrey	52	Southampton	1st	6
+Phillips	Miss Alice Frances Louisa	21	Southampton	2nd	12
+Phillips	Miss Kate Florence	19	Southampton	2nd	11
+Picard	Mr BenoÃ®t	32	Southampton	3rd	9
+Pinsky	Mrs Rosa	32	Southampton	2nd	9
+Portaluppi	Mr Emilio Ilario Giuseppe	30	Cherbourg	2nd	14
+Potter	Mrs Lily Alexenia	56	Cherbourg	1st	7
+Quick	Mrs Jane	33	Southampton	2nd	11
+Quick	Miss Winifred Vera	8	Southampton	2nd	11
+Quick	Miss Phyllis May	2	Southampton	2nd	11
+Reynalds	Senora EncarnaciÃ³n	28	Southampton	2nd	9
+Rheims	Mr George Alexander Lucien	33	Cherbourg	1st	A
+Richards	Mrs Emily	24	Southampton	2nd	4
+Richards	Master Sibley George	9m	Southampton	2nd	4
+Richards	Master William Rowe	3	Southampton	2nd	4
+Ridsdale	Miss Lucy	58	Southampton	2nd	13
+Riordan	Miss Hannah	18	Queenstown	3rd	13
+Robert	Mrs Elisabeth Walton	43	Southampton	1st	2
+Romaine	Mr Charles Hallace	45	Southampton	1st	9
+Rosenbaum	Miss Edith Louise	33	Cherbourg	1st	11
+Roth	Miss Sarah	31	Southampton	3rd	C
+Rothes	Lucy NoÃ«l Martha, Countess of	33	Southampton	1st	8
+Rothschild	Mrs Elizabeth Jane Anne	54	Cherbourg	1st	6
+Rugg	Miss Emily	21	Southampton	2nd	12
+Ryan	Mr Edward	24	Queenstown	3rd	14
+Ryerson	Mrs Emily Maria	48	Cherbourg	1st	4
+Ryerson	Miss Susan Parker “Suzette”	21	Cherbourg	1st	4
+Ryerson	Miss Emily Borie	18	Cherbourg	1st	4
+Ryerson	Master John Borie	13	Cherbourg	1st	4
+SÃ¤gesser	Mlle Emma (Maid to Mme. LÃ©ontine Pauline Aubart)	24	Cherbourg	1st	9
+Saalfeld	Mr Adolphe	47	Southampton	1st	3
+Salkjelsvik	Miss Anna Kristine	21	Southampton	3rd	C
+Salomon	Mr Abraham Lincoln	43	Cherbourg	1st	1
+SandstrÃ¶m	Mrs Agnes Charlotta	24	Southampton	3rd	13
+SandstrÃ¶m	Miss Marguerite Rut	4	Southampton	3rd	13
+SandstrÃ¶m	Miss Beatrice Irene	1	Southampton	3rd	13
+Sap	Mr Julius	21	Southampton	3rd	11
+Schabert	Mrs Emma	35	Cherbourg	1st	11
+Scheerlinck	Mr Jean	29	Southampton	3rd	11
+Serreplan	Miss Auguste (Maid to Mrs William Carter)	30	Southampton	1st	4
+Seward	Mr Frederic Kimber	34	Southampton	1st	7
+Shelley	Mrs Imanita Parrish	25	Southampton	2nd	12
+Shutes	Miss Elizabeth Weed (Governess to Miss Margaret Edith Graham)	40	Southampton	1st	3
+SilvÃ©n	Miss Lyyli Karoliina	17	Southampton	2nd	16
+Silverthorne	Mr Spencer Victor	35	Southampton	1st	5
+Silvey	Mrs Alice Gray	39	Cherbourg	1st	11
+Simonius-Blumer	Mr Colonel (Oberst) Alfons	56	Southampton	1st	3
+Sincock	Miss Maude	20	Southampton	2nd	11
+Sinkkonen	Miss Anna	29	Southampton	2nd	10
+SjÃ¶blom	Miss Anna Sofia	18	Southampton	3rd	16
+Slayter	Miss Hilda Mary	30	Queenstown	2nd	13
+Sloper	Mr William Thompson	28	Southampton	1st	7
+Smith	Miss Marion Elsie	39	Southampton	2nd	9
+Smith	Mrs Mary Eloise	18	Cherbourg	1st	6
+Smyth	Miss Julia	17	Queenstown	3rd	13
+Snyder	Mr John Pillsbury	24	Southampton	1st	7
+Snyder	Mrs Nelle	23	Southampton	1st	7
+Spedden	Mr Frederic Oakley	45	Cherbourg	1st	3
+Spedden	Mrs Margaretta Corning “Daisy”	39	Cherbourg	1st	3
+Spedden	Master Robert Douglas	6	Cherbourg	1st	3
+Spencer	Mrs Marie Eugenie	45	Cherbourg	1st	6
+StÃ¤helin-Maeglin	Dr Max	32	Southampton	1st	3
+Stanley	Miss Amy Zillah Elsie	24	Southampton	3rd	C
+Stengel	Mr Charles Emil Henry	54	Cherbourg	1st	1
+Stengel	Mrs Annie May	44	Cherbourg	1st	5
+Stephenson	Mrs Martha	52	Cherbourg	1st	4
+Stone	Mrs Martha Evelyn	62	Southampton	1st	6
+StrandÃ©n	Mr Juho Niilosson	31	Southampton	3rd	9
+Sunderland	Mr Victor Francis	20	Southampton	3rd	B
+Sundman	Mr Johan Julian	44	Southampton	3rd	15
+Svensson	Mr Johan Cervin	14	Southampton	3rd	13
+Swift	Mrs Margaret Welles	46	Southampton	1st	8
+TÃ¶rnquist	Mr William Henry	25	Southampton	3rd	15
+TannÅ«s	Mrs Tham Ä«n	16	Cherbourg	3rd	14
+TannÅ«s	Master As’ad	5m	Cherbourg	3rd	16
+Taussig	Mrs Tillie	39	Southampton	1st	8
+Taussig	Miss Ruth	18	Southampton	1st	8
+Taylor	Mrs Juliet Cummins	49	Southampton	1st	5
+Taylor	Mr Elmer Zebley	48	Southampton	1st	5
+Tenglin	Mr Gunnar Isidor	25	Southampton	3rd	13
+Thayer	Mrs Marian Longstreth	39	Cherbourg	1st	4
+Thayer	Mr John Borland Jr	17	Cherbourg	1st	B
+Thorne	Miss Gertrude Maybelle	38	Cherbourg	1st	D
+Thorneycroft	Mrs Florence Kate	32	Southampton	3rd	10
+Toomey	Miss Ellen Mary	48	Southampton	2nd	9
+Trout	Mrs Jessie Laird	27	Southampton	2nd	9
+Troutt	Miss Edwina Celia	27	Southampton	2nd	16
+Tucker	Mr Gilbert Milligan Jr	31	Cherbourg	1st	7
+Tu’Mah	Mrs Hinnah	27	Cherbourg	3rd	C
+Tu’Mah	Miss Mariyam	9	Cherbourg	3rd	C
+Tu’Mah	Master Jirjis YÅ«suf	8	Cherbourg	3rd	C
+Turja	Miss Anna Sofia	18	Southampton	3rd	15
+Turkula	Mrs Hedwig	63	Southampton	3rd	15
+Wallcroft	Miss Ellen “Nellie”	36	Southampton	2nd	14
+Ward	Miss Annie Moore (Maid to Mrs Charlotte Cardeza)	35	Cherbourg	1st	3
+Ware	Mrs Florence Louise	31	Southampton	2nd	10
+Warren	Mrs Anna Sophia	60	Cherbourg	1st	5
+Watt	Mrs Elizabeth	40	Southampton	2nd	9
+Watt	Miss Robertha Josephine	12	Southampton	2nd	9
+Webber	Miss Susan	37	Southampton	2nd	12
+Weisz	Mrs Mathilde FranÃ§oise	37	Southampton	2nd	10
+Wells	Mrs Addie Dart	29	Southampton	2nd	14
+Wells	Miss Joan	4	Southampton	2nd	14
+Wells	Master Ralph Lester	2	Southampton	2nd	14
+WennerstrÃ¶m	Mr August	27	Southampton	3rd	A
+West	Mrs Ada Mary	33	Southampton	2nd	10
+West	Miss Barbara Joyce	10m	Southampton	2nd	10
+West	Miss Constance Mirium	4	Southampton	2nd	10
+Whilems	Mr Charles	31	Southampton	2nd	9
+White	Mrs Ella	55	Cherbourg	1st	8
+Wick	Mrs Mary Peebles	45	Southampton	1st	8
+Wick	Miss Mary Natalie	31	Southampton	1st	8
+Widener	Mrs Eleanor	50	Southampton	1st	4
+Wilkes	Mrs Ellen	47	Southampton	3rd	16
+Wilkinson	Mrs Elizabeth Anne	35	Southampton	2nd	16
+Willard	Miss Constance	21	Southampton	1st	8
+Williams	Mr Charles Eugene	23	Southampton	2nd	14
+Williams	Mr Richard Norris II	21	Cherbourg	1st	A
+Wilson	Miss Helen Alice (Maid to Mrs Frederic Oakley Spedden)	31	Cherbourg	1st	3
+Woolner	Mr Hugh	45	Southampton	1st	D
+Wright	Miss Marion	26	Southampton	2nd	9
+YÅ«suf	Mrs KÄtr Ä«n	24	Cherbourg	3rd	C
+Yasbeck	Mr Antoni	27	Cherbourg	3rd	C
+Young	Miss Marie Grice	36	Cherbourg	1st	8
+Zenni	Mr Philip	22	Cherbourg	3rd	6

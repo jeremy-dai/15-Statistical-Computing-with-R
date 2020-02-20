@@ -1,0 +1,323 @@
+---
+title: The RMS Titanic
+subtitle: Final Written Exam SCR 2019
+author: Your Name, Your ULCN
+date: "January 09, 2020"
+graphics: yes
+output: 
+    pdf_document:
+      fig_caption: yes
+      keep_tex: yes
+header-includes: 
+- \usepackage{float}
+- \usepackage{placeins}
+- \usepackage{amsmath}
+---
+
+
+```{r include = FALSE}
+knitr::opts_chunk$set(
+  dev.args = list(bg = 'transparent'),
+  fig.align = "center", 
+  fig.height = 5
+)
+library("tidyverse")
+library(titanic)
+library(tidyverse)
+library(magrittr)
+load(file = "0_dat/Model_Answer_Variables.RData")
+```
+
+
+## 1. Data Wrangling and Exploratory Data Operations (50 points)
+
+## 1.1 (5 points)
+
+```{r}
+MakeKaggleTanic <- function() {
+  titanic::titanic_test %>% 
+    mutate(Survived = NA) %>% # Line 1 
+    select(names(titanic::titanic_train)) %>% # Line 2 
+    bind_rows(titanic::titanic_train) %>% # Line 3
+    mutate(In_Test_Set = is.na(Survived)) %>% # Line 4
+    rename(PClass = Pclass)  %>%
+    arrange(PassengerId)
+}
+```
+
+- Line 1: create a dumnmy column 'Survived'
+- Line 2: choose all the columns from titanic_train dataset from titanic package
+- Line 3: combine the titanic_train and titanic_test dataset
+- Line 4: create a column 'In_Test_Set' showing if the data point has value for
+'Survived' variable. Since test dataset does not contain such information, it can
+tell if the data point is from test dataset.
+
+## 1.2 Which function is faster? (5 points + 2.5 Bonus points)
+```{r}
+cat('MakeKaggleTanicJoin:\n')
+system.time(MakeKaggleTanicJoin())
+cat('MakeKaggleTanicBase:\n')
+system.time(MakeKaggleTanicBase())
+```
+MakeKaggleTanicBase() function is quicker.
+
+```{r}
+bench::mark(MakeKaggleTanicJoin())
+bench::mark(MakeKaggleTanicBase())
+```
+In average, MakeKaggleTanicBase() function is quicker.
+
+## 1.3 Wrangling `Age`, `PClass`, and `Sex` (18 points)
+
+### 1.3a Creating the `Sex` variable
+
+```{r}
+titles_female <- c("Dona", "Lucy", "Miss", "Mlle", "Mme.", "Mrs", "Ms", "Senora")
+```
+
+```{r}
+factstanic2 <- factstanic_prep %>% 
+  mutate(name_list = strsplit(Name,split = ' ')) %>%
+  mutate(title = sapply(name_list, `[`, 1)) %>%
+  select(-name_list) %>% 
+  mutate(Sex = ifelse(title %in% titles_female, 'Female', 'Male')) 
+```
+
+```{r}
+factstanic2[factstanic2$title=='Dr' & factstanic2$Surname=='Leader','Sex'] <- 'Female'
+```
+
+### 1.3b  Creating the `Age` variable
+```{r}
+factstanic2 <- factstanic2 %>% 
+  mutate(Age = ifelse(endsWith(Age, "m"), 0, Age)) %>%
+  mutate(Age = ifelse(Age == 'NK', NA, Age)) %>%
+  mutate(Age = as.integer(Age))
+```
+
+
+### 1.3c  Creating the variable `SexCatAge`
+```{r}
+factstanic2 <- factstanic2 %>% 
+  mutate(SexCatAge = ifelse(Age < 13, 'child', Sex)) %>% 
+  mutate(SexCatAge = ifelse(is.na(SexCatAge), 'Male', SexCatAge)) 
+```
+
+
+## 1.4 Which Data Source is Closest to Wikipedia? (7 points)
+
+```{r}
+CompareToWikiTiTab <- function(dat, ref = wikititab) {
+  # dat = factstanic
+  tab <- table(dat$Survived, dat$PClass, dat$SexCatAge)
+  out <- rbind(
+  child = tab[ , , 1],
+  female = tab[ , , 2],
+  male = tab[ , , 3]
+  )
+  rownames(out) <- rownames(ref)
+  return(abs(out - wikititab[, -4]))
+}
+```
+
+```{r}
+data_list <- list(kaggle = kaggletanic,ucd= ucdtanic,facts = factstanic)
+diff <- lapply(data_list,CompareToWikiTiTab)
+diff_sum <- lapply(diff,sum)
+diff_sum
+```
+The sum of counts of differences in each dataset is smallest for the `factstanic` dataset.
+
+## 1.5 Visualizing `Survival` and `Age` (20 points)
+
+### 1.5a  Proportion of Saved Passengers per `Class` by `Sex`
+```{r}
+factstanic_prop <- factstanic %>%
+  group_by(PClass,Sex)  %>%
+  summarise(survive_rate = mean(Survived,na.rm = T))
+```
+
+```{r}
+ggplot(factstanic_prop, aes(x=PClass, y=survive_rate, group=Sex)) + 
+  geom_line(aes(color = Sex))+
+  geom_point(aes(color = Sex, shape=Sex))+
+  scale_y_continuous(limits = c(0, 1)) +
+  ylab('Probability to be saved')
+```
+
+
+
+### 1.5b Survival and the Distribution of Age
+```{r}
+ggplot(factstanic, aes(x=Age,fill=factor(Survived))) + 
+  geom_density(alpha=0.4) +
+  facet_grid(Sex ~ PClass)
+```
+
+
+
+\newpage 
+
+# 2 Three Logistic Regression Models and Cross-Validation (25)
+
+## 2.1 The Three GLM's (5 points) 
+
+```{r}
+fitted_glm0 <- glm(
+  formula = Survived ~ Sex + Age + PClass, 
+  family = binomial(link = 'logit'),
+  data = factstanic
+)
+summary(fitted_glm0)
+```
+
+
+```{r}
+fitted_glm1 <- glm(
+  Survived ~  Sex * Age + PClass,
+  family = binomial(link = 'logit'),
+  data = factstanic
+)
+summary(fitted_glm1)
+``` 
+
+
+```{r}
+fitted_glm2 <-  glm(
+    formula = Survived ~  Sex + Age + Sex * PClass,
+    family = binomial(link = 'logit'),
+    data = factstanic
+)
+summary(fitted_glm2)
+```
+
+I would prefer fitted_glm2 since it has the lowerest AIC.
+
+## 2.2  Predict the Probability of Survival (5 points + Spoiler Alert?)
+
+```{r}
+x_mod0 <- c(1, Sexmale = 1, Age = 20, PClass2nd = 0, PClass3rd = 1)
+x_mod1 <- c(x_mod0, `SexMale:Age` = 20)
+x_mod2 <- c(x_mod0, `SexMale:PClass2nd` = 0, `SexMale:PClass3rd` = 1)
+```
+
+```{r}
+y0 <- summary(fitted_glm0)$coefficients[,1]  %*% x_mod0
+y1 <- summary(fitted_glm1)$coefficients[,1]  %*% x_mod1
+y2 <- summary(fitted_glm2)$coefficients[,1]  %*% x_mod2
+```
+
+The survival rate: 
+```{r}
+plogis(y0) 
+plogis(y1)
+plogis(y2) 
+```
+
+## 2.3 Cross-validation (15 points)
+```{r}
+K <- 5
+index <- rep(1:K, floor(nrow(factstanic)/K)+1)[1:nrow(factstanic)]
+fold.index <- sample(index)
+Loss <- function(x, y){ sum((x-y)^2,na.rm=T)/length(x)}
+loss <- matrix(rep(0,3*K),nrow=3)
+for (k in 1:K){
+  training <- factstanic[fold.index!=k, ] 
+  validation <- factstanic[fold.index==k, ]
+  
+  training.fit0 <- glm(
+  formula = Survived ~ Sex + Age + PClass, 
+  family = binomial(link = 'logit'),
+  data = training)
+
+  training.fit1<- glm(
+  Survived ~  Sex * Age + PClass,
+  family = binomial(link = 'logit'),
+  data = training)
+
+  training.fit2 <-  glm(
+    formula = Survived ~  Sex + Age + Sex * PClass,
+    family = binomial(link = 'logit'),
+    data = training)
+
+  validation.predict0 <- predict(training.fit0, newdata=validation, type='response')
+  validation.predict1 <- predict(training.fit1, newdata=validation, type='response')
+  validation.predict2 <- predict(training.fit2, newdata=validation, type='response')
+  
+  loss[1,k] <- Loss(validation$Survived, validation.predict0)
+  loss[2,k] <- Loss(validation$Survived, validation.predict1)
+  loss[3,k] <- Loss(validation$Survived, validation.predict2)
+}
+
+```
+
+Get the average:
+```{r}
+rowMeans(loss)
+```
+The third model (fitted_glm2) performs best on the validation dataset.
+
+\newpage
+
+# 3 Ticket Prices and the Theil-Sen estimator (25 points)
+
+## 3.1 Simple linear regression (5 points)
+```{r}
+lm0 <- lm(ticket_price ~ Age, titanic_df)
+plot(titanic_df$Age, titanic_df$ticket_price,pch= ".")
+abline(lm0, col='red')
+#summary(lm0)
+```
+The regression line cannot reflect the real trend due to outliers.
+
+## 3.2 Compute and Visualize the Theil-Sen estimator (12 points)
+```{r}
+Theil_Sen <- function(df){
+  df <- df[1:30,]
+  index <- expand.grid(1:nrow(df),1:nrow(df))
+  slope_all <- numeric(choose(nrow(df),2))
+  index_for_slope <- 1
+  for(r in 1:nrow(index)){
+    i<-index[r,1]
+    j<-index[r,2]
+    if(i < j){
+      x_diff<-df[i,'Age'] - df[j,'Age']
+      y_diff<-df[i,'ticket_price'] - df[j,'ticket_price']
+      slope_all[index_for_slope] <- y_diff/x_diff
+      index_for_slope <- index_for_slope + 1
+    }
+  }
+  return(slope_all)
+}
+```
+
+```{r}
+slope_all <- Theil_Sen(titanic_df)
+```
+
+
+```{r}
+beta <-median(slopes_of_all_pairs)
+alpha <- median(titanic_df$ticket_price - beta)
+```
+
+```{r}
+plot(titanic_df$Age, titanic_df$ticket_price,pch= ".")
+abline(lm0, col='red')
+abline(a=alpha,b=beta, col='blue')
+```
+
+Now the regression line(blue one) shows the trend.
+
+## 3.3 Empirical Bootstrap and the Percentile Method: 95% confidence (8 points)
+
+```{r}
+B <- 100
+beta_pboots <- rep(NA, B) 
+for (b in 1:B) {
+beta_pboots[b] <- Theil_Sen[titanic_df[sample(1:nrow(titanic_df),replace = T)],] 
+}
+conf_up <- quantile(beta_pboots,0.975)
+conf_lower <- quantile(beta_pboots,0.025)
+```
+

@@ -198,18 +198,14 @@ key20191030 <- {
 ```
 
 
-```{r}
+```{r eval=F}
 cat(sapply(strsplit('Francina',split = "")[[1]], function(ch) key$encrypt[key$decrypt %in% ch]),sep='')
-```
-```{r}
+
 sapply(strsplit('Francina Love',split = "")[[1]], function(ch) key$encrypt[key$decrypt %in% ch])
 ```
 
 
 ### 2.2b   
-```{r}
-
-```
 
 ```{r}
 Encrypt <- function(names_decr, key = key20191030) { # names_decr <- student_names$V1
@@ -230,13 +226,13 @@ Encrypt(c("Tommy", "Francina"))
 
 
 ### 2.2c 
-```{r}
+```{r eval=F}
 df_encrypted <- lapply(df,function(n) Surrogate(n,key20191030))
 
 ```
 
 ### 2.2d   
-```{r}
+```{r eval=F}
 write.table(df_encrypted, file="0_data/encry.txt",col.names=F, row.names = F,sep=" ", quote	=F)
 ```
 
